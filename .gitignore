@@ -44,4 +44,4 @@ app.*.symbols
 app.*.map.json
 
 # Dados do Servidor
-lib/dados_basicos.dart
+lib/app/dados_basicos.dart
