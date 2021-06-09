@@ -7,6 +7,7 @@ import 'package:prossumidor_v2/app/modules/recuperarSenha/repositories/interface
 class MockClient extends Mock implements Dio {}
 
 void main() {
+  // ignore: unused_local_variable
   IRecuperarSenhaRepository repository;
   // MockClient client;
 

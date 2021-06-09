@@ -7,6 +7,7 @@ import 'package:prossumidor_v2/app/modules/produtosCategorias/repositories/inter
 class MockClient extends Mock implements Dio {}
 
 void main() {
+  // ignore: unused_local_variable
   IProdutosCategoriasRepository repository;
   // MockClient client;
 

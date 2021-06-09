@@ -7,6 +7,7 @@ import 'package:prossumidor_v2/app/modules/Login/repositories/interfaces/login_r
 class MockClient extends Mock implements Dio {}
 
 void main() {
+  // ignore: unused_local_variable
   ILoginRepository repository;
   // MockClient client;
 

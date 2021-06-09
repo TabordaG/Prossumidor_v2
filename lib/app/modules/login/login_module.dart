@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'repositories/login_repository.dart';
 import 'login_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';

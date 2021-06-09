@@ -19,39 +19,49 @@ final $AuthController = BindInject(
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$AuthController on _AuthControllerBase, Store {
-  final _$valueAtom = Atom(name: '_AuthControllerBase.value');
+  final _$usuarioAtom = Atom(name: '_AuthControllerBase.usuario');
 
   @override
-  int get value {
-    _$valueAtom.reportRead();
-    return super.value;
+  Usuario get usuario {
+    _$usuarioAtom.reportRead();
+    return super.usuario;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.reportWrite(value, super.value, () {
-      super.value = value;
+  set usuario(Usuario value) {
+    _$usuarioAtom.reportWrite(value, super.usuario, () {
+      super.usuario = value;
     });
   }
 
-  final _$_AuthControllerBaseActionController =
-      ActionController(name: '_AuthControllerBase');
+  final _$versaoAtualAtom = Atom(name: '_AuthControllerBase.versaoAtual');
 
   @override
-  void increment() {
-    final _$actionInfo = _$_AuthControllerBaseActionController.startAction(
-        name: '_AuthControllerBase.increment');
-    try {
-      return super.increment();
-    } finally {
-      _$_AuthControllerBaseActionController.endAction(_$actionInfo);
-    }
+  String get versaoAtual {
+    _$versaoAtualAtom.reportRead();
+    return super.versaoAtual;
+  }
+
+  @override
+  set versaoAtual(String value) {
+    _$versaoAtualAtom.reportWrite(value, super.versaoAtual, () {
+      super.versaoAtual = value;
+    });
+  }
+
+  final _$verificaLogadoAsyncAction =
+      AsyncAction('_AuthControllerBase.verificaLogado');
+
+  @override
+  Future verificaLogado() {
+    return _$verificaLogadoAsyncAction.run(() => super.verificaLogado());
   }
 
   @override
   String toString() {
     return '''
-value: ${value}
+usuario: ${usuario},
+versaoAtual: ${versaoAtual}
     ''';
   }
 }

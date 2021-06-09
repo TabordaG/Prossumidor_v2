@@ -7,6 +7,8 @@ import 'package:prossumidor_v2/app/modules/produtosCategorias/produtos_categoria
 import 'package:prossumidor_v2/app/modules/recuperarSenha/recuperar_senha_module.dart';
 import 'package:prossumidor_v2/app/modules/registro/registro_module.dart';
 import 'package:prossumidor_v2/app/modules/sacola/sacola_module.dart';
+import 'package:prossumidor_v2/app/shared/auth/repositories/auth_repository.dart';
+import 'package:prossumidor_v2/app/shared/auth/repositories/interfaces/auth_repository_interface.dart';
 import 'package:prossumidor_v2/app/splash/splash_screen.dart';
 
 import 'app_controller.dart';
@@ -15,10 +17,16 @@ import 'package:flutter/material.dart';
 import 'package:prossumidor_v2/app/app_widget.dart';
 import 'package:prossumidor_v2/app/modules/home/home_module.dart';
 
+import 'modules/Login/login_controller.dart';
+import 'shared/auth/auth_controller.dart';
+
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
         $AppController,
+        Bind<IAuthRepository>((i) => AuthRepository()),
+        Bind((i) => AuthController()),
+        Bind((i) => LoginController()),
       ];
 
   @override

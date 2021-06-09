@@ -7,6 +7,7 @@ import 'package:prossumidor_v2/app/modules/chat/repositories/interfaces/chat_rep
 class MockClient extends Mock implements Dio {}
 
 void main() {
+  // ignore: unused_local_variable
   IChatRepository repository;
   // MockClient client;
 

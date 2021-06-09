@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'repositories/pedidos_repository.dart';
 import 'pedidos_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';

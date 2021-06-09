@@ -1,7 +1,6 @@
 import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:prossumidor_v2/app/modules/recuperarSenha/recuperar_senha_controller.dart';
 import 'package:prossumidor_v2/app/modules/recuperarSenha/recuperar_senha_module.dart';
 
 void main() {

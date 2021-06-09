@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'repositories/produto_detalhes_repository.dart';
 import 'produto_detalhes_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';

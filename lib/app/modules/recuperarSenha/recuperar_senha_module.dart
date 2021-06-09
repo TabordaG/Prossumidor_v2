@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'repositories/recuperar_senha_repository.dart';
 import 'recuperar_senha_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';

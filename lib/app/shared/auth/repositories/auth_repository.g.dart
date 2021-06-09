@@ -7,7 +7,7 @@ part of 'auth_repository.dart';
 // **************************************************************************
 
 final $AuthRepository = BindInject(
-  (i) => AuthRepository(i<DioForNative>()),
+  (i) => AuthRepository(),
   singleton: true,
   lazy: true,
 );

@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'repositories/sacola_repository.dart';
 import 'sacola_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';

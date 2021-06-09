@@ -7,6 +7,7 @@ import 'package:prossumidor_v2/app/shared/auth/repositories/interfaces/auth_repo
 class MockClient extends Mock implements Dio {}
 
 void main() {
+  // ignore: unused_local_variable
   IAuthRepository repository;
   // MockClient client;
 

@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'repositories/perfil_repository.dart';
 import 'perfil_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';

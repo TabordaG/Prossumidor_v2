@@ -7,6 +7,7 @@ import 'package:prossumidor_v2/app/modules/sacola/repositories/interfaces/sacola
 class MockClient extends Mock implements Dio {}
 
 void main() {
+  // ignore: unused_local_variable
   ISacolaRepository repository;
   // MockClient client;
 

@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'repositories/chat_repository.dart';
 import 'chat_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';

@@ -7,6 +7,7 @@ import 'package:prossumidor_v2/app/modules/pedidos/repositories/interfaces/pedid
 class MockClient extends Mock implements Dio {}
 
 void main() {
+  // ignore: unused_local_variable
   IPedidosRepository repository;
   // MockClient client;
 

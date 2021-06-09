@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'repositories/registro_repository.dart';
 import 'registro_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
