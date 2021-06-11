@@ -20,6 +20,9 @@ abstract class _RegistroControllerBase with Store {
   GlobalKey<FormState> formkeyPage3 = new GlobalKey<FormState>();
 
   @observable
+  GlobalKey<FormState> formkeyPage4 = new GlobalKey<FormState>();
+
+  @observable
   CarouselController buttonCarouselController = CarouselController();
 
   @observable
@@ -56,6 +59,72 @@ abstract class _RegistroControllerBase with Store {
   setTelefone(String valor) => telefone = valor;
 
   @observable
+  String endereco = '';
+
+  @action
+  setEndereco(String valor) => endereco = valor;
+
+  @observable
+  String numero = '';
+
+  @action
+  setNumero(String valor) => numero = valor;
+
+  @observable
+  String complemento = '';
+
+  @action
+  setComplemento(String valor) => complemento = valor;
+
+  @observable
+  String bairro = '';
+
+  @action
+  setBairro(String valor) => bairro = valor;
+
+  @observable
+  String cidade = '';
+
+  @action
+  setCidade(String valor) => cidade = valor;
+
+  @observable
+  String uf = '';
+
+  @action
+  setUF(String valor) => uf = valor;
+
+  @observable
+  String cep = '';
+
+  @action
+  setCEP(String valor) => cep = valor;
+
+  @observable
+  String email = '';
+
+  @action
+  setEmail(String valor) => email = valor;
+
+  @observable
+  String retirada = 'Local de Retirada';
+
+  @action
+  setRetirada(String valor) => retirada = valor;
+
+  @observable
+  String senha = '';
+
+  @action
+  setSenha(String valor) => senha = valor;
+
+  @observable
+  String code = '';
+
+  @action
+  setCode(String valor) => code = valor;
+
+  @observable
   bool page1Valid = false;
 
   @action
@@ -63,7 +132,7 @@ abstract class _RegistroControllerBase with Store {
     if (formkeyPage1.currentState.validate() && genero != -1) {
       page1Valid = true;
     } else {
-      page1Valid = true;
+      page1Valid = false;
     }
   }
 
@@ -75,7 +144,7 @@ abstract class _RegistroControllerBase with Store {
     if (formkeyPage2.currentState.validate()) {
       page2Valid = true;
     } else {
-      page2Valid = true;
+      page2Valid = false;
     }
   }
 
@@ -87,7 +156,7 @@ abstract class _RegistroControllerBase with Store {
     if (formkeyPage3.currentState.validate()) {
       page3Valid = true;
     } else {
-      page3Valid = true;
+      page3Valid = false;
     }
   }
 
@@ -106,14 +175,8 @@ abstract class _RegistroControllerBase with Store {
           );
         break;
       case 1:
+        isPage2Valid();
         if (page2Valid)
-          buttonCarouselController.nextPage(
-            duration: Duration(milliseconds: 300),
-            curve: Curves.linear,
-          );
-        break;
-      case 2:
-        if (page3Valid)
           buttonCarouselController.nextPage(
             duration: Duration(milliseconds: 300),
             curve: Curves.linear,

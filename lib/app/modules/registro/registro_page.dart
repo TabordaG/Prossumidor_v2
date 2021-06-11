@@ -1,11 +1,17 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:prossumidor_v2/app/components/button.dart';
 import 'package:prossumidor_v2/app/constants.dart';
+import '../../components/button.dart';
+import '../../constants.dart';
 import 'registro_controller.dart';
 import 'widgets/page1.dart';
+import 'widgets/page2.dart';
+import 'widgets/page3.dart';
 
 class RegistroPage extends StatefulWidget {
   final String title;
@@ -18,9 +24,21 @@ class RegistroPage extends StatefulWidget {
 
 class _RegistroPageState
     extends ModularState<RegistroPage, RegistroController> {
+  ProgressDialog progressDialog;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    progressDialog = ProgressDialog(context, type: ProgressDialogType.Normal);
+    progressDialog.style(
+      message: "Carregando...",
+      backgroundColor: Colors.white,
+      borderRadius: 5.0,
+      progressWidget: Padding(
+        padding: EdgeInsets.all(15.0),
+        child: CircularProgressIndicator(),
+      ),
+    );
     var appBar = AppBar(
       brightness: Brightness.light,
       leading: IconButton(
@@ -53,126 +71,276 @@ class _RegistroPageState
         child: Container(
           height: screenHeigh,
           width: size.width,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Image(
-                height: MediaQuery.of(context).size.height * 0.20,
-                image: AssetImage("assets/images/registro01.png"),
-              ),
-              Expanded(
-                flex: 7,
-                child: Observer(
-                  builder: (_) {
-                    return CarouselSlider(
-                      carouselController: controller.buttonCarouselController,
-                      options: CarouselOptions(
-                        height: double.infinity,
-                        scrollPhysics: NeverScrollableScrollPhysics(),
-                        initialPage: 0,
-                        enlargeCenterPage: true,
-                        enableInfiniteScroll: false,
-                        aspectRatio: 2.0,
-                        onPageChanged: (index, reason) =>
-                            controller.setIndex(index),
-                      ),
-                      items: [RegistrarPage1(), Text('2'), Text('3')]
-                          .map((widget) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return Padding(
-                              padding: EdgeInsets.only(
-                                top: 5.0,
-                                bottom: 5.0,
-                              ),
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).cardColor,
-                                  borderRadius: BorderRadius.circular(5),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.25),
-                                      spreadRadius: 0,
-                                      blurRadius: 1,
-                                      offset: Offset(0, 0),
-                                    ),
-                                  ],
-                                ),
-                                child: Center(
-                                  child: widget,
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      }).toList(),
-                    );
-                  },
-                ),
-              ),
-              Row(
+          child: Observer(
+            builder: (_) {
+              return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [0, 1, 2].map((i) {
-                  return Observer(builder: (_) {
-                    return Container(
-                      width: 8.0,
-                      height: 8.0,
-                      margin:
-                          EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: controller.current == i
-                            ? Theme.of(context).primaryColor
-                            : returnColorIndex(i),
-                      ),
-                    );
-                  });
-                }).toList(),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Observer(builder: (_) {
-                      return ButtonTheme(
-                        minWidth: 120.0,
-                        height: 40,
-                        child: StandardButton(
-                          onPressed: () {
-                            if (controller.current != 0)
-                              controller.setPreviousPage();
-                          },
-                          text: controller.current == 0 ? 'Cancelar' : 'Voltar',
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                      );
-                    }),
-                    Observer(builder: (_) {
-                      return ButtonTheme(
-                        minWidth: 120.0,
-                        height: 40,
-                        child: StandardButton(
-                          onPressed: () {
-                            if (controller.current != 2)
-                              controller.setNextPage();
-                          },
-                          text:
-                              controller.current == 2 ? 'Concluir' : 'Próximo',
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      );
-                    }),
-                  ],
-                ),
-              ),
-              Spacer(
-                flex: 1,
-              ),
-            ],
+                children: <Widget>[
+                  controller.current == 0
+                      ? Image(
+                          height: MediaQuery.of(context).size.height * 0.20,
+                          image: AssetImage("assets/images/registro01.png"),
+                        )
+                      : controller.current == 2
+                          ? Image(
+                              height: MediaQuery.of(context).size.height * 0.20,
+                              image: AssetImage("assets/images/registro02.png"),
+                            )
+                          : Container(),
+                  Expanded(
+                    child: Observer(
+                      builder: (_) {
+                        return CarouselSlider(
+                          carouselController:
+                              controller.buttonCarouselController,
+                          options: CarouselOptions(
+                            height: double.infinity,
+                            scrollPhysics: NeverScrollableScrollPhysics(),
+                            initialPage: 0,
+                            enlargeCenterPage: true,
+                            enableInfiniteScroll: false,
+                            aspectRatio: 2.0,
+                            onPageChanged: (index, reason) =>
+                                controller.setIndex(index),
+                          ),
+                          items: [
+                            RegistrarPage1(),
+                            RegistrarPage2(),
+                            RegistrarPage3(),
+                          ].map((widget) {
+                            return Builder(
+                              builder: (BuildContext context) {
+                                return Padding(
+                                  padding: EdgeInsets.only(
+                                    top: 5.0,
+                                    bottom: 5.0,
+                                  ),
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).cardColor,
+                                      borderRadius: BorderRadius.circular(5),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.25),
+                                          spreadRadius: 0,
+                                          blurRadius: 1,
+                                          offset: Offset(0, 0),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child: widget,
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          }).toList(),
+                        );
+                      },
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [0, 1, 2].map((i) {
+                      return Observer(builder: (_) {
+                        return Container(
+                          width: 8.0,
+                          height: 8.0,
+                          margin: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 2.0),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: controller.current == i
+                                ? Theme.of(context).primaryColor
+                                : returnColorIndex(i),
+                          ),
+                        );
+                      });
+                    }).toList(),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Observer(builder: (_) {
+                          return ButtonTheme(
+                            minWidth: 120.0,
+                            height: 40,
+                            child: StandardButton(
+                              onPressed: () {
+                                if (controller.current != 0)
+                                  controller.setPreviousPage();
+                              },
+                              text: controller.current == 0
+                                  ? 'Cancelar'
+                                  : 'Voltar',
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                          );
+                        }),
+                        Observer(builder: (_) {
+                          return ButtonTheme(
+                            minWidth: 120.0,
+                            height: 40,
+                            child: StandardButton(
+                              onPressed: () {
+                                if (controller.current != 2)
+                                  controller.setNextPage();
+                                else {
+                                  controller.isPage3Valid();
+                                  if (controller.page3Valid)
+                                    buildShowGeneralDialog(
+                                      context,
+                                      'Código de Confirmação',
+                                      'Enviamos no seu e-mail um código de confirmação, insira ele para validar seu cadastro',
+                                    );
+                                }
+                              },
+                              text: controller.current == 2
+                                  ? 'Concluir'
+                                  : 'Próximo',
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          );
+                        }),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                ],
+              );
+            },
           ),
         ),
+      ),
+    );
+  }
+
+  Future buildShowGeneralDialog(
+      BuildContext context, String titulo, String mensagem) {
+    return showGeneralDialog(
+      barrierLabel: "Mensage",
+      barrierDismissible: true,
+      barrierColor: Colors.black.withOpacity(0.5),
+      transitionDuration: Duration(milliseconds: 400),
+      context: context,
+      pageBuilder: (context, anim1, anim2) => null,
+      transitionBuilder: (context, a1, a2, child) {
+        final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
+        return Transform(
+          transform: Matrix4.translationValues(0.0, curvedValue * 200, 0.0),
+          child: Opacity(
+            opacity: a1.value,
+            child: AlertDialog(
+              shape: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+              content: buildMensage(context, titulo, mensagem),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Container buildMensage(BuildContext context, String titulo, String mensagem) {
+    return Container(
+      height: MediaQuery.of(context).size.height * .5,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Spacer(
+            flex: 1,
+          ),
+          Text(
+            titulo,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  fontSize: 22,
+                  color: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      .color
+                      .withOpacity(.8),
+                ),
+          ),
+          Spacer(
+            flex: 2,
+          ),
+          Text(
+            mensagem,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  fontSize: 16,
+                  color: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      .color
+                      .withOpacity(.6),
+                ),
+          ),
+          Spacer(
+            flex: 1,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+            child: Form(
+              key: controller.formkeyPage4,
+              child: TextFormField(
+                onChanged: (value) => controller.setCode(value),
+                keyboardType: TextInputType.number,
+                textInputAction: TextInputAction.done,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(4),
+                ],
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Campo não pode estar vazio';
+                  } else if (value.length < 4) {
+                    return 'Código inválido';
+                  } else
+                    return null;
+                },
+                decoration: InputDecoration(
+                  border: UnderlineInputBorder(),
+                  prefixIcon: Icon(
+                    Icons.code,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  hintText: 'Código de Confirmação',
+                ),
+              ),
+            ),
+          ),
+          Spacer(
+            flex: 2,
+          ),
+          StandardButton(
+            onPressed: () {
+              if (controller.formkeyPage4.currentState.validate()) {
+                progressDialog.show();
+                Future.delayed(Duration(seconds: 2), () {
+                  progressDialog.hide();
+                  Modular.to.pushNamedAndRemoveUntil(
+                      '/home', ModalRoute.withName('/'));
+                });
+              }
+            },
+            text: 'Confirmar',
+            color: Theme.of(context).primaryColor,
+          ),
+          Spacer(
+            flex: 1,
+          ),
+        ],
       ),
     );
   }

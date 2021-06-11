@@ -110,14 +110,14 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                                 break;
                               case 1:
                                 buildShowGeneralDialog(
-                                    context, 'Senha Inválida');
+                                    context, "Erro de Login", 'Senha Inválida');
                                 break;
                               case 2:
-                                buildShowGeneralDialog(
-                                    context, 'E-mail Inválido');
+                                buildShowGeneralDialog(context, "Erro de Login",
+                                    'E-mail Inválido');
                                 break;
                               case 3:
-                                buildShowGeneralDialog(context,
+                                buildShowGeneralDialog(context, "Erro de Login",
                                     'Seu usuário ainda não foi validado. Um e-mail foi enviado para sua caixa de entrada, verifique para confirmar seu cadastro.');
                                 break;
                               default:
@@ -127,7 +127,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                         onChanged: (value) => controller.setSenha(value),
                         validator: (value) {
                           if (value.isEmpty) {
-                            return "O campo password não pode ficar vazio";
+                            return "O campo senha não pode ficar vazio";
                           } else if (value.length < 6) {
                             return "A senha tem que ter pelo menos 6 caracteres";
                           }
@@ -162,7 +162,9 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Modular.to.pushNamed('/recuperarSenha');
+                        },
                         child: Text(
                           'Esqueceu a senha ?',
                           style: Theme.of(context).textTheme.bodyText1.copyWith(
@@ -188,14 +190,15 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                               Modular.to.pushReplacementNamed('/home');
                               break;
                             case 1:
-                              buildShowGeneralDialog(context, 'Senha Inválida');
+                              buildShowGeneralDialog(
+                                  context, "Erro de Login", 'Senha Inválida');
                               break;
                             case 2:
                               buildShowGeneralDialog(
-                                  context, 'E-mail Inválido');
+                                  context, "Erro de Login", 'E-mail Inválido');
                               break;
                             case 3:
-                              buildShowGeneralDialog(context,
+                              buildShowGeneralDialog(context, "Erro de Login",
                                   'Seu usuário ainda não foi validado. Um e-mail foi enviado para sua caixa de entrada, verifique para confirmar seu cadastro.');
                               break;
                             default:
@@ -205,43 +208,6 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                       color: Theme.of(context).primaryColor,
                       text: 'Entrar',
                     ),
-                    // child: RaisedButton(
-                    //   onPressed: () async {
-                    // if (formkey.currentState.validate()) {
-                    //   int response = await controller.verificaLogin();
-                    //   switch (response) {
-                    //     case 0:
-                    //       await authController
-                    //           .addStringToSF(controller.email);
-                    //       Modular.to.pushReplacementNamed('/home');
-                    //       break;
-                    //     case 1:
-                    //       buildShowGeneralDialog(context, 'Senha Inválida');
-                    //       break;
-                    //     case 2:
-                    //       buildShowGeneralDialog(
-                    //           context, 'E-mail Inválido');
-                    //       break;
-                    //     case 3:
-                    //       buildShowGeneralDialog(context,
-                    //           'Seu usuário ainda não foi validado. Um e-mail foi enviado para sua caixa de entrada, verifique para confirmar seu cadastro.');
-                    //       break;
-                    //     default:
-                    //   }
-                    // }
-                    //   },
-                    //   color: Theme.of(context).primaryColor,
-                    //   shape: RoundedRectangleBorder(
-                    //     borderRadius: BorderRadius.circular(5.0),
-                    //   ),
-                    //   child: Text(
-                    //     'Entrar',
-                    //     style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    //           fontSize: 18,
-                    //           color: Colors.white,
-                    //         ),
-                    //   ),
-                    // ),
                   ),
                   Spacer(
                     flex: 2,
@@ -292,7 +258,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Modular.to.pushReplacementNamed('/registro');
+                      Modular.to.pushNamed('/registro');
                     },
                     child: Text(
                       'Registar',
@@ -315,7 +281,8 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
     );
   }
 
-  Future buildShowGeneralDialog(BuildContext context, String mensagem) {
+  Future buildShowGeneralDialog(
+      BuildContext context, String titulo, String mensagem) {
     return showGeneralDialog(
       barrierLabel: "Mensage",
       barrierDismissible: true,
@@ -334,7 +301,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                 borderSide: BorderSide.none,
                 borderRadius: BorderRadius.circular(5.0),
               ),
-              content: buildMensage(context, mensagem),
+              content: buildMensage(context, titulo, mensagem),
             ),
           ),
         );
@@ -342,7 +309,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
     );
   }
 
-  Container buildMensage(BuildContext context, String mensagem) {
+  Container buildMensage(BuildContext context, String titulo, String mensagem) {
     return Container(
       height: MediaQuery.of(context).size.height * .1,
       child: Column(
@@ -353,7 +320,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
             flex: 1,
           ),
           Text(
-            "Erro de Login",
+            titulo,
             style: Theme.of(context).textTheme.bodyText1.copyWith(
                   fontSize: 22,
                   color: Theme.of(context)

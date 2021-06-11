@@ -64,6 +64,21 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
     });
   }
 
+  final _$formkeyPage4Atom = Atom(name: '_RegistroControllerBase.formkeyPage4');
+
+  @override
+  GlobalKey<FormState> get formkeyPage4 {
+    _$formkeyPage4Atom.reportRead();
+    return super.formkeyPage4;
+  }
+
+  @override
+  set formkeyPage4(GlobalKey<FormState> value) {
+    _$formkeyPage4Atom.reportWrite(value, super.formkeyPage4, () {
+      super.formkeyPage4 = value;
+    });
+  }
+
   final _$buttonCarouselControllerAtom =
       Atom(name: '_RegistroControllerBase.buttonCarouselController');
 
@@ -171,6 +186,171 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
     });
   }
 
+  final _$enderecoAtom = Atom(name: '_RegistroControllerBase.endereco');
+
+  @override
+  String get endereco {
+    _$enderecoAtom.reportRead();
+    return super.endereco;
+  }
+
+  @override
+  set endereco(String value) {
+    _$enderecoAtom.reportWrite(value, super.endereco, () {
+      super.endereco = value;
+    });
+  }
+
+  final _$numeroAtom = Atom(name: '_RegistroControllerBase.numero');
+
+  @override
+  String get numero {
+    _$numeroAtom.reportRead();
+    return super.numero;
+  }
+
+  @override
+  set numero(String value) {
+    _$numeroAtom.reportWrite(value, super.numero, () {
+      super.numero = value;
+    });
+  }
+
+  final _$complementoAtom = Atom(name: '_RegistroControllerBase.complemento');
+
+  @override
+  String get complemento {
+    _$complementoAtom.reportRead();
+    return super.complemento;
+  }
+
+  @override
+  set complemento(String value) {
+    _$complementoAtom.reportWrite(value, super.complemento, () {
+      super.complemento = value;
+    });
+  }
+
+  final _$bairroAtom = Atom(name: '_RegistroControllerBase.bairro');
+
+  @override
+  String get bairro {
+    _$bairroAtom.reportRead();
+    return super.bairro;
+  }
+
+  @override
+  set bairro(String value) {
+    _$bairroAtom.reportWrite(value, super.bairro, () {
+      super.bairro = value;
+    });
+  }
+
+  final _$cidadeAtom = Atom(name: '_RegistroControllerBase.cidade');
+
+  @override
+  String get cidade {
+    _$cidadeAtom.reportRead();
+    return super.cidade;
+  }
+
+  @override
+  set cidade(String value) {
+    _$cidadeAtom.reportWrite(value, super.cidade, () {
+      super.cidade = value;
+    });
+  }
+
+  final _$ufAtom = Atom(name: '_RegistroControllerBase.uf');
+
+  @override
+  String get uf {
+    _$ufAtom.reportRead();
+    return super.uf;
+  }
+
+  @override
+  set uf(String value) {
+    _$ufAtom.reportWrite(value, super.uf, () {
+      super.uf = value;
+    });
+  }
+
+  final _$cepAtom = Atom(name: '_RegistroControllerBase.cep');
+
+  @override
+  String get cep {
+    _$cepAtom.reportRead();
+    return super.cep;
+  }
+
+  @override
+  set cep(String value) {
+    _$cepAtom.reportWrite(value, super.cep, () {
+      super.cep = value;
+    });
+  }
+
+  final _$emailAtom = Atom(name: '_RegistroControllerBase.email');
+
+  @override
+  String get email {
+    _$emailAtom.reportRead();
+    return super.email;
+  }
+
+  @override
+  set email(String value) {
+    _$emailAtom.reportWrite(value, super.email, () {
+      super.email = value;
+    });
+  }
+
+  final _$retiradaAtom = Atom(name: '_RegistroControllerBase.retirada');
+
+  @override
+  String get retirada {
+    _$retiradaAtom.reportRead();
+    return super.retirada;
+  }
+
+  @override
+  set retirada(String value) {
+    _$retiradaAtom.reportWrite(value, super.retirada, () {
+      super.retirada = value;
+    });
+  }
+
+  final _$senhaAtom = Atom(name: '_RegistroControllerBase.senha');
+
+  @override
+  String get senha {
+    _$senhaAtom.reportRead();
+    return super.senha;
+  }
+
+  @override
+  set senha(String value) {
+    _$senhaAtom.reportWrite(value, super.senha, () {
+      super.senha = value;
+    });
+  }
+
+  final _$codeAtom = Atom(name: '_RegistroControllerBase.code');
+
+  @override
+  String get code {
+    _$codeAtom.reportRead();
+    return super.code;
+  }
+
+  @override
+  set code(String value) {
+    _$codeAtom.reportWrite(value, super.code, () {
+      super.code = value;
+    });
+  }
+
   final _$page1ValidAtom = Atom(name: '_RegistroControllerBase.page1Valid');
 
   @override
@@ -275,6 +455,127 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
   }
 
   @override
+  dynamic setEndereco(String valor) {
+    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
+        name: '_RegistroControllerBase.setEndereco');
+    try {
+      return super.setEndereco(valor);
+    } finally {
+      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setNumero(String valor) {
+    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
+        name: '_RegistroControllerBase.setNumero');
+    try {
+      return super.setNumero(valor);
+    } finally {
+      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setComplemento(String valor) {
+    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
+        name: '_RegistroControllerBase.setComplemento');
+    try {
+      return super.setComplemento(valor);
+    } finally {
+      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setBairro(String valor) {
+    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
+        name: '_RegistroControllerBase.setBairro');
+    try {
+      return super.setBairro(valor);
+    } finally {
+      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setCidade(String valor) {
+    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
+        name: '_RegistroControllerBase.setCidade');
+    try {
+      return super.setCidade(valor);
+    } finally {
+      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setUF(String valor) {
+    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
+        name: '_RegistroControllerBase.setUF');
+    try {
+      return super.setUF(valor);
+    } finally {
+      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setCEP(String valor) {
+    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
+        name: '_RegistroControllerBase.setCEP');
+    try {
+      return super.setCEP(valor);
+    } finally {
+      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setEmail(String valor) {
+    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
+        name: '_RegistroControllerBase.setEmail');
+    try {
+      return super.setEmail(valor);
+    } finally {
+      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setRetirada(String valor) {
+    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
+        name: '_RegistroControllerBase.setRetirada');
+    try {
+      return super.setRetirada(valor);
+    } finally {
+      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setSenha(String valor) {
+    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
+        name: '_RegistroControllerBase.setSenha');
+    try {
+      return super.setSenha(valor);
+    } finally {
+      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setCode(String valor) {
+    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
+        name: '_RegistroControllerBase.setCode');
+    try {
+      return super.setCode(valor);
+    } finally {
+      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic isPage1Valid() {
     final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
         name: '_RegistroControllerBase.isPage1Valid');
@@ -346,6 +647,7 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
 formkeyPage1: ${formkeyPage1},
 formkeyPage2: ${formkeyPage2},
 formkeyPage3: ${formkeyPage3},
+formkeyPage4: ${formkeyPage4},
 buttonCarouselController: ${buttonCarouselController},
 current: ${current},
 genero: ${genero},
@@ -353,6 +655,17 @@ generoOutro: ${generoOutro},
 nome: ${nome},
 cpf: ${cpf},
 telefone: ${telefone},
+endereco: ${endereco},
+numero: ${numero},
+complemento: ${complemento},
+bairro: ${bairro},
+cidade: ${cidade},
+uf: ${uf},
+cep: ${cep},
+email: ${email},
+retirada: ${retirada},
+senha: ${senha},
+code: ${code},
 page1Valid: ${page1Valid},
 page2Valid: ${page2Valid},
 page3Valid: ${page3Valid}
