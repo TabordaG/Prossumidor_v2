@@ -19,18 +19,20 @@ final $AppController = BindInject(
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$AppController on _AppControllerBase, Store {
-  final _$valueAtom = Atom(name: '_AppControllerBase.value');
+  final _$indexBottomNavigatorAtom =
+      Atom(name: '_AppControllerBase.indexBottomNavigator');
 
   @override
-  int get value {
-    _$valueAtom.reportRead();
-    return super.value;
+  int get indexBottomNavigator {
+    _$indexBottomNavigatorAtom.reportRead();
+    return super.indexBottomNavigator;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.reportWrite(value, super.value, () {
-      super.value = value;
+  set indexBottomNavigator(int value) {
+    _$indexBottomNavigatorAtom.reportWrite(value, super.indexBottomNavigator,
+        () {
+      super.indexBottomNavigator = value;
     });
   }
 
@@ -38,11 +40,11 @@ mixin _$AppController on _AppControllerBase, Store {
       ActionController(name: '_AppControllerBase');
 
   @override
-  void increment() {
+  dynamic setIndexBottomNavigator(int valor) {
     final _$actionInfo = _$_AppControllerBaseActionController.startAction(
-        name: '_AppControllerBase.increment');
+        name: '_AppControllerBase.setIndexBottomNavigator');
     try {
-      return super.increment();
+      return super.setIndexBottomNavigator(valor);
     } finally {
       _$_AppControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -51,7 +53,7 @@ mixin _$AppController on _AppControllerBase, Store {
   @override
   String toString() {
     return '''
-value: ${value}
+indexBottomNavigator: ${indexBottomNavigator}
     ''';
   }
 }
