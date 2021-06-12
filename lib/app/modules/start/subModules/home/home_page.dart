@@ -1,10 +1,9 @@
-import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/app_controller.dart';
-import 'package:prossumidor_v2/app/components/cardHome.dart';
-import '../../constants.dart';
+import 'package:prossumidor_v2/app/components/cards.dart';
+import 'package:prossumidor_v2/app/constants.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,38 +16,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
   final AppController appController = Modular.get<AppController>();
+
   @override
   Widget build(BuildContext context) {
     return Material(
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.dark,
-        child: Scaffold(
-          body: SafeArea(
-            child: Column(
-              children: <Widget>[
-                TopHomeView(),
-                Expanded(child: HomeListView()),
-              ],
-            ),
-          ),
-          bottomNavigationBar: FancyBottomNavigation(
-            barBackgroundColor: Theme.of(context).primaryColor,
-            activeIconColor: Theme.of(context).primaryColor,
-            circleColor: Colors.white,
-            inactiveIconColor: Colors.white,
-            textColor: Colors.white,
-            tabs: [
-              TabData(iconData: Icons.shopping_bag, title: "Sacola"),
-              // TabData(iconData: Icons.receipt_long, title: "Pedidos"),
-              TabData(iconData: Icons.home, title: "Home"),
-              TabData(iconData: Icons.chat, title: "Chat"),
-              TabData(iconData: Icons.person, title: "Perfil"),
+        child: SafeArea(
+          child: Column(
+            children: <Widget>[
+              TopHomeView(),
+              Expanded(child: HomeListView()),
             ],
-            onTabChangedListener: (position) {
-              setState(() {
-                appController.indexBottomNavigator = position;
-              });
-            },
           ),
         ),
       ),
@@ -259,6 +238,12 @@ class HomeListView extends StatelessWidget {
             indexCategoria++)
           CategoriaHome(
             indexCategoria: indexCategoria,
+            verMais: () {
+              Navigator.of(context).pushNamed(
+                '/produtosCategorias',
+                arguments: {'indexCategorias': indexCategoria},
+              );
+            },
           ),
       ],
     );
@@ -331,14 +316,18 @@ class _CategoriaHomeState extends State<CategoriaHome> {
             itemBuilder: (context, index) => index != produtoList.length - 1
                 ? CardHome(
                     index: index,
+                    verDetalhes: () => Modular.to.pushNamed('/produtoDetalhes'),
                   )
                 : Row(
                     children: [
                       CardHome(
                         index: index,
+                        verDetalhes: () =>
+                            Modular.to.pushNamed('/produtoDetalhes'),
                       ),
                       CardVerMaisHome(
                         indexCategoria: widget.indexCategoria,
+                        verMais: widget.verMais,
                       ),
                     ],
                   ),

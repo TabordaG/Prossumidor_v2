@@ -106,7 +106,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                               case 0:
                                 await authController
                                     .addStringToSF(controller.email);
-                                Modular.to.pushReplacementNamed('/home');
+                                Modular.to.pushReplacementNamed('/start');
                                 break;
                               case 1:
                                 buildShowGeneralDialog(
@@ -187,7 +187,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                             case 0:
                               await authController
                                   .addStringToSF(controller.email);
-                              Modular.to.pushReplacementNamed('/home');
+                              Modular.to.pushReplacementNamed('/start');
                               break;
                             case 1:
                               buildShowGeneralDialog(

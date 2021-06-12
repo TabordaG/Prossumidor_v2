@@ -55,6 +55,7 @@ class _RegistroPageState
       ),
       actions: [
         IconButton(
+          splashRadius: 2,
           icon: Icon(
             Icons.help,
             color: Theme.of(context).primaryColor,
@@ -330,7 +331,7 @@ class _RegistroPageState
                 Future.delayed(Duration(seconds: 2), () {
                   progressDialog.hide();
                   Modular.to.pushNamedAndRemoveUntil(
-                      '/home', ModalRoute.withName('/'));
+                      '/start', ModalRoute.withName('/'));
                 });
               }
             },

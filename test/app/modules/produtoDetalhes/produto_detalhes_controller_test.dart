@@ -1,6 +1,5 @@
 import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:prossumidor_v2/app/modules/produtoDetalhes/produto_detalhes_module.dart';
 
 void main() {

@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen>
         int response = await auth.verificaLogado();
         switch (response) {
           case 0:
-            Modular.to.pushReplacementNamed('/home');
+            Modular.to.pushReplacementNamed('/start');
             break;
           case 1:
             Modular.to.pushReplacementNamed('/login');

@@ -1,7 +1,7 @@
 import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:prossumidor_v2/app/modules/home/home_module.dart';
+import 'package:prossumidor_v2/app/modules/start/subModules/home/home_module.dart';
 
 void main() {
   initModule(HomeModule());

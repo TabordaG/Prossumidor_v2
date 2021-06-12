@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prossumidor_v2/app/models/produto/produto_model.dart';
+import 'package:prossumidor_v2/app/models/subcategoria/subcategoria_model.dart';
 
 const kPrimaryColor = Color(0xFF1B5583);
 const kSecondaryColor = Color(0xFF82A1B1);
@@ -9,6 +10,34 @@ const kWarninngColor = Color(0xFFF3BB1C);
 const kErrorColor = Color(0xFFF03738);
 
 const kDefaultPadding = 20.0;
+
+List<Subcategoria> subcategoriaList = [
+  Subcategoria(
+    subcategoria_id: 0,
+    nome: 'Todos',
+    ativo: true,
+  ),
+  Subcategoria(
+    subcategoria_id: 1,
+    nome: 'Orgânico',
+    ativo: false,
+  ),
+  Subcategoria(
+    subcategoria_id: 2,
+    nome: 'Não Orgânico',
+    ativo: false,
+  ),
+  Subcategoria(
+    subcategoria_id: 3,
+    nome: 'Caseiro',
+    ativo: false,
+  ),
+  Subcategoria(
+    subcategoria_id: 4,
+    nome: 'Sem Lactose',
+    ativo: false,
+  ),
+];
 
 List<String> categoriaList = [
   'Laticínios',
