@@ -312,18 +312,27 @@ class _CategoriaHomeState extends State<CategoriaHome> {
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             physics: BouncingScrollPhysics(),
-            itemCount: produtoList.length,
-            itemBuilder: (context, index) => index != produtoList.length - 1
+            itemCount: 5,
+            itemBuilder: (context, index) => index != 4
                 ? CardHome(
                     index: index,
-                    verDetalhes: () => Modular.to.pushNamed('/produtoDetalhes'),
+                    verDetalhes: () => Modular.to.pushNamed(
+                      '/produtoDetalhes',
+                      arguments: {
+                        'produto': produtoList[index],
+                      },
+                    ),
                   )
                 : Row(
                     children: [
                       CardHome(
                         index: index,
-                        verDetalhes: () =>
-                            Modular.to.pushNamed('/produtoDetalhes'),
+                        verDetalhes: () => Modular.to.pushNamed(
+                          '/produtoDetalhes',
+                          arguments: {
+                            'produto': produtoList[index],
+                          },
+                        ),
                       ),
                       CardVerMaisHome(
                         indexCategoria: widget.indexCategoria,

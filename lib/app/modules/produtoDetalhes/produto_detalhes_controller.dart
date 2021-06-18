@@ -9,10 +9,15 @@ class ProdutoDetalhesController = _ProdutoDetalhesControllerBase
 
 abstract class _ProdutoDetalhesControllerBase with Store {
   @observable
-  int value = 0;
+  int value = 1;
 
   @action
-  void increment() {
-    value++;
+  void increment(int limite) {
+    if (value < limite) value++;
+  }
+
+  @action
+  void decrement() {
+    if (value > 0) value--;
   }
 }

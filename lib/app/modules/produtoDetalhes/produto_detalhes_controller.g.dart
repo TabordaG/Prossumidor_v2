@@ -38,11 +38,22 @@ mixin _$ProdutoDetalhesController on _ProdutoDetalhesControllerBase, Store {
       ActionController(name: '_ProdutoDetalhesControllerBase');
 
   @override
-  void increment() {
+  void increment(int limite) {
     final _$actionInfo = _$_ProdutoDetalhesControllerBaseActionController
         .startAction(name: '_ProdutoDetalhesControllerBase.increment');
     try {
-      return super.increment();
+      return super.increment(limite);
+    } finally {
+      _$_ProdutoDetalhesControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void decrement() {
+    final _$actionInfo = _$_ProdutoDetalhesControllerBaseActionController
+        .startAction(name: '_ProdutoDetalhesControllerBase.decrement');
+    try {
+      return super.decrement();
     } finally {
       _$_ProdutoDetalhesControllerBaseActionController.endAction(_$actionInfo);
     }

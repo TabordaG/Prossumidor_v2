@@ -41,9 +41,8 @@ List<Subcategoria> subcategoriaList = [
 
 List<String> categoriaList = [
   'Laticínios',
-  'Frutas',
-  'Legumes e Tubérculos',
-  'Pães e Biscoito',
+  'Cosméticos e Perfumes',
+  'Outras',
 ];
 
 /*
@@ -129,7 +128,7 @@ List<Produto> produtoList = [
     nome: 'Queijo Muçarela - Barrinha',
     produtor: 'CPGrande',
     preco: 17.65,
-    imagem: 'assets/images/produtos/mucarela_barrinha.png',
+    imagem: 'assets/images/produtos/mussarela_barrinha.png',
     descricao:
         'Queijo muçarela de excelente qualidade com aproximadamente 500g. Produzido pela Coopergrande (uma cooperativa da agricultura familiar da Baixada Cuiabana).',
     condicao: '500 g Cooperativa Agropecuária Varzeagrandense - COOPERGRANDE',
@@ -143,7 +142,7 @@ List<Produto> produtoList = [
     nome: 'Queijo Muçarela – Barra',
     produtor: 'CPGrande',
     preco: 122.36,
-    imagem: 'assets/images/produtos/mucarela_barra.png',
+    imagem: 'assets/images/produtos/mussarela_barra.png',
     descricao:
         'Queijo muçarela de excelente qualidade produzido pela Coopergrande, uma cooperativa da agricultura familiar da Baixada Cuiabana.',
     condicao: '4 kg  Cooperativa Agropecuária Varzeagrandense - COOPERGRANDE',
@@ -157,7 +156,7 @@ List<Produto> produtoList = [
     nome: 'Queijo Muçarela - Bolinha',
     produtor: 'CPGrande',
     preco: 14.35,
-    imagem: 'assets/images/produtos/mucarela_bolinha.png',
+    imagem: 'assets/images/produtos/mussarela_bolinha.png',
     descricao:
         'Queijo muçarela de excelente qualidade com aproximadamente 280 g, produzido pela Coopergrande, uma cooperativa da agricultura familiar da Baixada Cuiabana.',
     condicao:
@@ -231,7 +230,7 @@ List<Produto> produtoList = [
     nome: 'Escalda-Pés 30g',
     produtor: 'GAAD',
     preco: 12.0,
-    imagem: 'assets/images/produtos/escaldas_pes.png',
+    imagem: 'assets/images/produtos/escalda_pes.png',
     descricao:
         'Feito com ervas desidratadas de Alecrim, Calêndula e Camomila. Ação antioxidante, Anti-inflamatória, Antimicótica, Antimicrobiana, Cicatrizante, Analgésica e Antifúngicas. Atua também no campo energét',
     condicao:
@@ -251,7 +250,7 @@ List<Produto> produtoList = [
     condicao: 'Artesanall Agroecológico',
     estoque: 86,
     unidade: 'Unidade',
-    categorias: [2],
+    categorias: [3],
     distribuicao: 'Recoopsol',
   ),
   Produto(
@@ -264,7 +263,7 @@ List<Produto> produtoList = [
     condicao: 'Artesanall Agroecológico',
     estoque: 34,
     unidade: 'Unidade',
-    categorias: [2],
+    categorias: [3],
     distribuicao: 'Recoopsol',
   ),
   Produto(
@@ -277,7 +276,7 @@ List<Produto> produtoList = [
     condicao: 'Pote 150g Paçoca de Panela Artesanal',
     estoque: 26,
     unidade: 'Unidade',
-    categorias: [2],
+    categorias: [3],
     distribuicao: 'Recoopsol',
   ),
   Produto(
@@ -290,7 +289,7 @@ List<Produto> produtoList = [
     condicao: 'Pote 250g Paçoca de Panela Artesanal',
     estoque: 160,
     unidade: 'Unidade',
-    categorias: [2],
+    categorias: [3],
     distribuicao: 'Recoopsol',
   ),
 ];

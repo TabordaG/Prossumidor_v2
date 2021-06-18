@@ -20,18 +20,51 @@ final $ProdutosCategoriasController = BindInject(
 
 mixin _$ProdutosCategoriasController
     on _ProdutosCategoriasControllerBase, Store {
-  final _$valueAtom = Atom(name: '_ProdutosCategoriasControllerBase.value');
+  final _$buscarTextAtom =
+      Atom(name: '_ProdutosCategoriasControllerBase.buscarText');
 
   @override
-  int get value {
-    _$valueAtom.reportRead();
-    return super.value;
+  TextEditingController get buscarText {
+    _$buscarTextAtom.reportRead();
+    return super.buscarText;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.reportWrite(value, super.value, () {
-      super.value = value;
+  set buscarText(TextEditingController value) {
+    _$buscarTextAtom.reportWrite(value, super.buscarText, () {
+      super.buscarText = value;
+    });
+  }
+
+  final _$isSearchingAtom =
+      Atom(name: '_ProdutosCategoriasControllerBase.isSearching');
+
+  @override
+  bool get isSearching {
+    _$isSearchingAtom.reportRead();
+    return super.isSearching;
+  }
+
+  @override
+  set isSearching(bool value) {
+    _$isSearchingAtom.reportWrite(value, super.isSearching, () {
+      super.isSearching = value;
+    });
+  }
+
+  final _$subcategoriasAtom =
+      Atom(name: '_ProdutosCategoriasControllerBase.subcategorias');
+
+  @override
+  List<Subcategoria> get subcategorias {
+    _$subcategoriasAtom.reportRead();
+    return super.subcategorias;
+  }
+
+  @override
+  set subcategorias(List<Subcategoria> value) {
+    _$subcategoriasAtom.reportWrite(value, super.subcategorias, () {
+      super.subcategorias = value;
     });
   }
 
@@ -39,11 +72,36 @@ mixin _$ProdutosCategoriasController
       ActionController(name: '_ProdutosCategoriasControllerBase');
 
   @override
-  void increment() {
+  dynamic setIsSearching() {
     final _$actionInfo = _$_ProdutosCategoriasControllerBaseActionController
-        .startAction(name: '_ProdutosCategoriasControllerBase.increment');
+        .startAction(name: '_ProdutosCategoriasControllerBase.setIsSearching');
     try {
-      return super.increment();
+      return super.setIsSearching();
+    } finally {
+      _$_ProdutosCategoriasControllerBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic buscarProduto() {
+    final _$actionInfo = _$_ProdutosCategoriasControllerBaseActionController
+        .startAction(name: '_ProdutosCategoriasControllerBase.buscarProduto');
+    try {
+      return super.buscarProduto();
+    } finally {
+      _$_ProdutosCategoriasControllerBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic selecionarSubcategoria(int index) {
+    final _$actionInfo =
+        _$_ProdutosCategoriasControllerBaseActionController.startAction(
+            name: '_ProdutosCategoriasControllerBase.selecionarSubcategoria');
+    try {
+      return super.selecionarSubcategoria(index);
     } finally {
       _$_ProdutosCategoriasControllerBaseActionController
           .endAction(_$actionInfo);
@@ -53,7 +111,9 @@ mixin _$ProdutosCategoriasController
   @override
   String toString() {
     return '''
-value: ${value}
+buscarText: ${buscarText},
+isSearching: ${isSearching},
+subcategorias: ${subcategorias}
     ''';
   }
 }

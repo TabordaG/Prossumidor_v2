@@ -203,7 +203,7 @@ class _CardProdutosCategoriaState extends State<CardProdutosCategoria> {
     return GestureDetector(
       onTap: widget.verDetalhes,
       child: Container(
-        height: 235,
+        // height: 235,
         width: double.infinity,
         child: Card(
           color: Color(0xFFF6F6F6),
