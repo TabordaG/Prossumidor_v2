@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:prossumidor_v2/app/app_controller.dart';
 import 'package:prossumidor_v2/app/components/button.dart';
 import 'package:prossumidor_v2/app/constants.dart';
 import 'package:prossumidor_v2/app/shared/auth/auth_controller.dart';
@@ -18,6 +19,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends ModularState<LoginPage, LoginController> {
   final GlobalKey<FormState> formkey = new GlobalKey<FormState>();
   final AuthController authController = Modular.get<AuthController>();
+  
 
   @override
   Widget build(BuildContext context) {

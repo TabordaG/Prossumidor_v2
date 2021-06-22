@@ -63,7 +63,7 @@ class _TopHomeViewState extends State<TopHomeView> {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: 'Olá, Bruno.',
+                      text: 'Olá, Gustavo.',
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
                             fontWeight: FontWeight.bold,
                             fontSize: 24,

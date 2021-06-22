@@ -29,6 +29,7 @@ class _SplashScreenState extends State<SplashScreen>
         switch (response) {
           case 0:
             Modular.to.pushReplacementNamed('/start');
+            auth.insereDados();
             break;
           case 1:
             Modular.to.pushReplacementNamed('/login');
@@ -56,8 +57,7 @@ class _SplashScreenState extends State<SplashScreen>
         child: Hero(
           tag: 'LogoSplash',
           child: Image(
-            width: MediaQuery.of(context).size.width * 0.7,
-            image: AssetImage("assets/images/splash.png"),
+            image: AssetImage("assets/images/logo_splash.png"),
           ),
         ),
       ),

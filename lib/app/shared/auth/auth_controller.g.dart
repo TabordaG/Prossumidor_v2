@@ -57,6 +57,31 @@ mixin _$AuthController on _AuthControllerBase, Store {
     return _$verificaLogadoAsyncAction.run(() => super.verificaLogado());
   }
 
+  final _$_AuthControllerBaseActionController =
+      ActionController(name: '_AuthControllerBase');
+
+  @override
+  dynamic cleanUser() {
+    final _$actionInfo = _$_AuthControllerBaseActionController.startAction(
+        name: '_AuthControllerBase.cleanUser');
+    try {
+      return super.cleanUser();
+    } finally {
+      _$_AuthControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void insereDados() {
+    final _$actionInfo = _$_AuthControllerBaseActionController.startAction(
+        name: '_AuthControllerBase.insereDados');
+    try {
+      return super.insereDados();
+    } finally {
+      _$_AuthControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
