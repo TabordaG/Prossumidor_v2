@@ -21,10 +21,6 @@ class _SobrePageState extends ModularState<SobrePage, SobreController> {
     var appBar = AppBar(
       title: Text(widget.title),
     );
-    Size size = MediaQuery.of(context).size;
-    var screenHeigh = (size.height - appBar.preferredSize.height) -
-        MediaQuery.of(context).padding.top -
-        kDefaultPadding * 4;
     return Scaffold(
       appBar: appBar,
       body: Column(

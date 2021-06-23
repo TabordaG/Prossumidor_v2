@@ -287,7 +287,8 @@ class _MeusDadosPageState
                           Container(
                             width: 100,
                             child: TextFormField(
-                              enabled: controller.genero == 2 ? true : false,
+                              enabled:
+                                  controller.genero.text == '2' ? true : false,
                               onChanged: (value) => controller.generoOutro,
                               keyboardType: TextInputType.text,
                               textInputAction: TextInputAction.next,

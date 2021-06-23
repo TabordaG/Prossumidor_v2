@@ -1,12 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:dio/dio.dart';
-
-import 'package:prossumidor_v2/app/modules/start/subModules/perfil/subModules/pedidos/repositories/interfaces/pedidos_repository_interface.dart';
+import 'package:prossumidor_v2/app/modules/start/subModules/pedidos/repositories/interfaces/pedidos_repository_interface.dart';
 
 class MockClient extends Mock implements Dio {}
 
 void main() {
+  // ignore: unused_local_variable
   IPedidosRepository repository;
   // MockClient client;
 

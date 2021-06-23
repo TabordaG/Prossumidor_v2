@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'repositories/meus_dados_repository.dart';
 import 'meus_dados_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';

@@ -13,7 +13,11 @@ class SacolaModule extends ChildModule {
 
   @override
   List<ModularRouter> get routers => [
-        ModularRouter(Modular.initialRoute, child: (_, args) => SacolaPage()),
+        ModularRouter(
+          Modular.initialRoute,
+          child: (_, args) => SacolaPage(),
+          transition: TransitionType.rightToLeft,
+        ),
       ];
 
   static Inject get to => Inject<SacolaModule>.of();

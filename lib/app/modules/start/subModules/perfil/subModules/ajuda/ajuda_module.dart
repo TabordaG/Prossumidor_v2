@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'repositories/ajuda_repository.dart';
 import 'ajuda_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';

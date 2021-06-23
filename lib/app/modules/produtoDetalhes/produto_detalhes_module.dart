@@ -18,6 +18,7 @@ class ProdutoDetalhesModule extends ChildModule {
           child: (_, args) => ProdutoDetalhesPage(
             produto: args.data['produto'],
           ),
+          transition: TransitionType.rightToLeft,
         ),
       ];
 
