@@ -34,6 +34,36 @@ mixin _$SacolaController on _SacolaControllerBase, Store {
     });
   }
 
+  final _$verDetalhesAtom = Atom(name: '_SacolaControllerBase.verDetalhes');
+
+  @override
+  bool get verDetalhes {
+    _$verDetalhesAtom.reportRead();
+    return super.verDetalhes;
+  }
+
+  @override
+  set verDetalhes(bool value) {
+    _$verDetalhesAtom.reportWrite(value, super.verDetalhes, () {
+      super.verDetalhes = value;
+    });
+  }
+
+  final _$valueAtom = Atom(name: '_SacolaControllerBase.value');
+
+  @override
+  int get value {
+    _$valueAtom.reportRead();
+    return super.value;
+  }
+
+  @override
+  set value(int value) {
+    _$valueAtom.reportWrite(value, super.value, () {
+      super.value = value;
+    });
+  }
+
   final _$_SacolaControllerBaseActionController =
       ActionController(name: '_SacolaControllerBase');
 
@@ -49,9 +79,44 @@ mixin _$SacolaController on _SacolaControllerBase, Store {
   }
 
   @override
+  dynamic setVerDetalhes(bool valor) {
+    final _$actionInfo = _$_SacolaControllerBaseActionController.startAction(
+        name: '_SacolaControllerBase.setVerDetalhes');
+    try {
+      return super.setVerDetalhes(valor);
+    } finally {
+      _$_SacolaControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void increment(int limite) {
+    final _$actionInfo = _$_SacolaControllerBaseActionController.startAction(
+        name: '_SacolaControllerBase.increment');
+    try {
+      return super.increment(limite);
+    } finally {
+      _$_SacolaControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void decrement() {
+    final _$actionInfo = _$_SacolaControllerBaseActionController.startAction(
+        name: '_SacolaControllerBase.decrement');
+    try {
+      return super.decrement();
+    } finally {
+      _$_SacolaControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-entrega: ${entrega}
+entrega: ${entrega},
+verDetalhes: ${verDetalhes},
+value: ${value}
     ''';
   }
 }

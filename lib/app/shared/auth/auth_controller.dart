@@ -1,5 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:prossumidor_v2/app/constants.dart';
 import 'package:prossumidor_v2/app/models/usuario/usuario_model.dart';
 import 'package:prossumidor_v2/app/shared/auth/repositories/interfaces/auth_repository_interface.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -70,5 +71,6 @@ abstract class _AuthControllerBase with Store {
     usuario.cidade = "Cuiabá";
     usuario.estado = "MT";
     usuario.cep = "00000-000";
+    usuario.empresa = centroDistribuicao.first;
   }
 }

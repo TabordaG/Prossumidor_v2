@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/app_controller.dart';
 import 'package:prossumidor_v2/app/components/cards.dart';
@@ -106,9 +107,48 @@ class _TopHomeViewState extends State<TopHomeView> {
             ],
           ),
         ),
+        Row(
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(
+                  kDefaultPadding,
+                  kDefaultPadding * 0.25,
+                  kDefaultPadding * 0.25,
+                  kDefaultPadding * 0.25),
+              child: Text(
+                "Centro de Distribuição:",
+                textAlign: TextAlign.start,
+                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      color: Theme.of(context)
+                          .textTheme
+                          .bodyText1
+                          .color
+                          .withOpacity(.6),
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12,
+                    ),
+              ),
+            ),
+            Observer(builder: (_) {
+              return Text(
+                "${controller.centroDistribuicao}",
+                textAlign: TextAlign.start,
+                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      color: Theme.of(context)
+                          .textTheme
+                          .bodyText1
+                          .color
+                          .withOpacity(.6),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
+              );
+            }),
+          ],
+        ),
         Padding(
           padding: EdgeInsets.only(
-            top: kDefaultPadding,
+            top: kDefaultPadding * 0.25,
             bottom: kDefaultPadding * .5,
             left: kDefaultPadding,
             right: kDefaultPadding,

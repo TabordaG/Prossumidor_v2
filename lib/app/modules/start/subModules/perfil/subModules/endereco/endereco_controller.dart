@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:prossumidor_v2/app/modules/start/subModules/home/home_controller.dart';
+import 'package:prossumidor_v2/app/modules/start/subModules/perfil/perfil_controller.dart';
 import 'package:prossumidor_v2/app/shared/auth/auth_controller.dart';
 
 part 'endereco_controller.g.dart';
@@ -18,8 +20,12 @@ abstract class _EnderecoControllerBase with Store {
     cidade = TextEditingController(text: authController.usuario.cidade);
     uf = TextEditingController(text: authController.usuario.estado);
     cep = TextEditingController(text: authController.usuario.cep);
+    dropdownvalue = authController.usuario.empresa;
   }
+
   final AuthController authController = Modular.get<AuthController>();
+  final PerfilController perfilController = Modular.get<PerfilController>();
+  final HomeController homeController = Modular.get<HomeController>();
 
   @observable
   GlobalKey<FormState> formkeyPage = new GlobalKey<FormState>();
@@ -48,6 +54,12 @@ abstract class _EnderecoControllerBase with Store {
   @observable
   bool pageValid = false;
 
+  @observable
+  String dropdownvalue;
+
+  @action
+  mudaDropDown(String value) => dropdownvalue = value;
+
   @action
   isPageValid() {
     if (formkeyPage.currentState.validate())
@@ -65,5 +77,8 @@ abstract class _EnderecoControllerBase with Store {
     authController.usuario.cidade = cidade.text;
     authController.usuario.estado = uf.text;
     authController.usuario.cep = cep.text;
+    authController.usuario.empresa = dropdownvalue;
+    perfilController.centroDistribuicao = dropdownvalue;
+    homeController.centroDistribuicao = dropdownvalue;
   }
 }

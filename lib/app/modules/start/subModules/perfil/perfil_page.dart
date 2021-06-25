@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/constants.dart';
 import 'package:prossumidor_v2/app/shared/auth/auth_controller.dart';
@@ -46,30 +47,47 @@ class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
                   ),
                 )),
           ),
-          Text(
-            "Gustavo Alecio de Oliveira",
-            style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  fontSize: 18,
-                  color: Theme.of(context)
-                      .textTheme
-                      .bodyText1
-                      .color
-                      .withOpacity(0.9),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Flexible(
+                child: Text(
+                  "Gustavo Alecio de Oliveira",
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        fontSize: 20,
+                        color: Theme.of(context)
+                            .textTheme
+                            .bodyText1
+                            .color
+                            .withOpacity(0.9),
+                      ),
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
                 ),
+              ),
+            ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                "Cidade: Cuiabá",
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
-                      fontSize: 12,
-                      color: Theme.of(context)
-                          .textTheme
-                          .bodyText1
-                          .color
-                          .withOpacity(0.8),
-                    ),
+              Flexible(
+                child: Observer(builder: (_) {
+                  return Text(
+                    "Centro de distribuição: ${controller.centroDistribuicao}",
+                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                          fontSize: 14,
+                          color: Theme.of(context)
+                              .textTheme
+                              .bodyText1
+                              .color
+                              .withOpacity(0.8),
+                        ),
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                  );
+                }),
               )
             ],
           ),
@@ -94,7 +112,7 @@ class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
                 ),
                 ListTitlePerfil(
                   title: "Meus Dados",
-                  subtitle: "Minhas informações de conta",
+                  subtitle: "Minhas informações pessoais",
                   iconData: Icons.person,
                   function: () {
                     Navigator.of(context).pushNamed('/meus_dados');

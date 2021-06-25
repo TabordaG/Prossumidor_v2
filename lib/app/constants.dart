@@ -12,6 +12,11 @@ const kCardColor = Color(0xFFF6F6F6);
 
 const kDefaultPadding = 20.0;
 
+List<String> centroDistribuicao = [
+  "Cuiabá",
+  "Rondonópolis",
+];
+
 List<Subcategoria> subcategoriaList = [
   Subcategoria(
     subcategoria_id: 0,

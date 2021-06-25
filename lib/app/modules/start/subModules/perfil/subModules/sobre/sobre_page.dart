@@ -93,6 +93,66 @@ class _SobrePageState extends ModularState<SobrePage, SobreController> {
                       ),
                     ],
                   ),
+                  ExpansionTile(
+                    title: Text(
+                      "Equipe Recoopsol",
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            color: kPrimaryColor,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                          ),
+                    ),
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: kDefaultPadding * 0.8,
+                          right: kDefaultPadding * 0.8,
+                          bottom: kDefaultPadding,
+                        ),
+                        child: Text(text1),
+                      ),
+                    ],
+                  ),
+                  ExpansionTile(
+                    title: Text(
+                      "Equipe TI",
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            color: kPrimaryColor,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                          ),
+                    ),
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: kDefaultPadding * 0.8,
+                          right: kDefaultPadding * 0.8,
+                          bottom: kDefaultPadding,
+                        ),
+                        child: Text(text1),
+                      ),
+                    ],
+                  ),
+                  ExpansionTile(
+                    title: Text(
+                      "Apoio",
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            color: kPrimaryColor,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                          ),
+                    ),
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: kDefaultPadding * 0.8,
+                          right: kDefaultPadding * 0.8,
+                          bottom: kDefaultPadding,
+                        ),
+                        child: Text(text1),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

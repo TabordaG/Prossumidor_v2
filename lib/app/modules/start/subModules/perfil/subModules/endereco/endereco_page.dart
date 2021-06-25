@@ -41,9 +41,9 @@ class _EnderecoPageState
           ],
         ),
       ),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Center(
+      body: Center(
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Padding(
             padding: EdgeInsets.fromLTRB(kDefaultPadding, kDefaultPadding,
                 kDefaultPadding, kDefaultPadding * 0.5),
@@ -320,6 +320,59 @@ class _EnderecoPageState
                                   Icons.location_on,
                                   color: Theme.of(context).primaryColor,
                                 ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: kDefaultPadding,
+                                vertical: kDefaultPadding * 0.5),
+                            child: Container(
+                              height: 50,
+                              width: double.infinity,
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: kDefaultPadding * 0.7),
+                                    child: Icon(Icons.local_shipping_rounded,
+                                        color: Theme.of(context).primaryColor),
+                                  ),
+                                  Observer(builder: (_) {
+                                    return Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            left: kDefaultPadding * 0.5),
+                                        child: DropdownButton<String>(
+                                          isExpanded: true,
+                                          value: controller.dropdownvalue,
+                                          //icon: const Icon(Icons.arrow_downward),
+                                          //iconSize: 24,
+                                          elevation: 16,
+                                          underline: Container(
+                                            height: 2,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .secondary,
+                                          ),
+                                          onChanged: (String newValue) {
+                                            setState(() {
+                                              controller.mudaDropDown(newValue);
+                                            });
+                                          },
+                                          items: centroDistribuicao
+                                              .map<DropdownMenuItem<String>>(
+                                                  (String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(value),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                                ],
                               ),
                             ),
                           ),
