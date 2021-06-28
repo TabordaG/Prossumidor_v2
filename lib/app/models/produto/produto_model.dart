@@ -48,3 +48,21 @@ class Produto {
 
   Map<String, dynamic> toJson() => _$ProdutoToJson(this);
 }
+
+@JsonSerializable(explicitToJson: true)
+class ProdutoPedido {
+  @JsonKey(required: false, disallowNullValue: false)
+  Produto produto;
+  @JsonKey(required: false, disallowNullValue: false)
+  double quantidade;
+
+  ProdutoPedido({
+    this.produto,
+    this.quantidade,
+  });
+
+  factory ProdutoPedido.fromJson(Map<String, dynamic> json) =>
+      _$ProdutoPedidoFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProdutoPedidoToJson(this);
+}

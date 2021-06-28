@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prossumidor_v2/app/models/pedidos/pedidos_model.dart';
 import 'package:prossumidor_v2/app/models/produto/produto_model.dart';
 import 'package:prossumidor_v2/app/models/subcategoria/subcategoria_model.dart';
 
@@ -297,5 +298,388 @@ List<Produto> produtoList = [
     unidade: 'Unidade',
     categorias: [3],
     distribuicao: 'Recoopsol',
+  ),
+];
+
+List<Pedidos> pedidosListEntregues = [
+  Pedidos(
+    pedidos_id: 1,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "Entregue",
+    pagamento: "Dinheiro",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+  Pedidos(
+    pedidos_id: 2,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "Entregue",
+    pagamento: "Crédito",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+  Pedidos(
+    pedidos_id: 3,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "Entregue",
+    pagamento: "Pix",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+  Pedidos(
+    pedidos_id: 4,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "Entregue",
+    pagamento: "Dinheiro",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+  Pedidos(
+    pedidos_id: 5,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "Entregue",
+    pagamento: "Dinheiro",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+  Pedidos(
+    pedidos_id: 6,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "Entregue",
+    pagamento: "Dinheiro",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+  Pedidos(
+    pedidos_id: 7,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "Entregue",
+    pagamento: "Dinheiro",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+  Pedidos(
+    pedidos_id: 8,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "Entregue",
+    pagamento: "Dinheiro",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+];
+
+List<Pedidos> pedidosListNaoEntregues = [
+  Pedidos(
+    pedidos_id: 1,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "EM ANDAMENTO",
+    pagamento: "Dinheiro",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+  Pedidos(
+    pedidos_id: 2,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "EM ANDAMENTO",
+    pagamento: "Dinheiro",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+  Pedidos(
+    pedidos_id: 3,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "CANCELADO",
+    pagamento: "Dinheiro",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+  Pedidos(
+    pedidos_id: 4,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "CANCELADO",
+    pagamento: "Dinheiro",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+  Pedidos(
+    pedidos_id: 5,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "EM ANDAMENTO",
+    pagamento: "Dinheiro",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
   ),
 ];

@@ -35,3 +35,18 @@ Map<String, dynamic> _$ProdutoToJson(Produto instance) => <String, dynamic>{
       'categorias': instance.categorias,
       'distribuicao': instance.distribuicao,
     };
+
+ProdutoPedido _$ProdutoPedidoFromJson(Map<String, dynamic> json) {
+  return ProdutoPedido(
+    produto: json['produto'] == null
+        ? null
+        : Produto.fromJson(json['produto'] as Map<String, dynamic>),
+    quantidade: (json['quantidade'] as num)?.toDouble(),
+  );
+}
+
+Map<String, dynamic> _$ProdutoPedidoToJson(ProdutoPedido instance) =>
+    <String, dynamic>{
+      'produto': instance.produto?.toJson(),
+      'quantidade': instance.quantidade,
+    };
