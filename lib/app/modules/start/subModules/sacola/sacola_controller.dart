@@ -8,16 +8,34 @@ class SacolaController = _SacolaControllerBase with _$SacolaController;
 
 abstract class _SacolaControllerBase with Store {
   @observable
+  int total = 40;
+
+  @observable
   int entrega = 0;
 
   @action
-  setEntrega(int valor) => entrega = valor;
+  setEntrega(int valor) {
+    entrega = valor;
+    if (valor == 1) {
+      setFrete(0.0);
+      total = 40;
+    } else {
+      setFrete(5.0);
+      total = 45;
+    }
+  }
 
   @observable
-  bool verDetalhes = false;
+  int pagamento = 0;
 
   @action
-  setVerDetalhes(bool valor) => verDetalhes = valor;
+  setPagamento(int valor) => pagamento = valor;
+
+  @observable
+  double frete = 5.0;
+
+  @action
+  setFrete(double valor) => frete = valor;
 
   @observable
   int value = 1;

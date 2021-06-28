@@ -65,7 +65,7 @@ abstract class _AuthControllerBase with Store {
     usuario.telefone = '(00) 9 0000-0000';
     usuario.endereco = "Rua Manoel";
     usuario.numero = "123";
-    usuario.complemento = "apto";
+    usuario.complemento = "Apto 16 Bloco A";
     usuario.bairro = "Bairro";
     usuario.cidade = "Cuiabá";
     usuario.estado = "MT";

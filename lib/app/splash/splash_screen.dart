@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:prossumidor_v2/app/shared/auth/auth_controller.dart';
@@ -21,10 +22,11 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     final AuthController auth = Modular.get();
-    super.initState();
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+
     disposer = autorun((_) async {
       // ### Verifica se possui o e-mail salvo no sharedPreference
-      Future.delayed(Duration(seconds: 3), () async {
+      Future.delayed(Duration(seconds: 2), () async {
         int response = await auth.verificaLogado();
         switch (response) {
           case 0:
@@ -41,11 +43,14 @@ class _SplashScreenState extends State<SplashScreen>
         }
       });
     });
+    super.initState();
   }
 
   void dispose() {
-    super.dispose();
+    SystemChrome.setEnabledSystemUIOverlays(
+        [SystemUiOverlay.top, SystemUiOverlay.bottom]);
     disposer();
+    super.dispose();
   }
 
   @override
@@ -53,13 +58,17 @@ class _SplashScreenState extends State<SplashScreen>
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       backgroundColor: Theme.of(context).primaryColor,
-      body: Center(
-        child: Hero(
-          tag: 'LogoSplash',
-          child: Image(
-            image: AssetImage("assets/images/logo_splash.png"),
+      body: Stack(
+        children: [
+          Center(
+            child: Image(
+              image: AssetImage("assets/images/logo_splash.png"),
+            ),
           ),
-        ),
+          Center(
+            child: CircularProgressIndicator(),
+          )
+        ],
       ),
     );
   }

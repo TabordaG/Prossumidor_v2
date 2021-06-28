@@ -254,246 +254,6 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
               color:
                   Theme.of(context).textTheme.bodyText1.color.withOpacity(.8),
             ),
-            Theme(
-              data: Theme.of(context).copyWith(
-                dividerColor: Colors.transparent,
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-              ),
-              child: Observer(builder: (_) {
-                return ExpansionTile(
-                  onExpansionChanged: (value) {
-                    setState(() {
-                      controller.setVerDetalhes(value);
-                    });
-                  },
-                  tilePadding: EdgeInsets.only(left: kDefaultPadding),
-                  title: Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(kDefaultPadding * .25),
-                      child: Center(
-                        child: Text(
-                          controller.verDetalhes
-                              ? 'Ocultar Detalhes'
-                              : 'Ver Detalhes',
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                fontSize: 16,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  trailing: Text(''),
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: kDefaultPadding * .3,
-                        left: kDefaultPadding * .5,
-                        right: kDefaultPadding * .5,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Sub-Total',
-                            style:
-                                Theme.of(context).textTheme.bodyText1.copyWith(
-                                      fontSize: 16,
-                                    ),
-                          ),
-                          Text(
-                            'R\$ 40,00',
-                            style:
-                                Theme.of(context).textTheme.bodyText1.copyWith(
-                                      fontSize: 16,
-                                    ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      thickness: .3,
-                      indent: kDefaultPadding * .5,
-                      endIndent: kDefaultPadding * .5,
-                      color: Theme.of(context)
-                          .textTheme
-                          .bodyText1
-                          .color
-                          .withOpacity(.4),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        right: kDefaultPadding * .5,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Radio(
-                                value: 0,
-                                activeColor: Theme.of(context).primaryColor,
-                                groupValue: controller.entrega,
-                                onChanged: (value) {
-                                  setState(() {
-                                    controller.setEntrega(value);
-                                  });
-                                },
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    controller.setEntrega(0);
-                                  });
-                                },
-                                child: Text(
-                                  'Entrega em\ndomicílio',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      .copyWith(
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1
-                                            .color
-                                            .withOpacity(.8),
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Radio(
-                                value: 1,
-                                activeColor: Theme.of(context).primaryColor,
-                                groupValue: controller.entrega,
-                                onChanged: (value) {
-                                  setState(() {
-                                    controller.setEntrega(value);
-                                  });
-                                },
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    controller.setEntrega(1);
-                                  });
-                                },
-                                child: Text(
-                                  'Retirar no Local',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      .copyWith(
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1
-                                            .color
-                                            .withOpacity(.8),
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: kDefaultPadding * .2,
-                        left: kDefaultPadding * .5,
-                        right: kDefaultPadding * .5,
-                        bottom: kDefaultPadding * .25,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Taxa de Entrega',
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                          Text(
-                            'R\$ 5,00',
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      thickness: .3,
-                      indent: kDefaultPadding * .5,
-                      endIndent: kDefaultPadding * .5,
-                      color: Theme.of(context)
-                          .textTheme
-                          .bodyText1
-                          .color
-                          .withOpacity(.4),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        left: kDefaultPadding * .6,
-                        right: kDefaultPadding * .5,
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.location_on,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          SizedBox(
-                            width: kDefaultPadding * .8,
-                          ),
-                          Text(
-                            'Visualizar Endereço',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                .copyWith(fontSize: 14),
-                          ),
-                          Spacer(),
-                          Icon(
-                            Icons.chevron_right,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ],
-                      ),
-
-                      // ListTile(
-                      //   leading: Icon(
-                      //     Icons.location_on,
-                      //     color: Theme.of(context).primaryColor,
-                      //   ),
-                      //   title: Text(
-                      //     'Visualizar Endereço',
-                      //     style: Theme.of(context)
-                      //         .textTheme
-                      //         .bodyText1
-                      //         .copyWith(fontSize: 16),
-                      //   ),
-                      //   trailing: Icon(
-                      //     Icons.chevron_right,
-                      //     color: Theme.of(context).primaryColor,
-                      //   ),
-                      // ),
-                    ),
-                    Divider(
-                      thickness: .3,
-                      indent: kDefaultPadding * .5,
-                      endIndent: kDefaultPadding * .5,
-                      color: Theme.of(context)
-                          .textTheme
-                          .bodyText1
-                          .color
-                          .withOpacity(.4),
-                    ),
-                  ],
-                );
-              }),
-            ),
             Padding(
               padding: EdgeInsets.only(
                 top: kDefaultPadding * .2,
@@ -505,19 +265,21 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Total',
+                    'Subtotal',
                     style: Theme.of(context).textTheme.bodyText1.copyWith(
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
                         ),
                   ),
-                  Text(
-                    'R\$ 45,00',
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                        ),
-                  ),
+                  Observer(builder: (_) {
+                    return Text(
+                      'R\$ 40,00',
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                          ),
+                    );
+                  }),
                 ],
               ),
             ),
@@ -528,9 +290,10 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                   minWidth: double.infinity,
                   height: 45,
                   child: StandardButton(
-                    onPressed: () {},
+                    onPressed: () =>
+                        Modular.to.pushNamed('/sacola/confirmarEndereco'),
                     color: Theme.of(context).primaryColor,
-                    text: 'Confirmar Pedido',
+                    text: 'Confirmar Produtos',
                   ),
                 ),
               ),
