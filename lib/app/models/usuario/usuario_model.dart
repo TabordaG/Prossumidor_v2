@@ -49,6 +49,9 @@ class Usuario {
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
   int empresa_id;
+  @JsonKey(required: false, disallowNullValue: false)
+  String empresa;
+  
 
   Usuario({
     // ignore: non_constant_identifier_names
@@ -75,6 +78,7 @@ class Usuario {
     this.senha,
     // ignore: non_constant_identifier_names
     this.empresa_id,
+    this.empresa
   });
 
   factory Usuario.fromJson(Map<String, dynamic> json) =>

@@ -154,8 +154,35 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
     });
   }
 
+  final _$dropdownvalueAtom =
+      Atom(name: '_EnderecoControllerBase.dropdownvalue');
+
+  @override
+  String get dropdownvalue {
+    _$dropdownvalueAtom.reportRead();
+    return super.dropdownvalue;
+  }
+
+  @override
+  set dropdownvalue(String value) {
+    _$dropdownvalueAtom.reportWrite(value, super.dropdownvalue, () {
+      super.dropdownvalue = value;
+    });
+  }
+
   final _$_EnderecoControllerBaseActionController =
       ActionController(name: '_EnderecoControllerBase');
+
+  @override
+  dynamic mudaDropDown(String value) {
+    final _$actionInfo = _$_EnderecoControllerBaseActionController.startAction(
+        name: '_EnderecoControllerBase.mudaDropDown');
+    try {
+      return super.mudaDropDown(value);
+    } finally {
+      _$_EnderecoControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic isPageValid() {
@@ -190,7 +217,8 @@ bairro: ${bairro},
 cidade: ${cidade},
 uf: ${uf},
 cep: ${cep},
-pageValid: ${pageValid}
+pageValid: ${pageValid},
+dropdownvalue: ${dropdownvalue}
     ''';
   }
 }

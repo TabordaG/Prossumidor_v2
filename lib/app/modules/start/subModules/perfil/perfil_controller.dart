@@ -9,10 +9,14 @@ part 'perfil_controller.g.dart';
 class PerfilController = _PerfilControllerBase with _$PerfilController;
 
 abstract class _PerfilControllerBase with Store {
+  _PerfilControllerBase() {
+    centroDistribuicao = authController.usuario.empresa;
+  }
   final AuthController authController = Modular.get<AuthController>();
 
   @observable
-  ScrollController scrollController;
+  String centroDistribuicao;
 
-  
+  @observable
+  ScrollController scrollController;
 }

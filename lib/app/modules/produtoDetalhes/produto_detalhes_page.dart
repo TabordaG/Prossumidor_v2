@@ -97,21 +97,8 @@ class _ProdutoDetalhesPageState
                 top: kDefaultPadding * .1,
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Flexible(
-                    child: Text(
-                      widget.produto.distribuicao,
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            fontSize: 14,
-                            color: Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                .color
-                                .withOpacity(.8),
-                          ),
-                    ),
-                  ),
                   Padding(
                     padding: EdgeInsets.only(left: kDefaultPadding),
                     child: Text(

@@ -32,9 +32,9 @@ class _MeusDadosPageState
           ],
         ),
       ),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Center(
+      body: Center(
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Padding(
             padding: EdgeInsets.symmetric(
                 vertical: kDefaultPadding, horizontal: kDefaultPadding),
