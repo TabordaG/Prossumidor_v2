@@ -72,7 +72,7 @@ class LoginRepository implements ILoginRepository {
     try {
       if (response.data != null && response.statusCode == 200) {
         var respondeDecoded = Basicos.decodifica(response.data);
-        print(respondeDecoded);
+        //print(respondeDecoded);
         List list = json.decode(respondeDecoded).cast<Map<String, dynamic>>();
         Basicos.empresaID = list[0]['empresa_id'].toString();
         Basicos.localRetiradaID = list[0]['local_retirada_id'].toString();
