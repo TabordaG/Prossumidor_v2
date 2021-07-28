@@ -1,5 +1,4 @@
-import 'package:prossumidor_v2/app/modules/start/subModules/sacola/confirmarEndereco.dart';
-import 'package:prossumidor_v2/app/modules/start/subModules/sacola/confirmarPedido_page.dart';
+import 'package:prossumidor_v2/app/modules/start/subModules/sacola/confirmarEndereco_page.dart';
 
 import 'repositories/sacola_repository.dart';
 import 'sacola_controller.dart';
@@ -19,11 +18,6 @@ class SacolaModule extends ChildModule {
         ModularRouter(
           Modular.initialRoute,
           child: (_, args) => SacolaPage(),
-          transition: TransitionType.rightToLeft,
-        ),
-        ModularRouter(
-          '/confirmarPedido',
-          child: (_, args) => ConfirmarPedido(),
           transition: TransitionType.rightToLeft,
         ),
         ModularRouter(

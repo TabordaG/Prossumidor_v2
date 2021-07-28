@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/components/button.dart';
 import 'package:prossumidor_v2/app/constants.dart';
@@ -271,15 +270,13 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                           fontWeight: FontWeight.w700,
                         ),
                   ),
-                  Observer(builder: (_) {
-                    return Text(
-                      'R\$ 40,00',
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                          ),
-                    );
-                  }),
+                  Text(
+                    'R\$ 40,00',
+                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                        ),
+                  ),
                 ],
               ),
             ),

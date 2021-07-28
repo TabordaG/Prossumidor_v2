@@ -63,10 +63,15 @@ class _SplashScreenState extends State<SplashScreen>
           Center(
             child: Image(
               image: AssetImage("assets/images/logo_splash.png"),
+              fit: BoxFit.cover,
             ),
           ),
-          Center(
-            child: CircularProgressIndicator(),
+          Positioned(
+            top: MediaQuery.of(context).size.height * .75,
+            right: MediaQuery.of(context).size.width * .45,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
           )
         ],
       ),

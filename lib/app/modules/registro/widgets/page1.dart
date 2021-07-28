@@ -118,7 +118,7 @@ class _RegistrarPage1State extends State<RegistrarPage1> {
               child: TextFormField(
                 onChanged: (value) => controller.setTelefone(value),
                 keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.next,
+                textInputAction: TextInputAction.done,
                 onEditingComplete: node.unfocus,
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
@@ -245,7 +245,7 @@ class _RegistrarPage1State extends State<RegistrarPage1> {
                     enabled: controller.genero == 2 ? true : false,
                     onChanged: (value) => controller.setGeneroOutro(value),
                     keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
+                    textInputAction: TextInputAction.done,
                     textCapitalization: TextCapitalization.words,
                     decoration: InputDecoration(
                       isDense: true,
