@@ -55,16 +55,16 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    double heigth = MediaQuery.of(context).size.height;
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      //resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).primaryColor,
       body: Stack(
         children: [
-          Center(
-            child: Image(
-              image: AssetImage("assets/images/logo_splash.png"),
-              fit: BoxFit.cover,
-            ),
+          Image(
+            image: AssetImage("assets/images/logo_splash.png"),
+            fit: BoxFit.cover,
+            height: heigth,
           ),
           Positioned(
             top: MediaQuery.of(context).size.height * .75,

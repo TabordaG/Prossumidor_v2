@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prossumidor_v2/app/models/chat/chat_model.dart';
+import 'package:prossumidor_v2/app/models/pedidos/pedidos_model.dart';
 import 'package:prossumidor_v2/app/models/produto/produto_model.dart';
 import 'package:prossumidor_v2/app/models/subcategoria/subcategoria_model.dart';
 
@@ -299,3 +301,513 @@ List<Produto> produtoList = [
     distribuicao: 'Recoopsol',
   ),
 ];
+
+List<Pedidos> pedidosListEntregues = [
+  Pedidos(
+    pedidos_id: 1,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "Entregue",
+    pagamento: "Dinheiro",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+  Pedidos(
+    pedidos_id: 2,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "Entregue",
+    pagamento: "Crédito",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+  Pedidos(
+    pedidos_id: 3,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "Entregue",
+    pagamento: "Pix",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+  Pedidos(
+    pedidos_id: 4,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "Entregue",
+    pagamento: "Dinheiro",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+  Pedidos(
+    pedidos_id: 5,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "Entregue",
+    pagamento: "Dinheiro",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+  Pedidos(
+    pedidos_id: 6,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "Entregue",
+    pagamento: "Dinheiro",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+  Pedidos(
+    pedidos_id: 7,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "Entregue",
+    pagamento: "Dinheiro",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+  Pedidos(
+    pedidos_id: 8,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "Entregue",
+    pagamento: "Dinheiro",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+];
+
+List<Pedidos> pedidosListNaoEntregues = [
+  Pedidos(
+    pedidos_id: 1,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "EM ANDAMENTO",
+    pagamento: "Dinheiro",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+  Pedidos(
+    pedidos_id: 2,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "EM ANDAMENTO",
+    pagamento: "Dinheiro",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+  Pedidos(
+    pedidos_id: 3,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "CANCELADO",
+    pagamento: "Dinheiro",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+  Pedidos(
+    pedidos_id: 4,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "CANCELADO",
+    pagamento: "Dinheiro",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+  Pedidos(
+    pedidos_id: 5,
+    fornecedor: "Recoopsol",
+    itens: 3,
+    data: "19/05/2021",
+    tipo_entrega: "Entrega",
+    situacao: "EM ANDAMENTO",
+    pagamento: "Dinheiro",
+    frete: 5.00,
+    total: 36.18,
+    produtos: [
+      ProdutoPedido(
+        produto: produtoList[0],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[1],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[2],
+        quantidade: 2,
+      ),
+      ProdutoPedido(
+        produto: produtoList[3],
+        quantidade: 2,
+      ),
+    ],
+  ),
+];
+
+// String mensagem = 'Ola';
+// List<Chat> listaempresa = [
+//   Chat(
+//       chat_id: 1,
+//       status: 'Enviado',
+//       situacao: 'Cliente-Produtor',
+//       data_envio: DateTime.utc(2021, 07, 09, 11, 11, 00),
+//       id_cliente: 56,
+//       id_empresa: 04,
+//       nome_empresa: "Banho do Cerrado",
+//       mensagem:
+//           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt aliquet elit eu fringilla. Donec eget pretium augue. Pellentesque volutpat tortor erat, non venenatis ex facilisis dapibus. Proin lacus quam, ornare in neque vitae, euismod venenatis ante. Phasellus ac augue vel mauris ornare porttitor. '),
+//   Chat(
+//     chat_id: 2,
+//     status: 'Lido',
+//     situacao: 'Produtor-Cliente',
+//     data_envio: DateTime.utc(2021, 07, 09, 11, 10, 00),
+//     id_cliente: 56,
+//     id_empresa: 04,
+//     nome_empresa: "Banho do Cerrado",
+//     mensagem: mensagem,
+//   ),
+//   Chat(
+//     chat_id: 3,
+//     status: 'Recebido',
+//     situacao: 'Cliente-Produtor',
+//     data_envio: DateTime.utc(2021, 07, 09, 11, 08, 00),
+//     id_cliente: 56,
+//     id_empresa: 04,
+//     nome_empresa: "Banho do Cerrado",
+//     mensagem: mensagem,
+//   ),
+//   Chat(
+//     chat_id: 4,
+//     status: 'Apagado',
+//     situacao: 'Produtor-Cliente',
+//     data_envio: DateTime.utc(2021, 07, 09, 11, 07, 00),
+//     id_cliente: 56,
+//     id_empresa: 04,
+//     nome_empresa: "Banho do Cerrado",
+//     mensagem: mensagem,
+//   ),
+//   Chat(
+//     chat_id: 5,
+//     status: 'Enviado',
+//     situacao: 'Cliente-Produtor',
+//     data_envio: DateTime.utc(2021, 07, 09, 11, 06, 00),
+//     id_cliente: 11,
+//     id_empresa: 04,
+//     nome_empresa: "Banho do Cerrado",
+//     mensagem: mensagem,
+//   ),
+//   Chat(
+//     chat_id: 6,
+//     status: 'Lido',
+//     situacao: 'Produtor-Cliente',
+//     data_envio: DateTime.utc(2021, 07, 09, 11, 5, 00),
+//     id_cliente: 11,
+//     id_empresa: 04,
+//     nome_empresa: "Banho do Cerrado",
+//     mensagem: mensagem,
+//   ),
+//   Chat(
+//     chat_id: 7,
+//     status: 'Enviado',
+//     situacao: 'Cliente-Produtor',
+//     data_envio: DateTime.utc(2021, 07, 09, 11, 04, 00),
+//     id_cliente: 56,
+//     id_empresa: 05,
+//     nome_empresa: "Mamãe que Fez",
+//     mensagem: mensagem,
+//   ),
+//   Chat(
+//     chat_id: 8,
+//     status: 'Lido',
+//     situacao: 'Produtor-Cliente',
+//     data_envio: DateTime.utc(2021, 07, 09, 11, 01, 00),
+//     id_cliente: 56,
+//     id_empresa: 05,
+//     nome_empresa: "Mamãe que Fez",
+//     mensagem: mensagem,
+//   ),
+//   Chat(
+//     chat_id: 9,
+//     status: 'Recebido',
+//     situacao: 'Cliente-Produtor',
+//     data_envio: DateTime.utc(2021, 07, 09, 11, 03, 00),
+//     id_cliente: 56,
+//     id_empresa: 05,
+//     nome_empresa: "Mamãe que Fez",
+//     mensagem: mensagem,
+//   ),
+//   Chat(
+//     chat_id: 10,
+//     status: 'Apagado',
+//     situacao: 'Produtor-Cliente',
+//     data_envio: DateTime.utc(2021, 07, 09, 11, 02, 00),
+//     id_cliente: 56,
+//     id_empresa: 05,
+//     nome_empresa: "Mamãe que Fez",
+//     mensagem: mensagem,
+//   ),
+// ];
+
+// List<Chat> listaChat = [
+//   Chat(
+//     chat_id: 7,
+//     status: 'Apagado',
+//     situacao: 'Cliente-Produtor',
+//     data_envio: DateTime.utc(2021, 07, 09, 09, 04, 00),
+//     id_cliente: 56,
+//     id_empresa: 05,
+//     nome_empresa: "Mamãe que Fez",
+//     mensagem: mensagem,
+//   ),
+//   Chat(
+//     chat_id: 1,
+//     status: 'Recebido',
+//     situacao: 'Cliente-Produtor',
+//     data_envio: DateTime.utc(2021, 07, 09, 13, 11, 00),
+//     id_cliente: 56,
+//     id_empresa: 04,
+//     nome_empresa: "Banho do Cerrado",
+//     mensagem: mensagem,
+//   )
+// ];
