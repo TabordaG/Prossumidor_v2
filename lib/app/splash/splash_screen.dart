@@ -66,8 +66,12 @@ class _SplashScreenState extends State<SplashScreen>
             fit: BoxFit.cover,
             height: heigth,
           ),
-          Center(
-            child: CircularProgressIndicator(),
+          Positioned(
+            top: MediaQuery.of(context).size.height * .75,
+            right: MediaQuery.of(context).size.width * .45,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
           )
         ],
       ),
