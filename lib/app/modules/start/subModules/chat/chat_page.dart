@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/constants.dart';
+import 'package:prossumidor_v2/app/modules/start/subModules/chat/chat_individual_page.dart';
+import 'package:prossumidor_v2/app/modules/start/subModules/chat/components/cardChat.dart';
+import 'package:prossumidor_v2/app/shared/auth/auth_controller.dart';
 import 'chat_controller.dart';
 
 class ChatPage extends StatefulWidget {
@@ -12,30 +16,41 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends ModularState<ChatPage, ChatController> {
-  //use 'controller' variable to access controller
-
+  final ChatController chatController = Modular.get<ChatController>();
+  final AuthController authController = Modular.get<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              Icons.chat,
-              color: Colors.white,
-            ),
-            SizedBox(
-              width: kDefaultPadding * .25,
-            ),
-            Text(widget.title),
-          ],
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.white),
+          title: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.chat,
+                color: Colors.white,
+              ),
+              SizedBox(
+                width: kDefaultPadding * .25,
+              ),
+              Text(widget.title),
+            ],
+          ),
         ),
-      ),
-      body: Column(
-        children: <Widget>[],
-      ),
-    );
+        body: ListView.builder(
+          itemCount: chatController.totalConversas(),
+          itemBuilder: (context, index) {
+            return Observer(builder: (_) {
+              return CardChat(
+                chat: chatController.listaConversas[index],
+                onTap: () async {
+                  await chatController.buscaMensagens(
+                      chatController.listaConversas[index].id_empresa);
+                  Modular.to.pushNamed('chat/chatIndividual');
+                },
+              );
+            });
+          },
+        ));
   }
 }
