@@ -36,7 +36,7 @@ class _RecuperarSenhaPage1State extends State<RecuperarSenhaPage1> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
             child: TextFormField(
-              onChanged: (value) => controller.setEmail(value),
+              controller: controller.email,
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.done,
               textCapitalization: TextCapitalization.none,

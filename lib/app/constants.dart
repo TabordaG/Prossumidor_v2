@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:prossumidor_v2/app/models/chat/chat_model.dart';
 import 'package:prossumidor_v2/app/models/pedidos/pedidos_model.dart';
 import 'package:prossumidor_v2/app/models/produto/produto_model.dart';
 import 'package:prossumidor_v2/app/models/subcategoria/subcategoria_model.dart';

@@ -40,7 +40,7 @@ class _RecuperarSenhaPage3State extends State<RecuperarSenhaPage3> {
               return TextFormField(
                 obscureText: controller.obscureSenha1,
                 textInputAction: TextInputAction.next,
-                onChanged: (value) => controller.setSenha(value),
+                controller: controller.senha,
                 validator: (value) {
                   if (value.isEmpty) {
                     return "O campo senha não pode ficar vazio";
@@ -79,11 +79,11 @@ class _RecuperarSenhaPage3State extends State<RecuperarSenhaPage3> {
               return TextFormField(
                 obscureText: controller.obscureSenha2,
                 textInputAction: TextInputAction.done,
-                onChanged: (value) => controller.setSenha(value),
+                controller: controller.confirmarSenha,
                 validator: (value) {
                   if (value.isEmpty) {
                     return "O campo confirmar senha não pode ficar vazio";
-                  } else if (value != controller.senha) {
+                  } else if (value != controller.senha.text) {
                     return "Senhas não coincidem";
                   }
                   return null;

@@ -87,13 +87,13 @@ mixin _$RecuperarSenhaController on _RecuperarSenhaControllerBase, Store {
   final _$codeAtom = Atom(name: '_RecuperarSenhaControllerBase.code');
 
   @override
-  String get code {
+  TextEditingController get code {
     _$codeAtom.reportRead();
     return super.code;
   }
 
   @override
-  set code(String value) {
+  set code(TextEditingController value) {
     _$codeAtom.reportWrite(value, super.code, () {
       super.code = value;
     });
@@ -102,13 +102,13 @@ mixin _$RecuperarSenhaController on _RecuperarSenhaControllerBase, Store {
   final _$emailAtom = Atom(name: '_RecuperarSenhaControllerBase.email');
 
   @override
-  String get email {
+  TextEditingController get email {
     _$emailAtom.reportRead();
     return super.email;
   }
 
   @override
-  set email(String value) {
+  set email(TextEditingController value) {
     _$emailAtom.reportWrite(value, super.email, () {
       super.email = value;
     });
@@ -117,15 +117,31 @@ mixin _$RecuperarSenhaController on _RecuperarSenhaControllerBase, Store {
   final _$senhaAtom = Atom(name: '_RecuperarSenhaControllerBase.senha');
 
   @override
-  String get senha {
+  TextEditingController get senha {
     _$senhaAtom.reportRead();
     return super.senha;
   }
 
   @override
-  set senha(String value) {
+  set senha(TextEditingController value) {
     _$senhaAtom.reportWrite(value, super.senha, () {
       super.senha = value;
+    });
+  }
+
+  final _$confirmarSenhaAtom =
+      Atom(name: '_RecuperarSenhaControllerBase.confirmarSenha');
+
+  @override
+  TextEditingController get confirmarSenha {
+    _$confirmarSenhaAtom.reportRead();
+    return super.confirmarSenha;
+  }
+
+  @override
+  set confirmarSenha(TextEditingController value) {
+    _$confirmarSenhaAtom.reportWrite(value, super.confirmarSenha, () {
+      super.confirmarSenha = value;
     });
   }
 
@@ -224,41 +240,25 @@ mixin _$RecuperarSenhaController on _RecuperarSenhaControllerBase, Store {
     });
   }
 
+  final _$setNextPageAsyncAction =
+      AsyncAction('_RecuperarSenhaControllerBase.setNextPage');
+
+  @override
+  Future<bool> setNextPage(ProgressDialog progressDialog) {
+    return _$setNextPageAsyncAction
+        .run(() => super.setNextPage(progressDialog));
+  }
+
+  final _$verificarEmailAsyncAction =
+      AsyncAction('_RecuperarSenhaControllerBase.verificarEmail');
+
+  @override
+  Future<bool> verificarEmail() {
+    return _$verificarEmailAsyncAction.run(() => super.verificarEmail());
+  }
+
   final _$_RecuperarSenhaControllerBaseActionController =
       ActionController(name: '_RecuperarSenhaControllerBase');
-
-  @override
-  dynamic setCode(String valor) {
-    final _$actionInfo = _$_RecuperarSenhaControllerBaseActionController
-        .startAction(name: '_RecuperarSenhaControllerBase.setCode');
-    try {
-      return super.setCode(valor);
-    } finally {
-      _$_RecuperarSenhaControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setEmail(String valor) {
-    final _$actionInfo = _$_RecuperarSenhaControllerBaseActionController
-        .startAction(name: '_RecuperarSenhaControllerBase.setEmail');
-    try {
-      return super.setEmail(valor);
-    } finally {
-      _$_RecuperarSenhaControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setSenha(String valor) {
-    final _$actionInfo = _$_RecuperarSenhaControllerBaseActionController
-        .startAction(name: '_RecuperarSenhaControllerBase.setSenha');
-    try {
-      return super.setSenha(valor);
-    } finally {
-      _$_RecuperarSenhaControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
 
   @override
   dynamic setObscureSenha1(bool valor) {
@@ -327,17 +327,6 @@ mixin _$RecuperarSenhaController on _RecuperarSenhaControllerBase, Store {
   }
 
   @override
-  dynamic setNextPage() {
-    final _$actionInfo = _$_RecuperarSenhaControllerBaseActionController
-        .startAction(name: '_RecuperarSenhaControllerBase.setNextPage');
-    try {
-      return super.setNextPage();
-    } finally {
-      _$_RecuperarSenhaControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic setPreviousPage() {
     final _$actionInfo = _$_RecuperarSenhaControllerBaseActionController
         .startAction(name: '_RecuperarSenhaControllerBase.setPreviousPage');
@@ -358,6 +347,7 @@ buttonCarouselController: ${buttonCarouselController},
 code: ${code},
 email: ${email},
 senha: ${senha},
+confirmarSenha: ${confirmarSenha},
 obscureSenha1: ${obscureSenha1},
 obscureSenha2: ${obscureSenha2},
 page1Valid: ${page1Valid},

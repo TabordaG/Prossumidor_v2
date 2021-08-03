@@ -2,6 +2,8 @@ import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:progress_dialog/progress_dialog.dart';
+import 'package:prossumidor_v2/app/modules/recuperarSenha/repositories/interfaces/recuperar_senha_repository_interface.dart';
 
 part 'recuperar_senha_controller.g.dart';
 
@@ -10,6 +12,9 @@ class RecuperarSenhaController = _RecuperarSenhaControllerBase
     with _$RecuperarSenhaController;
 
 abstract class _RecuperarSenhaControllerBase with Store {
+  final IRecuperarSenhaRepository recuperarRepository =
+      Modular.get<IRecuperarSenhaRepository>();
+
   @observable
   GlobalKey<FormState> formkeyPage1 = GlobalKey<FormState>();
 
@@ -23,22 +28,25 @@ abstract class _RecuperarSenhaControllerBase with Store {
   CarouselController buttonCarouselController = CarouselController();
 
   @observable
-  String code = '';
+  TextEditingController code = TextEditingController(text: "");
 
-  @action
-  setCode(String valor) => code = valor;
-
-  @observable
-  String email = '';
-
-  @action
-  setEmail(String valor) => email = valor;
+  // @action
+  // setCode(String valor) => code = valor;
 
   @observable
-  String senha = '';
+  TextEditingController email = TextEditingController(text: "");
 
-  @action
-  setSenha(String valor) => senha = valor;
+  // @action
+  // setEmail(String valor) => email = valor;
+
+  @observable
+  TextEditingController senha = TextEditingController(text: "");
+
+  @observable
+  TextEditingController confirmarSenha = TextEditingController(text: "");
+
+  // @action
+  // setSenha(String valor) => senha = valor;
 
   @observable
   bool obscureSenha1 = true;
@@ -95,15 +103,24 @@ abstract class _RecuperarSenhaControllerBase with Store {
   setIndex(int valor) => current = valor;
 
   @action
-  setNextPage() {
+  Future<bool> setNextPage(ProgressDialog progressDialog) async {
+    bool retorno = false;
     switch (current) {
       case 0:
         isPage1Valid();
-        if (page1Valid)
-          buttonCarouselController.nextPage(
-            duration: Duration(milliseconds: 300),
-            curve: Curves.linear,
-          );
+        if (page1Valid) {
+          progressDialog.show();
+          bool emailValido = await verificarEmail();
+          Future.delayed(Duration(seconds: 2), () {
+            progressDialog.hide();
+            if (emailValido)
+              buttonCarouselController.nextPage(
+                duration: Duration(milliseconds: 300),
+                curve: Curves.linear,
+              );
+            retorno = emailValido;
+          });
+        }
         break;
       case 1:
         isPage2Valid();
@@ -115,6 +132,8 @@ abstract class _RecuperarSenhaControllerBase with Store {
         break;
       default:
     }
+
+    return retorno;
   }
 
   @action
@@ -122,4 +141,13 @@ abstract class _RecuperarSenhaControllerBase with Store {
         duration: Duration(milliseconds: 300),
         curve: Curves.linear,
       );
+
+  @action
+  Future<bool> verificarEmail() async {
+    var response = await recuperarRepository.verifaEmail(email.text);
+    if (response != null && response != "livre")
+      return true;
+    else
+      return false;
+  }
 }

@@ -1,8 +1,9 @@
 import 'dart:convert' show utf8, base64;
 
 class Basicos {
-  //static String  ip = "http://200.129.247.236:8000"; // variavel publica com anderline na frente private
-  static String ip = "http://200.129.247.242:8000"; // ip servidor de produção
+  static String ip =
+      "http://200.129.247.236:8000"; // variavel publica com anderline na frente private
+  // static String ip = "http://200.129.247.242:8000"; // ip servidor de produção
   // 200.129.247.242  ->servidor web Django
   static String categoriaUsada = '*'; //categorias id
   static String categoriaUsadaDesc = ' '; //categorias descricao

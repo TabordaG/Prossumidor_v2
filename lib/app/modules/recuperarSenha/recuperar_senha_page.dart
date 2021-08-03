@@ -161,6 +161,8 @@ class _RecuperarSenhaPageState
                           onPressed: () {
                             if (controller.current != 0)
                               controller.setPreviousPage();
+                            else
+                              Modular.to.pop();
                           },
                           text: controller.current == 0 ? 'Cancelar' : 'Voltar',
                           color: Theme.of(context).colorScheme.secondary,
@@ -172,10 +174,17 @@ class _RecuperarSenhaPageState
                         minWidth: 120.0,
                         height: 40,
                         child: StandardButton(
-                          onPressed: () {
-                            if (controller.current != 2)
-                              controller.setNextPage();
-                            else {
+                          onPressed: () async {
+                            if (controller.current != 2) {
+                              bool res =
+                                  await controller.setNextPage(progressDialog);
+                              if (res == null || !res)
+                                buildShowGeneralDialog(
+                                  context,
+                                  'Erro',
+                                  'E-mail não cadastrado ou erro de conexão',
+                                );
+                            } else {
                               controller.isPage3Valid();
                               if (controller.page3Valid)
                                 buildShowGeneralDialog(
@@ -207,7 +216,8 @@ class _RecuperarSenhaPageState
   Future buildShowGeneralDialog(
       BuildContext context, String titulo, String mensagem) {
     Future.delayed(Duration(seconds: 2), () {
-      Modular.to.pushNamedAndRemoveUntil('/login', ModalRoute.withName('/'));
+      if (titulo == "Senha Alterada com Sucesso")
+        Modular.to.pushNamedAndRemoveUntil('/login', ModalRoute.withName('/'));
     });
     return showGeneralDialog(
       barrierLabel: "Mensage",

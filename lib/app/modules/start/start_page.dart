@@ -30,6 +30,7 @@ class _StartPageState extends ModularState<StartPage, StartController> {
         child: Scaffold(
           body: PageView(
             controller: appController.pageViewController,
+            physics: NeverScrollableScrollPhysics(),
             children: [
               RouterOutlet(module: SacolaModule()),
               RouterOutlet(module: PedidosModule()),
