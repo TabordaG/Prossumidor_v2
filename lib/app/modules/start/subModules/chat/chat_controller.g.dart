@@ -19,18 +19,65 @@ final $ChatController = BindInject(
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$ChatController on _ChatControllerBase, Store {
-  final _$valueAtom = Atom(name: '_ChatControllerBase.value');
+  final _$listaConversasAtom = Atom(name: '_ChatControllerBase.listaConversas');
 
   @override
-  int get value {
-    _$valueAtom.reportRead();
-    return super.value;
+  List<Chat> get listaConversas {
+    _$listaConversasAtom.reportRead();
+    return super.listaConversas;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.reportWrite(value, super.value, () {
-      super.value = value;
+  set listaConversas(List<Chat> value) {
+    _$listaConversasAtom.reportWrite(value, super.listaConversas, () {
+      super.listaConversas = value;
+    });
+  }
+
+  final _$listaConversasPorEmpresasAtom =
+      Atom(name: '_ChatControllerBase.listaConversasPorEmpresas');
+
+  @override
+  List<Chat> get listaConversasPorEmpresas {
+    _$listaConversasPorEmpresasAtom.reportRead();
+    return super.listaConversasPorEmpresas;
+  }
+
+  @override
+  set listaConversasPorEmpresas(List<Chat> value) {
+    _$listaConversasPorEmpresasAtom
+        .reportWrite(value, super.listaConversasPorEmpresas, () {
+      super.listaConversasPorEmpresas = value;
+    });
+  }
+
+  final _$conversasAtom = Atom(name: '_ChatControllerBase.conversas');
+
+  @override
+  int get conversas {
+    _$conversasAtom.reportRead();
+    return super.conversas;
+  }
+
+  @override
+  set conversas(int value) {
+    _$conversasAtom.reportWrite(value, super.conversas, () {
+      super.conversas = value;
+    });
+  }
+
+  final _$mensagemAtom = Atom(name: '_ChatControllerBase.mensagem');
+
+  @override
+  TextEditingController get mensagem {
+    _$mensagemAtom.reportRead();
+    return super.mensagem;
+  }
+
+  @override
+  set mensagem(TextEditingController value) {
+    _$mensagemAtom.reportWrite(value, super.mensagem, () {
+      super.mensagem = value;
     });
   }
 
@@ -38,11 +85,44 @@ mixin _$ChatController on _ChatControllerBase, Store {
       ActionController(name: '_ChatControllerBase');
 
   @override
-  void increment() {
+  dynamic setMensagem(String value) {
     final _$actionInfo = _$_ChatControllerBaseActionController.startAction(
-        name: '_ChatControllerBase.increment');
+        name: '_ChatControllerBase.setMensagem');
     try {
-      return super.increment();
+      return super.setMensagem(value);
+    } finally {
+      _$_ChatControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic sendMensagem() {
+    final _$actionInfo = _$_ChatControllerBaseActionController.startAction(
+        name: '_ChatControllerBase.sendMensagem');
+    try {
+      return super.sendMensagem();
+    } finally {
+      _$_ChatControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic totalConversas() {
+    final _$actionInfo = _$_ChatControllerBaseActionController.startAction(
+        name: '_ChatControllerBase.totalConversas');
+    try {
+      return super.totalConversas();
+    } finally {
+      _$_ChatControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic buscaMensagens(int idEmpresa) {
+    final _$actionInfo = _$_ChatControllerBaseActionController.startAction(
+        name: '_ChatControllerBase.buscaMensagens');
+    try {
+      return super.buscaMensagens(idEmpresa);
     } finally {
       _$_ChatControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -51,7 +131,10 @@ mixin _$ChatController on _ChatControllerBase, Store {
   @override
   String toString() {
     return '''
-value: ${value}
+listaConversas: ${listaConversas},
+listaConversasPorEmpresas: ${listaConversasPorEmpresas},
+conversas: ${conversas},
+mensagem: ${mensagem}
     ''';
   }
 }
