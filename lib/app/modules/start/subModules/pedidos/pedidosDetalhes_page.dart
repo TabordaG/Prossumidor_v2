@@ -42,7 +42,7 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                     children: [
                       Text("Pedido: #"),
                       Text(
-                        "${pedido.pedidos_id.toString()}",
+                        "${pedido.id.toString()}",
                         style: Theme.of(context).textTheme.bodyText1.copyWith(
                             fontSize: 14,
                             color: Theme.of(context)
@@ -208,7 +208,7 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                             children: [
                               Text("Situação: "),
                               Text(
-                                pedido.situacao,
+                                pedido.status_pedido,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1
@@ -223,7 +223,7 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                             children: [
                               Text("Data: "),
                               Text(
-                                pedido.data,
+                                pedido.data_registro,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1
@@ -273,8 +273,8 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                           Text("Frete: "),
                           Text(
                             "R\$ " +
-                                pedido.frete
-                                    .toStringAsFixed(2)
+                                pedido.observacoes_entrega
+                                    .toString()
                                     .replaceAll(".", ","),
                             style:
                                 Theme.of(context).textTheme.bodyText1.copyWith(
@@ -298,8 +298,8 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                           ),
                           Text(
                             "R\$ " +
-                                pedido.total
-                                    .toStringAsFixed(2)
+                                pedido.valor_total
+                                    .toString()
                                     .replaceAll(".", ","),
                             style:
                                 Theme.of(context).textTheme.bodyText1.copyWith(

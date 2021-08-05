@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/components/card_pedidos.dart';
 import 'package:prossumidor_v2/app/constants.dart';
@@ -49,32 +50,36 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController> {
             ),
           ),
           body: TabBarView(children: [
-            ListView.builder(
-              itemCount: pedidosListEntregues.length,
-              itemBuilder: (context, index) {
-                return CardPedidos(
-                  index: index,
-                  lista: pedidosListEntregues,
-                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => PedidosDetalhes(
-                            pedido: pedidosListEntregues[index],
-                          ))),
-                );
-              },
-            ),
-            ListView.builder(
-              itemCount: pedidosListNaoEntregues.length,
-              itemBuilder: (context, index) {
-                return CardPedidos(
-                  index: index,
-                  lista: pedidosListNaoEntregues,
-                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => PedidosDetalhes(
-                            pedido: pedidosListNaoEntregues[index],
-                          ))),
-                );
-              },
-            ),
+            Observer(builder: (_) {
+              return ListView.builder(
+                itemCount: controller.pedidosList.length,
+                itemBuilder: (context, index) {
+                  return CardPedidos(
+                    index: index,
+                    lista: controller.pedidosList,
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => PedidosDetalhes(
+                              pedido: pedidosListEntregues[index],
+                            ))),
+                  );
+                },
+              );
+            }),
+            Observer(builder: (_) {
+              return ListView.builder(
+                itemCount: controller.pedidosList.length,
+                itemBuilder: (context, index) {
+                  return CardPedidos(
+                    index: index,
+                    lista: controller.pedidosList,
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => PedidosDetalhes(
+                              pedido: pedidosListNaoEntregues[index],
+                            ))),
+                  );
+                },
+              );
+            }),
           ])),
     );
   }

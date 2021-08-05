@@ -7,7 +7,7 @@ part of 'pedidos_repository.dart';
 // **************************************************************************
 
 final $PedidosRepository = BindInject(
-  (i) => PedidosRepository(i<DioForNative>()),
+  (i) => PedidosRepository(),
   singleton: true,
   lazy: true,
 );

@@ -8,32 +8,33 @@ part of 'pedidos_model.dart';
 
 Pedidos _$PedidosFromJson(Map<String, dynamic> json) {
   return Pedidos(
-    pedidos_id: json['pedidos_id'] as int,
-    fornecedor: json['fornecedor'] as String,
-    itens: json['itens'] as int,
-    data: json['data'] as String,
+    id: json['id'] as int,
+    empresa: json['empresa'] as String,
+    quantidade: json['quantidade'] as String,
+    data_registro: json['data_registro'] as String,
     tipo_entrega: json['tipo_entrega'] as String,
-    frete: (json['frete'] as num)?.toDouble(),
+    observacoes_entrega: json['observacoes_entrega'] as String,
     pagamento: json['pagamento'] as String,
-    situacao: json['situacao'] as String,
-    total: (json['total'] as num)?.toDouble(),
+    status_pedido: json['status_pedido'] as String,
+    valor_total: json['valor_total'] as String,
     produtos: (json['produtos'] as List)
         ?.map((e) => e == null
             ? null
             : ProdutoPedido.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-  );
+  )..id_empresa = json['id_empresa'] as int;
 }
 
 Map<String, dynamic> _$PedidosToJson(Pedidos instance) => <String, dynamic>{
-      'pedidos_id': instance.pedidos_id,
-      'fornecedor': instance.fornecedor,
-      'itens': instance.itens,
-      'data': instance.data,
+      'id': instance.id,
+      'id_empresa': instance.id_empresa,
+      'empresa': instance.empresa,
+      'quantidade': instance.quantidade,
+      'data_registro': instance.data_registro,
       'tipo_entrega': instance.tipo_entrega,
-      'frete': instance.frete,
-      'situacao': instance.situacao,
+      'observacoes_entrega': instance.observacoes_entrega,
+      'status_pedido': instance.status_pedido,
       'pagamento': instance.pagamento,
-      'total': instance.total,
+      'valor_total': instance.valor_total,
       'produtos': instance.produtos?.map((e) => e?.toJson())?.toList(),
     };

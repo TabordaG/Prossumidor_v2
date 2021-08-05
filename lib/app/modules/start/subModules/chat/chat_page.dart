@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/constants.dart';
-import 'package:prossumidor_v2/app/modules/start/subModules/chat/chat_individual_page.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/chat/components/cardChat.dart';
 import 'package:prossumidor_v2/app/shared/auth/auth_controller.dart';
 import 'chat_controller.dart';

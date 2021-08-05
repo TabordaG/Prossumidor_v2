@@ -6,40 +6,50 @@ part 'pedidos_model.g.dart';
 @JsonSerializable(explicitToJson: true)
 class Pedidos {
   @JsonKey(required: false, disallowNullValue: false)
+  int id;
+  @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  int pedidos_id;
+  int id_empresa;
   @JsonKey(required: false, disallowNullValue: false)
-  String fornecedor;
+  String empresa;
   @JsonKey(required: false, disallowNullValue: false)
-  int itens;
+  String quantidade;
   @JsonKey(required: false, disallowNullValue: false)
-  String data;
+  // ignore: non_constant_identifier_names
+  String data_registro;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
   String tipo_entrega;
   @JsonKey(required: false, disallowNullValue: false)
-  double frete;
+  // ignore: non_constant_identifier_names
+  String observacoes_entrega;
   @JsonKey(required: false, disallowNullValue: false)
-  String situacao;
+  // ignore: non_constant_identifier_names
+  String status_pedido;
   @JsonKey(required: false, disallowNullValue: false)
   String pagamento;
   @JsonKey(required: false, disallowNullValue: false)
-  double total;
+  // ignore: non_constant_identifier_names
+  String valor_total;
   @JsonKey(required: false, disallowNullValue: false)
   List<ProdutoPedido> produtos;
 
   Pedidos({
     // ignore: non_constant_identifier_names
-    this.pedidos_id,
-    this.fornecedor,
-    this.itens,
-    this.data,
+    this.id,
+    this.empresa,
+    this.quantidade,
+    // ignore: non_constant_identifier_names
+    this.data_registro,
     // ignore: non_constant_identifier_names
     this.tipo_entrega,
-    this.frete,
+    // ignore: non_constant_identifier_names
+    this.observacoes_entrega,
     this.pagamento,
-    this.situacao,
-    this.total,
+    // ignore: non_constant_identifier_names
+    this.status_pedido,
+    // ignore: non_constant_identifier_names
+    this.valor_total,
     this.produtos,
   });
 

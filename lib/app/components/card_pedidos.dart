@@ -22,9 +22,9 @@ class _CardPedidosState extends State<CardPedidos> {
   @override
   Widget build(BuildContext context) {
     bool isCancel;
-    if (widget.lista[widget.index].situacao.toUpperCase() == 'CANCELADO') {
+    if (widget.lista[widget.index].status_pedido.toUpperCase() == 'CANCELADO') {
       isCancel = true;
-    } else if (widget.lista[widget.index].situacao.toUpperCase() ==
+    } else if (widget.lista[widget.index].status_pedido.toUpperCase() ==
         'ENTREGUE') {
       isCancel = true;
     } else
@@ -56,7 +56,7 @@ class _CardPedidosState extends State<CardPedidos> {
                         children: [
                           Text('Pedido: '),
                           Text(
-                            '${widget.lista[widget.index].pedidos_id}',
+                            '${widget.lista[widget.index].id}',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText1
@@ -75,7 +75,7 @@ class _CardPedidosState extends State<CardPedidos> {
                         children: [
                           Text("Itens: "),
                           Text(
-                            "${widget.lista[widget.index].itens}",
+                            "${widget.lista[widget.index].quantidade}",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText1
@@ -103,7 +103,7 @@ class _CardPedidosState extends State<CardPedidos> {
                         children: [
                           Text('Fornecedor:'),
                           Text(
-                            ' ${widget.lista[widget.index].fornecedor}',
+                            ' ${widget.lista[widget.index].empresa}',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText1
@@ -122,7 +122,7 @@ class _CardPedidosState extends State<CardPedidos> {
                         children: [
                           Text("Data: "),
                           Text(
-                            "${widget.lista[widget.index].data}",
+                            "${widget.lista[widget.index].data_registro}",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText1
@@ -176,8 +176,8 @@ class _CardPedidosState extends State<CardPedidos> {
                           ),
                           Text(
                             'R\$' +
-                                widget.lista[widget.index].frete
-                                    .toStringAsFixed(2)
+                                widget.lista[widget.index].observacoes_entrega
+                                    .toString()
                                     .replaceAll('.', ','),
                           ),
                         ],
@@ -195,7 +195,7 @@ class _CardPedidosState extends State<CardPedidos> {
                         children: [
                           Text('Situação: '),
                           Text(
-                            "${widget.lista[widget.index].situacao}",
+                            "${widget.lista[widget.index].status_pedido}",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText1
@@ -228,8 +228,8 @@ class _CardPedidosState extends State<CardPedidos> {
                           ),
                           Text(
                             " R\$" +
-                                widget.lista[widget.index].total
-                                    .toStringAsFixed(2)
+                                widget.lista[widget.index].valor_total
+                                    .toString()
                                     .replaceAll('.', ','),
                           )
                         ],

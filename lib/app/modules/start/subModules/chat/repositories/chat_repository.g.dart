@@ -7,7 +7,7 @@ part of 'chat_repository.dart';
 // **************************************************************************
 
 final $ChatRepository = BindInject(
-  (i) => ChatRepository(i<DioForNative>()),
+  (i) => ChatRepository(),
   singleton: true,
   lazy: true,
 );

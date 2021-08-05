@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prossumidor_v2/app/models/chat/chat_model.dart';
 import 'package:prossumidor_v2/app/models/pedidos/pedidos_model.dart';
 import 'package:prossumidor_v2/app/models/produto/produto_model.dart';
 import 'package:prossumidor_v2/app/models/subcategoria/subcategoria_model.dart';
@@ -302,6 +303,7 @@ List<Produto> produtoList = [
 ];
 
 List<Pedidos> pedidosListEntregues = [
+  /*
   Pedidos(
     pedidos_id: 1,
     fornecedor: "Recoopsol",
@@ -533,11 +535,11 @@ List<Pedidos> pedidosListEntregues = [
         quantidade: 2,
       ),
     ],
-  ),
+  ),*/
 ];
 
 List<Pedidos> pedidosListNaoEntregues = [
-  Pedidos(
+  /*Pedidos(
     pedidos_id: 1,
     fornecedor: "Recoopsol",
     itens: 3,
@@ -681,7 +683,7 @@ List<Pedidos> pedidosListNaoEntregues = [
         quantidade: 2,
       ),
     ],
-  ),
+  ),*/
 ];
 
 String mensagem = 'Ola';

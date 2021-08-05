@@ -5,6 +5,8 @@ import 'package:prossumidor_v2/app/constants.dart';
 import 'package:prossumidor_v2/app/models/chat/chat_model.dart';
 import 'package:prossumidor_v2/app/shared/auth/auth_controller.dart';
 
+import 'repositories/interfaces/chat_repository_interface.dart';
+
 part 'chat_controller.g.dart';
 
 @Injectable()
@@ -12,7 +14,9 @@ class ChatController = _ChatControllerBase with _$ChatController;
 
 abstract class _ChatControllerBase with Store {
   final AuthController authController = Modular.get<AuthController>();
+  final IChatRepository pedidosRepository = Modular.get<IChatRepository>();
   _ChatControllerBase() {
+    pedidosRepository.buscaMensagens(authController.usuario.usuario_id);
     listaConversas = listaChat
         .where((element) =>
             element.id_cliente == authController.usuario.usuario_id)
