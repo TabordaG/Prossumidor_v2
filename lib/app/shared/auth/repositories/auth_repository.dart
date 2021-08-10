@@ -66,7 +66,7 @@ class AuthRepository implements IAuthRepository {
         Basicos.empresaID = list[0]['empresa_id'].toString();
         Basicos.localRetiradaID = list[0]['local_retirada_id'].toString();
         Usuario usuario = Usuario(
-          usuario_id: list[0]['id'],
+          id: list[0]['id'],
           email: email,
           senha: list[0]['senha'],
           empresa_id: list[0]['empresa_id'],

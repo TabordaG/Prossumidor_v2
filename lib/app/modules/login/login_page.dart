@@ -49,7 +49,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                       child: Hero(
                         tag: 'LogoSplash',
                         child: Image(
-                          image: AssetImage("assets/images/splash.png"),
+                          image: AssetImage("assets/images/newLogo_2.png"),
                         ),
                       ),
                     ),

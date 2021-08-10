@@ -7,7 +7,7 @@ part of 'meus_dados_repository.dart';
 // **************************************************************************
 
 final $MeusDadosRepository = BindInject(
-  (i) => MeusDadosRepository(i<DioForNative>()),
+  (i) => MeusDadosRepository(),
   singleton: true,
   lazy: true,
 );

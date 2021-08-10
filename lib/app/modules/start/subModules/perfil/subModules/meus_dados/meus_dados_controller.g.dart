@@ -94,6 +94,21 @@ mixin _$MeusDadosController on _MeusDadosControllerBase, Store {
     });
   }
 
+  final _$generoIdAtom = Atom(name: '_MeusDadosControllerBase.generoId');
+
+  @override
+  int get generoId {
+    _$generoIdAtom.reportRead();
+    return super.generoId;
+  }
+
+  @override
+  set generoId(int value) {
+    _$generoIdAtom.reportWrite(value, super.generoId, () {
+      super.generoId = value;
+    });
+  }
+
   final _$generoOutroAtom = Atom(name: '_MeusDadosControllerBase.generoOutro');
 
   @override
@@ -171,6 +186,14 @@ mixin _$MeusDadosController on _MeusDadosControllerBase, Store {
     });
   }
 
+  final _$atualizaDadosAsyncAction =
+      AsyncAction('_MeusDadosControllerBase.atualizaDados');
+
+  @override
+  Future atualizaDados() {
+    return _$atualizaDadosAsyncAction.run(() => super.atualizaDados());
+  }
+
   final _$_MeusDadosControllerBaseActionController =
       ActionController(name: '_MeusDadosControllerBase');
 
@@ -186,11 +209,22 @@ mixin _$MeusDadosController on _MeusDadosControllerBase, Store {
   }
 
   @override
-  dynamic atualizaDados() {
+  dynamic buscaUser() {
     final _$actionInfo = _$_MeusDadosControllerBaseActionController.startAction(
-        name: '_MeusDadosControllerBase.atualizaDados');
+        name: '_MeusDadosControllerBase.buscaUser');
     try {
-      return super.atualizaDados();
+      return super.buscaUser();
+    } finally {
+      _$_MeusDadosControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic getLocalRetirada() {
+    final _$actionInfo = _$_MeusDadosControllerBaseActionController.startAction(
+        name: '_MeusDadosControllerBase.getLocalRetirada');
+    try {
+      return super.getLocalRetirada();
     } finally {
       _$_MeusDadosControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -204,6 +238,7 @@ nome: ${nome},
 cpf: ${cpf},
 telefone: ${telefone},
 genero: ${genero},
+generoId: ${generoId},
 generoOutro: ${generoOutro},
 dataNascimento: ${dataNascimento},
 estadoCivil: ${estadoCivil},

@@ -14,7 +14,7 @@ abstract class _HomeControllerBase with Store {
       ..addListener(() {
         setOffsetHomeList(scrollController.offset);
       });
-    centroDistribuicao = authController.usuario.empresa;
+    centroDistribuicao = authController.usuario.empresa_id.toString();
   }
   final AuthController authController = Modular.get<AuthController>();
 

@@ -22,7 +22,7 @@ abstract class _SacolaControllerBase with Store {
     cidade = TextEditingController(text: authController.usuario.cidade);
     uf = TextEditingController(text: authController.usuario.estado);
     cep = TextEditingController(text: authController.usuario.cep);
-    dropdownvalue = authController.usuario.empresa;
+    //dropdownvalue = authController.usuario.empresa;
   }
 
   @observable
@@ -118,7 +118,7 @@ abstract class _SacolaControllerBase with Store {
     authController.usuario.cidade = cidade.text;
     authController.usuario.estado = uf.text;
     authController.usuario.cep = cep.text;
-    authController.usuario.empresa = dropdownvalue;
+    //authController.usuario.empresa = dropdownvalue;
     homeController.centroDistribuicao = dropdownvalue;
   }
 }

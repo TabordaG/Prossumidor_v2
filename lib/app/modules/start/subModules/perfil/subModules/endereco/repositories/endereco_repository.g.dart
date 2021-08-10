@@ -7,7 +7,7 @@ part of 'endereco_repository.dart';
 // **************************************************************************
 
 final $EnderecoRepository = BindInject(
-  (i) => EnderecoRepository(i<DioForNative>()),
+  (i) => EnderecoRepository(),
   singleton: true,
   lazy: true,
 );

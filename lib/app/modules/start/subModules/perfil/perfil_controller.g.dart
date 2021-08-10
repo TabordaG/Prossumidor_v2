@@ -35,6 +35,21 @@ mixin _$PerfilController on _PerfilControllerBase, Store {
     });
   }
 
+  final _$nomeAtom = Atom(name: '_PerfilControllerBase.nome');
+
+  @override
+  String get nome {
+    _$nomeAtom.reportRead();
+    return super.nome;
+  }
+
+  @override
+  set nome(String value) {
+    _$nomeAtom.reportWrite(value, super.nome, () {
+      super.nome = value;
+    });
+  }
+
   final _$scrollControllerAtom =
       Atom(name: '_PerfilControllerBase.scrollController');
 
@@ -51,10 +66,35 @@ mixin _$PerfilController on _PerfilControllerBase, Store {
     });
   }
 
+  final _$setCentroDistribuicaoAsyncAction =
+      AsyncAction('_PerfilControllerBase.setCentroDistribuicao');
+
+  @override
+  Future<String> setCentroDistribuicao() {
+    return _$setCentroDistribuicaoAsyncAction
+        .run(() => super.setCentroDistribuicao());
+  }
+
+  final _$setNomeAsyncAction = AsyncAction('_PerfilControllerBase.setNome');
+
+  @override
+  Future<String> setNome() {
+    return _$setNomeAsyncAction.run(() => super.setNome());
+  }
+
+  final _$buscaUsuarioAsyncAction =
+      AsyncAction('_PerfilControllerBase.buscaUsuario');
+
+  @override
+  Future<dynamic> buscaUsuario() {
+    return _$buscaUsuarioAsyncAction.run(() => super.buscaUsuario());
+  }
+
   @override
   String toString() {
     return '''
 centroDistribuicao: ${centroDistribuicao},
+nome: ${nome},
 scrollController: ${scrollController}
     ''';
   }

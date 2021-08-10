@@ -88,30 +88,30 @@ class _EnderecoPageState
                         Padding(
                           padding:
                               EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                          child: TextFormField(
-                            onChanged: (value) {
-                              controller.endereco.text = value;
-                            },
-                            keyboardType: TextInputType.streetAddress,
-                            textInputAction: TextInputAction.next,
-                            textCapitalization: TextCapitalization.words,
-                            onEditingComplete: node.nextFocus,
-                            initialValue: controller.endereco.text,
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Insira um endereço válido';
-                              } else {
-                                return null;
-                              }
-                            },
-                            decoration: InputDecoration(
-                              border: UnderlineInputBorder(),
-                              prefixIcon: Icon(
-                                Icons.apartment,
-                                color: Theme.of(context).primaryColor,
+                          child: Observer(builder: (_) {
+                            return TextFormField(
+                              controller: controller.endereco,
+                              keyboardType: TextInputType.streetAddress,
+                              textInputAction: TextInputAction.next,
+                              textCapitalization: TextCapitalization.words,
+                              onEditingComplete: node.nextFocus,
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Insira um endereço válido';
+                                } else {
+                                  return null;
+                                }
+                              },
+                              decoration: InputDecoration(
+                                labelText: 'Endereço',
+                                border: UnderlineInputBorder(),
+                                prefixIcon: Icon(
+                                  Icons.apartment,
+                                  color: Theme.of(context).primaryColor,
+                                ),
                               ),
-                            ),
-                          ),
+                            );
+                          }),
                         ),
                         SizedBox(
                           height: kDefaultPadding * 0.5,
@@ -119,33 +119,33 @@ class _EnderecoPageState
                         Padding(
                           padding:
                               EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                          child: TextFormField(
-                            onChanged: (value) {
-                              controller.numero.text = value;
-                            },
-                            keyboardType: TextInputType.number,
-                            textInputAction: TextInputAction.next,
-                            onEditingComplete: node.nextFocus,
-                            initialValue: controller.numero.text,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                              LengthLimitingTextInputFormatter(5),
-                            ],
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Insira um número válido';
-                              } else {
-                                return null;
-                              }
-                            },
-                            decoration: InputDecoration(
-                              border: UnderlineInputBorder(),
-                              prefixIcon: Icon(
-                                Icons.filter_1,
-                                color: Theme.of(context).primaryColor,
+                          child: Observer(builder: (_) {
+                            return TextFormField(
+                              keyboardType: TextInputType.number,
+                              textInputAction: TextInputAction.next,
+                              onEditingComplete: node.nextFocus,
+                              controller: controller.numero,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(5),
+                              ],
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Insira um número válido';
+                                } else {
+                                  return null;
+                                }
+                              },
+                              decoration: InputDecoration(
+                                labelText: 'Número',
+                                border: UnderlineInputBorder(),
+                                prefixIcon: Icon(
+                                  Icons.filter_1,
+                                  color: Theme.of(context).primaryColor,
+                                ),
                               ),
-                            ),
-                          ),
+                            );
+                          }),
                         ),
                         SizedBox(
                           height: kDefaultPadding * 0.5,
@@ -153,25 +153,25 @@ class _EnderecoPageState
                         Padding(
                           padding:
                               EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                          child: TextFormField(
-                            onChanged: (value) {
-                              controller.complemento.text = value;
-                            },
-                            keyboardType: TextInputType.text,
-                            textInputAction: TextInputAction.next,
-                            onEditingComplete: node.nextFocus,
-                            initialValue: controller.complemento.text,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(250),
-                            ],
-                            decoration: InputDecoration(
-                              border: UnderlineInputBorder(),
-                              prefixIcon: Icon(
-                                Icons.house,
-                                color: Theme.of(context).primaryColor,
+                          child: Observer(builder: (_) {
+                            return TextFormField(
+                              controller: controller.complemento,
+                              keyboardType: TextInputType.text,
+                              textInputAction: TextInputAction.next,
+                              onEditingComplete: node.nextFocus,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(250),
+                              ],
+                              decoration: InputDecoration(
+                                labelText: 'Complemento',
+                                border: UnderlineInputBorder(),
+                                prefixIcon: Icon(
+                                  Icons.house,
+                                  color: Theme.of(context).primaryColor,
+                                ),
                               ),
-                            ),
-                          ),
+                            );
+                          }),
                         ),
                         SizedBox(
                           height: kDefaultPadding * 0.5,
@@ -179,30 +179,30 @@ class _EnderecoPageState
                         Padding(
                           padding:
                               EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                          child: TextFormField(
-                            onChanged: (value) {
-                              controller.bairro.text = value;
-                            },
-                            keyboardType: TextInputType.text,
-                            textInputAction: TextInputAction.next,
-                            textCapitalization: TextCapitalization.words,
-                            onEditingComplete: node.nextFocus,
-                            initialValue: controller.bairro.text,
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Insira um bairro válido';
-                              } else {
-                                return null;
-                              }
-                            },
-                            decoration: InputDecoration(
-                              border: UnderlineInputBorder(),
-                              prefixIcon: Icon(
-                                Icons.house_siding,
-                                color: Theme.of(context).primaryColor,
+                          child: Observer(builder: (_) {
+                            return TextFormField(
+                              controller: controller.bairro,
+                              keyboardType: TextInputType.text,
+                              textInputAction: TextInputAction.next,
+                              textCapitalization: TextCapitalization.words,
+                              onEditingComplete: node.nextFocus,
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Insira um bairro válido';
+                                } else {
+                                  return null;
+                                }
+                              },
+                              decoration: InputDecoration(
+                                labelText: 'Bairro',
+                                border: UnderlineInputBorder(),
+                                prefixIcon: Icon(
+                                  Icons.house_siding,
+                                  color: Theme.of(context).primaryColor,
+                                ),
                               ),
-                            ),
-                          ),
+                            );
+                          }),
                         ),
                         SizedBox(
                           height: kDefaultPadding * 0.5,
@@ -213,33 +213,34 @@ class _EnderecoPageState
                               flex: 3,
                               child: Padding(
                                 padding: EdgeInsets.only(left: kDefaultPadding),
-                                child: TextFormField(
-                                  onChanged: (value) {
-                                    controller.cidade.text = value;
-                                  },
-                                  inputFormatters: [
-                                    LengthLimitingTextInputFormatter(250),
-                                  ],
-                                  keyboardType: TextInputType.text,
-                                  textInputAction: TextInputAction.next,
-                                  textCapitalization: TextCapitalization.words,
-                                  onEditingComplete: node.nextFocus,
-                                  initialValue: controller.cidade.text,
-                                  validator: (value) {
-                                    if (value.isEmpty) {
-                                      return 'Insira uma cidade válida';
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                  decoration: InputDecoration(
-                                    border: UnderlineInputBorder(),
-                                    prefixIcon: Icon(
-                                      Icons.location_city,
-                                      color: Theme.of(context).primaryColor,
+                                child: Observer(builder: (_) {
+                                  return TextFormField(
+                                    controller: controller.cidade,
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(250),
+                                    ],
+                                    keyboardType: TextInputType.text,
+                                    textInputAction: TextInputAction.next,
+                                    textCapitalization:
+                                        TextCapitalization.words,
+                                    onEditingComplete: node.nextFocus,
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Insira uma cidade válida';
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                    decoration: InputDecoration(
+                                      labelText: 'Cidade',
+                                      border: UnderlineInputBorder(),
+                                      prefixIcon: Icon(
+                                        Icons.location_city,
+                                        color: Theme.of(context).primaryColor,
+                                      ),
                                     ),
-                                  ),
-                                ),
+                                  );
+                                }),
                               ),
                             ),
                             SizedBox(
@@ -250,36 +251,36 @@ class _EnderecoPageState
                               child: Padding(
                                 padding:
                                     EdgeInsets.only(right: kDefaultPadding),
-                                child: TextFormField(
-                                  onChanged: (value) {
-                                    controller.uf.text = value;
-                                  },
-                                  keyboardType: TextInputType.name,
-                                  textInputAction: TextInputAction.next,
-                                  textCapitalization:
-                                      TextCapitalization.sentences,
-                                  onEditingComplete: node.nextFocus,
-                                  initialValue: controller.uf.text,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter
-                                        .singleLineFormatter,
-                                    LengthLimitingTextInputFormatter(2),
-                                  ],
-                                  validator: (value) {
-                                    if (value.isEmpty) {
-                                      return 'Insira um UF válido';
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                  decoration: InputDecoration(
-                                    border: UnderlineInputBorder(),
-                                    prefixIcon: Icon(
-                                      Icons.business,
-                                      color: Theme.of(context).primaryColor,
+                                child: Observer(builder: (_) {
+                                  return TextFormField(
+                                    controller: controller.uf,
+                                    keyboardType: TextInputType.name,
+                                    textInputAction: TextInputAction.next,
+                                    textCapitalization:
+                                        TextCapitalization.sentences,
+                                    onEditingComplete: node.nextFocus,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter
+                                          .singleLineFormatter,
+                                      LengthLimitingTextInputFormatter(2),
+                                    ],
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Insira um UF válido';
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                    decoration: InputDecoration(
+                                      labelText: 'UF',
+                                      border: UnderlineInputBorder(),
+                                      prefixIcon: Icon(
+                                        Icons.business,
+                                        color: Theme.of(context).primaryColor,
+                                      ),
                                     ),
-                                  ),
-                                ),
+                                  );
+                                }),
                               ),
                             ),
                           ],
@@ -290,84 +291,97 @@ class _EnderecoPageState
                         Padding(
                           padding:
                               EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                          child: TextFormField(
-                            onChanged: (value) {
-                              controller.cep.text = value;
-                            },
-                            keyboardType: TextInputType.number,
-                            textInputAction: TextInputAction.done,
-                            textCapitalization: TextCapitalization.words,
-                            onEditingComplete: node.unfocus,
-                            initialValue: controller.cep.text,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                              CepInputFormatter(),
-                            ],
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Insira um CEP válido';
-                              } else {
-                                return null;
-                              }
-                            },
-                            decoration: InputDecoration(
-                              border: UnderlineInputBorder(),
-                              prefixIcon: Icon(
-                                Icons.location_on,
-                                color: Theme.of(context).primaryColor,
+                          child: Observer(builder: (_) {
+                            return TextFormField(
+                              controller: controller.cep,
+                              keyboardType: TextInputType.number,
+                              textInputAction: TextInputAction.done,
+                              textCapitalization: TextCapitalization.words,
+                              onEditingComplete: node.unfocus,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                                CepInputFormatter(),
+                              ],
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Insira um CEP válido';
+                                } else {
+                                  return null;
+                                }
+                              },
+                              decoration: InputDecoration(
+                                labelText: 'CEP',
+                                border: UnderlineInputBorder(),
+                                prefixIcon: Icon(
+                                  Icons.location_on,
+                                  color: Theme.of(context).primaryColor,
+                                ),
                               ),
-                            ),
-                          ),
+                            );
+                          }),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: kDefaultPadding,
-                              vertical: kDefaultPadding * 0.5),
+                          padding: EdgeInsets.only(
+                              left: kDefaultPadding,
+                              right: kDefaultPadding,
+                              top: kDefaultPadding),
                           child: Container(
-                            height: 50,
+                            height: 65,
                             width: double.infinity,
-                            child: Row(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: kDefaultPadding * 0.7),
-                                  child: Icon(Icons.local_shipping_rounded,
-                                      color: Theme.of(context).primaryColor),
+                                  padding: EdgeInsets.only(
+                                      left: kDefaultPadding * 2.5),
+                                  child: Text('Local de Retirada'),
                                 ),
-                                Observer(builder: (_) {
-                                  return Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                          left: kDefaultPadding * 0.5),
-                                      child: DropdownButton<String>(
-                                        isExpanded: true,
-                                        value: controller.dropdownvalue,
-                                        //icon: const Icon(Icons.arrow_downward),
-                                        //iconSize: 24,
-                                        elevation: 16,
-                                        underline: Container(
-                                          height: 2,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .secondary,
-                                        ),
-                                        onChanged: (String newValue) {
-                                          setState(() {
-                                            controller.mudaDropDown(newValue);
-                                          });
-                                        },
-                                        items: centroDistribuicao
-                                            .map<DropdownMenuItem<String>>(
-                                                (String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
+                                Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: kDefaultPadding * 0.7),
+                                      child: Icon(Icons.local_shipping_rounded,
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                    ),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            left: kDefaultPadding * 0.5),
+                                        child: Observer(builder: (_) {
+                                          return DropdownButton<String>(
+                                            isExpanded: true,
+                                            value: controller.dropdownvalue,
+                                            //icon: const Icon(Icons.arrow_downward),
+                                            //iconSize: 24,
+                                            elevation: 16,
+                                            underline: Container(
+                                              height: 2,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary,
+                                            ),
+                                            onChanged: (String newValue) {
+                                              setState(() {
+                                                controller
+                                                    .mudaDropDown(newValue);
+                                              });
+                                            },
+                                            items: controller.listLocalRetirada
+                                                .map<DropdownMenuItem<String>>(
+                                                    (String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(value),
+                                              );
+                                            }).toList(),
                                           );
-                                        }).toList(),
+                                        }),
                                       ),
                                     ),
-                                  );
-                                }),
+                                  ],
+                                ),
                               ],
                             ),
                           ),
@@ -380,11 +394,11 @@ class _EnderecoPageState
                             minWidth: 150,
                             height: 40,
                             child: StandardButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 controller.isPageValid();
                                 if (controller.pageValid == true) {
-                                  controller.atualizaDados();
-                                  Navigator.of(context).pop();
+                                 await controller.atualizaDados();
+                                  // Navigator.of(context).pop();
                                 } else
                                   print("form invalido");
                               },

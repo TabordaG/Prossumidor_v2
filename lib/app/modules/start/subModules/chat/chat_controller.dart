@@ -16,10 +16,10 @@ abstract class _ChatControllerBase with Store {
   final AuthController authController = Modular.get<AuthController>();
   final IChatRepository pedidosRepository = Modular.get<IChatRepository>();
   _ChatControllerBase() {
-    pedidosRepository.buscaMensagens(authController.usuario.usuario_id);
+    pedidosRepository.buscaMensagens(authController.usuario.id);
     listaConversas = listaChat
         .where((element) =>
-            element.id_cliente == authController.usuario.usuario_id)
+            element.id_cliente == authController.usuario.id)
         .toList();
   }
   @observable
@@ -44,7 +44,7 @@ abstract class _ChatControllerBase with Store {
       status: "Enviado",
       situacao: 'Cliente-Produtor',
       data_envio: DateTime.now(),
-      id_cliente: authController.usuario.usuario_id,
+      id_cliente: authController.usuario.id,
       id_empresa: listaConversasPorEmpresas[0].id_empresa,
       nome_empresa: listaConversasPorEmpresas[0].nome_empresa,
       mensagem: mensagem.text,
@@ -73,7 +73,7 @@ abstract class _ChatControllerBase with Store {
     List<Chat> lista = [];
     lista = listaempresa
         .where((element) =>
-            element.id_cliente == authController.usuario.usuario_id &&
+            element.id_cliente == authController.usuario.id &&
             element.id_empresa == idEmpresa)
         .toList();
     lista.sort((a, b) => b.chat_id.compareTo(a.chat_id));

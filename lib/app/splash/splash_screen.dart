@@ -31,7 +31,6 @@ class _SplashScreenState extends State<SplashScreen>
         switch (response) {
           case 0:
             Modular.to.pushReplacementNamed('/start');
-            auth.insereDados();
             break;
           case 1:
             Modular.to.pushReplacementNamed('/login');

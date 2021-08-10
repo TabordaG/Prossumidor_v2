@@ -14,6 +14,35 @@ class AjudaPage extends StatefulWidget {
 
 class _AjudaPageState extends ModularState<AjudaPage, AjudaController> {
   //use 'controller' variable to access controller
+  final String firstQuestion = "Os Alimentos Agroecológicos são aqueles "
+      "produzidos de forma responsável, livres de contaminantes, agrotóxicos, "
+      "insumos químicos e que possuem mais qualidade nutricional evitando romper o "
+      "equilíbrio ecológico que dá a estabilidade aos ecossistemas naturais, usando "
+      "o emprego de aspectos da sustentabilidade social nas relações "
+      "de trabalho no campo.";
+  final String secondQuestion = "Os Alimentos Orgânicos são aqueles cultivados "
+      "de maneira sustentável mediante a agricultura biológica (ou orgânica). Esse "
+      "sistema não utiliza agrotóxicos, adubos químicos, aditivos sintéticos, "
+      "antibióticos, hormônios, nem técnicas de engenharia alimentar. Respeita "
+      "integralmente a natureza. Possui certificações e registros de qualidade e "
+      "comprometimento. Neste tipo de produção são adotadas práticas que visam à "
+      "preservação e o uso responsável do solo, da água e do ar, de modo a reduzir "
+      "as formas de contaminação e desperdício dos recursos naturais, o que gera "
+      "também economia, respeitando à integridade cultural das comunidades rurais, "
+      "tendo por objetivo à sustentabilidade econômica e ecológica, a maximização "
+      "dos benefícios sociais, a minimização da dependência de "
+      "energia não renovável.";
+
+  final String thirdQuestion = "Os Alimentos e Produtos Veganos são aqueles "
+      "que não possuem nenhum tipo de origem animal, excluindo carnes de todos os "
+      "tipos, além de ovos, laticínios, mel e gelatina. Preocupando-se com a saúde, "
+      "com o meio ambiente e com os maus-tratos aos animais.";
+
+  final String fourthQuestion = "Os Alimentos e Produtos Artesanais são "
+      "aqueles produzidos com características tradicionais, culturais, regionais, "
+      "processos de elaboração que se transmitem de geração em geração, conforme a "
+      "tradição cultural, trazendo conformidade com padrões de identidade e "
+      "qualidade de elaboração com a produção manual.";
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +74,7 @@ class _AjudaPageState extends ModularState<AjudaPage, AjudaController> {
                   ),
                   ExpansionTile(
                     title: Text(
-                      "Lorem ipsum dolor sit amet?",
+                      "O que são Alimentos Agroecológicos?",
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
                             color: kPrimaryColor,
                             fontWeight: FontWeight.w600,
@@ -60,14 +89,14 @@ class _AjudaPageState extends ModularState<AjudaPage, AjudaController> {
                           bottom: kDefaultPadding,
                         ),
                         child: Text(
-                          "text1",
+                          firstQuestion,
                         ),
                       ),
                     ],
                   ),
                   ExpansionTile(
                     title: Text(
-                      "Lorem ipsum dolor sit?",
+                      "O que são Alimentos Orgânicos?",
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
                             color: kPrimaryColor,
                             fontWeight: FontWeight.w600,
@@ -81,13 +110,13 @@ class _AjudaPageState extends ModularState<AjudaPage, AjudaController> {
                           right: kDefaultPadding * 0.8,
                           bottom: kDefaultPadding,
                         ),
-                        child: Text("text1"),
+                        child: Text(secondQuestion),
                       ),
                     ],
                   ),
                   ExpansionTile(
                     title: Text(
-                      "Lorem ipsum dolor sit amet, consectetur?",
+                      "O que são Alimentos e Produtos Veganos?",
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
                             color: kPrimaryColor,
                             fontWeight: FontWeight.w600,
@@ -101,7 +130,27 @@ class _AjudaPageState extends ModularState<AjudaPage, AjudaController> {
                           right: kDefaultPadding * 0.8,
                           bottom: kDefaultPadding,
                         ),
-                        child: Text("text1"),
+                        child: Text(thirdQuestion),
+                      ),
+                    ],
+                  ),
+                  ExpansionTile(
+                    title: Text(
+                      "O que são Alimentos e Produtos Artesanais?",
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            color: kPrimaryColor,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                          ),
+                    ),
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: kDefaultPadding * 0.8,
+                          right: kDefaultPadding * 0.8,
+                          bottom: kDefaultPadding,
+                        ),
+                        child: Text(fourthQuestion),
                       ),
                     ],
                   ),

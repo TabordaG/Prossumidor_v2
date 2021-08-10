@@ -24,8 +24,7 @@ abstract class _PedidosControllerBase with Store {
 
   @action
   chamarLista() async {
-    List list =
-        await pedidosRepository.listaPedidos(authController.usuario.usuario_id);
+    List list = await pedidosRepository.listaPedidos(authController.usuario.id);
     print(list.first);
     // List lista = await formataData(list);
     //if (lista != null) pedidosList = List.from(lista);
