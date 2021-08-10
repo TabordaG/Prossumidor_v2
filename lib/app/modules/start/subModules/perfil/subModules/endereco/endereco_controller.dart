@@ -77,9 +77,15 @@ abstract class _EnderecoControllerBase with Store {
     complemento =
         TextEditingController(text: authController.usuario.complemento);
     bairro = TextEditingController(text: authController.usuario.bairro);
-    cidade = TextEditingController(text: authController.usuario.cidade);
-    uf = TextEditingController(text: authController.usuario.estado);
-    cep = TextEditingController(text: authController.usuario.cep);
+    cidade = TextEditingController(
+        text: authController.usuario.cidade[0].toUpperCase() +
+            authController.usuario.cidade.substring(1));
+    uf = TextEditingController(
+        text: authController.usuario.estado.toUpperCase());
+    cep = TextEditingController(
+        text: authController.usuario.cep.substring(0, 5) +
+            "-" +
+            authController.usuario.cep.substring(5));
   }
 
   @action

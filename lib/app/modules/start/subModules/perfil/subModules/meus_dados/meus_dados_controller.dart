@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/perfil/subModules/meus_dados/repositories/interfaces/meus_dados_repository_interface.dart';
@@ -74,7 +75,7 @@ abstract class _MeusDadosControllerBase with Store {
 
     //generoOutro = TextEditingController(text: authController.usuario.sexo);
     dataNascimento = TextEditingController(
-        text: authController.usuario.data_nascimento_fundacao);
+        text: formataDataddmmYYYY(authController.usuario.data_nascimento_fundacao));
     estadoCivil =
         TextEditingController(text: authController.usuario.estado_civil);
     localRetirada =
@@ -118,6 +119,7 @@ abstract class _MeusDadosControllerBase with Store {
     else if (response == 'sucesso') print('sucesso na requisição');
   }
 
+
   String removeCaracterEspecial(String texto) {
     // remove aspas, virgula e *
     String nova = texto.replaceAll("(", "");
@@ -134,9 +136,9 @@ abstract class _MeusDadosControllerBase with Store {
     // formata data inverte data padrao dd/mm/aaaa para  aaaa-mm-dd
     if (text != null) {
       String dia, mes, ano;
-      ano = text.substring(0, 4);
-      mes = text.substring(5, 7);
-      dia = text.substring(8, 10);
+      dia = text.substring(0, 2);
+      mes = text.substring(3, 5);
+      ano = text.substring(6, 10);
       return ano + '-' + mes + '-' + dia;
     }
     return '';
@@ -147,9 +149,9 @@ abstract class _MeusDadosControllerBase with Store {
     if (text != null) {
       String dia, mes, ano;
       //print(text);
-      dia = text.substring(0, 2);
-      mes = text.substring(3, 5);
-      ano = text.substring(6, 10);
+      ano = text.substring(0, 4);
+      mes = text.substring(5, 7);
+      dia = text.substring(8, 10);
       return dia + '/' + mes + '/' + ano;
     }
     return '';
