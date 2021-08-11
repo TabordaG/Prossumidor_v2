@@ -1,6 +1,7 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/components/button.dart';
 import 'package:prossumidor_v2/app/constants.dart';
@@ -78,14 +79,11 @@ class _MeusDadosPageState
                           padding:
                               EdgeInsets.symmetric(horizontal: kDefaultPadding),
                           child: TextFormField(
-                            onChanged: (value) {
-                              controller.nome.text = value;
-                            },
+                            controller: controller.nome,
                             keyboardType: TextInputType.name,
                             textInputAction: TextInputAction.next,
                             textCapitalization: TextCapitalization.words,
                             onEditingComplete: node.nextFocus,
-                            initialValue: controller.nome.text,
                             validator: (value) {
                               if (value.isEmpty) {
                                 return 'Insira um nome válido';
@@ -94,13 +92,14 @@ class _MeusDadosPageState
                               }
                             },
                             decoration: InputDecoration(
+                              labelText: 'Nome',
                               border: UnderlineInputBorder(),
                               prefixIcon: Icon(
                                 Icons.person,
                                 color: Theme.of(context).primaryColor,
                               ),
-                              hintText:
-                                  controller.nome.text.isEmpty ? "Nome" : null,
+                              // hintText:
+                              //     controller.nome.text.isEmpty ? "Nome" : null,
                             ),
                           )),
                       SizedBox(
@@ -110,13 +109,10 @@ class _MeusDadosPageState
                         padding:
                             EdgeInsets.symmetric(horizontal: kDefaultPadding),
                         child: TextFormField(
-                          onChanged: (value) {
-                            controller.cpf.text = value;
-                          },
+                          controller: controller.cpf,
                           keyboardType: TextInputType.number,
                           textInputAction: TextInputAction.next,
                           onEditingComplete: node.nextFocus,
-                          initialValue: controller.cpf.text,
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
                             CpfInputFormatter(),
@@ -136,6 +132,7 @@ class _MeusDadosPageState
                             }
                           },
                           decoration: InputDecoration(
+                            labelText: 'CPF',
                             border: UnderlineInputBorder(),
                             prefixIcon: Icon(
                               Icons.contact_page,
@@ -153,13 +150,10 @@ class _MeusDadosPageState
                         padding:
                             EdgeInsets.symmetric(horizontal: kDefaultPadding),
                         child: TextFormField(
-                          onChanged: (value) {
-                            controller.telefone.text = value;
-                          },
+                          controller: controller.telefone,
                           keyboardType: TextInputType.number,
                           textInputAction: TextInputAction.next,
                           onEditingComplete: node.unfocus,
-                          initialValue: controller.telefone.text,
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
                             TelefoneInputFormatter()
@@ -172,6 +166,7 @@ class _MeusDadosPageState
                             }
                           },
                           decoration: InputDecoration(
+                            labelText: 'Telefone',
                             border: UnderlineInputBorder(),
                             prefixIcon: Icon(
                               Icons.phone,
@@ -183,78 +178,78 @@ class _MeusDadosPageState
                           ),
                         ),
                       ),
+                      Observer(builder: (_) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                controller.generoId = 0;
+                              },
+                              child: Text(
+                                'Masculino',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    .copyWith(
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          .color
+                                          .withOpacity(.8),
+                                    ),
+                              ),
+                            ),
+                            Radio(
+                              value: 0,
+                              activeColor: Theme.of(context).primaryColor,
+                              groupValue: controller.generoId,
+                              onChanged: (value) {
+                                setState(() {
+                                  controller.generoId = value;
+                                });
+                              },
+                            ),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  controller.generoId = 1;
+                                });
+                              },
+                              child: Text(
+                                'Feminino',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    .copyWith(
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          .color
+                                          .withOpacity(.8),
+                                    ),
+                              ),
+                            ),
+                            Radio(
+                              value: 1,
+                              activeColor: Theme.of(context).primaryColor,
+                              groupValue: controller.generoId,
+                              onChanged: (value) {
+                                setState(() {
+                                  controller.generoId = value;
+                                });
+                              },
+                            ),
+                          ],
+                        );
+                      }),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           InkWell(
                             onTap: () {
                               setState(() {
-                                controller.genero.text = "0";
-                              });
-                            },
-                            child: Text(
-                              'Masculino',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  .copyWith(
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1
-                                        .color
-                                        .withOpacity(.8),
-                                  ),
-                            ),
-                          ),
-                          Radio(
-                            value: 0,
-                            activeColor: Theme.of(context).primaryColor,
-                            groupValue: controller.genero,
-                            onChanged: (value) {
-                              setState(() {
-                                controller.genero;
-                              });
-                            },
-                          ),
-                          InkWell(
-                            onTap: () {
-                              setState(() {
-                                controller.genero.text = '1';
-                              });
-                            },
-                            child: Text(
-                              'Feminino',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  .copyWith(
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1
-                                        .color
-                                        .withOpacity(.8),
-                                  ),
-                            ),
-                          ),
-                          Radio(
-                            value: 1,
-                            activeColor: Theme.of(context).primaryColor,
-                            groupValue: controller.genero,
-                            onChanged: (value) {
-                              setState(() {
-                                controller.genero;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              setState(() {
-                                controller.genero.text = '2';
+                                controller.generoId = 2;
                               });
                             },
                             child: Text(
@@ -274,10 +269,10 @@ class _MeusDadosPageState
                           Radio(
                             value: 2,
                             activeColor: Theme.of(context).primaryColor,
-                            groupValue: controller.genero,
+                            groupValue: controller.generoId,
                             onChanged: (value) {
                               setState(() {
-                                controller.genero;
+                                controller.generoId = value;
                               });
                             },
                           ),
@@ -309,14 +304,11 @@ class _MeusDadosPageState
                         padding:
                             EdgeInsets.symmetric(horizontal: kDefaultPadding),
                         child: TextFormField(
-                          onChanged: (value) {
-                            controller.dataNascimento.text = value;
-                          },
+                          controller: controller.dataNascimento,
                           keyboardType: TextInputType.text,
                           textInputAction: TextInputAction.next,
                           textCapitalization: TextCapitalization.words,
                           onEditingComplete: node.nextFocus,
-                          initialValue: controller.dataNascimento.text,
                           validator: (value) {
                             if (value.isEmpty) {
                               return 'Insira uma data de nascimento válida';
@@ -325,6 +317,7 @@ class _MeusDadosPageState
                             }
                           },
                           decoration: InputDecoration(
+                              labelText: 'Data de Nascimento',
                               border: UnderlineInputBorder(),
                               prefixIcon: Icon(
                                 Icons.house_siding,
@@ -342,9 +335,7 @@ class _MeusDadosPageState
                         padding:
                             EdgeInsets.symmetric(horizontal: kDefaultPadding),
                         child: TextFormField(
-                          onChanged: (value) {
-                            controller.estadoCivil.text = value;
-                          },
+                          controller: controller.estadoCivil,
                           inputFormatters: [
                             LengthLimitingTextInputFormatter(250),
                           ],
@@ -352,7 +343,6 @@ class _MeusDadosPageState
                           textInputAction: TextInputAction.next,
                           textCapitalization: TextCapitalization.words,
                           onEditingComplete: node.nextFocus,
-                          initialValue: controller.estadoCivil.text,
                           validator: (value) {
                             if (value.isEmpty) {
                               return 'Insira uma estado cívil válida';
@@ -361,6 +351,7 @@ class _MeusDadosPageState
                             }
                           },
                           decoration: InputDecoration(
+                            labelText: 'Estado Civil',
                             border: UnderlineInputBorder(),
                             prefixIcon: Icon(
                               Icons.location_city,
@@ -379,14 +370,11 @@ class _MeusDadosPageState
                         padding:
                             EdgeInsets.symmetric(horizontal: kDefaultPadding),
                         child: TextFormField(
-                          onChanged: (value) {
-                            controller.localRetirada.text = value;
-                          },
+                          controller: controller.localRetirada,
                           keyboardType: TextInputType.name,
                           textInputAction: TextInputAction.next,
                           textCapitalization: TextCapitalization.sentences,
                           onEditingComplete: node.nextFocus,
-                          initialValue: controller.localRetirada.text,
                           inputFormatters: [
                             FilteringTextInputFormatter.singleLineFormatter,
                             LengthLimitingTextInputFormatter(2),
@@ -399,6 +387,7 @@ class _MeusDadosPageState
                             }
                           },
                           decoration: InputDecoration(
+                            labelText: 'Local de Retirada',
                             border: UnderlineInputBorder(),
                             prefixIcon: Icon(
                               Icons.business,
@@ -422,7 +411,6 @@ class _MeusDadosPageState
                               controller.isPageValid();
                               if (controller.pageValid == true) {
                                 controller.atualizaDados();
-                                Navigator.of(context).pop();
                               } else
                                 print("formkey invalido");
                             },

@@ -101,7 +101,7 @@ class _TopHomeViewState extends State<TopHomeView> {
                 borderRadius: BorderRadius.circular(5.0),
                 child: Image(
                   width: 45,
-                  image: AssetImage("assets/images/logo.png"),
+                  image: AssetImage("assets/images/newLogo_1.png"),
                 ),
               ),
             ],

@@ -7,7 +7,7 @@ part of 'perfil_repository.dart';
 // **************************************************************************
 
 final $PerfilRepository = BindInject(
-  (i) => PerfilRepository(i<DioForNative>()),
+  (i) => PerfilRepository(),
   singleton: true,
   lazy: true,
 );

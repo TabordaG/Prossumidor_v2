@@ -1,6 +1,5 @@
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:prossumidor_v2/app/constants.dart';
 import 'package:prossumidor_v2/app/models/usuario/usuario_model.dart';
 import 'package:prossumidor_v2/app/shared/auth/repositories/interfaces/auth_repository_interface.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,6 +14,12 @@ abstract class _AuthControllerBase with Store {
 
   @observable
   Usuario usuario;
+
+  @observable
+  List localRetirada;
+
+  @observable
+  String localRetiradaAtual;
 
   @observable
   String versaoAtual;
@@ -57,20 +62,5 @@ abstract class _AuthControllerBase with Store {
   removeValues() async {
     SharedPreferences prefs1 = await SharedPreferences.getInstance();
     prefs1.remove('email');
-  }
-
-  //função teste
-  @action
-  void insereDados() {
-    usuario.nome = "Gustavo";
-    usuario.telefone = '(00) 9 0000-0000';
-    usuario.endereco = "Rua Manoel";
-    usuario.numero = "123";
-    usuario.complemento = "Apto 16 Bloco A";
-    usuario.bairro = "Bairro";
-    usuario.cidade = "Cuiabá";
-    usuario.estado = "MT";
-    usuario.cep = "00000-000";
-    usuario.empresa = centroDistribuicao.first;
   }
 }

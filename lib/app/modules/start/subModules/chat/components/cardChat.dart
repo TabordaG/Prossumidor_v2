@@ -17,13 +17,17 @@ class _CardChatState extends State<CardChat> {
       onTap: widget.onTap,
       child: Container(
         decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: Colors.black54, width: 0.2, )),
+          border: Border(
+              bottom: BorderSide(
+            color: Colors.black54,
+            width: 0.2,
+          )),
         ),
         child: ListTile(
           leading: CircleAvatar(
-            child: Text(widget.chat.nome_empresa.characters.first),
+            child: Text(widget.chat.razao_social.characters.first),
           ),
-          title: Text(widget.chat.nome_empresa),
+          title: Text(widget.chat.razao_social),
           subtitle: Row(
             children: [
               Icon(

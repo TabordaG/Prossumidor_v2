@@ -6,7 +6,7 @@ part 'chat_model.g.dart';
 class Chat {
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  int chat_id;
+  int id;
   @JsonKey(required: false, disallowNullValue: false)
   String mensagem;
   @JsonKey(required: false, disallowNullValue: false)
@@ -21,17 +21,20 @@ class Chat {
   DateTime data_leitura;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  int id_cliente;
+  int id_cliente_id;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  int id_empresa;
+  String nome_razao_social;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  String nome_empresa;
+  int id_empresa_id;
+  @JsonKey(required: false, disallowNullValue: false)
+  // ignore: non_constant_identifier_names
+  String razao_social;
 
   Chat({
     // ignore: non_constant_identifier_names
-    this.chat_id,
+    this.id,
     this.mensagem,
     this.situacao,
     this.status,
@@ -40,11 +43,13 @@ class Chat {
     // ignore: non_constant_identifier_names
     this.data_leitura,
     // ignore: non_constant_identifier_names
-    this.id_cliente,
+    this.id_cliente_id,
     // ignore: non_constant_identifier_names
-    this.id_empresa,
+    this.nome_razao_social,
     // ignore: non_constant_identifier_names
-    this.nome_empresa,
+    this.id_empresa_id,
+    // ignore: non_constant_identifier_names
+    this.razao_social,
   });
 
   factory Chat.fromJson(Map<String, dynamic> json) => _$ChatFromJson(json);

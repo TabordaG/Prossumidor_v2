@@ -34,6 +34,37 @@ mixin _$AuthController on _AuthControllerBase, Store {
     });
   }
 
+  final _$localRetiradaAtom = Atom(name: '_AuthControllerBase.localRetirada');
+
+  @override
+  List<dynamic> get localRetirada {
+    _$localRetiradaAtom.reportRead();
+    return super.localRetirada;
+  }
+
+  @override
+  set localRetirada(List<dynamic> value) {
+    _$localRetiradaAtom.reportWrite(value, super.localRetirada, () {
+      super.localRetirada = value;
+    });
+  }
+
+  final _$localRetiradaAtualAtom =
+      Atom(name: '_AuthControllerBase.localRetiradaAtual');
+
+  @override
+  String get localRetiradaAtual {
+    _$localRetiradaAtualAtom.reportRead();
+    return super.localRetiradaAtual;
+  }
+
+  @override
+  set localRetiradaAtual(String value) {
+    _$localRetiradaAtualAtom.reportWrite(value, super.localRetiradaAtual, () {
+      super.localRetiradaAtual = value;
+    });
+  }
+
   final _$versaoAtualAtom = Atom(name: '_AuthControllerBase.versaoAtual');
 
   @override
@@ -72,20 +103,11 @@ mixin _$AuthController on _AuthControllerBase, Store {
   }
 
   @override
-  void insereDados() {
-    final _$actionInfo = _$_AuthControllerBaseActionController.startAction(
-        name: '_AuthControllerBase.insereDados');
-    try {
-      return super.insereDados();
-    } finally {
-      _$_AuthControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 usuario: ${usuario},
+localRetirada: ${localRetirada},
+localRetiradaAtual: ${localRetiradaAtual},
 versaoAtual: ${versaoAtual}
     ''';
   }

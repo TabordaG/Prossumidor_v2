@@ -42,8 +42,8 @@ class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
                   height: 50,
                   width: 50,
                   child: Image(
-                    fit: BoxFit.fill,
-                    image: AssetImage('assets/images/logo.png'),
+                    fit: BoxFit.cover,
+                    image: AssetImage('assets/images/newLogo_1.png'),
                   ),
                 )),
           ),
@@ -51,20 +51,22 @@ class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Flexible(
-                child: Text(
-                  "Gustavo Alecio de Oliveira",
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
-                        fontSize: 20,
-                        color: Theme.of(context)
-                            .textTheme
-                            .bodyText1
-                            .color
-                            .withOpacity(0.9),
-                      ),
-                  maxLines: 2,
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                ),
+                child: Observer(builder: (_) {
+                  return Text(
+                    '${controller.nome}',
+                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                          fontSize: 20,
+                          color: Theme.of(context)
+                              .textTheme
+                              .bodyText1
+                              .color
+                              .withOpacity(0.9),
+                        ),
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                  );
+                }),
               ),
             ],
           ),

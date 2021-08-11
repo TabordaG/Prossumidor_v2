@@ -22,13 +22,13 @@ mixin _$ChatController on _ChatControllerBase, Store {
   final _$listaConversasAtom = Atom(name: '_ChatControllerBase.listaConversas');
 
   @override
-  List<Chat> get listaConversas {
+  List<dynamic> get listaConversas {
     _$listaConversasAtom.reportRead();
     return super.listaConversas;
   }
 
   @override
-  set listaConversas(List<Chat> value) {
+  set listaConversas(List<dynamic> value) {
     _$listaConversasAtom.reportWrite(value, super.listaConversas, () {
       super.listaConversas = value;
     });
@@ -81,6 +81,22 @@ mixin _$ChatController on _ChatControllerBase, Store {
     });
   }
 
+  final _$buscaChatsAsyncAction = AsyncAction('_ChatControllerBase.buscaChats');
+
+  @override
+  Future buscaChats() {
+    return _$buscaChatsAsyncAction.run(() => super.buscaChats());
+  }
+
+  final _$buscaChatsEmpresaAsyncAction =
+      AsyncAction('_ChatControllerBase.buscaChatsEmpresa');
+
+  @override
+  Future buscaChatsEmpresa({int id}) {
+    return _$buscaChatsEmpresaAsyncAction
+        .run(() => super.buscaChatsEmpresa(id: id));
+  }
+
   final _$_ChatControllerBaseActionController =
       ActionController(name: '_ChatControllerBase');
 
@@ -107,22 +123,11 @@ mixin _$ChatController on _ChatControllerBase, Store {
   }
 
   @override
-  dynamic totalConversas() {
+  dynamic buscaChatIndividual() {
     final _$actionInfo = _$_ChatControllerBaseActionController.startAction(
-        name: '_ChatControllerBase.totalConversas');
+        name: '_ChatControllerBase.buscaChatIndividual');
     try {
-      return super.totalConversas();
-    } finally {
-      _$_ChatControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic buscaMensagens(int idEmpresa) {
-    final _$actionInfo = _$_ChatControllerBaseActionController.startAction(
-        name: '_ChatControllerBase.buscaMensagens');
-    try {
-      return super.buscaMensagens(idEmpresa);
+      return super.buscaChatIndividual();
     } finally {
       _$_ChatControllerBaseActionController.endAction(_$actionInfo);
     }

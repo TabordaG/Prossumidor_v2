@@ -32,14 +32,14 @@ abstract class _PedidosControllerBase with Store {
   chamarListaNaoEntregue() async {
     pedidosNaoEntregueList = null;
     pedidosNaoEntregueList = List.from(await pedidosRepository
-        .listaPedidosNaoEntregue(authController.usuario.usuario_id));
+        .listaPedidosNaoEntregue(authController.usuario.id));
   }
 
   @action
   chamarListaEntregue() async {
     pedidosEntregueList = null;
     pedidosEntregueList = List.from(await pedidosRepository
-        .listaPedidosEntregue(authController.usuario.usuario_id));
+        .listaPedidosEntregue(authController.usuario.id));
   }
 
   @action

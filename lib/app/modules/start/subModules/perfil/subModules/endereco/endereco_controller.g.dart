@@ -170,6 +170,53 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
     });
   }
 
+  final _$listLocalRetiradaAtom =
+      Atom(name: '_EnderecoControllerBase.listLocalRetirada');
+
+  @override
+  List<String> get listLocalRetirada {
+    _$listLocalRetiradaAtom.reportRead();
+    return super.listLocalRetirada;
+  }
+
+  @override
+  set listLocalRetirada(List<String> value) {
+    _$listLocalRetiradaAtom.reportWrite(value, super.listLocalRetirada, () {
+      super.listLocalRetirada = value;
+    });
+  }
+
+  final _$idRetiradaAtom = Atom(name: '_EnderecoControllerBase.idRetirada');
+
+  @override
+  String get idRetirada {
+    _$idRetiradaAtom.reportRead();
+    return super.idRetirada;
+  }
+
+  @override
+  set idRetirada(String value) {
+    _$idRetiradaAtom.reportWrite(value, super.idRetirada, () {
+      super.idRetirada = value;
+    });
+  }
+
+  final _$buscaUserAsyncAction =
+      AsyncAction('_EnderecoControllerBase.buscaUser');
+
+  @override
+  Future buscaUser() {
+    return _$buscaUserAsyncAction.run(() => super.buscaUser());
+  }
+
+  final _$atualizaDadosAsyncAction =
+      AsyncAction('_EnderecoControllerBase.atualizaDados');
+
+  @override
+  Future atualizaDados() {
+    return _$atualizaDadosAsyncAction.run(() => super.atualizaDados());
+  }
+
   final _$_EnderecoControllerBaseActionController =
       ActionController(name: '_EnderecoControllerBase');
 
@@ -196,11 +243,11 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
   }
 
   @override
-  dynamic atualizaDados() {
+  dynamic getLocalRetirada() {
     final _$actionInfo = _$_EnderecoControllerBaseActionController.startAction(
-        name: '_EnderecoControllerBase.atualizaDados');
+        name: '_EnderecoControllerBase.getLocalRetirada');
     try {
-      return super.atualizaDados();
+      return super.getLocalRetirada();
     } finally {
       _$_EnderecoControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -218,7 +265,9 @@ cidade: ${cidade},
 uf: ${uf},
 cep: ${cep},
 pageValid: ${pageValid},
-dropdownvalue: ${dropdownvalue}
+dropdownvalue: ${dropdownvalue},
+listLocalRetirada: ${listLocalRetirada},
+idRetirada: ${idRetirada}
     ''';
   }
 }

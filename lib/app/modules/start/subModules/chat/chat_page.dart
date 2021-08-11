@@ -36,19 +36,34 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
             ],
           ),
         ),
-        body: ListView.builder(
-          itemCount: chatController.totalConversas(),
-          itemBuilder: (context, index) {
-            return Observer(builder: (_) {
-              return CardChat(
-                chat: chatController.listaConversas[index],
-                onTap: () async {
-                  await chatController.buscaMensagens(
-                      chatController.listaConversas[index].id_empresa);
-                  Modular.to.pushNamed('chat/chatIndividual');
-                },
-              );
-            });
+        body: Observer(
+          builder: (_) {
+            return chatController.listaConversas == null
+                ? Center(
+                    child: Text('nulo'),
+                  )
+                : ListView.builder(
+                    itemCount: chatController.listaConversas.length,
+                    itemBuilder: (context, index) {
+                      return Observer(builder: (_) {
+                        return chatController.listaConversasPorEmpresas ==
+                                    null ||
+                                chatController.listaConversasPorEmpresas.isEmpty
+                            ? Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : CardChat(
+                                chat: chatController
+                                    .listaConversasPorEmpresas[index],
+                                onTap: () async {
+                                  // await chatController.buscaMensagens(
+                                  //     chatController.listaConversasPorEmpresas[index].id_empresa_id);
+                                  // Modular.to.pushNamed('chat/chatIndividual');
+                                },
+                              );
+                      });
+                    },
+                  );
           },
         ));
   }
