@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:prossumidor_v2/app/models/usuario/usuario_model.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/home/home_controller.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/perfil/perfil_controller.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/perfil/subModules/endereco/repositories/interfaces/endereco_repository_interface.dart';

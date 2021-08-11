@@ -1,9 +1,5 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:prossumidor_v2/app/models/usuario/usuario_model.dart';
-
 import '../../../../../../../dados_basicos.dart';
 import 'interfaces/endereco_repository_interface.dart';
 

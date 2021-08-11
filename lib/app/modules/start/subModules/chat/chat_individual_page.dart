@@ -20,7 +20,7 @@ class _ChatIndividualState extends State<ChatIndividual> {
     return Scaffold(
         appBar: AppBar(
             title: Text(
-          chatController.listaConversasPorEmpresas[0].nome_empresa,
+          chatController.listaConversasPorEmpresas[0].razao_social,
         )),
         body: Column(
           children: [

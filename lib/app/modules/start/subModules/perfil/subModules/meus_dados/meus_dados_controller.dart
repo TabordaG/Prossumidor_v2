@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/perfil/subModules/meus_dados/repositories/interfaces/meus_dados_repository_interface.dart';
