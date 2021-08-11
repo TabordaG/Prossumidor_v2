@@ -16,7 +16,7 @@ class Pedidos {
   String quantidade;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  String data_registro;
+  DateTime data_registro;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
   String tipo_entrega;

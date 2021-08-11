@@ -25,7 +25,31 @@ class RecuperarSenhaRepository implements IRecuperarSenhaRepository {
   void dispose() {}
 
   @override
-  Future enviaEmail(String email, String mensagem) async {}
+  Future enviaEmail(String email, String mensagem) async {
+    String link =
+        Basicos.codifica("${Basicos.ip}/crud/?crud=consult24.$email,$mensagem");
+
+    response = await dio.get(
+      Uri.encodeFull(link),
+      options: Options(
+        headers: {"Accept": "application/json"},
+      ),
+    );
+    try {
+      if (response.data != null && response.statusCode == 200) {
+        var respondeDecoded = Basicos.decodifica(response.data);
+        print(respondeDecoded);
+        // List list = json.decode(respondeDecoded).cast<Map<String, dynamic>>();
+        if (response.statusCode == 200)
+          return 'sucesso';
+        else
+          return 'falha';
+      } else
+        return null;
+    } catch (e) {
+      return null;
+    }
+  }
 
   @override
   Future verifaEmail(String email) async {

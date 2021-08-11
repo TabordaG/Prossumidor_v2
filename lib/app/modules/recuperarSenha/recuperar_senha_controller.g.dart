@@ -145,6 +145,22 @@ mixin _$RecuperarSenhaController on _RecuperarSenhaControllerBase, Store {
     });
   }
 
+  final _$emailValidoAtom =
+      Atom(name: '_RecuperarSenhaControllerBase.emailValido');
+
+  @override
+  bool get emailValido {
+    _$emailValidoAtom.reportRead();
+    return super.emailValido;
+  }
+
+  @override
+  set emailValido(bool value) {
+    _$emailValidoAtom.reportWrite(value, super.emailValido, () {
+      super.emailValido = value;
+    });
+  }
+
   final _$obscureSenha1Atom =
       Atom(name: '_RecuperarSenhaControllerBase.obscureSenha1');
 
@@ -244,7 +260,7 @@ mixin _$RecuperarSenhaController on _RecuperarSenhaControllerBase, Store {
       AsyncAction('_RecuperarSenhaControllerBase.setNextPage');
 
   @override
-  Future<bool> setNextPage(ProgressDialog progressDialog) {
+  Future<dynamic> setNextPage(ProgressDialog progressDialog) {
     return _$setNextPageAsyncAction
         .run(() => super.setNextPage(progressDialog));
   }
@@ -255,6 +271,14 @@ mixin _$RecuperarSenhaController on _RecuperarSenhaControllerBase, Store {
   @override
   Future<bool> verificarEmail() {
     return _$verificarEmailAsyncAction.run(() => super.verificarEmail());
+  }
+
+  final _$enviarRecuperacaoAsyncAction =
+      AsyncAction('_RecuperarSenhaControllerBase.enviarRecuperacao');
+
+  @override
+  Future enviarRecuperacao() {
+    return _$enviarRecuperacaoAsyncAction.run(() => super.enviarRecuperacao());
   }
 
   final _$_RecuperarSenhaControllerBaseActionController =
@@ -348,6 +372,7 @@ code: ${code},
 email: ${email},
 senha: ${senha},
 confirmarSenha: ${confirmarSenha},
+emailValido: ${emailValido},
 obscureSenha1: ${obscureSenha1},
 obscureSenha2: ${obscureSenha2},
 page1Valid: ${page1Valid},

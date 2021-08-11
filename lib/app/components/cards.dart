@@ -93,7 +93,8 @@ class _CardHomeState extends State<CardHome> {
                   children: [
                     Text(
                       'R\$ ' +
-                          produtoList[widget.index].preco.toStringAsFixed(2),
+                          double.parse(produtoList[widget.index].preco)
+                              .toStringAsFixed(2),
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
                             fontSize: 14,
@@ -271,7 +272,8 @@ class _CardProdutosCategoriaState extends State<CardProdutosCategoria> {
                   children: [
                     Text(
                       'R\$ ' +
-                          produtoList[widget.index].preco.toStringAsFixed(2),
+                          double.parse(produtoList[widget.index].preco)
+                              .toStringAsFixed(2),
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
                             fontSize: 14,

@@ -49,6 +49,9 @@ abstract class _RecuperarSenhaControllerBase with Store {
   // setSenha(String valor) => senha = valor;
 
   @observable
+  bool emailValido = false;
+
+  @observable
   bool obscureSenha1 = true;
 
   @action
@@ -103,22 +106,22 @@ abstract class _RecuperarSenhaControllerBase with Store {
   setIndex(int valor) => current = valor;
 
   @action
-  Future<bool> setNextPage(ProgressDialog progressDialog) async {
-    bool retorno = false;
+  Future setNextPage(ProgressDialog progressDialog) async {
     switch (current) {
       case 0:
         isPage1Valid();
         if (page1Valid) {
           progressDialog.show();
-          bool emailValido = await verificarEmail();
+          emailValido = await verificarEmail();
           Future.delayed(Duration(seconds: 2), () {
             progressDialog.hide();
-            if (emailValido)
+            if (emailValido) {
               buttonCarouselController.nextPage(
                 duration: Duration(milliseconds: 300),
                 curve: Curves.linear,
               );
-            retorno = emailValido;
+              enviarRecuperacao();
+            }
           });
         }
         break;
@@ -132,8 +135,6 @@ abstract class _RecuperarSenhaControllerBase with Store {
         break;
       default:
     }
-
-    return retorno;
   }
 
   @action
@@ -149,5 +150,11 @@ abstract class _RecuperarSenhaControllerBase with Store {
       return true;
     else
       return false;
+  }
+
+  @action
+  enviarRecuperacao() async {
+    var res = await recuperarRepository.enviaEmail(email.text, "texto_email");
+    if (res != null) print(res);
   }
 }

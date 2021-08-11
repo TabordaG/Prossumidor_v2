@@ -4,15 +4,16 @@ part 'produto_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Produto {
-  @JsonKey(required: false, disallowNullValue: false)
+  @JsonKey(required: false, disallowNullValue: false, name: "id")
   // ignore: non_constant_identifier_names
   int produto_id;
-  @JsonKey(required: false, disallowNullValue: false)
+  @JsonKey(
+      required: false, disallowNullValue: false, name: "descricao_simplificada")
   String nome;
-  @JsonKey(required: false, disallowNullValue: false)
+  @JsonKey(required: false, disallowNullValue: false, name: "empresa")
   String produtor;
-  @JsonKey(required: false, disallowNullValue: false)
-  double preco;
+  @JsonKey(required: false, disallowNullValue: false, name: "valor_unitario")
+  String preco;
   @JsonKey(required: false, disallowNullValue: false)
   String imagem;
   @JsonKey(required: false, disallowNullValue: false)
@@ -24,9 +25,16 @@ class Produto {
   @JsonKey(required: false, disallowNullValue: false)
   String unidade;
   @JsonKey(required: false, disallowNullValue: false)
+  String quantidade;
+  @JsonKey(required: false, disallowNullValue: false)
   List<int> categorias;
   @JsonKey(required: false, disallowNullValue: false)
   String distribuicao;
+  @JsonKey(required: false, disallowNullValue: false)
+  String status;
+  @JsonKey(required: false, disallowNullValue: false)
+  // ignore: non_constant_identifier_names
+  String preco_venda;
 
   Produto({
     // ignore: non_constant_identifier_names
@@ -39,8 +47,12 @@ class Produto {
     this.condicao,
     this.estoque,
     this.unidade,
+    this.quantidade,
     this.categorias,
     this.distribuicao,
+    this.status,
+    // ignore: non_constant_identifier_names
+    this.preco_venda,
   });
 
   factory Produto.fromJson(Map<String, dynamic> json) =>

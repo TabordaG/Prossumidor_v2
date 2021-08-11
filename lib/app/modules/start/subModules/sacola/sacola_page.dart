@@ -52,9 +52,10 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(top: kDefaultPadding * .5),
+              padding: EdgeInsets.only(
+                  top: kDefaultPadding * .5, bottom: kDefaultPadding * .5),
               child: Text(
-                'Total de Itens: 5',
+                'Total de itens: 5',
                 style: Theme.of(context).textTheme.bodyText1.copyWith(
                       color: Theme.of(context)
                           .textTheme
@@ -64,73 +65,147 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                     ),
               ),
             ),
-            Divider(
-              thickness: .3,
-              color:
-                  Theme.of(context).textTheme.bodyText1.color.withOpacity(.8),
-            ),
+            // Divider(
+            //   thickness: .3,
+            //   color:
+            //       Theme.of(context).textTheme.bodyText1.color.withOpacity(.8),
+            // ),
             Expanded(
               child: Scrollbar(
                 controller: scrollController,
                 radius: Radius.circular(10),
                 thickness: 3,
                 isAlwaysShown: true,
-                child: ListView.builder(
-                  controller: scrollController,
-                  physics: BouncingScrollPhysics(),
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        height: 100,
-                        width: double.infinity,
-                        margin: EdgeInsets.only(
-                          right: kDefaultPadding * .1,
-                          bottom: kDefaultPadding * .3,
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(5),
-                              ),
-                              child: Container(
-                                height: 90,
-                                width: 90,
-                                child: Image(
-                                  fit: BoxFit.fill,
-                                  image: AssetImage(
-                                    produtoList[index].imagem,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: ListView.builder(
+                    controller: scrollController,
+                    physics: BouncingScrollPhysics(),
+                    itemCount: 5,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          height: 100,
+                          width: double.infinity,
+                          margin: EdgeInsets.only(
+                            right: kDefaultPadding * .1,
+                            bottom: kDefaultPadding * .3,
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(5),
+                                ),
+                                child: Container(
+                                  height: 90,
+                                  width: 90,
+                                  child: Image(
+                                    fit: BoxFit.fill,
+                                    image: AssetImage(
+                                      produtoList[index].imagem,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              width: kDefaultPadding * .5,
-                            ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    produtoList[index].nome,
-                                    softWrap: true,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1
-                                        .copyWith(
-                                          fontSize: 16,
+                              SizedBox(
+                                width: kDefaultPadding * .5,
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      produtoList[index].nome,
+                                      softWrap: true,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          .copyWith(
+                                            fontSize: 16,
+                                          ),
+                                    ),
+                                    Text(
+                                      produtoList[index].produtor,
+                                      maxLines: 1,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          .copyWith(
+                                            fontSize: 12,
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1
+                                                .color
+                                                .withOpacity(.8),
+                                          ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              controller.decrement();
+                                            });
+                                          },
+                                          child: Card(
+                                            elevation: 1,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .secondary,
+                                            child: Icon(
+                                              Icons.remove,
+                                              color: Colors.white,
+                                            ),
+                                          ),
                                         ),
-                                  ),
-                                  Text(
-                                    produtoList[index].produtor,
-                                    maxLines: 1,
+                                        Container(
+                                          width: 30,
+                                          child: Center(
+                                            child: Text(
+                                              controller.value.toString(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1
+                                                  .copyWith(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                            ),
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              controller.increment(
+                                                  produtoList[index].estoque);
+                                            });
+                                          },
+                                          child: Card(
+                                            elevation: 1,
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            child: Icon(
+                                              Icons.add,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Center(
+                                child: RichText(
+                                  textAlign: TextAlign.center,
+                                  text: TextSpan(
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyText1
@@ -142,120 +217,50 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                               .color
                                               .withOpacity(.8),
                                         ),
-                                  ),
-                                  Row(
                                     children: [
-                                      InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            controller.decrement();
-                                          });
-                                        },
-                                        child: Card(
-                                          elevation: 1,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .secondary,
-                                          child: Icon(
-                                            Icons.remove,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        width: 30,
-                                        child: Center(
-                                          child: Text(
-                                            controller.value.toString(),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyText1
-                                                .copyWith(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
-                                          ),
-                                        ),
-                                      ),
-                                      InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            controller.increment(
-                                                produtoList[index].estoque);
-                                          });
-                                        },
-                                        child: Card(
-                                          elevation: 1,
-                                          color: Theme.of(context).primaryColor,
-                                          child: Icon(
-                                            Icons.add,
-                                            color: Colors.white,
-                                          ),
-                                        ),
+                                      TextSpan(text: 'Valor Unit.'),
+                                      TextSpan(
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1
+                                            .copyWith(
+                                              fontSize: 11,
+                                            ),
+                                        text: '\nR\$ ' +
+                                            double.parse(
+                                                    produtoList[index].preco)
+                                                .toStringAsFixed(2),
                                       ),
                                     ],
                                   ),
-                                ],
-                              ),
-                            ),
-                            Center(
-                              child: RichText(
-                                textAlign: TextAlign.center,
-                                text: TextSpan(
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      .copyWith(
-                                        fontSize: 12,
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1
-                                            .color
-                                            .withOpacity(.8),
-                                      ),
-                                  children: [
-                                    TextSpan(text: 'Valor Unit.'),
-                                    TextSpan(
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1
-                                          .copyWith(
-                                            fontSize: 11,
-                                          ),
-                                      text: '\nR\$ ' +
-                                          produtoList[index]
-                                              .preco
-                                              .toStringAsFixed(2),
-                                    ),
-                                  ],
                                 ),
                               ),
-                            ),
-                            Center(
-                              child: IconButton(
-                                icon: Icon(
-                                  Icons.delete,
-                                  size: 20,
+                              Center(
+                                child: IconButton(
+                                  icon: Icon(
+                                    Icons.delete,
+                                    size: 20,
+                                  ),
+                                  onPressed: () {},
                                 ),
-                                onPressed: () {},
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
-            Divider(
-              thickness: .3,
-              color:
-                  Theme.of(context).textTheme.bodyText1.color.withOpacity(.8),
-            ),
+            // Divider(
+            //   thickness: .3,
+            //   color:
+            //       Theme.of(context).textTheme.bodyText1.color.withOpacity(.8),
+            // ),
             Padding(
               padding: EdgeInsets.only(
-                top: kDefaultPadding * .2,
+                top: kDefaultPadding * .7,
                 left: kDefaultPadding * .5,
                 right: kDefaultPadding * .5,
                 bottom: kDefaultPadding * .8,
