@@ -75,7 +75,7 @@ class CardMensagemState extends State<CardMensagem> {
                 child: Stack(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 10, 30, 25),
+                      padding: const EdgeInsets.fromLTRB(10, 10, 40, 25),
                       child: Text(
                         widget.chat.mensagem,
                         style: Theme.of(context)

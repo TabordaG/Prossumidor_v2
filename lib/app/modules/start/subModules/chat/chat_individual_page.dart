@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -15,26 +16,35 @@ class ChatIndividual extends StatefulWidget {
 class _ChatIndividualState extends State<ChatIndividual> {
   final ChatController chatController = Modular.get<ChatController>();
   ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            title: Text(
-          chatController.listaConversasPorEmpresas[0].razao_social,
-        )),
+        appBar: AppBar(title: Observer(builder: (_) {
+          return Text(
+            chatController.chatConversas != null &&
+                    chatController.chatConversas.length > 0
+                ? chatController.chatConversas[0].razao_social
+                : '',
+          );
+        })),
         body: Column(
           children: [
             Expanded(
               child: Observer(builder: (_) {
-                return ListView.builder(
-                  controller: _scrollController,
-                  reverse: true,
-                  itemCount: chatController.listaConversasPorEmpresas.length,
-                  itemBuilder: (context, index) {
-                    return CardMensagem(
-                        chat: chatController.listaConversasPorEmpresas[index]);
-                  },
-                );
+                if (chatController.chatConversas == null &&
+                    chatController.chatConversas.length > 0)
+                  return CircularProgressIndicator();
+                else
+                  return ListView.builder(
+                    controller: _scrollController,
+                    reverse: true,
+                    itemCount: chatController.chatConversas.length,
+                    itemBuilder: (context, index) {
+                      return CardMensagem(
+                          chat: chatController.chatConversas[index]);
+                    },
+                  );
               }),
             ),
             Container(
@@ -84,12 +94,15 @@ class _ChatIndividualState extends State<ChatIndividual> {
                           size: 30,
                         ),
                         onPressed: () {
-                          setState(() {
-                            chatController.sendMensagem();
-                            _scrollController.animateTo(0.0,
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.easeOutBack);
-                          });
+                          chatController.sendMensagem(
+                              chatController.mensagem.text,
+                              chatController
+                                  .listaConversasPorEmpresas[0].id_cliente_id,
+                              chatController
+                                  .listaConversasPorEmpresas[0].id_empresa_id);
+                          _scrollController.animateTo(0.0,
+                              duration: Duration(microseconds: 300),
+                              curve: Curves.easeOut);
                         },
                       ),
                     ),

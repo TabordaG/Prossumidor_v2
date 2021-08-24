@@ -56,9 +56,14 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
                                 chat: chatController
                                     .listaConversasPorEmpresas[index],
                                 onTap: () async {
-                                  // await chatController.buscaMensagens(
-                                  //     chatController.listaConversasPorEmpresas[index].id_empresa_id);
-                                  // Modular.to.pushNamed('chat/chatIndividual');
+                                  await chatController.buscaChatIndividual(
+                                      chatController
+                                          .listaConversasPorEmpresas[index]
+                                          .id_cliente_id,
+                                      chatController
+                                          .listaConversasPorEmpresas[index]
+                                          .id_empresa_id);
+                                  Modular.to.pushNamed('chat/chatIndividual');
                                 },
                               );
                       });

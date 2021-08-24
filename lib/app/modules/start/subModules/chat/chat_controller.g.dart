@@ -51,6 +51,21 @@ mixin _$ChatController on _ChatControllerBase, Store {
     });
   }
 
+  final _$chatConversasAtom = Atom(name: '_ChatControllerBase.chatConversas');
+
+  @override
+  List<Chat> get chatConversas {
+    _$chatConversasAtom.reportRead();
+    return super.chatConversas;
+  }
+
+  @override
+  set chatConversas(List<Chat> value) {
+    _$chatConversasAtom.reportWrite(value, super.chatConversas, () {
+      super.chatConversas = value;
+    });
+  }
+
   final _$conversasAtom = Atom(name: '_ChatControllerBase.conversas');
 
   @override
@@ -81,6 +96,15 @@ mixin _$ChatController on _ChatControllerBase, Store {
     });
   }
 
+  final _$sendMensagemAsyncAction =
+      AsyncAction('_ChatControllerBase.sendMensagem');
+
+  @override
+  Future sendMensagem(String menssagem, int idCliente, int idEmpresa) {
+    return _$sendMensagemAsyncAction
+        .run(() => super.sendMensagem(menssagem, idCliente, idEmpresa));
+  }
+
   final _$buscaChatsAsyncAction = AsyncAction('_ChatControllerBase.buscaChats');
 
   @override
@@ -95,6 +119,15 @@ mixin _$ChatController on _ChatControllerBase, Store {
   Future buscaChatsEmpresa({int id}) {
     return _$buscaChatsEmpresaAsyncAction
         .run(() => super.buscaChatsEmpresa(id: id));
+  }
+
+  final _$buscaChatIndividualAsyncAction =
+      AsyncAction('_ChatControllerBase.buscaChatIndividual');
+
+  @override
+  Future buscaChatIndividual(int idCliente, int idEmpresa) {
+    return _$buscaChatIndividualAsyncAction
+        .run(() => super.buscaChatIndividual(idCliente, idEmpresa));
   }
 
   final _$_ChatControllerBaseActionController =
@@ -112,32 +145,11 @@ mixin _$ChatController on _ChatControllerBase, Store {
   }
 
   @override
-  dynamic sendMensagem() {
-    final _$actionInfo = _$_ChatControllerBaseActionController.startAction(
-        name: '_ChatControllerBase.sendMensagem');
-    try {
-      return super.sendMensagem();
-    } finally {
-      _$_ChatControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic buscaChatIndividual() {
-    final _$actionInfo = _$_ChatControllerBaseActionController.startAction(
-        name: '_ChatControllerBase.buscaChatIndividual');
-    try {
-      return super.buscaChatIndividual();
-    } finally {
-      _$_ChatControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 listaConversas: ${listaConversas},
 listaConversasPorEmpresas: ${listaConversasPorEmpresas},
+chatConversas: ${chatConversas},
 conversas: ${conversas},
 mensagem: ${mensagem}
     ''';

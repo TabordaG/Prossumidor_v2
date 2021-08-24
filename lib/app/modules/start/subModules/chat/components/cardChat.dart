@@ -31,7 +31,7 @@ class _CardChatState extends State<CardChat> {
           subtitle: Row(
             children: [
               Icon(
-                widget.chat.status == 'Enviado'
+                widget.chat.status == ' Enviado'
                     ? Icons.done
                     : widget.chat.status == 'Recebido'
                         ? Icons.done_all

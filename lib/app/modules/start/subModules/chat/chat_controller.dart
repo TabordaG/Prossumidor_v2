@@ -28,6 +28,9 @@ abstract class _ChatControllerBase with Store {
   List<Chat> listaConversasPorEmpresas = [];
 
   @observable
+  List<Chat> chatConversas = [];
+
+  @observable
   int conversas = 0;
 
   @observable
@@ -37,20 +40,11 @@ abstract class _ChatControllerBase with Store {
   setMensagem(String value) => mensagem.text = value;
 
   @action
-  sendMensagem() {
-    // listaempresa.add(Chat(
-    //   chat_id: listaConversasPorEmpresas.first.chat_id + 1,
-    //   status: "Enviado",
-    //   situacao: 'Cliente-Produtor',
-    //   data_envio: DateTime.now(),
-    //   id_cliente_id: authController.usuario.id,
-    //   id_empresa_id: listaConversasPorEmpresas[0].id_empresa_id,
-    //   razao_social: listaConversasPorEmpresas[0].razao_social,
-    //   mensagem: mensagem.text,
-    // ));
-    // print('mensagem id: ' + listaempresa.last.chat_id.toString());
-    // print('mensagem: ' + listaempresa.last.mensagem);
-    buscaChats();
+  sendMensagem(String menssagem, int idCliente, int idEmpresa) async {
+    String resultado =
+        await chatRepository.enviaMensagem(menssagem, idCliente, idEmpresa);
+    if (resultado == 'sucesso') buscaChatIndividual(idCliente, idEmpresa);
+    // chatConversas.add(Chat(mensagem: menssagem, ));
     mensagem.clear();
   }
 
@@ -72,7 +66,6 @@ abstract class _ChatControllerBase with Store {
         lista.forEach((element) {
           Chat chat = Chat.fromJson(element);
           listaConversasPorEmpresas.add(chat);
-          print(listaConversasPorEmpresas);
         });
         listaConversasPorEmpresas = List.from(listaConversasPorEmpresas);
       });
@@ -83,7 +76,19 @@ abstract class _ChatControllerBase with Store {
   }
 
   @action
-  buscaChatIndividual(){
-    
+  buscaChatIndividual(int idCliente, int idEmpresa) async {
+    chatConversas = [];
+    List list = await chatRepository.buscaMensagens(idCliente, idEmpresa);
+    list = list.reversed.toList();
+    if (list != null) {
+      list.forEach((element) {
+        Chat chat = Chat.fromJson(element);
+        chatConversas.add(chat);
+      });
+      chatConversas = List.from(chatConversas);
+      if (chatConversas == null) {
+        chatConversas = List.from([]);
+      }
+    }
   }
 }

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:prossumidor_v2/app/models/chat/chat_model.dart';
 
 import '../../../../../dados_basicos.dart';
 import 'interfaces/chat_repository_interface.dart';
@@ -28,8 +29,9 @@ class ChatRepository implements IChatRepository {
   void dispose() {}
 
   @override
-  Future buscaMensagens(int id) async {
-    String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consult81.$id");
+  Future buscaMensagens(int idCliente, int idEmpresa) async {
+    String link = Basicos.codifica(
+        "${Basicos.ip}/crud/?crud=consult75.$idCliente,$idEmpresa,50,0");
 
     response = await dio.get(
       Uri.encodeFull(link),
@@ -38,16 +40,14 @@ class ChatRepository implements IChatRepository {
       ),
     );
     if (response.data != null && response.statusCode == 200) {
-      try {
-        var respondeDecoded = Basicos.decodifica(response.data);
-        List list = json.decode(respondeDecoded).cast<Map<String, dynamic>>();
-
-        String chat = list[0]['count'].toString();
-        if (chat.toString() == '0') return 0;
-        return 1;
-      } catch (e) {
-        return null;
-      }
+      // try {
+      // var respondeDecoded = Basicos.decodifica(response.data);
+      // List list = json.decode(response.data).cast<Map<String, dynamic>>();
+      List list = response.data;
+      return list;
+      // } catch (e) {
+      //     return null;
+      //   }
     } else
       return null;
   }
@@ -91,6 +91,31 @@ class ChatRepository implements IChatRepository {
         // var respondeDecoded = Basicos.decodifica(response.data);
         List list = response.data;
         return list;
+      } catch (e) {
+        return null;
+      }
+    } else
+      return null;
+  }
+
+  @override
+  Future enviaMensagem(String menssagem, int idCliente, int idEmpresa) async {
+    String exp = menssagem.replaceAll(',', ' '); // remove virgula
+    String exp2 = exp.replaceAll('"', ' '); //remove aspas duplas
+
+    String link = Basicos.codifica("${Basicos.ip}"
+        "/crud/?crud=consult74.$exp2, Cliente-Produtor, Enviado, $idCliente, $idEmpresa,");
+
+    response = await dio.get(
+      Uri.encodeFull(link),
+      options: Options(
+        headers: {"Accept": "application/json"},
+      ),
+    );
+    if (response.data != null && response.statusCode == 200) {
+      try {
+        print('sucesso');
+        return 'sucesso';
       } catch (e) {
         return null;
       }
