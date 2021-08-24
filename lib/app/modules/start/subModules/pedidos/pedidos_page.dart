@@ -3,7 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/components/card_pedidos.dart';
 import 'package:prossumidor_v2/app/constants.dart';
-import 'package:prossumidor_v2/app/modules/start/subModules/pedidos/pedidosDetalhes_page.dart';
 import 'pedidos_controller.dart';
 
 class PedidosPage extends StatefulWidget {
@@ -50,36 +49,170 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController> {
             ),
           ),
           body: TabBarView(children: [
-            Observer(builder: (_) {
-              return ListView.builder(
-                itemCount: controller.pedidosList.length,
-                itemBuilder: (context, index) {
-                  return CardPedidos(
-                    index: index,
-                    lista: controller.pedidosList,
-                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => PedidosDetalhes(
-                              pedido: pedidosListEntregues[index],
-                            ))),
+            RefreshIndicator(
+              displacement: 60.0,
+              color: Theme.of(context).primaryColor,
+              onRefresh: () => controller.chamarListaEntregue(),
+              child: Observer(builder: (_) {
+                if (controller.pedidosEntregueList == null)
+                  return Container(
+                    child: LayoutBuilder(
+                      builder:
+                          (BuildContext context, BoxConstraints constraints) =>
+                              ListView(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: constraints.maxHeight * .45),
+                            child: Text(
+                              "Carregando Pedidos..",
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  .copyWith(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        .color
+                                        .withOpacity(.7),
+                                    fontSize: 14,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   );
-                },
-              );
-            }),
-            Observer(builder: (_) {
-              return ListView.builder(
-                itemCount: controller.pedidosList.length,
-                itemBuilder: (context, index) {
-                  return CardPedidos(
-                    index: index,
-                    lista: controller.pedidosList,
-                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => PedidosDetalhes(
-                              pedido: pedidosListNaoEntregues[index],
-                            ))),
+                if (controller.pedidosEntregueList.isEmpty)
+                  return Container(
+                    child: LayoutBuilder(
+                      builder:
+                          (BuildContext context, BoxConstraints constraints) =>
+                              ListView(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: constraints.maxHeight * .45),
+                            child: Text(
+                              "Não há pedidos\nentregues ainda..",
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  .copyWith(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        .color
+                                        .withOpacity(.7),
+                                    fontSize: 14,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   );
-                },
-              );
-            }),
+                return ListView.builder(
+                  itemCount: controller.pedidosEntregueList.length,
+                  itemBuilder: (context, index) {
+                    return CardPedidos(
+                      index: index,
+                      lista: controller.pedidosEntregueList,
+                      onTap: () {
+                        Navigator.of(context).pushNamed(
+                          'detalhes',
+                          arguments: {
+                            "pedido": controller.pedidosEntregueList[index],
+                          },
+                        );
+                      },
+                    );
+                  },
+                );
+              }),
+            ),
+            RefreshIndicator(
+              displacement: 60.0,
+              color: Theme.of(context).primaryColor,
+              onRefresh: () => controller.chamarListaNaoEntregue(),
+              child: Observer(builder: (_) {
+                if (controller.pedidosNaoEntregueList == null)
+                  return Container(
+                    child: LayoutBuilder(
+                      builder:
+                          (BuildContext context, BoxConstraints constraints) =>
+                              ListView(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: constraints.maxHeight * .45),
+                            child: Text(
+                              "Carregando Pedidos..",
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  .copyWith(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        .color
+                                        .withOpacity(.7),
+                                    fontSize: 14,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                if (controller.pedidosNaoEntregueList.isEmpty)
+                  return LayoutBuilder(
+                    builder:
+                        (BuildContext context, BoxConstraints constraints) =>
+                            ListView(
+                      children: [
+                        Padding(
+                          padding:
+                              EdgeInsets.only(top: constraints.maxHeight * .45),
+                          child: Text(
+                            "Não há pedidos\nentregues ainda..",
+                            textAlign: TextAlign.center,
+                            style:
+                                Theme.of(context).textTheme.bodyText1.copyWith(
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          .color
+                                          .withOpacity(.7),
+                                      fontSize: 14,
+                                    ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                return ListView.builder(
+                  itemCount: controller.pedidosNaoEntregueList.length,
+                  itemBuilder: (context, index) {
+                    return CardPedidos(
+                      index: index,
+                      lista: controller.pedidosNaoEntregueList,
+                      onTap: () {
+                        Navigator.of(context).pushNamed(
+                          'detalhes',
+                          arguments: {
+                            "pedido": controller.pedidosNaoEntregueList[index],
+                          },
+                        );
+                      },
+                    );
+                  },
+                );
+              }),
+            ),
           ])),
     );
   }

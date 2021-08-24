@@ -24,32 +24,24 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.dark,
         child: SafeArea(
-          child: Column(
-            children: <Widget>[
-              TopHomeView(),
-              Expanded(child: HomeListView()),
-            ],
-          ),
+          child: HomeListView(),
         ),
       ),
     );
   }
 }
 
-class TopHomeView extends StatefulWidget {
-  const TopHomeView({
+class HomeListView extends StatelessWidget {
+  const HomeListView({
     Key key,
   }) : super(key: key);
 
   @override
-  _TopHomeViewState createState() => _TopHomeViewState();
-}
-
-class _TopHomeViewState extends State<TopHomeView> {
-  final HomeController controller = Modular.get<HomeController>();
-  @override
   Widget build(BuildContext context) {
-    return Column(
+    final HomeController controller = Modular.get<HomeController>();
+    return ListView(
+      controller: controller.scrollController,
+      physics: BouncingScrollPhysics(),
       children: [
         Padding(
           padding: EdgeInsets.only(
@@ -209,23 +201,6 @@ class _TopHomeViewState extends State<TopHomeView> {
             ),
           ),
         ),
-      ],
-    );
-  }
-}
-
-class HomeListView extends StatelessWidget {
-  const HomeListView({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final HomeController controller = Modular.get<HomeController>();
-    return ListView(
-      controller: controller.scrollController,
-      physics: BouncingScrollPhysics(),
-      children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
           child: Text(

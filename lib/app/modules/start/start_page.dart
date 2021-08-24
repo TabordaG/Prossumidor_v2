@@ -13,7 +13,7 @@ import 'start_controller.dart';
 
 class StartPage extends StatefulWidget {
   final String title;
-  const StartPage({Key key, this.title = "Start"}) : super(key: key);
+  const StartPage({this.title = "Start"});
 
   @override
   _StartPageState createState() => _StartPageState();

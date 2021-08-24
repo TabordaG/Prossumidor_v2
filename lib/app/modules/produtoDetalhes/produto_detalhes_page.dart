@@ -82,7 +82,8 @@ class _ProdutoDetalhesPageState
                   Padding(
                     padding: EdgeInsets.only(left: kDefaultPadding),
                     child: Text(
-                      'R\$ ' + widget.produto.preco.toStringAsFixed(2),
+                      'R\$ ' +
+                          double.parse(widget.produto.preco).toStringAsFixed(2),
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
                             fontSize: 20,
                             fontWeight: FontWeight.w700,

@@ -32,8 +32,7 @@ class _CardPedidosState extends State<CardPedidos> {
 
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: kDefaultPadding * 0.5,
-        vertical: kDefaultPadding * 0.25,
+        horizontal: kDefaultPadding * 0.25,
       ),
       child: GestureDetector(
         onTap: widget.onTap,
@@ -75,7 +74,7 @@ class _CardPedidosState extends State<CardPedidos> {
                         children: [
                           Text("Itens: "),
                           Text(
-                            "${widget.lista[widget.index].quantidade}",
+                            "${widget.lista[widget.index].quantidade.replaceAll('.000', '')}",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText1
@@ -99,30 +98,35 @@ class _CardPedidosState extends State<CardPedidos> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          Text('Fornecedor:'),
-                          Text(
-                            ' ${widget.lista[widget.index].empresa}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                .copyWith(
-                                    fontSize: 12,
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1
-                                        .color
-                                        .withOpacity(1),
-                                    fontWeight: FontWeight.w700),
-                          ),
-                        ],
+                      Flexible(
+                        child: Row(
+                          children: [
+                            Text('Fornecedor:'),
+                            Flexible(
+                              child: Text(
+                                ' ${widget.lista[widget.index].empresa}',
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    .copyWith(
+                                        fontSize: 12,
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1
+                                            .color
+                                            .withOpacity(1),
+                                        fontWeight: FontWeight.w700),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       Row(
                         children: [
                           Text("Data: "),
                           Text(
-                            "${widget.lista[widget.index].data_registro}",
+                            "${widget.lista[widget.index].data_registro.day}/${widget.lista[widget.index].data_registro.month}/${widget.lista[widget.index].data_registro.year}",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText1
@@ -147,16 +151,22 @@ class _CardPedidosState extends State<CardPedidos> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        '${widget.lista[widget.index].tipo_entrega}',
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            fontSize: 12,
-                            color: Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                .color
-                                .withOpacity(1),
-                            fontWeight: FontWeight.w600),
+                      Flexible(
+                        child: Text(
+                          widget.lista[widget.index].observacoes_entrega
+                                  .startsWith('0')
+                              ? 'Retirado no local'
+                              : 'Entrega em domicílio',
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.bodyText1.copyWith(
+                              fontSize: 12,
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  .color
+                                  .withOpacity(1),
+                              fontWeight: FontWeight.w600),
+                        ),
                       ),
                       Row(
                         children: [
@@ -178,7 +188,8 @@ class _CardPedidosState extends State<CardPedidos> {
                             'R\$' +
                                 widget.lista[widget.index].observacoes_entrega
                                     .toString()
-                                    .replaceAll('.', ','),
+                                    .replaceAll('.', ',')
+                                    .replaceAll(' ', ''),
                           ),
                         ],
                       ),
@@ -191,54 +202,43 @@ class _CardPedidosState extends State<CardPedidos> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          Text('Situação: '),
-                          Text(
-                            "${widget.lista[widget.index].status_pedido}",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                .copyWith(
-                                    fontSize: 12,
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1
-                                        .color
-                                        .withOpacity(1),
-                                    fontWeight: FontWeight.w700),
-                          )
-                        ],
+                      Text('Situação: '),
+                      Flexible(
+                        child: Text(
+                          "${widget.lista[widget.index].status_pedido}",
+                          style: Theme.of(context).textTheme.bodyText1.copyWith(
+                              fontSize: 12,
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  .color
+                                  .withOpacity(1),
+                              fontWeight: FontWeight.w700),
+                        ),
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            "Total: ",
-                            style: Theme.of(context)
+                      Spacer(),
+                      Text(
+                        "Total: ",
+                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            fontSize: 12,
+                            color: Theme.of(context)
                                 .textTheme
                                 .bodyText1
-                                .copyWith(
-                                    fontSize: 12,
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1
-                                        .color
-                                        .withOpacity(1),
-                                    fontWeight: FontWeight.w700),
-                          ),
-                          Text(
-                            " R\$" +
-                                widget.lista[widget.index].valor_total
-                                    .toString()
-                                    .replaceAll('.', ','),
-                          )
-                        ],
+                                .color
+                                .withOpacity(1),
+                            fontWeight: FontWeight.w700),
+                      ),
+                      Text(
+                        " R\$" +
+                            widget.lista[widget.index].valor_total
+                                .toString()
+                                .replaceAll('.', ','),
                       ),
                     ],
                   ),
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(

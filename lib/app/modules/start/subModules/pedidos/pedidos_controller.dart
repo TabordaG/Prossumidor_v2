@@ -1,6 +1,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/models/pedidos/pedidos_model.dart';
+import 'package:prossumidor_v2/app/models/produto/produto_model.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/pedidos/repositories/interfaces/pedidos_repository_interface.dart';
 import 'package:prossumidor_v2/app/shared/auth/auth_controller.dart';
 
@@ -14,19 +15,42 @@ abstract class _PedidosControllerBase with Store {
   final IPedidosRepository pedidosRepository =
       Modular.get<IPedidosRepository>();
   _PedidosControllerBase() {
-    chamarLista();
+    chamarListaNaoEntregue();
+    chamarListaEntregue();
   }
 
   @observable
-  List<Pedidos> pedidosList = [];
+  List<Pedidos> pedidosNaoEntregueList = [];
+
+  @observable
+  List<Pedidos> pedidosEntregueList = [];
+
+  @observable
+  List<Produto> produtosList = [];
 
   @action
-  chamarLista() async {
-    List list = await pedidosRepository.listaPedidos(authController.usuario.id);
-    print(list.first);
-    // List lista = await formataData(list);
-    //if (lista != null) pedidosList = List.from(lista);
-    print(pedidosList.length);
-    //print(lista.first.data_registro);
+  chamarListaNaoEntregue() async {
+    pedidosNaoEntregueList = null;
+    pedidosNaoEntregueList = List.from(await pedidosRepository
+        .listaPedidosNaoEntregue(authController.usuario.id));
+  }
+
+  @action
+  chamarListaEntregue() async {
+    pedidosEntregueList = null;
+    pedidosEntregueList = List.from(await pedidosRepository
+        .listaPedidosEntregue(authController.usuario.id));
+  }
+
+  @action
+  buscarProdutos(int id) async {
+    produtosList = null;
+    produtosList = List.from(await pedidosRepository.listaProdutos(id));
+    produtosList.add(produtosList[0]);
+    produtosList.add(produtosList[0]);
+    produtosList.add(produtosList[0]);
+    produtosList.add(produtosList[0]);
+    produtosList.add(produtosList[0]);
+    produtosList = List.from(produtosList);
   }
 }

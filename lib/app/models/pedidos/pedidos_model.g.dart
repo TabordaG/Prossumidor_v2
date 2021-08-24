@@ -11,7 +11,9 @@ Pedidos _$PedidosFromJson(Map<String, dynamic> json) {
     id: json['id'] as int,
     empresa: json['empresa'] as String,
     quantidade: json['quantidade'] as String,
-    data_registro: json['data_registro'] as String,
+    data_registro: json['data_registro'] == null
+        ? null
+        : DateTime.parse(json['data_registro'] as String),
     tipo_entrega: json['tipo_entrega'] as String,
     observacoes_entrega: json['observacoes_entrega'] as String,
     pagamento: json['pagamento'] as String,
@@ -30,7 +32,7 @@ Map<String, dynamic> _$PedidosToJson(Pedidos instance) => <String, dynamic>{
       'id_empresa': instance.id_empresa,
       'empresa': instance.empresa,
       'quantidade': instance.quantidade,
-      'data_registro': instance.data_registro,
+      'data_registro': instance.data_registro?.toIso8601String(),
       'tipo_entrega': instance.tipo_entrega,
       'observacoes_entrega': instance.observacoes_entrega,
       'status_pedido': instance.status_pedido,
