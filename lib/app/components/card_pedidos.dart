@@ -238,7 +238,7 @@ class _CardPedidosState extends State<CardPedidos> {
                   ),
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(

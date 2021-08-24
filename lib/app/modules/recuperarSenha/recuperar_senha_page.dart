@@ -175,7 +175,7 @@ class _RecuperarSenhaPageState
                         height: 40,
                         child: StandardButton(
                           onPressed: () async {
-                            if (controller.current != 2) {
+                            if (controller.current == 0) {
                               await controller.setNextPage(progressDialog);
                               Future.delayed(Duration(seconds: 3), () {
                                 if (!controller.emailValido)
@@ -185,14 +185,28 @@ class _RecuperarSenhaPageState
                                     'E-mail não cadastrado ou erro de conexão',
                                   );
                               });
+                            } else if (controller.current == 1) {
+                              await controller.setNextPage(progressDialog);
+                              Future.delayed(Duration(seconds: 3), () {
+                                if (!controller.codigoValido)
+                                  buildShowGeneralDialog(
+                                    context,
+                                    'Erro',
+                                    'Código inserido não corresponde ao código enviado no seu e-mail.',
+                                  );
+                              });
                             } else {
                               controller.isPage3Valid();
-                              if (controller.page3Valid)
-                                buildShowGeneralDialog(
-                                  context,
-                                  'Senha Alterada com Sucesso',
-                                  'Sua nova senha foi alterada, efetue o login',
-                                );
+                              if (controller.page3Valid) {
+                                await controller.alterarNovaSenha();
+                                Future.delayed(Duration(seconds: 3), () {
+                                  buildShowGeneralDialog(
+                                    context,
+                                    'Senha Alterada com Sucesso',
+                                    'Sua nova senha foi alterada, efetue o login',
+                                  );
+                                });
+                              }
                             }
                           },
                           text:

@@ -99,6 +99,22 @@ mixin _$RecuperarSenhaController on _RecuperarSenhaControllerBase, Store {
     });
   }
 
+  final _$codigoGeradoAtom =
+      Atom(name: '_RecuperarSenhaControllerBase.codigoGerado');
+
+  @override
+  String get codigoGerado {
+    _$codigoGeradoAtom.reportRead();
+    return super.codigoGerado;
+  }
+
+  @override
+  set codigoGerado(String value) {
+    _$codigoGeradoAtom.reportWrite(value, super.codigoGerado, () {
+      super.codigoGerado = value;
+    });
+  }
+
   final _$emailAtom = Atom(name: '_RecuperarSenhaControllerBase.email');
 
   @override
@@ -158,6 +174,38 @@ mixin _$RecuperarSenhaController on _RecuperarSenhaControllerBase, Store {
   set emailValido(bool value) {
     _$emailValidoAtom.reportWrite(value, super.emailValido, () {
       super.emailValido = value;
+    });
+  }
+
+  final _$codigoValidoAtom =
+      Atom(name: '_RecuperarSenhaControllerBase.codigoValido');
+
+  @override
+  bool get codigoValido {
+    _$codigoValidoAtom.reportRead();
+    return super.codigoValido;
+  }
+
+  @override
+  set codigoValido(bool value) {
+    _$codigoValidoAtom.reportWrite(value, super.codigoValido, () {
+      super.codigoValido = value;
+    });
+  }
+
+  final _$senhaAlteradaAtom =
+      Atom(name: '_RecuperarSenhaControllerBase.senhaAlterada');
+
+  @override
+  bool get senhaAlterada {
+    _$senhaAlteradaAtom.reportRead();
+    return super.senhaAlterada;
+  }
+
+  @override
+  set senhaAlterada(bool value) {
+    _$senhaAlteradaAtom.reportWrite(value, super.senhaAlterada, () {
+      super.senhaAlterada = value;
     });
   }
 
@@ -281,6 +329,14 @@ mixin _$RecuperarSenhaController on _RecuperarSenhaControllerBase, Store {
     return _$enviarRecuperacaoAsyncAction.run(() => super.enviarRecuperacao());
   }
 
+  final _$alterarNovaSenhaAsyncAction =
+      AsyncAction('_RecuperarSenhaControllerBase.alterarNovaSenha');
+
+  @override
+  Future alterarNovaSenha() {
+    return _$alterarNovaSenhaAsyncAction.run(() => super.alterarNovaSenha());
+  }
+
   final _$_RecuperarSenhaControllerBaseActionController =
       ActionController(name: '_RecuperarSenhaControllerBase');
 
@@ -362,6 +418,28 @@ mixin _$RecuperarSenhaController on _RecuperarSenhaControllerBase, Store {
   }
 
   @override
+  dynamic gerarCodigo() {
+    final _$actionInfo = _$_RecuperarSenhaControllerBaseActionController
+        .startAction(name: '_RecuperarSenhaControllerBase.gerarCodigo');
+    try {
+      return super.gerarCodigo();
+    } finally {
+      _$_RecuperarSenhaControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic verificaCodigo() {
+    final _$actionInfo = _$_RecuperarSenhaControllerBaseActionController
+        .startAction(name: '_RecuperarSenhaControllerBase.verificaCodigo');
+    try {
+      return super.verificaCodigo();
+    } finally {
+      _$_RecuperarSenhaControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 formkeyPage1: ${formkeyPage1},
@@ -369,10 +447,13 @@ formkeyPage2: ${formkeyPage2},
 formkeyPage3: ${formkeyPage3},
 buttonCarouselController: ${buttonCarouselController},
 code: ${code},
+codigoGerado: ${codigoGerado},
 email: ${email},
 senha: ${senha},
 confirmarSenha: ${confirmarSenha},
 emailValido: ${emailValido},
+codigoValido: ${codigoValido},
+senhaAlterada: ${senhaAlterada},
 obscureSenha1: ${obscureSenha1},
 obscureSenha2: ${obscureSenha2},
 page1Valid: ${page1Valid},

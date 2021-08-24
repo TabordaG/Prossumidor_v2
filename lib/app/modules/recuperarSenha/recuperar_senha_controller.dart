@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -30,14 +32,11 @@ abstract class _RecuperarSenhaControllerBase with Store {
   @observable
   TextEditingController code = TextEditingController(text: "");
 
-  // @action
-  // setCode(String valor) => code = valor;
+  @observable
+  String codigoGerado = "";
 
   @observable
   TextEditingController email = TextEditingController(text: "");
-
-  // @action
-  // setEmail(String valor) => email = valor;
 
   @observable
   TextEditingController senha = TextEditingController(text: "");
@@ -45,11 +44,14 @@ abstract class _RecuperarSenhaControllerBase with Store {
   @observable
   TextEditingController confirmarSenha = TextEditingController(text: "");
 
-  // @action
-  // setSenha(String valor) => senha = valor;
-
   @observable
   bool emailValido = false;
+
+  @observable
+  bool codigoValido = false;
+
+  @observable
+  bool senhaAlterada = false;
 
   @observable
   bool obscureSenha1 = true;
@@ -109,13 +111,14 @@ abstract class _RecuperarSenhaControllerBase with Store {
   Future setNextPage(ProgressDialog progressDialog) async {
     switch (current) {
       case 0:
+        emailValido = false;
         isPage1Valid();
         if (page1Valid) {
           progressDialog.show();
-          emailValido = await verificarEmail();
+          bool response = await verificarEmail();
           Future.delayed(Duration(seconds: 2), () {
             progressDialog.hide();
-            if (emailValido) {
+            if (response) {
               buttonCarouselController.nextPage(
                 duration: Duration(milliseconds: 300),
                 curve: Curves.linear,
@@ -126,12 +129,22 @@ abstract class _RecuperarSenhaControllerBase with Store {
         }
         break;
       case 1:
+        codigoValido = false;
+        // Verifica se os campos estão preenchidos
         isPage2Valid();
-        if (page2Valid)
-          buttonCarouselController.nextPage(
-            duration: Duration(milliseconds: 300),
-            curve: Curves.linear,
-          );
+        if (page2Valid) {
+          progressDialog.show();
+          Future.delayed(Duration(seconds: 2), () {
+            progressDialog.hide();
+            // Se os códigos batem
+            if (verificaCodigo()) {
+              buttonCarouselController.nextPage(
+                duration: Duration(milliseconds: 300),
+                curve: Curves.linear,
+              );
+            }
+          });
+        }
         break;
       default:
     }
@@ -146,15 +159,46 @@ abstract class _RecuperarSenhaControllerBase with Store {
   @action
   Future<bool> verificarEmail() async {
     var response = await recuperarRepository.verifaEmail(email.text);
-    if (response != null && response != "livre")
+    if (response != null && response != "livre") {
+      emailValido = true;
       return true;
-    else
+    } else {
+      emailValido = false;
       return false;
+    }
   }
 
   @action
   enviarRecuperacao() async {
-    var res = await recuperarRepository.enviaEmail(email.text, "texto_email");
+    var res = await recuperarRepository.enviaEmail(email.text, gerarCodigo());
     if (res != null) print(res);
+  }
+
+  @action
+  gerarCodigo() {
+    var rng = Random();
+    codigoGerado = "";
+    for (var i = 0; i < 4; i++) {
+      codigoGerado += rng.nextInt(9).toString();
+    }
+    return codigoGerado;
+  }
+
+  @action
+  verificaCodigo() {
+    if (codigoGerado == code.text) {
+      codigoValido = true;
+      return true;
+    }
+    codigoValido = false;
+    return false;
+  }
+
+  @action
+  alterarNovaSenha() async {
+    var res = await recuperarRepository.alterarSenha(email.text, senha.text);
+    if (res != null) {
+      print(res);
+    }
   }
 }
