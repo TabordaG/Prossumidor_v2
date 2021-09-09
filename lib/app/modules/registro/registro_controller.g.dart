@@ -321,6 +321,53 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
     });
   }
 
+  final _$retiradaIDAtom = Atom(name: '_RegistroControllerBase.retiradaID');
+
+  @override
+  int get retiradaID {
+    _$retiradaIDAtom.reportRead();
+    return super.retiradaID;
+  }
+
+  @override
+  set retiradaID(int value) {
+    _$retiradaIDAtom.reportWrite(value, super.retiradaID, () {
+      super.retiradaID = value;
+    });
+  }
+
+  final _$locaisRetiradaAtom =
+      Atom(name: '_RegistroControllerBase.locaisRetirada');
+
+  @override
+  List<dynamic> get locaisRetirada {
+    _$locaisRetiradaAtom.reportRead();
+    return super.locaisRetirada;
+  }
+
+  @override
+  set locaisRetirada(List<dynamic> value) {
+    _$locaisRetiradaAtom.reportWrite(value, super.locaisRetirada, () {
+      super.locaisRetirada = value;
+    });
+  }
+
+  final _$locaisRetiradaNomesAtom =
+      Atom(name: '_RegistroControllerBase.locaisRetiradaNomes');
+
+  @override
+  List<dynamic> get locaisRetiradaNomes {
+    _$locaisRetiradaNomesAtom.reportRead();
+    return super.locaisRetiradaNomes;
+  }
+
+  @override
+  set locaisRetiradaNomes(List<dynamic> value) {
+    _$locaisRetiradaNomesAtom.reportWrite(value, super.locaisRetiradaNomes, () {
+      super.locaisRetiradaNomes = value;
+    });
+  }
+
   final _$senhaAtom = Atom(name: '_RegistroControllerBase.senha');
 
   @override
@@ -333,6 +380,21 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
   set senha(String value) {
     _$senhaAtom.reportWrite(value, super.senha, () {
       super.senha = value;
+    });
+  }
+
+  final _$codigoGeradoAtom = Atom(name: '_RegistroControllerBase.codigoGerado');
+
+  @override
+  String get codigoGerado {
+    _$codigoGeradoAtom.reportRead();
+    return super.codigoGerado;
+  }
+
+  @override
+  set codigoGerado(String value) {
+    _$codigoGeradoAtom.reportWrite(value, super.codigoGerado, () {
+      super.codigoGerado = value;
     });
   }
 
@@ -366,6 +428,22 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
     });
   }
 
+  final _$clickedButtonAtom =
+      Atom(name: '_RegistroControllerBase.clickedButton');
+
+  @override
+  bool get clickedButton {
+    _$clickedButtonAtom.reportRead();
+    return super.clickedButton;
+  }
+
+  @override
+  set clickedButton(bool value) {
+    _$clickedButtonAtom.reportWrite(value, super.clickedButton, () {
+      super.clickedButton = value;
+    });
+  }
+
   final _$page2ValidAtom = Atom(name: '_RegistroControllerBase.page2Valid');
 
   @override
@@ -394,6 +472,39 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
     _$page3ValidAtom.reportWrite(value, super.page3Valid, () {
       super.page3Valid = value;
     });
+  }
+
+  final _$buscarLocaisRetiradaAsyncAction =
+      AsyncAction('_RegistroControllerBase.buscarLocaisRetirada');
+
+  @override
+  Future buscarLocaisRetirada() {
+    return _$buscarLocaisRetiradaAsyncAction
+        .run(() => super.buscarLocaisRetirada());
+  }
+
+  final _$emailValidoAsyncAction =
+      AsyncAction('_RegistroControllerBase.emailValido');
+
+  @override
+  Future emailValido() {
+    return _$emailValidoAsyncAction.run(() => super.emailValido());
+  }
+
+  final _$enviarEmailAsyncAction =
+      AsyncAction('_RegistroControllerBase.enviarEmail');
+
+  @override
+  Future enviarEmail() {
+    return _$enviarEmailAsyncAction.run(() => super.enviarEmail());
+  }
+
+  final _$registrarAsyncAction =
+      AsyncAction('_RegistroControllerBase.registrar');
+
+  @override
+  Future registrar() {
+    return _$registrarAsyncAction.run(() => super.registrar());
   }
 
   final _$_RegistroControllerBaseActionController =
@@ -554,6 +665,17 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
   }
 
   @override
+  dynamic setRetiradaID(String valor) {
+    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
+        name: '_RegistroControllerBase.setRetiradaID');
+    try {
+      return super.setRetiradaID(valor);
+    } finally {
+      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setSenha(String valor) {
     final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
         name: '_RegistroControllerBase.setSenha');
@@ -642,6 +764,28 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
   }
 
   @override
+  dynamic gerarCodigo() {
+    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
+        name: '_RegistroControllerBase.gerarCodigo');
+    try {
+      return super.gerarCodigo();
+    } finally {
+      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setClickedButton(bool valor) {
+    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
+        name: '_RegistroControllerBase.setClickedButton');
+    try {
+      return super.setClickedButton(valor);
+    } finally {
+      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 formkeyPage1: ${formkeyPage1},
@@ -664,9 +808,14 @@ uf: ${uf},
 cep: ${cep},
 email: ${email},
 retirada: ${retirada},
+retiradaID: ${retiradaID},
+locaisRetirada: ${locaisRetirada},
+locaisRetiradaNomes: ${locaisRetiradaNomes},
 senha: ${senha},
+codigoGerado: ${codigoGerado},
 code: ${code},
 page1Valid: ${page1Valid},
+clickedButton: ${clickedButton},
 page2Valid: ${page2Valid},
 page3Valid: ${page3Valid}
     ''';

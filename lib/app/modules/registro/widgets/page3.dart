@@ -88,11 +88,9 @@ class _RegistrarPage3State extends State<RegistrarPage3> {
                   Observer(builder: (_) {
                     return Expanded(
                       child: DropdownButton<String>(
-                        items: [
-                          'Local de Retirada',
-                          'Recoopsol',
-                          'Rondonópolis'
-                        ].map((String dropDownStringItem) {
+                        items: controller.locaisRetiradaNomes
+                            // ['Local de Retirada', 'Recoopsol', 'Rondonópolis']
+                            .map((dynamic dropDownStringItem) {
                           return DropdownMenuItem<String>(
                             value: dropDownStringItem,
                             child: Text(

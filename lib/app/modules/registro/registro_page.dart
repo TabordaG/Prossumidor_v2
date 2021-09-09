@@ -187,12 +187,20 @@ class _RegistroPageState
                             minWidth: 120.0,
                             height: 40,
                             child: StandardButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 if (controller.current != 2)
                                   controller.setNextPage();
                                 else {
                                   controller.isPage3Valid();
-                                  if (controller.page3Valid)
+                                  var emailValido =
+                                      await controller.emailValido();
+                                  if (!emailValido)
+                                    buildShowGeneralDialogMessage(
+                                      context,
+                                      'Erro',
+                                      'O e-mail que está tentando cadastrar já existe, tente voltar e usar a recuperação de senha.',
+                                    );
+                                  else if (controller.page3Valid)
                                     buildShowGeneralDialog(
                                       context,
                                       'Código de Confirmação',
@@ -224,9 +232,10 @@ class _RegistroPageState
 
   Future buildShowGeneralDialog(
       BuildContext context, String titulo, String mensagem) {
+    controller.enviarEmail();
     return showGeneralDialog(
       barrierLabel: "Mensage",
-      barrierDismissible: true,
+      barrierDismissible: false,
       barrierColor: Colors.black.withOpacity(0.5),
       transitionDuration: Duration(milliseconds: 400),
       context: context,
@@ -253,6 +262,160 @@ class _RegistroPageState
   Container buildMensage(BuildContext context, String titulo, String mensagem) {
     return Container(
       height: MediaQuery.of(context).size.height * .5,
+      child: Observer(builder: (_) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Spacer(
+              flex: 1,
+            ),
+            Text(
+              titulo,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    fontSize: 22,
+                    color: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        .color
+                        .withOpacity(.8),
+                  ),
+            ),
+            Spacer(
+              flex: 2,
+            ),
+            Text(
+              mensagem,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    fontSize: 16,
+                    color: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        .color
+                        .withOpacity(.6),
+                  ),
+            ),
+            Spacer(
+              flex: 1,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              child: Observer(builder: (_) {
+                return Form(
+                  key: controller.formkeyPage4,
+                  child: TextFormField(
+                    onChanged: (value) {
+                      controller.setClickedButton(false);
+                      controller.setCode(value);
+                    },
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.done,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(4),
+                    ],
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Campo não pode estar vazio';
+                      } else if (value.length < 4) {
+                        return 'Código inválido';
+                      } else
+                        return null;
+                    },
+                    decoration: InputDecoration(
+                      border: UnderlineInputBorder(),
+                      prefixIcon: Icon(
+                        Icons.code,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      hintText: 'Código de Confirmação',
+                    ),
+                  ),
+                );
+              }),
+            ),
+            Spacer(
+              flex: 2,
+            ),
+            StandardButton(
+              onPressed: () async {
+                if (controller.formkeyPage4.currentState.validate()) {
+                  controller.setClickedButton(true);
+                  if (controller.code == controller.codigoGerado) {
+                    progressDialog.style(message: "Validando..");
+                    progressDialog.show();
+                    var res = await controller.registrar();
+                    Future.delayed(Duration(seconds: 2), () {
+                      progressDialog.hide();
+                      // Modular.to.pushNamedAndRemoveUntil(
+                      //   '/start',
+                      //   ModalRoute.withName('/'),
+                      // );
+                    });
+                  }
+                }
+              },
+              text: 'Confirmar',
+              color: Theme.of(context).primaryColor,
+            ),
+            if (controller.clickedButton &&
+                controller.code != controller.codigoGerado)
+              Container(
+                alignment: Alignment.center,
+                child: Text(
+                  'Código não corresponde ao enviado no e-mail.',
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 12,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              )
+            else
+              Container(),
+            Spacer(
+              flex: 1,
+            ),
+          ],
+        );
+      }),
+    );
+  }
+
+  Future buildShowGeneralDialogMessage(
+      BuildContext context, String titulo, String mensagem) {
+    return showGeneralDialog(
+      barrierLabel: "Mensage",
+      barrierDismissible: true,
+      barrierColor: Colors.black.withOpacity(0.5),
+      transitionDuration: Duration(milliseconds: 400),
+      context: context,
+      pageBuilder: (context, anim1, anim2) => null,
+      transitionBuilder: (context, a1, a2, child) {
+        final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
+        return Transform(
+          transform: Matrix4.translationValues(0.0, curvedValue * 200, 0.0),
+          child: Opacity(
+            opacity: a1.value,
+            child: AlertDialog(
+              shape: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+              content: buildMensageMessage(context, titulo, mensagem),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Container buildMensageMessage(
+      BuildContext context, String titulo, String mensagem) {
+    return Container(
+      height: MediaQuery.of(context).size.height * .3,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -286,57 +449,6 @@ class _RegistroPageState
                       .color
                       .withOpacity(.6),
                 ),
-          ),
-          Spacer(
-            flex: 1,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-            child: Form(
-              key: controller.formkeyPage4,
-              child: TextFormField(
-                onChanged: (value) => controller.setCode(value),
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.done,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(4),
-                ],
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Campo não pode estar vazio';
-                  } else if (value.length < 4) {
-                    return 'Código inválido';
-                  } else
-                    return null;
-                },
-                decoration: InputDecoration(
-                  border: UnderlineInputBorder(),
-                  prefixIcon: Icon(
-                    Icons.code,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  hintText: 'Código de Confirmação',
-                ),
-              ),
-            ),
-          ),
-          Spacer(
-            flex: 2,
-          ),
-          StandardButton(
-            onPressed: () {
-              if (controller.formkeyPage4.currentState.validate()) {
-                progressDialog.show();
-                Future.delayed(Duration(seconds: 2), () {
-                  progressDialog.hide();
-                  Modular.to.pushNamedAndRemoveUntil(
-                      '/start', ModalRoute.withName('/'));
-                });
-              }
-            },
-            text: 'Confirmar',
-            color: Theme.of(context).primaryColor,
           ),
           Spacer(
             flex: 1,

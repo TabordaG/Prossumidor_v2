@@ -7,7 +7,7 @@ part of 'registro_repository.dart';
 // **************************************************************************
 
 final $RegistroRepository = BindInject(
-  (i) => RegistroRepository(i<DioForNative>()),
+  (i) => RegistroRepository(),
   singleton: true,
   lazy: true,
 );
