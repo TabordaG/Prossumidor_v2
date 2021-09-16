@@ -106,6 +106,7 @@ class RegistroRepository implements IRegistroRepository {
     String link = Basicos.codifica(
         "${Basicos.ip}/crud/?crud=consulta2.$nome,$cpf,$telefone,$genero,$email,$senhaCripto,$localRetirada,$endereco,$bairro,$cidade,$cep,$estado,$numero,$complemento");
 
+    print(link);
     response = await dio.get(
       Uri.encodeFull(link),
       options: Options(

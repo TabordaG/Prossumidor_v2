@@ -329,6 +329,15 @@ mixin _$RecuperarSenhaController on _RecuperarSenhaControllerBase, Store {
     return _$enviarRecuperacaoAsyncAction.run(() => super.enviarRecuperacao());
   }
 
+  final _$reenviarRecuperacaoAsyncAction =
+      AsyncAction('_RecuperarSenhaControllerBase.reenviarRecuperacao');
+
+  @override
+  Future reenviarRecuperacao() {
+    return _$reenviarRecuperacaoAsyncAction
+        .run(() => super.reenviarRecuperacao());
+  }
+
   final _$alterarNovaSenhaAsyncAction =
       AsyncAction('_RecuperarSenhaControllerBase.alterarNovaSenha');
 

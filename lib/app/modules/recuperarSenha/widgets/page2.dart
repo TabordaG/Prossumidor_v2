@@ -105,7 +105,7 @@ class _RecuperarSenhaPage2State extends State<RecuperarSenhaPage2> {
                         color: Theme.of(context).primaryColor,
                       ),
                   recognizer: TapGestureRecognizer()
-                    ..onTap = () => print('Enviar o código novamente'),
+                    ..onTap = () => controller.reenviarRecuperacao(),
                 ),
                 TextSpan(text: '\npara enviar novamente'),
               ],

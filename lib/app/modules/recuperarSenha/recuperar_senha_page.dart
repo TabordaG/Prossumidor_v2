@@ -198,13 +198,24 @@ class _RecuperarSenhaPageState
                             } else {
                               controller.isPage3Valid();
                               if (controller.page3Valid) {
-                                await controller.alterarNovaSenha();
+                                progressDialog.style(message: "Alterando..");
+                                progressDialog.show();
+                                var res = await controller.alterarNovaSenha();
                                 Future.delayed(Duration(seconds: 3), () {
-                                  buildShowGeneralDialog(
-                                    context,
-                                    'Senha Alterada com Sucesso',
-                                    'Sua nova senha foi alterada, efetue o login',
-                                  );
+                                  progressDialog.hide();
+                                  if (res == "sucesso") {
+                                    buildShowGeneralDialog(
+                                      context,
+                                      'Senha Alterada com Sucesso',
+                                      'Sua nova senha foi alterada, efetue o login',
+                                    );
+                                  } else {
+                                    buildShowGeneralDialog(
+                                      context,
+                                      'Erro ao Alterar Senha',
+                                      'Ocorreu um erro na alteração de senha, verifique sua conexão e tente novamente.',
+                                    );
+                                  }
                                 });
                               }
                             }

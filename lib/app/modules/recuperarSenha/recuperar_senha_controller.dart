@@ -175,6 +175,12 @@ abstract class _RecuperarSenhaControllerBase with Store {
   }
 
   @action
+  reenviarRecuperacao() async {
+    var res = await recuperarRepository.enviaEmail(email.text, codigoGerado);
+    if (res != null) print(res);
+  }
+
+  @action
   gerarCodigo() {
     var rng = Random();
     codigoGerado = "";
@@ -200,5 +206,6 @@ abstract class _RecuperarSenhaControllerBase with Store {
     if (res != null) {
       print(res);
     }
+    return res;
   }
 }

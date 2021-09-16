@@ -80,7 +80,7 @@ class RecuperarSenhaRepository implements IRecuperarSenhaRepository {
   @override
   Future alterarSenha(String email, String novaSenha) async {
     String link = Basicos.codifica(
-        "${Basicos.ip}/crud/?crud=consult110.${Basicos.codificapwss(novaSenha)},$email");
+        "${Basicos.ip}/crud/?crud=consul110.${Basicos.codificapwss(novaSenha)},$email");
 
     response = await dio.get(
       Uri.encodeFull(link),
@@ -91,11 +91,7 @@ class RecuperarSenhaRepository implements IRecuperarSenhaRepository {
     // try {
     if (response.data != null && response.statusCode == 200) {
       var respondeDecoded = Basicos.decodifica(response.data);
-      List list = json.decode(respondeDecoded).cast<Map<String, dynamic>>();
-      if (list.isEmpty)
-        return 'sucesso';
-      else
-        return 'falhou';
+      return respondeDecoded;
     } else
       return null;
     // } catch (e) {
