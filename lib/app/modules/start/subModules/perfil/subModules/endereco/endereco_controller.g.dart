@@ -213,7 +213,7 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
       AsyncAction('_EnderecoControllerBase.atualizaDados');
 
   @override
-  Future atualizaDados() {
+  Future<dynamic> atualizaDados() {
     return _$atualizaDadosAsyncAction.run(() => super.atualizaDados());
   }
 

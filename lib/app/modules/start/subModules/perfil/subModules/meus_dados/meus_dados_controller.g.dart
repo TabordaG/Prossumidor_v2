@@ -64,18 +64,18 @@ mixin _$MeusDadosController on _MeusDadosControllerBase, Store {
     });
   }
 
-  final _$telefoneAtom = Atom(name: '_MeusDadosControllerBase.telefone');
+  final _$celularAtom = Atom(name: '_MeusDadosControllerBase.celular');
 
   @override
-  TextEditingController get telefone {
-    _$telefoneAtom.reportRead();
-    return super.telefone;
+  TextEditingController get celular {
+    _$celularAtom.reportRead();
+    return super.celular;
   }
 
   @override
-  set telefone(TextEditingController value) {
-    _$telefoneAtom.reportWrite(value, super.telefone, () {
-      super.telefone = value;
+  set celular(TextEditingController value) {
+    _$celularAtom.reportWrite(value, super.celular, () {
+      super.celular = value;
     });
   }
 
@@ -143,15 +143,31 @@ mixin _$MeusDadosController on _MeusDadosControllerBase, Store {
   final _$estadoCivilAtom = Atom(name: '_MeusDadosControllerBase.estadoCivil');
 
   @override
-  TextEditingController get estadoCivil {
+  String get estadoCivil {
     _$estadoCivilAtom.reportRead();
     return super.estadoCivil;
   }
 
   @override
-  set estadoCivil(TextEditingController value) {
+  set estadoCivil(String value) {
     _$estadoCivilAtom.reportWrite(value, super.estadoCivil, () {
       super.estadoCivil = value;
+    });
+  }
+
+  final _$listEstadoCivilAtom =
+      Atom(name: '_MeusDadosControllerBase.listEstadoCivil');
+
+  @override
+  List<String> get listEstadoCivil {
+    _$listEstadoCivilAtom.reportRead();
+    return super.listEstadoCivil;
+  }
+
+  @override
+  set listEstadoCivil(List<String> value) {
+    _$listEstadoCivilAtom.reportWrite(value, super.listEstadoCivil, () {
+      super.listEstadoCivil = value;
     });
   }
 
@@ -186,11 +202,19 @@ mixin _$MeusDadosController on _MeusDadosControllerBase, Store {
     });
   }
 
+  final _$buscaUserAsyncAction =
+      AsyncAction('_MeusDadosControllerBase.buscaUser');
+
+  @override
+  Future buscaUser() {
+    return _$buscaUserAsyncAction.run(() => super.buscaUser());
+  }
+
   final _$atualizaDadosAsyncAction =
       AsyncAction('_MeusDadosControllerBase.atualizaDados');
 
   @override
-  Future atualizaDados() {
+  Future<dynamic> atualizaDados() {
     return _$atualizaDadosAsyncAction.run(() => super.atualizaDados());
   }
 
@@ -198,22 +222,33 @@ mixin _$MeusDadosController on _MeusDadosControllerBase, Store {
       ActionController(name: '_MeusDadosControllerBase');
 
   @override
-  dynamic isPageValid() {
+  dynamic setGenero(int value) {
     final _$actionInfo = _$_MeusDadosControllerBaseActionController.startAction(
-        name: '_MeusDadosControllerBase.isPageValid');
+        name: '_MeusDadosControllerBase.setGenero');
     try {
-      return super.isPageValid();
+      return super.setGenero(value);
     } finally {
       _$_MeusDadosControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic buscaUser() {
+  dynamic mudaDropDown(String value) {
     final _$actionInfo = _$_MeusDadosControllerBaseActionController.startAction(
-        name: '_MeusDadosControllerBase.buscaUser');
+        name: '_MeusDadosControllerBase.mudaDropDown');
     try {
-      return super.buscaUser();
+      return super.mudaDropDown(value);
+    } finally {
+      _$_MeusDadosControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic isPageValid() {
+    final _$actionInfo = _$_MeusDadosControllerBaseActionController.startAction(
+        name: '_MeusDadosControllerBase.isPageValid');
+    try {
+      return super.isPageValid();
     } finally {
       _$_MeusDadosControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -236,12 +271,13 @@ mixin _$MeusDadosController on _MeusDadosControllerBase, Store {
 formkeyPage: ${formkeyPage},
 nome: ${nome},
 cpf: ${cpf},
-telefone: ${telefone},
+celular: ${celular},
 genero: ${genero},
 generoId: ${generoId},
 generoOutro: ${generoOutro},
 dataNascimento: ${dataNascimento},
 estadoCivil: ${estadoCivil},
+listEstadoCivil: ${listEstadoCivil},
 localRetirada: ${localRetirada},
 pageValid: ${pageValid}
     ''';

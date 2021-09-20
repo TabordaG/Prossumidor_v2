@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:prossumidor_v2/app/app_controller.dart';
 import 'package:prossumidor_v2/app/components/button.dart';
 import 'package:prossumidor_v2/app/constants.dart';
 import 'endereco_controller.dart';
 
 class EnderecoPage extends StatefulWidget {
   final String title;
-  const EnderecoPage({Key key, this.title = "Endereco"}) : super(key: key);
+  const EnderecoPage({this.title = "Endereco"});
 
   @override
   _EnderecoPageState createState() => _EnderecoPageState();
@@ -18,6 +19,7 @@ class EnderecoPage extends StatefulWidget {
 class _EnderecoPageState
     extends ModularState<EnderecoPage, EnderecoController> {
   final EnderecoController controller = Modular.get<EnderecoController>();
+  final AppController appController = Modular.get<AppController>();
   final FocusScopeNode node = FocusScopeNode();
 
   @override
@@ -300,7 +302,7 @@ class _EnderecoPageState
                               onEditingComplete: node.unfocus,
                               inputFormatters: [
                                 FilteringTextInputFormatter.digitsOnly,
-                                CepInputFormatter(),
+                                // CepInputFormatter(),
                               ],
                               validator: (value) {
                                 if (value.isEmpty) {
@@ -397,8 +399,15 @@ class _EnderecoPageState
                               onPressed: () async {
                                 controller.isPageValid();
                                 if (controller.pageValid == true) {
-                                 await controller.atualizaDados();
-                                  // Navigator.of(context).pop();
+                                  String response =
+                                      await controller.atualizaDados();
+                                  print(response);
+                                  response != null
+                                      ? {
+                                          buildShowDialog(context, response),
+                                          Navigator.of(context).pop()
+                                        }
+                                      : buildShowDialog(context, response);
                                 } else
                                   print("form invalido");
                               },
@@ -417,5 +426,48 @@ class _EnderecoPageState
         ),
       ),
     );
+  }
+
+  Future buildShowDialog(BuildContext context, String response) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Alteração de Dados', textAlign: TextAlign.center),
+            content: Container(
+              height: 75,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(kDefaultPadding * 0.25),
+                    child: Icon(
+                        response == 'sucesso' ? Icons.check : Icons.clear,
+                        color: kPrimaryColor),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(kDefaultPadding * 0.25),
+                    child: Text(
+                      response == 'sucesso'
+                          ? 'Dados Alterados com Sucesso'
+                          : 'Houve um erro, por favor tente de novo!',
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            fontSize: 14,
+                          ),
+                      textAlign: TextAlign.center,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                child: Text("OK"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
 }

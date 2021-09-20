@@ -71,6 +71,8 @@ abstract class _EnderecoControllerBase with Store {
 
   @action
   buscaUser() async {
+    authController.usuario =
+        await enderecoRepository.buscaUsuario(authController.usuario.id);
     endereco = TextEditingController(text: authController.usuario.endereco);
     numero = TextEditingController(text: authController.usuario.numero);
     complemento =
@@ -107,9 +109,8 @@ abstract class _EnderecoControllerBase with Store {
   }
 
   @action
-  atualizaDados() async {
-    print(authController.usuario.sexo);
-    await enderecoRepository.alteraDados(
+  Future atualizaDados() async {
+    String response = await enderecoRepository.alteraDados(
         authController.usuario.id.toString(),
         removeCaracterEspecial(authController.usuario.nome_razao_social),
         authController.usuario.cpf_cnpj,
@@ -120,11 +121,12 @@ abstract class _EnderecoControllerBase with Store {
         removeCaracterEspecial(complemento.text),
         removeCaracterEspecial(bairro.text),
         removeCaracterEspecial(cidade.text),
-        cep.text,
+        removeCaracterEspecial(cep.text),
         removeCaracterEspecial(uf.text),
         formataDataYYYYmmdd(authController.usuario.data_nascimento_fundacao),
         removeCaracterEspecial(authController.usuario.estado_civil),
         dropdownvalue.substring(0, dropdownvalue.indexOf(' - ')));
+    await buscaUser();
     // authController.usuario.endereco = endereco.text;
     // authController.usuario.numero = numero.text;
     // authController.usuario.complemento = complemento.text;
@@ -135,16 +137,18 @@ abstract class _EnderecoControllerBase with Store {
     // authController.usuario.empresa = dropdownvalue;
     perfilController.centroDistribuicao = dropdownvalue;
     homeController.centroDistribuicao = dropdownvalue;
+    return response;
   }
 
   String removeCaracterEspecial(String texto) {
     // remove aspas, virgula e *
     String nova = texto.replaceAll("(", "");
     String nova1 = nova.replaceAll(")", "");
-    String nova2 = nova1.replaceAll(",", " ");
-    String nova3 = nova2.replaceAll("\"", " ");
-    String nova4 = nova3.replaceAll("*", " ");
-    String novaf = nova4.replaceAll("'", " ");
+    String nova2 = nova1.replaceAll(",", "");
+    String nova3 = nova2.replaceAll("\"", "");
+    String nova4 = nova3.replaceAll("*", "");
+    String nova5 = nova4.replaceAll("'", "");
+    String novaf = nova5.replaceAll("-", "");
     return novaf;
   }
 

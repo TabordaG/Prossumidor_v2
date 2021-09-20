@@ -40,393 +40,396 @@ class _MeusDadosPageState
             padding: EdgeInsets.symmetric(
                 vertical: kDefaultPadding, horizontal: kDefaultPadding),
             child: Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: Theme.of(context).cardColor,
-                borderRadius: BorderRadius.circular(5),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.25),
-                    spreadRadius: 0,
-                    blurRadius: 1,
-                    offset: Offset(0, 0),
-                  ),
-                ],
-              ),
-              child: Form(
-                key: controller.formkeyPage,
-                child: FocusScope(
-                  node: node,
-                  child: ListView(
-                    shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
-                    children: [
-                      SizedBox(
-                        height: kDefaultPadding * 0.5,
-                      ),
-                      Center(
-                        child: Text(
-                          "Dados Pessoais",
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                fontSize: 18,
-                              ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: kDefaultPadding * 0.20,
-                      ),
-                      Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                          child: TextFormField(
-                            controller: controller.nome,
-                            keyboardType: TextInputType.name,
-                            textInputAction: TextInputAction.next,
-                            textCapitalization: TextCapitalization.words,
-                            onEditingComplete: node.nextFocus,
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Insira um nome válido';
-                              } else {
-                                return null;
-                              }
-                            },
-                            decoration: InputDecoration(
-                              labelText: 'Nome',
-                              border: UnderlineInputBorder(),
-                              prefixIcon: Icon(
-                                Icons.person,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                              // hintText:
-                              //     controller.nome.text.isEmpty ? "Nome" : null,
-                            ),
-                          )),
-                      SizedBox(
-                        height: kDefaultPadding * 0.5,
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                        child: TextFormField(
-                          controller: controller.cpf,
-                          keyboardType: TextInputType.number,
-                          textInputAction: TextInputAction.next,
-                          onEditingComplete: node.nextFocus,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                            CpfInputFormatter(),
-                          ],
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Insira seu CPF';
-                            } else {
-                              Pattern pattern =
-                                  r'^(([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2}))$';
-                              RegExp regex = new RegExp(pattern);
-                              if (!regex.hasMatch(value)) {
-                                return 'Insira um CPF válido';
-                              } else {
-                                return null;
-                              }
-                            }
-                          },
-                          decoration: InputDecoration(
-                            labelText: 'CPF',
-                            border: UnderlineInputBorder(),
-                            prefixIcon: Icon(
-                              Icons.contact_page,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                            hintText:
-                                controller.cpf.text.isEmpty ? "CPF" : null,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: kDefaultPadding * 0.5,
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                        child: TextFormField(
-                          controller: controller.telefone,
-                          keyboardType: TextInputType.number,
-                          textInputAction: TextInputAction.next,
-                          onEditingComplete: node.unfocus,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                            TelefoneInputFormatter()
-                          ],
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Insira um telefone válido';
-                            } else {
-                              return null;
-                            }
-                          },
-                          decoration: InputDecoration(
-                            labelText: 'Telefone',
-                            border: UnderlineInputBorder(),
-                            prefixIcon: Icon(
-                              Icons.phone,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                            hintText: controller.telefone.text.isEmpty
-                                ? "Telefone"
-                                : null,
-                          ),
-                        ),
-                      ),
-                      Observer(builder: (_) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                controller.generoId = 0;
-                              },
-                              child: Text(
-                                'Masculino',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    .copyWith(
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1
-                                          .color
-                                          .withOpacity(.8),
-                                    ),
-                              ),
-                            ),
-                            Radio(
-                              value: 0,
-                              activeColor: Theme.of(context).primaryColor,
-                              groupValue: controller.generoId,
-                              onChanged: (value) {
-                                setState(() {
-                                  controller.generoId = value;
-                                });
-                              },
-                            ),
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  controller.generoId = 1;
-                                });
-                              },
-                              child: Text(
-                                'Feminino',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    .copyWith(
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1
-                                          .color
-                                          .withOpacity(.8),
-                                    ),
-                              ),
-                            ),
-                            Radio(
-                              value: 1,
-                              activeColor: Theme.of(context).primaryColor,
-                              groupValue: controller.generoId,
-                              onChanged: (value) {
-                                setState(() {
-                                  controller.generoId = value;
-                                });
-                              },
-                            ),
-                          ],
-                        );
-                      }),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).cardColor,
+                  borderRadius: BorderRadius.circular(5),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.25),
+                      spreadRadius: 0,
+                      blurRadius: 1,
+                      offset: Offset(0, 0),
+                    ),
+                  ],
+                ),
+                child: Observer(builder: (_) {
+                  return Form(
+                    key: controller.formkeyPage,
+                    child: FocusScope(
+                      node: node,
+                      child: ListView(
+                        shrinkWrap: true,
+                        physics: BouncingScrollPhysics(),
                         children: [
-                          InkWell(
-                            onTap: () {
-                              setState(() {
-                                controller.generoId = 2;
-                              });
-                            },
+                          SizedBox(
+                            height: kDefaultPadding * 0.5,
+                          ),
+                          Center(
                             child: Text(
-                              'Outro',
+                              "Dados Pessoais",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1
                                   .copyWith(
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1
-                                        .color
-                                        .withOpacity(.8),
+                                    fontSize: 18,
                                   ),
                             ),
                           ),
-                          Radio(
-                            value: 2,
-                            activeColor: Theme.of(context).primaryColor,
-                            groupValue: controller.generoId,
-                            onChanged: (value) {
-                              setState(() {
-                                controller.generoId = value;
-                              });
-                            },
+                          SizedBox(
+                            height: kDefaultPadding * 0.20,
+                          ),
+                          Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: kDefaultPadding),
+                              child: TextFormField(
+                                controller: controller.nome,
+                                keyboardType: TextInputType.name,
+                                textInputAction: TextInputAction.next,
+                                textCapitalization: TextCapitalization.words,
+                                onEditingComplete: node.nextFocus,
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Insira um nome válido';
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                decoration: InputDecoration(
+                                  labelText: 'Nome',
+                                  border: UnderlineInputBorder(),
+                                  prefixIcon: Icon(
+                                    Icons.person,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                ),
+                              )),
+                          SizedBox(
+                            height: kDefaultPadding * 0.5,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: kDefaultPadding),
+                            child: TextFormField(
+                              controller: controller.cpf,
+                              keyboardType: TextInputType.number,
+                              textInputAction: TextInputAction.next,
+                              onEditingComplete: node.nextFocus,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                                CpfInputFormatter(),
+                              ],
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Insira seu CPF';
+                                } else {
+                                  Pattern pattern =
+                                      r'^(([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2}))$';
+                                  RegExp regex = new RegExp(pattern);
+                                  if (!regex.hasMatch(value)) {
+                                    return 'Insira um CPF válido';
+                                  } else {
+                                    return null;
+                                  }
+                                }
+                              },
+                              decoration: InputDecoration(
+                                labelText: 'CPF',
+                                border: UnderlineInputBorder(),
+                                prefixIcon: Icon(
+                                  Icons.contact_page,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                                hintText:
+                                    controller.cpf.text.isEmpty ? "CPF" : null,
+                              ),
+                            ),
                           ),
                           SizedBox(
-                            width: 10,
+                            height: kDefaultPadding * 0.5,
                           ),
-                          Container(
-                            width: 100,
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: kDefaultPadding),
                             child: TextFormField(
-                              enabled:
-                                  controller.genero.text == '2' ? true : false,
-                              onChanged: (value) => controller.generoOutro,
+                              controller: controller.celular,
+                              keyboardType: TextInputType.number,
+                              textInputAction: TextInputAction.next,
+                              onEditingComplete: node.unfocus,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                                TelefoneInputFormatter()
+                              ],
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Insira um telefone válido';
+                                } else {
+                                  return null;
+                                }
+                              },
+                              decoration: InputDecoration(
+                                labelText: 'Telefone',
+                                border: UnderlineInputBorder(),
+                                prefixIcon: Icon(
+                                  Icons.phone,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                                hintText: controller.celular.text.isEmpty
+                                    ? "Telefone"
+                                    : null,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.all(kDefaultPadding * 0.5),
+                            child: Observer(builder: (_) {
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      controller.setGenero(0);
+                                    },
+                                    child: Text(
+                                      'Masculino',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          .copyWith(
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1
+                                                .color
+                                                .withOpacity(.8),
+                                          ),
+                                    ),
+                                  ),
+                                  Radio(
+                                    value: 0,
+                                    activeColor: Theme.of(context).primaryColor,
+                                    groupValue: controller.generoId,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        controller.setGenero(value);
+                                      });
+                                    },
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        controller.setGenero(1);
+                                      });
+                                    },
+                                    child: Text(
+                                      'Feminino',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          .copyWith(
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1
+                                                .color
+                                                .withOpacity(.8),
+                                          ),
+                                    ),
+                                  ),
+                                  Radio(
+                                    value: 1,
+                                    activeColor: Theme.of(context).primaryColor,
+                                    groupValue: controller.generoId,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        controller.setGenero(value);
+                                      });
+                                    },
+                                  ),
+                                ],
+                              );
+                            }),
+                          ),
+                          SizedBox(
+                            height: kDefaultPadding * 0.10,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: kDefaultPadding),
+                            child: TextFormField(
+                              controller: controller.dataNascimento,
                               keyboardType: TextInputType.text,
                               textInputAction: TextInputAction.next,
                               textCapitalization: TextCapitalization.words,
-                              initialValue: controller.generoOutro.text,
+                              onEditingComplete: node.nextFocus,
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Insira uma data de nascimento válida';
+                                } else {
+                                  return null;
+                                }
+                              },
                               decoration: InputDecoration(
-                                isDense: true,
-                                border: UnderlineInputBorder(),
+                                  labelText: 'Data de Nascimento',
+                                  border: UnderlineInputBorder(),
+                                  prefixIcon: Icon(
+                                    Icons.house_siding,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                  hintText:
+                                      controller.dataNascimento.text.isEmpty
+                                          ? "Data de nascimento"
+                                          : null),
+                            ),
+                          ),
+                          SizedBox(
+                            height: kDefaultPadding * 0.5,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: kDefaultPadding,
+                                right: kDefaultPadding,
+                                top: kDefaultPadding),
+                            child: Container(
+                              height: 80,
+                              width: double.infinity,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: kDefaultPadding * 2.5),
+                                    child: Text('Estado Civil'),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: kDefaultPadding * 0.7),
+                                        child: Icon(Icons.family_restroom,
+                                            color:
+                                                Theme.of(context).primaryColor),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.only(
+                                              left: kDefaultPadding * 0.5),
+                                          child: Observer(builder: (_) {
+                                            return DropdownButton<String>(
+                                              isExpanded: true,
+                                              value: controller.estadoCivil,
+                                              //icon: const Icon(Icons.arrow_downward),
+                                              //iconSize: 24,
+                                              elevation: 16,
+                                              underline: Container(
+                                                height: 2,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .secondary,
+                                              ),
+                                              onChanged: (String newValue) {
+                                                setState(() {
+                                                  controller
+                                                      .mudaDropDown(newValue);
+                                                });
+                                              },
+                                              items: controller.listEstadoCivil
+                                                  .map<
+                                                          DropdownMenuItem<
+                                                              String>>(
+                                                      (String value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text(value),
+                                                );
+                                              }).toList(),
+                                            );
+                                          }),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: kDefaultPadding * 2,
+                                vertical: kDefaultPadding * 0.25),
+                            child: ButtonTheme(
+                              minWidth: 150,
+                              height: 40,
+                              child: StandardButton(
+                                onPressed: () async {
+                                  controller.isPageValid();
+                                  if (controller.pageValid == true) {
+                                    String response =
+                                        await controller.atualizaDados();
+                                    response != null
+                                        ? {
+                                            buildShowDialog(context, response),
+                                            Navigator.of(context).pop()
+                                          }
+                                        : buildShowDialog(context, response);
+                                  } else
+                                    print("formkey invalido");
+                                },
+                                color: Theme.of(context).primaryColor,
+                                text: "Alterar dados",
                               ),
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: kDefaultPadding * 0.15,
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                        child: TextFormField(
-                          controller: controller.dataNascimento,
-                          keyboardType: TextInputType.text,
-                          textInputAction: TextInputAction.next,
-                          textCapitalization: TextCapitalization.words,
-                          onEditingComplete: node.nextFocus,
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Insira uma data de nascimento válida';
-                            } else {
-                              return null;
-                            }
-                          },
-                          decoration: InputDecoration(
-                              labelText: 'Data de Nascimento',
-                              border: UnderlineInputBorder(),
-                              prefixIcon: Icon(
-                                Icons.house_siding,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                              hintText: controller.dataNascimento.text.isEmpty
-                                  ? "Data de nascimento"
-                                  : null),
-                        ),
-                      ),
-                      SizedBox(
-                        height: kDefaultPadding * 0.5,
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                        child: TextFormField(
-                          controller: controller.estadoCivil,
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(250),
-                          ],
-                          keyboardType: TextInputType.text,
-                          textInputAction: TextInputAction.next,
-                          textCapitalization: TextCapitalization.words,
-                          onEditingComplete: node.nextFocus,
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Insira uma estado cívil válida';
-                            } else {
-                              return null;
-                            }
-                          },
-                          decoration: InputDecoration(
-                            labelText: 'Estado Civil',
-                            border: UnderlineInputBorder(),
-                            prefixIcon: Icon(
-                              Icons.location_city,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                            hintText: controller.estadoCivil.text.isEmpty
-                                ? "Estado Cívil"
-                                : null,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: kDefaultPadding * 0.5,
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                        child: TextFormField(
-                          controller: controller.localRetirada,
-                          keyboardType: TextInputType.name,
-                          textInputAction: TextInputAction.next,
-                          textCapitalization: TextCapitalization.sentences,
-                          onEditingComplete: node.nextFocus,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.singleLineFormatter,
-                            LengthLimitingTextInputFormatter(2),
-                          ],
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Insira um local válido';
-                            } else {
-                              return null;
-                            }
-                          },
-                          decoration: InputDecoration(
-                            labelText: 'Local de Retirada',
-                            border: UnderlineInputBorder(),
-                            prefixIcon: Icon(
-                              Icons.business,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                            hintText: controller.localRetirada.text.isEmpty
-                                ? "Local de Retirada"
-                                : null,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: kDefaultPadding * 2,
-                            vertical: kDefaultPadding),
-                        child: ButtonTheme(
-                          minWidth: 150,
-                          height: 40,
-                          child: StandardButton(
-                            onPressed: () {
-                              controller.isPageValid();
-                              if (controller.pageValid == true) {
-                                controller.atualizaDados();
-                              } else
-                                print("formkey invalido");
-                            },
-                            color: Theme.of(context).primaryColor,
-                            text: "Alterar dados",
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+                    ),
+                  );
+                })),
           ),
         ),
       ),
     );
+  }
+
+  Future buildShowDialog(BuildContext context, String response) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Alteração de Dados', textAlign: TextAlign.center),
+            content: Container(
+              height: 75,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(kDefaultPadding * 0.25),
+                    child: Icon(
+                        response == 'sucesso' ? Icons.check : Icons.clear,
+                        color: kPrimaryColor),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(kDefaultPadding * 0.25),
+                    child: Text(
+                      response == 'sucesso'
+                          ? 'Dados Alterados com Sucesso'
+                          : 'Houve um erro, por favor tente de novo!',
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            fontSize: 14,
+                          ),
+                      textAlign: TextAlign.center,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                child: Text("OK"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
 }
