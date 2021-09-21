@@ -46,22 +46,21 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
                     itemCount: chatController.listaConversas.length,
                     itemBuilder: (context, index) {
                       return Observer(builder: (_) {
-                        return chatController.listaConversasPorEmpresas ==
-                                    null ||
-                                chatController.listaConversasPorEmpresas.isEmpty
+                        return chatController.listaUltimasConversas == null ||
+                                chatController.listaUltimasConversas.isEmpty
                             ? Center(
                                 child: CircularProgressIndicator(),
                               )
                             : CardChat(
-                                chat: chatController
-                                    .listaConversasPorEmpresas[index],
+                                chat:
+                                    chatController.listaUltimasConversas[index],
                                 onTap: () async {
                                   await chatController.buscaChatIndividual(
                                       chatController
-                                          .listaConversasPorEmpresas[index]
+                                          .listaUltimasConversas[index]
                                           .id_cliente_id,
                                       chatController
-                                          .listaConversasPorEmpresas[index]
+                                          .listaUltimasConversas[index]
                                           .id_empresa_id);
                                   Modular.to.pushNamed('chat/chatIndividual');
                                 },
