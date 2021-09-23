@@ -6,6 +6,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:prossumidor_v2/app/components/button.dart';
 import 'package:prossumidor_v2/app/constants.dart';
+import 'package:prossumidor_v2/app/shared/auth/auth_controller.dart';
 import '../../components/button.dart';
 import '../../constants.dart';
 import 'registro_controller.dart';
@@ -24,6 +25,7 @@ class RegistroPage extends StatefulWidget {
 
 class _RegistroPageState
     extends ModularState<RegistroPage, RegistroController> {
+  final AuthController authController = Modular.get<AuthController>();
   ProgressDialog progressDialog;
 
   @override
@@ -347,12 +349,18 @@ class _RegistroPageState
                     progressDialog.style(message: "Validando..");
                     progressDialog.show();
                     var res = await controller.registrar();
-                    Future.delayed(Duration(seconds: 2), () {
+                    Future.delayed(Duration(seconds: 2), () async {
                       progressDialog.hide();
-                      // Modular.to.pushNamedAndRemoveUntil(
-                      //   '/start',
-                      //   ModalRoute.withName('/'),
-                      // );
+                      if (res != null) {
+                        await authController.addStringToSF(controller.email);
+                        Modular.to.pushReplacementNamed('/start');
+                      } else {
+                        buildShowGeneralDialogMessage(
+                          context,
+                          'Erro',
+                          'Ocorreu um erro ao registrar, verifique sua conexão e tente novamente.',
+                        );
+                      }
                     });
                   }
                 }

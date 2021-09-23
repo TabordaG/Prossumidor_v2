@@ -106,7 +106,8 @@ class RegistroRepository implements IRegistroRepository {
     String link = Basicos.codifica(
         "${Basicos.ip}/crud/?crud=consulta2.$nome,$cpf,$telefone,$genero,$email,$senhaCripto,$localRetirada,$endereco,$bairro,$cidade,$cep,$estado,$numero,$complemento");
 
-    print(link);
+    print(
+        "${Basicos.ip}/crud/?crud=consulta2.$nome,$cpf,$telefone,$genero,$email,$senhaCripto,$localRetirada,$endereco,$bairro,$cidade,$cep,$estado,$numero,$complemento");
     response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
@@ -133,7 +134,7 @@ class RegistroRepository implements IRegistroRepository {
     if (response.data != null && response.statusCode == 200) {
       var respondeDecoded = Basicos.decodifica(response.data);
       List list = json.decode(respondeDecoded).cast<Map<String, dynamic>>();
-      if (list.isEmpty)
+      if (list.isNotEmpty)
         return list[0];
       else
         return null;

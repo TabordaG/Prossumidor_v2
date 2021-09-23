@@ -50,15 +50,25 @@ class _RegistrarPage3State extends State<RegistrarPage3> {
               padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
               child: TextFormField(
                 onChanged: (value) => controller.setEmail(value),
+                // textCapitalization: TextCapitalization.words,
+                onEditingComplete: node.nextFocus,
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
-                textCapitalization: TextCapitalization.words,
-                onEditingComplete: node.nextFocus,
                 validator: (value) {
                   if (value.isEmpty) {
-                    return 'Insira um e-mail válido';
+                    return 'Insira um endereço de email';
                   } else {
-                    return null;
+                    if (value.length < 3) {
+                      return "Email Tem Que Ter Pelo Menos 3 Caracteres";
+                    } else {
+                      Pattern pattern =
+                          r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                      RegExp regex = new RegExp(pattern);
+                      if (!regex.hasMatch(value)) {
+                        return 'Insira um endereço de email válido';
+                      } else
+                        return null;
+                    }
                   }
                 },
                 decoration: InputDecoration(
@@ -118,6 +128,7 @@ class _RegistrarPage3State extends State<RegistrarPage3> {
                           if (novoItemSelecionado != 'Local de Retirada')
                             setState(() {
                               controller.setRetirada(novoItemSelecionado);
+                              controller.setRetiradaID(novoItemSelecionado);
                             });
                         },
                         value: controller.retirada,
@@ -134,7 +145,7 @@ class _RegistrarPage3State extends State<RegistrarPage3> {
               padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
               child: TextFormField(
                 onChanged: (value) => controller.setSenha(value),
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.next,
                 onEditingComplete: node.unfocus,
                 validator: (value) {

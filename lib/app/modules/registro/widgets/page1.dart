@@ -147,6 +147,16 @@ class _RegistrarPage1State extends State<RegistrarPage1> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Radio(
+                  value: 0,
+                  activeColor: Theme.of(context).primaryColor,
+                  groupValue: controller.genero,
+                  onChanged: (value) {
+                    setState(() {
+                      controller.setGenero(value);
+                    });
+                  },
+                ),
                 InkWell(
                   onTap: () {
                     setState(() {
@@ -164,8 +174,11 @@ class _RegistrarPage1State extends State<RegistrarPage1> {
                         ),
                   ),
                 ),
+                SizedBox(
+                  width: 10,
+                ),
                 Radio(
-                  value: 0,
+                  value: 1,
                   activeColor: Theme.of(context).primaryColor,
                   groupValue: controller.genero,
                   onChanged: (value) {
@@ -173,9 +186,6 @@ class _RegistrarPage1State extends State<RegistrarPage1> {
                       controller.setGenero(value);
                     });
                   },
-                ),
-                SizedBox(
-                  width: 10,
                 ),
                 InkWell(
                   onTap: () {
@@ -194,8 +204,13 @@ class _RegistrarPage1State extends State<RegistrarPage1> {
                         ),
                   ),
                 ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
                 Radio(
-                  value: 1,
+                  value: 2,
                   activeColor: Theme.of(context).primaryColor,
                   groupValue: controller.genero,
                   onChanged: (value) {
@@ -204,11 +219,6 @@ class _RegistrarPage1State extends State<RegistrarPage1> {
                     });
                   },
                 ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
                 InkWell(
                   onTap: () {
                     setState(() {
@@ -226,33 +236,23 @@ class _RegistrarPage1State extends State<RegistrarPage1> {
                         ),
                   ),
                 ),
-                Radio(
-                  value: 2,
-                  activeColor: Theme.of(context).primaryColor,
-                  groupValue: controller.genero,
-                  onChanged: (value) {
-                    setState(() {
-                      controller.setGenero(value);
-                    });
-                  },
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Container(
-                  width: 100,
-                  child: TextField(
-                    enabled: controller.genero == 2 ? true : false,
-                    onChanged: (value) => controller.setGeneroOutro(value),
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.done,
-                    textCapitalization: TextCapitalization.words,
-                    decoration: InputDecoration(
-                      isDense: true,
-                      border: UnderlineInputBorder(),
-                    ),
-                  ),
-                ),
+                // SizedBox(
+                //   width: 10,
+                // ),
+                // Container(
+                //   width: 100,
+                //   child: TextField(
+                //     enabled: controller.genero == 2 ? true : false,
+                //     onChanged: (value) => controller.setGeneroOutro(value),
+                //     keyboardType: TextInputType.emailAddress,
+                //     textInputAction: TextInputAction.done,
+                //     textCapitalization: TextCapitalization.words,
+                //     decoration: InputDecoration(
+                //       isDense: true,
+                //       border: UnderlineInputBorder(),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
             SizedBox(

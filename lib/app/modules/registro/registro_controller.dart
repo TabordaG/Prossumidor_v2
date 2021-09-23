@@ -131,8 +131,10 @@ abstract class _RegistroControllerBase with Store {
 
   @action
   setRetiradaID(String valor) {
-    int index = locaisRetirada.indexWhere((element) => element == valor);
+    int index =
+        locaisRetirada.indexWhere((element) => element["nome"] == valor);
     retiradaID = index;
+    print(index);
   }
 
   @observable
@@ -203,19 +205,19 @@ abstract class _RegistroControllerBase with Store {
     switch (current) {
       case 0:
         isPage1Valid();
-        // if (page1Valid)
-        buttonCarouselController.nextPage(
-          duration: Duration(milliseconds: 300),
-          curve: Curves.linear,
-        );
+        if (page1Valid)
+          buttonCarouselController.nextPage(
+            duration: Duration(milliseconds: 300),
+            curve: Curves.linear,
+          );
         break;
       case 1:
         isPage2Valid();
-        // if (page2Valid)
-        buttonCarouselController.nextPage(
-          duration: Duration(milliseconds: 300),
-          curve: Curves.linear,
-        );
+        if (page2Valid)
+          buttonCarouselController.nextPage(
+            duration: Duration(milliseconds: 300),
+            curve: Curves.linear,
+          );
         break;
       default:
     }
@@ -278,15 +280,18 @@ abstract class _RegistroControllerBase with Store {
 
   @action
   registrar() async {
+    String generoText = "";
+    if (genero == 0) generoText = "MASCULINO";
+    if (genero == 1)
+      generoText = "FEMININO";
+    else
+      generoText = "OUTRO";
+
     var res = await registrarRepository.registrar(
       nome,
       cpf,
       telefone,
-      genero == 0
-          ? "MASCULINO"
-          : genero == 0
-              ? "FEMININO"
-              : "OUTRO",
+      generoText,
       email,
       Basicos.codificapwss(senha),
       retiradaID.toString(),
@@ -298,7 +303,6 @@ abstract class _RegistroControllerBase with Store {
       numero,
       removeCaracterEspecial(complemento),
     );
-    print(res);
     if (res != null) {
       var usuario = await registrarRepository.getData(email);
       if (usuario != null) {
@@ -309,8 +313,14 @@ abstract class _RegistroControllerBase with Store {
           senha: usuario['senha'],
           empresa_id: usuario['empresa_id'],
         );
+        print(usuario);
       }
     }
+
+    if (authController.usuario == null)
+      return null;
+    else
+      return "registrado";
   }
 
   String removeCaracterEspecial(String texto) {

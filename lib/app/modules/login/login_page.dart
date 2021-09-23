@@ -261,7 +261,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                       Modular.to.pushNamed('/registro');
                     },
                     child: Text(
-                      'Registar',
+                      'Registrar',
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
                             fontSize: 16,
                             color: Theme.of(context).primaryColor,
