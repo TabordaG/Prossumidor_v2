@@ -96,9 +96,9 @@ class _ChatIndividualState extends State<ChatIndividual> {
                           chatController.sendMensagem(
                               chatController.mensagem.text,
                               chatController
-                                  .listaConversasPorEmpresas[0].id_cliente_id,
+                                  .listaUltimasConversas[0].id_cliente_id,
                               chatController
-                                  .listaConversasPorEmpresas[0].id_empresa_id);
+                                  .listaUltimasConversas[0].id_empresa_id);
                           _scrollController.animateTo(0.0,
                               duration: Duration(microseconds: 300),
                               curve: Curves.easeOut);

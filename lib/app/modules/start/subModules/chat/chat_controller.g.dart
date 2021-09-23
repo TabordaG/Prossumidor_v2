@@ -34,20 +34,20 @@ mixin _$ChatController on _ChatControllerBase, Store {
     });
   }
 
-  final _$listaConversasPorEmpresasAtom =
-      Atom(name: '_ChatControllerBase.listaConversasPorEmpresas');
+  final _$listaUltimasConversasAtom =
+      Atom(name: '_ChatControllerBase.listaUltimasConversas');
 
   @override
-  List<Chat> get listaConversasPorEmpresas {
-    _$listaConversasPorEmpresasAtom.reportRead();
-    return super.listaConversasPorEmpresas;
+  List<Chat> get listaUltimasConversas {
+    _$listaUltimasConversasAtom.reportRead();
+    return super.listaUltimasConversas;
   }
 
   @override
-  set listaConversasPorEmpresas(List<Chat> value) {
-    _$listaConversasPorEmpresasAtom
-        .reportWrite(value, super.listaConversasPorEmpresas, () {
-      super.listaConversasPorEmpresas = value;
+  set listaUltimasConversas(List<Chat> value) {
+    _$listaUltimasConversasAtom.reportWrite(value, super.listaUltimasConversas,
+        () {
+      super.listaUltimasConversas = value;
     });
   }
 
@@ -96,6 +96,13 @@ mixin _$ChatController on _ChatControllerBase, Store {
     });
   }
 
+  final _$buscaChatsAsyncAction = AsyncAction('_ChatControllerBase.buscaChats');
+
+  @override
+  Future buscaChats() {
+    return _$buscaChatsAsyncAction.run(() => super.buscaChats());
+  }
+
   final _$sendMensagemAsyncAction =
       AsyncAction('_ChatControllerBase.sendMensagem');
 
@@ -103,13 +110,6 @@ mixin _$ChatController on _ChatControllerBase, Store {
   Future sendMensagem(String menssagem, int idCliente, int idEmpresa) {
     return _$sendMensagemAsyncAction
         .run(() => super.sendMensagem(menssagem, idCliente, idEmpresa));
-  }
-
-  final _$buscaChatsAsyncAction = AsyncAction('_ChatControllerBase.buscaChats');
-
-  @override
-  Future buscaChats() {
-    return _$buscaChatsAsyncAction.run(() => super.buscaChats());
   }
 
   final _$buscaChatsEmpresaAsyncAction =
@@ -148,7 +148,7 @@ mixin _$ChatController on _ChatControllerBase, Store {
   String toString() {
     return '''
 listaConversas: ${listaConversas},
-listaConversasPorEmpresas: ${listaConversasPorEmpresas},
+listaUltimasConversas: ${listaUltimasConversas},
 chatConversas: ${chatConversas},
 conversas: ${conversas},
 mensagem: ${mensagem}

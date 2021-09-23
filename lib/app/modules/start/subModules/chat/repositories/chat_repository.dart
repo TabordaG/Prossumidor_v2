@@ -85,7 +85,6 @@ class ChatRepository implements IChatRepository {
     );
     if (response.data != null && response.statusCode == 200) {
       try {
-        // var respondeDecoded = Basicos.decodifica(response.data);
         List list = response.data;
         return list;
       } catch (e) {

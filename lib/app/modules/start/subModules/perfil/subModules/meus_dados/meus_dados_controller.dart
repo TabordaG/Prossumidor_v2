@@ -27,7 +27,7 @@ abstract class _MeusDadosControllerBase with Store {
   TextEditingController cpf = TextEditingController();
 
   @observable
-  TextEditingController telefone = TextEditingController();
+  TextEditingController celular = TextEditingController();
 
   @observable
   TextEditingController genero = TextEditingController();
@@ -42,13 +42,31 @@ abstract class _MeusDadosControllerBase with Store {
   TextEditingController dataNascimento = TextEditingController();
 
   @observable
-  TextEditingController estadoCivil = TextEditingController();
+  String estadoCivil;
+
+  @observable
+  List<String> listEstadoCivil = ['solteiro', 'casado', 'divorciado'];
 
   @observable
   TextEditingController localRetirada = TextEditingController();
 
   @observable
   bool pageValid = false;
+
+  @action
+  setGenero(int value) {
+    if (value == 0) {
+      genero.text = 'MASCULINO';
+      generoId = value;
+    }
+    if (value == 1) {
+      genero.text = 'FEMININO';
+      generoId = value;
+    }
+  }
+
+  @action
+  mudaDropDown(String value) => estadoCivil = value;
 
   @action
   isPageValid() {
@@ -59,12 +77,17 @@ abstract class _MeusDadosControllerBase with Store {
   }
 
   @action
-  buscaUser() {
+  buscaUser() async {
+    authController.usuario =
+        await meusdadosRepository.buscaUsuario(authController.usuario.id);
     getLocalRetirada();
     nome =
         TextEditingController(text: authController.usuario.nome_razao_social);
     cpf = TextEditingController(text: authController.usuario.cpf_cnpj);
-    telefone = TextEditingController(text: authController.usuario.telefone);
+    print("telefone " + authController.usuario.telefone);
+    print("celular" + authController.usuario.celular);
+    print("contato" + authController.usuario.contato);
+    celular = TextEditingController(text: authController.usuario.celular);
     genero = TextEditingController(text: authController.usuario.sexo);
     generoId = authController.usuario.sexo == 'MASCULINO'
         ? 0
@@ -74,9 +97,9 @@ abstract class _MeusDadosControllerBase with Store {
 
     //generoOutro = TextEditingController(text: authController.usuario.sexo);
     dataNascimento = TextEditingController(
-        text: formataDataddmmYYYY(authController.usuario.data_nascimento_fundacao));
-    estadoCivil =
-        TextEditingController(text: authController.usuario.estado_civil);
+        text: formataDataddmmYYYY(
+            authController.usuario.data_nascimento_fundacao));
+    estadoCivil = authController.usuario.estado_civil;
     localRetirada =
         TextEditingController(text: authController.localRetiradaAtual);
   }
@@ -96,28 +119,29 @@ abstract class _MeusDadosControllerBase with Store {
   }
 
   @action
-  atualizaDados() async {
+  Future atualizaDados() async {
     String response = await meusdadosRepository.alteraDados(
         authController.usuario.id.toString(),
         removeCaracterEspecial(nome.text),
         removeCaracterEspecial(cpf.text),
-        removeCaracterEspecial(telefone.text),
+        removeCaracterEspecial(celular.text),
         genero.text.toUpperCase(),
         removeCaracterEspecial(authController.usuario.endereco),
         authController.usuario.numero,
         removeCaracterEspecial(authController.usuario.complemento),
         removeCaracterEspecial(authController.usuario.bairro),
         removeCaracterEspecial(authController.usuario.cidade),
-        authController.usuario.cep,
+        removeCaracterEspecial(authController.usuario.cep),
         removeCaracterEspecial(authController.usuario.estado),
         formataDataYYYYmmdd(dataNascimento.text),
-        removeCaracterEspecial(estadoCivil.text),
+        removeCaracterEspecial(estadoCivil),
         authController.usuario.local_retirada_id.toString());
+    await buscaUser();
     if (response == null)
       print('erro de requisição');
     else if (response == 'sucesso') print('sucesso na requisição');
+    return response;
   }
-
 
   String removeCaracterEspecial(String texto) {
     // remove aspas, virgula e *

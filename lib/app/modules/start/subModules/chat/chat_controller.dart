@@ -15,17 +15,13 @@ abstract class _ChatControllerBase with Store {
   final AuthController authController = Modular.get<AuthController>();
   final IChatRepository chatRepository = Modular.get<IChatRepository>();
   _ChatControllerBase() {
-    // chatRepository.buscaChats(authController.usuario.id);
-    // listaConversas = listaChat
-    //     .where((element) => element.id_cliente == authController.usuario.id)
-    //     .toList();
     buscaChats();
   }
   @observable
   List listaConversas = [];
 
   @observable
-  List<Chat> listaConversasPorEmpresas = [];
+  List<Chat> listaUltimasConversas = [];
 
   @observable
   List<Chat> chatConversas = [];
@@ -37,18 +33,6 @@ abstract class _ChatControllerBase with Store {
   TextEditingController mensagem = TextEditingController();
 
   @action
-  setMensagem(String value) => mensagem.text = value;
-
-  @action
-  sendMensagem(String menssagem, int idCliente, int idEmpresa) async {
-    String resultado =
-        await chatRepository.enviaMensagem(menssagem, idCliente, idEmpresa);
-    if (resultado == 'sucesso') buscaChatIndividual(idCliente, idEmpresa);
-    // chatConversas.add(Chat(mensagem: menssagem, ));
-    mensagem.clear();
-  }
-
-  @action
   buscaChats() async {
     listaConversas =
         await chatRepository.iniciaChat(authController.usuario.id, 0);
@@ -56,21 +40,34 @@ abstract class _ChatControllerBase with Store {
   }
 
   @action
+  setMensagem(String value) => mensagem.text = value;
+
+  @action
+  sendMensagem(String menssagem, int idCliente, int idEmpresa) async {
+    String resultado =
+        await chatRepository.enviaMensagem(menssagem, idCliente, idEmpresa);
+    if (resultado == 'sucesso') buscaChatIndividual(idCliente, idEmpresa);
+    mensagem.clear();
+    await buscaChats();
+  }
+
+  @action
   buscaChatsEmpresa({int id}) async {
-    listaConversasPorEmpresas = null;
+    listaUltimasConversas = null;
     if (listaConversas != null) {
-      listaConversasPorEmpresas = [];
+      listaUltimasConversas = [];
       listaConversas.forEach((element) async {
         List lista = await chatRepository.buscaUltimaMensagem(
             authController.usuario.id, element['id_empresa_id'].toString());
         lista.forEach((element) {
           Chat chat = Chat.fromJson(element);
-          listaConversasPorEmpresas.add(chat);
+          listaUltimasConversas.add(chat);
         });
-        listaConversasPorEmpresas = List.from(listaConversasPorEmpresas);
+        listaUltimasConversas = List.from(listaUltimasConversas);
       });
-      if (listaConversasPorEmpresas == null) {
-        listaConversasPorEmpresas = List.from([]);
+
+      if (listaUltimasConversas == null) {
+        listaUltimasConversas = List.from([]);
       }
     }
   }
