@@ -201,7 +201,7 @@ class _RegistrarPage2State extends State<RegistrarPage2> {
                       onChanged: (value) => controller.setUF(value),
                       keyboardType: TextInputType.name,
                       textInputAction: TextInputAction.next,
-                      textCapitalization: TextCapitalization.sentences,
+                      textCapitalization: TextCapitalization.characters,
                       onEditingComplete: node.nextFocus,
                       inputFormatters: [
                         FilteringTextInputFormatter.singleLineFormatter,

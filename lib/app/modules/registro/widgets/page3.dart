@@ -138,6 +138,18 @@ class _RegistrarPage3State extends State<RegistrarPage3> {
                 ],
               ),
             ),
+            Observer(builder: (_) {
+              return controller.isRetirada
+                  ? Container()
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: kDefaultPadding),
+                      child: Text(
+                        'Por favor, selecione um local de retirada',
+                        style: TextStyle(color: Colors.red[700], fontSize: 12),
+                      ),
+                    );
+            }),
             SizedBox(
               height: 5,
             ),
@@ -151,6 +163,8 @@ class _RegistrarPage3State extends State<RegistrarPage3> {
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Insira uma senha válida';
+                  } else if (value.length < 6) {
+                    return 'A senha deve ter no mínimo 6 caracteres.';
                   } else {
                     return null;
                   }
@@ -171,7 +185,7 @@ class _RegistrarPage3State extends State<RegistrarPage3> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
               child: TextFormField(
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.next,
                 onEditingComplete: node.unfocus,
                 validator: (value) {

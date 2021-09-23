@@ -177,14 +177,16 @@ class _RecuperarSenhaPageState
                           onPressed: () async {
                             if (controller.current == 0) {
                               await controller.setNextPage(progressDialog);
-                              Future.delayed(Duration(seconds: 3), () {
-                                if (!controller.emailValido)
-                                  buildShowGeneralDialog(
-                                    context,
-                                    'Erro',
-                                    'E-mail não cadastrado ou erro de conexão',
-                                  );
-                              });
+                              if (controller.page1Valid) {
+                                Future.delayed(Duration(seconds: 3), () {
+                                  if (!controller.emailValido)
+                                    buildShowGeneralDialog(
+                                      context,
+                                      'Erro',
+                                      'E-mail não cadastrado ou erro de conexão',
+                                    );
+                                });
+                              }
                             } else if (controller.current == 1) {
                               await controller.setNextPage(progressDialog);
                               Future.delayed(Duration(seconds: 3), () {

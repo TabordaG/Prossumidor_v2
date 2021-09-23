@@ -1,6 +1,7 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/modules/registro/registro_controller.dart';
 
@@ -206,58 +207,70 @@ class _RegistrarPage1State extends State<RegistrarPage1> {
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Radio(
-                  value: 2,
-                  activeColor: Theme.of(context).primaryColor,
-                  groupValue: controller.genero,
-                  onChanged: (value) {
-                    setState(() {
-                      controller.setGenero(value);
-                    });
-                  },
-                ),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      controller.setGenero(2);
-                    });
-                  },
-                  child: Text(
-                    'Outro',
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
-                          color: Theme.of(context)
-                              .textTheme
-                              .bodyText1
-                              .color
-                              .withOpacity(.8),
-                        ),
-                  ),
-                ),
-                // SizedBox(
-                //   width: 10,
-                // ),
-                // Container(
-                //   width: 100,
-                //   child: TextField(
-                //     enabled: controller.genero == 2 ? true : false,
-                //     onChanged: (value) => controller.setGeneroOutro(value),
-                //     keyboardType: TextInputType.emailAddress,
-                //     textInputAction: TextInputAction.done,
-                //     textCapitalization: TextCapitalization.words,
-                //     decoration: InputDecoration(
-                //       isDense: true,
-                //       border: UnderlineInputBorder(),
-                //     ),
-                //   ),
-                // ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
+            Observer(builder: (_) {
+              return controller.generoValid
+                  ? Container()
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: kDefaultPadding),
+                      child: Text(
+                        'Por favor, selecione um gênero.',
+                        style: TextStyle(color: Colors.red[700], fontSize: 12),
+                      ),
+                    );
+            }),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //children: [
+            //     Radio(
+            //       value: 2,
+            //       activeColor: Theme.of(context).primaryColor,
+            //       groupValue: controller.genero,
+            //       onChanged: (value) {
+            //         setState(() {
+            //           controller.setGenero(value);
+            //         });
+            //       },
+            //     ),
+            //     InkWell(
+            //       onTap: () {
+            //         setState(() {
+            //           controller.setGenero(2);
+            //         });
+            //       },
+            //       child: Text(
+            //         'Outro',
+            //         style: Theme.of(context).textTheme.bodyText1.copyWith(
+            //               color: Theme.of(context)
+            //                   .textTheme
+            //                   .bodyText1
+            //                   .color
+            //                   .withOpacity(.8),
+            //             ),
+            //       ),
+            //     ),
+            //     // SizedBox(
+            //     //   width: 10,
+            //     // ),
+            //     // Container(
+            //     //   width: 100,
+            //     //   child: TextField(
+            //     //     enabled: controller.genero == 2 ? true : false,
+            //     //     onChanged: (value) => controller.setGeneroOutro(value),
+            //     //     keyboardType: TextInputType.emailAddress,
+            //     //     textInputAction: TextInputAction.done,
+            //     //     textCapitalization: TextCapitalization.words,
+            //     //     decoration: InputDecoration(
+            //     //       isDense: true,
+            //     //       border: UnderlineInputBorder(),
+            //     //     ),
+            //     //   ),
+            //     // ),
+            //   ],
+            // ),
+            // SizedBox(
+            //   height: 10,
+            // ),
           ],
         ),
       ),

@@ -321,6 +321,21 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
     });
   }
 
+  final _$isRetiradaAtom = Atom(name: '_RegistroControllerBase.isRetirada');
+
+  @override
+  bool get isRetirada {
+    _$isRetiradaAtom.reportRead();
+    return super.isRetirada;
+  }
+
+  @override
+  set isRetirada(bool value) {
+    _$isRetiradaAtom.reportWrite(value, super.isRetirada, () {
+      super.isRetirada = value;
+    });
+  }
+
   final _$retiradaIDAtom = Atom(name: '_RegistroControllerBase.retiradaID');
 
   @override
@@ -441,6 +456,21 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
   set clickedButton(bool value) {
     _$clickedButtonAtom.reportWrite(value, super.clickedButton, () {
       super.clickedButton = value;
+    });
+  }
+
+  final _$generoValidAtom = Atom(name: '_RegistroControllerBase.generoValid');
+
+  @override
+  bool get generoValid {
+    _$generoValidAtom.reportRead();
+    return super.generoValid;
+  }
+
+  @override
+  set generoValid(bool value) {
+    _$generoValidAtom.reportWrite(value, super.generoValid, () {
+      super.generoValid = value;
     });
   }
 
@@ -698,6 +728,17 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
   }
 
   @override
+  dynamic isGeneroValid() {
+    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
+        name: '_RegistroControllerBase.isGeneroValid');
+    try {
+      return super.isGeneroValid();
+    } finally {
+      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic isPage1Valid() {
     final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
         name: '_RegistroControllerBase.isPage1Valid');
@@ -725,6 +766,17 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
         name: '_RegistroControllerBase.isPage3Valid');
     try {
       return super.isPage3Valid();
+    } finally {
+      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic isRetiradaValid() {
+    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
+        name: '_RegistroControllerBase.isRetiradaValid');
+    try {
+      return super.isRetiradaValid();
     } finally {
       _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -808,6 +860,7 @@ uf: ${uf},
 cep: ${cep},
 email: ${email},
 retirada: ${retirada},
+isRetirada: ${isRetirada},
 retiradaID: ${retiradaID},
 locaisRetirada: ${locaisRetirada},
 locaisRetiradaNomes: ${locaisRetiradaNomes},
@@ -816,6 +869,7 @@ codigoGerado: ${codigoGerado},
 code: ${code},
 page1Valid: ${page1Valid},
 clickedButton: ${clickedButton},
+generoValid: ${generoValid},
 page2Valid: ${page2Valid},
 page3Valid: ${page3Valid}
     ''';

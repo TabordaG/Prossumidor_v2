@@ -123,6 +123,9 @@ abstract class _RegistroControllerBase with Store {
   @observable
   String retirada = 'Local de Retirada';
 
+  @observable
+  bool isRetirada = true;
+
   @action
   setRetirada(String valor) => retirada = valor;
 
@@ -164,9 +167,24 @@ abstract class _RegistroControllerBase with Store {
   @observable
   bool clickedButton = false;
 
+  @observable
+  bool generoValid = true;
+
+  @action
+  isGeneroValid() {
+    if (genero == -1) {
+      generoValid = false;
+      return false;
+    } else {
+      generoValid = true;
+      return true;
+    }
+  }
+
   @action
   isPage1Valid() {
-    if (formkeyPage1.currentState.validate() && genero != -1) {
+    isGeneroValid();
+    if (formkeyPage1.currentState.validate() && generoValid) {
       page1Valid = true;
     } else {
       page1Valid = false;
@@ -190,10 +208,21 @@ abstract class _RegistroControllerBase with Store {
 
   @action
   isPage3Valid() {
-    if (formkeyPage3.currentState.validate()) {
+    if (formkeyPage3.currentState.validate() && isRetiradaValid()) {
       page3Valid = true;
     } else {
       page3Valid = false;
+    }
+  }
+
+  @action
+  isRetiradaValid() {
+    if (retirada != 'Local de Retirada') {
+      isRetirada = true;
+      return true;
+    } else if (retirada == 'Local de Retirada') {
+      isRetirada = false;
+      return false;
     }
   }
 

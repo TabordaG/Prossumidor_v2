@@ -176,6 +176,9 @@ class _RegistroPageState
                               onPressed: () {
                                 if (controller.current != 0)
                                   controller.setPreviousPage();
+                                else if (controller.current == 0) {
+                                  Modular.to.pop();
+                                }
                               },
                               text: controller.current == 0
                                   ? 'Cancelar'
@@ -194,20 +197,24 @@ class _RegistroPageState
                                   controller.setNextPage();
                                 else {
                                   controller.isPage3Valid();
-                                  var emailValido =
-                                      await controller.emailValido();
-                                  if (!emailValido)
-                                    buildShowGeneralDialogMessage(
-                                      context,
-                                      'Erro',
-                                      'O e-mail que está tentando cadastrar já existe, tente voltar e usar a recuperação de senha.',
-                                    );
-                                  else if (controller.page3Valid)
-                                    buildShowGeneralDialog(
-                                      context,
-                                      'Código de Confirmação',
-                                      'Enviamos no seu e-mail um código de confirmação, insira ele para validar seu cadastro',
-                                    );
+
+                                  if (controller.page3Valid) {
+                                    var emailValido =
+                                        await controller.emailValido();
+                                    if (emailValido) {
+                                      buildShowGeneralDialog(
+                                        context,
+                                        'Código de Confirmação',
+                                        'Enviamos no seu e-mail um código de confirmação, insira ele para validar seu cadastro',
+                                      );
+                                    } else if (!emailValido) {
+                                      buildShowGeneralDialogMessage(
+                                        context,
+                                        'Erro',
+                                        'O e-mail que está tentando cadastrar já existe, tente voltar e usar a recuperação de senha.',
+                                      );
+                                    }
+                                  }
                                 }
                               },
                               text: controller.current == 2
