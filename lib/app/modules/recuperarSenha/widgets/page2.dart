@@ -105,7 +105,19 @@ class _RecuperarSenhaPage2State extends State<RecuperarSenhaPage2> {
                         color: Theme.of(context).primaryColor,
                       ),
                   recognizer: TapGestureRecognizer()
-                    ..onTap = () => controller.reenviarRecuperacao(),
+                    ..onTap = () {
+                      controller.reenviarRecuperacao();
+                      controller.confirmaReenvio
+                          ? AlertDialog(
+                              shape: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(5.0),
+                              ),
+                              content:
+                                  buildMensage(context, "titulo", "mensagem"),
+                            )
+                          : Container();
+                    },
                 ),
                 TextSpan(text: '\npara enviar novamente'),
               ],
@@ -113,6 +125,51 @@ class _RecuperarSenhaPage2State extends State<RecuperarSenhaPage2> {
           ),
           SizedBox(
             height: 15,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container buildMensage(BuildContext context, String titulo, String mensagem) {
+    return Container(
+      height: MediaQuery.of(context).size.height * .3,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Spacer(
+            flex: 1,
+          ),
+          Text(
+            titulo,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  fontSize: 22,
+                  color: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      .color
+                      .withOpacity(.8),
+                ),
+          ),
+          Spacer(
+            flex: 2,
+          ),
+          Text(
+            mensagem,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  fontSize: 16,
+                  color: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      .color
+                      .withOpacity(.6),
+                ),
+          ),
+          Spacer(
+            flex: 1,
           ),
         ],
       ),

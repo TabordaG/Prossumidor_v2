@@ -54,6 +54,9 @@ abstract class _RecuperarSenhaControllerBase with Store {
   bool senhaAlterada = false;
 
   @observable
+  bool confirmaReenvio = false;
+
+  @observable
   bool obscureSenha1 = true;
 
   @action
@@ -177,7 +180,15 @@ abstract class _RecuperarSenhaControllerBase with Store {
   @action
   reenviarRecuperacao() async {
     var res = await recuperarRepository.enviaEmail(email.text, codigoGerado);
-    if (res != null) print(res);
+    if (res != null) {
+      setConfirmaReenvio(true);
+      print(res);
+    }
+  }
+
+  @action
+  setConfirmaReenvio(bool value) {
+    confirmaReenvio = value;
   }
 
   @action

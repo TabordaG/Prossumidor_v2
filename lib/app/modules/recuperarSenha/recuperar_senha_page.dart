@@ -13,7 +13,7 @@ import 'widgets/page2.dart';
 
 class RecuperarSenhaPage extends StatefulWidget {
   final String title;
-  const RecuperarSenhaPage({Key key, this.title = "RecuperarSenha"})
+  const RecuperarSenhaPage({Key key, this.title = "Recuperar Senha"})
       : super(key: key);
 
   @override
@@ -227,6 +227,7 @@ class _RecuperarSenhaPageState
                           color: Theme.of(context).primaryColor,
                         ),
                       );
+                      
                     }),
                   ],
                 ),

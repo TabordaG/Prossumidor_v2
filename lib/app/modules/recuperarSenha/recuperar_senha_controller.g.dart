@@ -209,6 +209,22 @@ mixin _$RecuperarSenhaController on _RecuperarSenhaControllerBase, Store {
     });
   }
 
+  final _$confirmaReenvioAtom =
+      Atom(name: '_RecuperarSenhaControllerBase.confirmaReenvio');
+
+  @override
+  bool get confirmaReenvio {
+    _$confirmaReenvioAtom.reportRead();
+    return super.confirmaReenvio;
+  }
+
+  @override
+  set confirmaReenvio(bool value) {
+    _$confirmaReenvioAtom.reportWrite(value, super.confirmaReenvio, () {
+      super.confirmaReenvio = value;
+    });
+  }
+
   final _$obscureSenha1Atom =
       Atom(name: '_RecuperarSenhaControllerBase.obscureSenha1');
 
@@ -427,6 +443,17 @@ mixin _$RecuperarSenhaController on _RecuperarSenhaControllerBase, Store {
   }
 
   @override
+  dynamic setConfirmaReenvio(bool value) {
+    final _$actionInfo = _$_RecuperarSenhaControllerBaseActionController
+        .startAction(name: '_RecuperarSenhaControllerBase.setConfirmaReenvio');
+    try {
+      return super.setConfirmaReenvio(value);
+    } finally {
+      _$_RecuperarSenhaControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic gerarCodigo() {
     final _$actionInfo = _$_RecuperarSenhaControllerBaseActionController
         .startAction(name: '_RecuperarSenhaControllerBase.gerarCodigo');
@@ -463,6 +490,7 @@ confirmarSenha: ${confirmarSenha},
 emailValido: ${emailValido},
 codigoValido: ${codigoValido},
 senhaAlterada: ${senhaAlterada},
+confirmaReenvio: ${confirmaReenvio},
 obscureSenha1: ${obscureSenha1},
 obscureSenha2: ${obscureSenha2},
 page1Valid: ${page1Valid},

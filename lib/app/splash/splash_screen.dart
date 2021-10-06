@@ -63,7 +63,7 @@ class _SplashScreenState extends State<SplashScreen>
         children: [
           Image(
             image: AssetImage("assets/images/logo_splash.png"),
-            fit: BoxFit.cover,
+            fit: BoxFit.fill,
             height: heigth,
             width: width,
           ),
