@@ -32,8 +32,8 @@ abstract class _PerfilControllerBase with Store {
       if (element['id'].toString() ==
           authController.usuario.local_retirada_id.toString()) {
         local = element["nome"].toString();
-      } else
-        local = 'Não encontrado';
+        print("Encontrado");
+      } else if (local.isEmpty) local = 'Não encontrado';
     });
     return local;
   }
@@ -43,7 +43,8 @@ abstract class _PerfilControllerBase with Store {
     String name;
     if (authController.usuario != null) {
       name = authController.usuario.nome_razao_social[0].toUpperCase() +
-          authController.usuario.nome_razao_social.substring(1) + authController.usuario.sobre_nome;
+          authController.usuario.nome_razao_social.substring(1) +
+          authController.usuario.sobre_nome;
     } else
       name = 'nome';
     return name;
@@ -55,6 +56,7 @@ abstract class _PerfilControllerBase with Store {
         await perfilRepository.buscaUsuario(authController.usuario.id);
     authController.localRetirada = await perfilRepository
         .localRetirada(authController.usuario.email.toLowerCase());
+    authController.localRetirada = List.from(authController.localRetirada);
 
     centroDistribuicao = await setCentroDistribuicao();
     nome = await setNome();

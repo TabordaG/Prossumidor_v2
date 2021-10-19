@@ -120,7 +120,7 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      produtoList[index].nome,
+                                      produtoList[index].descricao_simplificada,
                                       softWrap: true,
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 2,
@@ -132,7 +132,9 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                           ),
                                     ),
                                     Text(
-                                      produtoList[index].produtor,
+                                      produtoList[index]
+                                          .marca_produto_id
+                                          .toString(),
                                       maxLines: 1,
                                       style: Theme.of(context)
                                           .textTheme
@@ -183,8 +185,9 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                         InkWell(
                                           onTap: () {
                                             setState(() {
-                                              controller.increment(
-                                                  produtoList[index].estoque);
+                                              controller.increment(int.parse(
+                                                  produtoList[index]
+                                                      .estoque_atual));
                                             });
                                           },
                                           child: Card(
@@ -227,8 +230,8 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                               fontSize: 11,
                                             ),
                                         text: '\nR\$ ' +
-                                            double.parse(
-                                                    produtoList[index].preco)
+                                            double.parse(produtoList[index]
+                                                    .preco_venda)
                                                 .toStringAsFixed(2),
                                       ),
                                     ],

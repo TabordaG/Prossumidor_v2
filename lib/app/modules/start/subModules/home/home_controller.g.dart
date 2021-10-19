@@ -35,6 +35,21 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$categoriasIDAtom = Atom(name: '_HomeControllerBase.categoriasID');
+
+  @override
+  List<dynamic> get categoriasID {
+    _$categoriasIDAtom.reportRead();
+    return super.categoriasID;
+  }
+
+  @override
+  set categoriasID(List<dynamic> value) {
+    _$categoriasIDAtom.reportWrite(value, super.categoriasID, () {
+      super.categoriasID = value;
+    });
+  }
+
   final _$scrollControllerAtom =
       Atom(name: '_HomeControllerBase.scrollController');
 
@@ -81,6 +96,56 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$listaCategoriasAtom =
+      Atom(name: '_HomeControllerBase.listaCategorias');
+
+  @override
+  List<Categoria> get listaCategorias {
+    _$listaCategoriasAtom.reportRead();
+    return super.listaCategorias;
+  }
+
+  @override
+  set listaCategorias(List<Categoria> value) {
+    _$listaCategoriasAtom.reportWrite(value, super.listaCategorias, () {
+      super.listaCategorias = value;
+    });
+  }
+
+  final _$listaCategoriaProdutosAtom =
+      Atom(name: '_HomeControllerBase.listaCategoriaProdutos');
+
+  @override
+  List<CategoriaProduto> get listaCategoriaProdutos {
+    _$listaCategoriaProdutosAtom.reportRead();
+    return super.listaCategoriaProdutos;
+  }
+
+  @override
+  set listaCategoriaProdutos(List<CategoriaProduto> value) {
+    _$listaCategoriaProdutosAtom
+        .reportWrite(value, super.listaCategoriaProdutos, () {
+      super.listaCategoriaProdutos = value;
+    });
+  }
+
+  final _$buscarCategoriasAsyncAction =
+      AsyncAction('_HomeControllerBase.buscarCategorias');
+
+  @override
+  Future buscarCategorias() {
+    return _$buscarCategoriasAsyncAction.run(() => super.buscarCategorias());
+  }
+
+  final _$buscarProdutosPorCategoriaIDAsyncAction =
+      AsyncAction('_HomeControllerBase.buscarProdutosPorCategoriaID');
+
+  @override
+  Future buscarProdutosPorCategoriaID() {
+    return _$buscarProdutosPorCategoriaIDAsyncAction
+        .run(() => super.buscarProdutosPorCategoriaID());
+  }
+
   final _$_HomeControllerBaseActionController =
       ActionController(name: '_HomeControllerBase');
 
@@ -110,9 +175,12 @@ mixin _$HomeController on _HomeControllerBase, Store {
   String toString() {
     return '''
 centroDistribuicao: ${centroDistribuicao},
+categoriasID: ${categoriasID},
 scrollController: ${scrollController},
 offsetHomeList: ${offsetHomeList},
-buscarString: ${buscarString}
+buscarString: ${buscarString},
+listaCategorias: ${listaCategorias},
+listaCategoriaProdutos: ${listaCategoriaProdutos}
     ''';
   }
 }

@@ -8,38 +8,32 @@ part of 'produto_model.dart';
 
 Produto _$ProdutoFromJson(Map<String, dynamic> json) {
   return Produto(
-    produto_id: json['id'] as int,
-    nome: json['descricao_simplificada'] as String,
-    produtor: json['empresa'] as String,
-    preco: json['valor_unitario'] as String,
+    id: json['id'] as int,
+    descricao_simplificada: json['descricao_simplificada'] as String,
+    marca_produto_id: json['marca_produto_id'] as int,
+    preco_venda: json['preco_venda'] as String,
     imagem: json['imagem'] as String,
     descricao: json['descricao'] as String,
-    condicao: json['condicao'] as String,
-    estoque: json['estoque'] as int,
-    unidade: json['unidade'] as String,
-    quantidade: json['quantidade'] as String,
-    categorias: (json['categorias'] as List)?.map((e) => e as int)?.toList(),
-    distribuicao: json['distribuicao'] as String,
+    descricao_completa: json['descricao_completa'] as String,
+    estoque_atual: json['estoque_atual'] as String,
+    unidade_medida: json['unidade_medida'] as String,
+    marketing: json['marketing'] as String,
     status: json['status'] as String,
-    preco_venda: json['preco_venda'] as String,
   );
 }
 
 Map<String, dynamic> _$ProdutoToJson(Produto instance) => <String, dynamic>{
-      'id': instance.produto_id,
-      'descricao_simplificada': instance.nome,
-      'empresa': instance.produtor,
-      'valor_unitario': instance.preco,
-      'imagem': instance.imagem,
-      'descricao': instance.descricao,
-      'condicao': instance.condicao,
-      'estoque': instance.estoque,
-      'unidade': instance.unidade,
-      'quantidade': instance.quantidade,
-      'categorias': instance.categorias,
-      'distribuicao': instance.distribuicao,
-      'status': instance.status,
+      'id': instance.id,
+      'descricao_simplificada': instance.descricao_simplificada,
+      'marca_produto_id': instance.marca_produto_id,
       'preco_venda': instance.preco_venda,
+      'imagem': instance.imagem,
+      'descricao_completa': instance.descricao_completa,
+      'descricao': instance.descricao,
+      'estoque_atual': instance.estoque_atual,
+      'unidade_medida': instance.unidade_medida,
+      'marketing': instance.marketing,
+      'status': instance.status,
     };
 
 ProdutoPedido _$ProdutoPedidoFromJson(Map<String, dynamic> json) {

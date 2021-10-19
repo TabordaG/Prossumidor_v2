@@ -1,5 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
 abstract class IHomeRepository implements Disposable {
-  Future buscarCategorias();
+  Future listaCategorias();
+  Future listaProdutosPorCategoria(int id);
 }

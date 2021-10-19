@@ -3,11 +3,13 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/constants.dart';
 import 'package:prossumidor_v2/app/models/pedidos/pedidos_model.dart';
+import 'package:prossumidor_v2/app/models/produto/produto_model.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/pedidos/pedidos_controller.dart';
 
 class PedidosDetalhes extends StatefulWidget {
   final Pedidos pedido;
-  const PedidosDetalhes({Key key, this.pedido}) : super(key: key);
+  final Produto produto;
+  const PedidosDetalhes({Key key, this.pedido, this.produto}) : super(key: key);
 
   @override
   _PedidosDetalhesState createState() => _PedidosDetalhesState();
@@ -135,7 +137,7 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                           // ),
                         ),
                         title: Text(
-                          controller.produtosList[index].nome,
+                          widget.produto.descricao_simplificada,
                           softWrap: true,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
@@ -147,7 +149,7 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              produtoList[index].produtor,
+                              widget.produto.marca_produto_id.toString(),
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: Theme.of(context)
@@ -164,8 +166,7 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                             ),
                             Text(
                               "Quantidade: " +
-                                  double.parse(controller
-                                          .produtosList[index].quantidade)
+                                  int.parse(widget.produto.estoque_atual)
                                       .toStringAsFixed(2),
                               style: Theme.of(context)
                                   .textTheme
@@ -200,8 +201,7 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                                       fontSize: 11,
                                     ),
                                 text: '\nR\$ ' +
-                                    double.parse(controller
-                                            .produtosList[index].preco)
+                                    double.parse(widget.produto.preco_venda)
                                         .toStringAsFixed(2),
                               ),
                             ],

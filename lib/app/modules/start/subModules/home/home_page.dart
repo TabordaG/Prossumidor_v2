@@ -43,6 +43,14 @@ class HomeListView extends StatelessWidget {
       controller: controller.scrollController,
       physics: BouncingScrollPhysics(),
       children: [
+        RaisedButton(
+          onPressed: () => controller.buscarCategorias(),
+          child: Text('Buscar Categorias'),
+        ),
+        RaisedButton(
+          onPressed: () => controller.buscarProdutosPorCategoriaID(),
+          child: Text('Buscar Produtos'),
+        ),
         Padding(
           padding: EdgeInsets.only(
             left: kDefaultPadding,
@@ -327,34 +335,38 @@ class _CategoriaHomeState extends State<CategoriaHome> {
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             physics: BouncingScrollPhysics(),
-            itemCount: 5,
-            itemBuilder: (context, index) => index != 4
-                ? CardHome(
-                    index: index,
-                    verDetalhes: () => Modular.to.pushNamed(
-                      '/produtoDetalhes',
-                      arguments: {
-                        'produto': produtoList[index],
-                      },
-                    ),
-                  )
-                : Row(
-                    children: [
-                      CardHome(
-                        index: index,
-                        verDetalhes: () => Modular.to.pushNamed(
-                          '/produtoDetalhes',
-                          arguments: {
-                            'produto': produtoList[index],
-                          },
+            itemCount: produtoList.length,
+            itemBuilder: (context, index) {
+              return index != 4
+                  ? CardHome(
+                      index: index,
+                      produto: produtoList[index],
+                      verDetalhes: () => Modular.to.pushNamed(
+                        '/produtoDetalhes',
+                        arguments: {
+                          'produto': produtoList[index],
+                        },
+                      ),
+                    )
+                  : Row(
+                      children: [
+                        CardHome(
+                          index: index,
+                          produto: produtoList[index],
+                          verDetalhes: () => Modular.to.pushNamed(
+                            '/produtoDetalhes',
+                            arguments: {
+                              'produto': produtoList[index],
+                            },
+                          ),
                         ),
-                      ),
-                      CardVerMaisHome(
-                        indexCategoria: widget.indexCategoria,
-                        verMais: widget.verMais,
-                      ),
-                    ],
-                  ),
+                        CardVerMaisHome(
+                          indexCategoria: widget.indexCategoria,
+                          verMais: widget.verMais,
+                        ),
+                      ],
+                    );
+            },
           ),
         ),
       ],

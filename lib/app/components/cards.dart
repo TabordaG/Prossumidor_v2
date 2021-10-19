@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:prossumidor_v2/app/models/produto/produto_model.dart';
 
 import '../constants.dart';
 
 class CardHome extends StatefulWidget {
   final int index;
+  final Produto produto;
   final Function verDetalhes;
 
   CardHome({
     Key key,
     this.index,
+    this.produto,
     this.verDetalhes,
   }) : super(key: key);
 
@@ -43,7 +46,7 @@ class _CardHomeState extends State<CardHome> {
                   child: Image(
                     fit: BoxFit.fill,
                     image: AssetImage(
-                      produtoList[widget.index].imagem,
+                      widget.produto.imagem,
                     ),
                   ),
                 ),
@@ -55,7 +58,7 @@ class _CardHomeState extends State<CardHome> {
                   top: kDefaultPadding * .2,
                 ),
                 child: Text(
-                  produtoList[widget.index].nome,
+                  widget.produto.descricao_simplificada,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
@@ -67,7 +70,7 @@ class _CardHomeState extends State<CardHome> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: kDefaultPadding * .2),
                 child: Text(
-                  produtoList[widget.index].produtor,
+                  widget.produto.marca_produto_id.toString(),
                   maxLines: 1,
                   textAlign: TextAlign.left,
                   overflow: TextOverflow.ellipsis,
@@ -93,7 +96,7 @@ class _CardHomeState extends State<CardHome> {
                   children: [
                     Text(
                       'R\$ ' +
-                          double.parse(produtoList[widget.index].preco)
+                          double.parse(widget.produto.preco_venda)
                               .toStringAsFixed(2),
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
@@ -105,7 +108,7 @@ class _CardHomeState extends State<CardHome> {
                       child: Container(
                         padding: EdgeInsets.only(left: 5.0),
                         child: Text(
-                          produtoList[widget.index].unidade,
+                          widget.produto.unidade_medida,
                           textAlign: TextAlign.right,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -186,11 +189,13 @@ class _CardVerMaisHomeState extends State<CardVerMaisHome> {
 
 class CardProdutosCategoria extends StatefulWidget {
   final int index;
+  final Produto produto;
   final Function verDetalhes;
 
   CardProdutosCategoria({
     Key key,
     this.index,
+    this.produto,
     this.verDetalhes,
   }) : super(key: key);
 
@@ -222,7 +227,7 @@ class _CardProdutosCategoriaState extends State<CardProdutosCategoria> {
                   child: Image(
                     fit: BoxFit.fill,
                     image: AssetImage(
-                      produtoList[widget.index].imagem,
+                      widget.produto.imagem,
                     ),
                   ),
                 ),
@@ -234,7 +239,7 @@ class _CardProdutosCategoriaState extends State<CardProdutosCategoria> {
                   top: kDefaultPadding * .2,
                 ),
                 child: Text(
-                  produtoList[widget.index].nome,
+                  widget.produto.descricao_simplificada,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
@@ -246,7 +251,7 @@ class _CardProdutosCategoriaState extends State<CardProdutosCategoria> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: kDefaultPadding * .2),
                 child: Text(
-                  produtoList[widget.index].produtor,
+                  widget.produto.marca_produto_id.toString(),
                   maxLines: 1,
                   textAlign: TextAlign.left,
                   overflow: TextOverflow.ellipsis,
@@ -272,7 +277,7 @@ class _CardProdutosCategoriaState extends State<CardProdutosCategoria> {
                   children: [
                     Text(
                       'R\$ ' +
-                          double.parse(produtoList[widget.index].preco)
+                          double.parse(widget.produto.preco_venda)
                               .toStringAsFixed(2),
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
@@ -284,7 +289,7 @@ class _CardProdutosCategoriaState extends State<CardProdutosCategoria> {
                       child: Container(
                         padding: EdgeInsets.only(left: 5.0),
                         child: Text(
-                          produtoList[widget.index].unidade,
+                          widget.produto.unidade_medida,
                           textAlign: TextAlign.right,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,

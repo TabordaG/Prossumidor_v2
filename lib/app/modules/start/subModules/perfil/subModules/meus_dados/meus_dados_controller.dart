@@ -45,7 +45,12 @@ abstract class _MeusDadosControllerBase with Store {
   String estadoCivil;
 
   @observable
-  List<String> listEstadoCivil = ['solteiro', 'casado', 'divorciado'];
+  List<String> listEstadoCivil = [
+    'Não Selecionado',
+    'solteiro',
+    'casado',
+    'divorciado'
+  ];
 
   @observable
   TextEditingController localRetirada = TextEditingController();
@@ -99,7 +104,10 @@ abstract class _MeusDadosControllerBase with Store {
     dataNascimento = TextEditingController(
         text: formataDataddmmYYYY(
             authController.usuario.data_nascimento_fundacao));
-    estadoCivil = authController.usuario.estado_civil;
+    estadoCivil = authController.usuario.estado_civil != null &&
+            authController.usuario.estado_civil.isNotEmpty
+        ? authController.usuario.estado_civil
+        : 'Não Selecionado';
     localRetirada =
         TextEditingController(text: authController.localRetiradaAtual);
   }

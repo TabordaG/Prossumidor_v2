@@ -257,10 +257,14 @@ class _MeusDadosPageState
                                 horizontal: kDefaultPadding),
                             child: TextFormField(
                               controller: controller.dataNascimento,
-                              keyboardType: TextInputType.text,
+                              keyboardType: TextInputType.number,
                               textInputAction: TextInputAction.next,
                               textCapitalization: TextCapitalization.words,
                               onEditingComplete: node.nextFocus,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                                DataInputFormatter(),
+                              ],
                               validator: (value) {
                                 if (value.isEmpty) {
                                   return 'Insira uma data de nascimento válida';

@@ -1,3 +1,5 @@
+import 'package:prossumidor_v2/app/modules/start/subModules/home/repositories/home_repository.dart';
+
 import 'home_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -7,6 +9,7 @@ import 'subModules/produtosCategorias/produtos_categorias_module.dart';
 class HomeModule extends ChildModule {
   @override
   List<Bind> get binds => [
+        $HomeRepository,
         $HomeController,
       ];
 

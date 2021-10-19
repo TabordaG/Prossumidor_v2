@@ -94,8 +94,5 @@ class RecuperarSenhaRepository implements IRecuperarSenhaRepository {
       return respondeDecoded;
     } else
       return null;
-    // } catch (e) {
-    //   return null;
-    // }
   }
 }
