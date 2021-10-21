@@ -34,6 +34,37 @@ mixin _$AuthController on _AuthControllerBase, Store {
     });
   }
 
+  final _$nomeCompletoAtom = Atom(name: '_AuthControllerBase.nomeCompleto');
+
+  @override
+  String get nomeCompleto {
+    _$nomeCompletoAtom.reportRead();
+    return super.nomeCompleto;
+  }
+
+  @override
+  set nomeCompleto(String value) {
+    _$nomeCompletoAtom.reportWrite(value, super.nomeCompleto, () {
+      super.nomeCompleto = value;
+    });
+  }
+
+  final _$centroDistribuicaoAtom =
+      Atom(name: '_AuthControllerBase.centroDistribuicao');
+
+  @override
+  String get centroDistribuicao {
+    _$centroDistribuicaoAtom.reportRead();
+    return super.centroDistribuicao;
+  }
+
+  @override
+  set centroDistribuicao(String value) {
+    _$centroDistribuicaoAtom.reportWrite(value, super.centroDistribuicao, () {
+      super.centroDistribuicao = value;
+    });
+  }
+
   final _$localRetiradaAtom = Atom(name: '_AuthControllerBase.localRetirada');
 
   @override
@@ -88,6 +119,31 @@ mixin _$AuthController on _AuthControllerBase, Store {
     return _$verificaLogadoAsyncAction.run(() => super.verificaLogado());
   }
 
+  final _$setCentroDistribuicaoAsyncAction =
+      AsyncAction('_AuthControllerBase.setCentroDistribuicao');
+
+  @override
+  Future<String> setCentroDistribuicao() {
+    return _$setCentroDistribuicaoAsyncAction
+        .run(() => super.setCentroDistribuicao());
+  }
+
+  final _$setNomeAsyncAction = AsyncAction('_AuthControllerBase.setNome');
+
+  @override
+  Future<String> setNome() {
+    return _$setNomeAsyncAction.run(() => super.setNome());
+  }
+
+  final _$buscaUsuarioCompletoAsyncAction =
+      AsyncAction('_AuthControllerBase.buscaUsuarioCompleto');
+
+  @override
+  Future<dynamic> buscaUsuarioCompleto() {
+    return _$buscaUsuarioCompletoAsyncAction
+        .run(() => super.buscaUsuarioCompleto());
+  }
+
   final _$_AuthControllerBaseActionController =
       ActionController(name: '_AuthControllerBase');
 
@@ -106,6 +162,8 @@ mixin _$AuthController on _AuthControllerBase, Store {
   String toString() {
     return '''
 usuario: ${usuario},
+nomeCompleto: ${nomeCompleto},
+centroDistribuicao: ${centroDistribuicao},
 localRetirada: ${localRetirada},
 localRetiradaAtual: ${localRetiradaAtual},
 versaoAtual: ${versaoAtual}

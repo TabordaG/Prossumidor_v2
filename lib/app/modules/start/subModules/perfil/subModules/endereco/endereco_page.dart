@@ -1,3 +1,4 @@
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -301,7 +302,7 @@ class _EnderecoPageState
                               onEditingComplete: node.unfocus,
                               inputFormatters: [
                                 FilteringTextInputFormatter.digitsOnly,
-                                // CepInputFormatter(),
+                                CepInputFormatter(),
                               ],
                               validator: (value) {
                                 if (value.isEmpty) {
@@ -401,12 +402,11 @@ class _EnderecoPageState
                                   String response =
                                       await controller.atualizaDados();
                                   print(response);
-                                  response != null
-                                      ? {
-                                          buildShowDialog(context, response),
-                                          Navigator.of(context).pop()
-                                        }
-                                      : buildShowDialog(context, response);
+                                  if (response != null) {
+                                    buildShowDialog(context, response);
+                                    Navigator.of(context).pop();
+                                  } else
+                                    buildShowDialog(context, response);
                                 } else
                                   print("form invalido");
                               },

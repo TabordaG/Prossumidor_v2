@@ -7,7 +7,7 @@ part of 'produto_detalhes_repository.dart';
 // **************************************************************************
 
 final $ProdutoDetalhesRepository = BindInject(
-  (i) => ProdutoDetalhesRepository(i<DioForNative>()),
+  (i) => ProdutoDetalhesRepository(),
   singleton: true,
   lazy: true,
 );

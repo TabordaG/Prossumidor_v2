@@ -79,4 +79,49 @@ class AuthRepository implements IAuthRepository {
     } else
       return null;
   }
+
+  @override
+  Future<Usuario> buscaUsuarioCompleto(int id) async {
+    String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consult22.$id");
+
+    response = await dio.get(
+      Uri.encodeFull(link),
+      options: Options(
+        headers: {"Accept": "application/json"},
+      ),
+    );
+
+    if (response.data != null && response.statusCode == 200) {
+      try {
+        Usuario user = Usuario.fromJson(response.data[0]);
+        return user;
+      } catch (e) {
+        return null;
+      }
+    } else
+      return null;
+  }
+
+  @override
+  Future localRetirada(String email) async {
+    String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consult20.$email");
+
+    response = await dio.get(
+      Uri.encodeFull(link),
+      options: Options(
+        headers: {"Accept": "application/json"},
+      ),
+    );
+
+    if (response.data != null && response.statusCode == 200) {
+      try {
+        var respondeDecoded = Basicos.decodifica(response.data);
+        List list = json.decode(respondeDecoded).cast<Map<String, dynamic>>();
+        return list;
+      } catch (e) {
+        return null;
+      }
+    } else
+      return null;
+  }
 }

@@ -8,23 +8,31 @@ class Produto {
   // ignore: non_constant_identifier_names
   int id;
   @JsonKey(required: false, disallowNullValue: false)
+  // ignore: non_constant_identifier_names
   String descricao_simplificada;
   @JsonKey(required: false, disallowNullValue: false)
+  // ignore: non_constant_identifier_names
   int marca_produto_id;
   @JsonKey(required: false, disallowNullValue: false)
+  // ignore: non_constant_identifier_names
   String preco_venda;
   @JsonKey(required: false, disallowNullValue: false)
   String imagem;
   @JsonKey(required: false, disallowNullValue: false)
+  // ignore: non_constant_identifier_names
   String descricao_completa;
   @JsonKey(required: false, disallowNullValue: false)
   String descricao;
   @JsonKey(required: false, disallowNullValue: false)
+  // ignore: non_constant_identifier_names
   String estoque_atual;
   @JsonKey(required: false, disallowNullValue: false)
+  // ignore: non_constant_identifier_names
   String unidade_medida;
   @JsonKey(required: false, disallowNullValue: false)
   String marketing;
+  @JsonKey(required: false, disallowNullValue: false)
+  String marca;
   // @JsonKey(required: false, disallowNullValue: false)
   // String quantidade;
   // @JsonKey(required: false, disallowNullValue: false)
@@ -40,15 +48,22 @@ class Produto {
   Produto({
     // ignore: non_constant_identifier_names
     this.id,
+    // ignore: non_constant_identifier_names
     this.descricao_simplificada,
+    // ignore: non_constant_identifier_names
     this.marca_produto_id,
+    // ignore: non_constant_identifier_names
     this.preco_venda,
     this.imagem,
     this.descricao,
+    // ignore: non_constant_identifier_names
     this.descricao_completa,
+    // ignore: non_constant_identifier_names
     this.estoque_atual,
+    // ignore: non_constant_identifier_names
     this.unidade_medida,
     this.marketing,
+    this.marca,
     // this.quantidade,
     // this.categorias,
     // this.distribuicao,

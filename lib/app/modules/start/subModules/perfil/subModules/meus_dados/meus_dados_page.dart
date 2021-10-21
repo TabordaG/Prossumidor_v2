@@ -369,12 +369,11 @@ class _MeusDadosPageState
                                   if (controller.pageValid == true) {
                                     String response =
                                         await controller.atualizaDados();
-                                    response != null
-                                        ? {
-                                            buildShowDialog(context, response),
-                                            Navigator.of(context).pop()
-                                          }
-                                        : buildShowDialog(context, response);
+                                    if (response != null) {
+                                      buildShowDialog(context, response);
+                                      Navigator.of(context).pop();
+                                    } else
+                                      buildShowDialog(context, response);
                                   } else
                                     print("formkey invalido");
                                 },

@@ -5,6 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/app_controller.dart';
 import 'package:prossumidor_v2/app/components/cards.dart';
 import 'package:prossumidor_v2/app/constants.dart';
+import 'package:prossumidor_v2/app/shared/auth/auth_controller.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,8 +17,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
-  final AppController appController = Modular.get<AppController>();
-
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -31,210 +30,158 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   }
 }
 
-class HomeListView extends StatelessWidget {
+class HomeListView extends StatefulWidget {
   const HomeListView({
     Key key,
   }) : super(key: key);
 
   @override
+  _HomeListViewState createState() => _HomeListViewState();
+}
+
+class _HomeListViewState extends State<HomeListView> {
+  final AuthController authController = Modular.get<AuthController>();
+  final HomeController controller = Modular.get<HomeController>();
+
+  @override
+  void initState() {
+    // controller.setRefreshTrue();
+    // controller.buscarCategorias();
+    // print("INIT STATE");
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final HomeController controller = Modular.get<HomeController>();
-    return ListView(
-      controller: controller.scrollController,
-      physics: BouncingScrollPhysics(),
-      children: [
-        RaisedButton(
-          onPressed: () => controller.buscarCategorias(),
-          child: Text('Buscar Categorias'),
-        ),
-        RaisedButton(
-          onPressed: () => controller.buscarProdutosPorCategoriaID(),
-          child: Text('Buscar Produtos'),
-        ),
-        Padding(
-          padding: EdgeInsets.only(
-            left: kDefaultPadding,
-            right: kDefaultPadding,
-            top: kDefaultPadding * 1.5,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Olá, Gustavo',
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
-                          ),
-                    ),
-                    TextSpan(
-                      text: '\nBem vindo a ',
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                .color
-                                .withOpacity(.6),
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                          ),
-                    ),
-                    TextSpan(
-                      text: 'Recoopsol',
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                .color
-                                .withOpacity(.6),
-                            fontWeight: FontWeight.w800,
-                            fontSize: 16,
-                          ),
-                    ),
-                  ],
-                ),
-              ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(5.0),
-                child: Image(
-                  width: 45,
-                  image: AssetImage("assets/images/newLogo_1.png"),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(
-                  kDefaultPadding,
-                  kDefaultPadding * 0.25,
-                  kDefaultPadding * 0.25,
-                  kDefaultPadding * 0.25),
-              child: Text(
-                "Centro de Distribuição:",
-                textAlign: TextAlign.start,
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
-                      color: Theme.of(context)
-                          .textTheme
-                          .bodyText1
-                          .color
-                          .withOpacity(.6),
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
-                    ),
-              ),
+    return Observer(builder: (_) {
+      return ListView(
+        controller: controller.scrollController,
+        physics: BouncingScrollPhysics(),
+        children: [
+          // RaisedButton(
+          //   onPressed: () => controller.buscarCategorias(),
+          //   child: Text('Buscar Categorias'),
+          // ),
+          // RaisedButton(
+          //   onPressed: () => controller.buscarProdutosPorCategoriaID(),
+          //   child: Text('Buscar Produtos'),
+          // ),
+          Padding(
+            padding: EdgeInsets.only(
+              left: kDefaultPadding,
+              right: kDefaultPadding,
+              top: kDefaultPadding * 1.5,
             ),
-            Observer(builder: (_) {
-              return Text(
-                "${controller.centroDistribuicao}",
-                textAlign: TextAlign.start,
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
-                      color: Theme.of(context)
-                          .textTheme
-                          .bodyText1
-                          .color
-                          .withOpacity(.6),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
-              );
-            }),
-          ],
-        ),
-        Padding(
-          padding: EdgeInsets.only(
-            top: kDefaultPadding * 0.25,
-            bottom: kDefaultPadding * .5,
-            left: kDefaultPadding,
-            right: kDefaultPadding,
-          ),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Color(0xFFF6F6F6),
-              borderRadius: BorderRadius.circular(5),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.25),
-                  spreadRadius: 0,
-                  blurRadius: 1,
-                  offset: Offset(0, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          'Olá, ${authController.usuario.nome_razao_social}',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24,
+                              ),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Bem vindo a ',
+                            style:
+                                Theme.of(context).textTheme.bodyText1.copyWith(
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          .color
+                                          .withOpacity(.6),
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16,
+                                    ),
+                          ),
+                          Text(
+                            'Recoopsol',
+                            style:
+                                Theme.of(context).textTheme.bodyText1.copyWith(
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          .color
+                                          .withOpacity(.6),
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 16,
+                                    ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(5.0),
+                  child: Image(
+                    width: 45,
+                    image: AssetImage("assets/images/newLogo_1.png"),
+                  ),
                 ),
               ],
             ),
-            child: TextFormField(
-              onChanged: (value) => controller.setBuscarString(value),
-              keyboardType: TextInputType.text,
-              textInputAction: TextInputAction.done,
-              textCapitalization: TextCapitalization.words,
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Insira uma busca válida';
-                } else {
-                  if (value.length < 3) {
-                    return "A busca precisa ter pelo menos 3 caracteres";
-                  } else {
-                    return null;
-                  }
-                }
-              },
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(
-                  top: 14.0,
+          ),
+          Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.fromLTRB(
+                  kDefaultPadding,
+                  kDefaultPadding * 0.25,
+                  kDefaultPadding * 0.1,
+                  kDefaultPadding * 0.25,
                 ),
-                fillColor: Theme.of(context).cardColor,
-                border: InputBorder.none,
-                prefixIcon: IconButton(
-                  splashRadius: 2,
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.search,
-                    color: Theme.of(context).primaryColor,
-                  ),
+                child: Text(
+                  "Centro de Distribuição:",
+                  textAlign: TextAlign.start,
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        color: Theme.of(context)
+                            .textTheme
+                            .bodyText1
+                            .color
+                            .withOpacity(.6),
+                        fontWeight: FontWeight.w600,
+                        fontSize: 12,
+                      ),
                 ),
-                suffixIcon: IconButton(
-                  splashRadius: 2,
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.tune,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                ),
-                hintText: 'Produto ou Empreendimento',
               ),
+              Observer(builder: (_) {
+                return Text(
+                  "${authController.centroDistribuicao}",
+                  textAlign: TextAlign.start,
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        color: Theme.of(context)
+                            .textTheme
+                            .bodyText1
+                            .color
+                            .withOpacity(.6),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                );
+              }),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              top: kDefaultPadding * 0.25,
+              bottom: kDefaultPadding * .5,
+              left: kDefaultPadding,
+              right: kDefaultPadding,
             ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-          child: Text(
-            'Não se esqueça de efetuar as compras até quarta!',
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  fontSize: 12,
-                  color: Theme.of(context)
-                      .textTheme
-                      .bodyText1
-                      .color
-                      .withOpacity(.8),
-                  fontWeight: FontWeight.normal,
-                ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(
-            top: kDefaultPadding * .75,
-            left: kDefaultPadding,
-            right: kDefaultPadding,
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(5),
             child: Container(
-              height: 115,
               decoration: BoxDecoration(
                 color: Color(0xFFF6F6F6),
                 borderRadius: BorderRadius.circular(5),
@@ -247,29 +194,133 @@ class HomeListView extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Image(
-                fit: BoxFit.fill,
-                image: AssetImage(
-                  'assets/images/banner01.jpeg',
+              child: TextFormField(
+                onChanged: (value) => controller.setBuscarString(value),
+                keyboardType: TextInputType.text,
+                textInputAction: TextInputAction.done,
+                textCapitalization: TextCapitalization.words,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Insira uma busca válida';
+                  } else {
+                    if (value.length < 3) {
+                      return "A busca precisa ter pelo menos 3 caracteres";
+                    } else {
+                      return null;
+                    }
+                  }
+                },
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(
+                    top: 14.0,
+                  ),
+                  fillColor: Theme.of(context).cardColor,
+                  border: InputBorder.none,
+                  prefixIcon: IconButton(
+                    splashRadius: 2,
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.search,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                  suffixIcon: IconButton(
+                    splashRadius: 2,
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.tune,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                  hintText: 'Produto ou Empreendimento',
                 ),
               ),
             ),
           ),
-        ),
-        for (var indexCategoria = 0;
-            indexCategoria < categoriaList.length;
-            indexCategoria++)
-          CategoriaHome(
-            indexCategoria: indexCategoria,
-            verMais: () {
-              Navigator.of(context).pushNamed(
-                '/produtosCategorias',
-                arguments: {'indexCategorias': indexCategoria},
-              );
-            },
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+            child: Text(
+              'Não se esqueça de efetuar as compras até quarta!',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    fontSize: 12,
+                    color: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        .color
+                        .withOpacity(.8),
+                    fontWeight: FontWeight.normal,
+                  ),
+            ),
           ),
-      ],
-    );
+          Padding(
+            padding: EdgeInsets.only(
+              top: kDefaultPadding * .75,
+              left: kDefaultPadding,
+              right: kDefaultPadding,
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Container(
+                height: 115,
+                decoration: BoxDecoration(
+                  color: Color(0xFFF6F6F6),
+                  borderRadius: BorderRadius.circular(5),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.25),
+                      spreadRadius: 0,
+                      blurRadius: 1,
+                      offset: Offset(0, 0),
+                    ),
+                  ],
+                ),
+                child: Image(
+                  fit: BoxFit.fill,
+                  image: AssetImage(
+                    'assets/images/banner01.jpeg',
+                  ),
+                ),
+              ),
+            ),
+          ),
+          // for (var indexCategoria = 0;
+          //     indexCategoria < controller.listaCategoriaProdutos.length;
+          //     indexCategoria++)
+          Observer(builder: (_) {
+            if (controller.listaCategoriaProdutos.isEmpty)
+              return Padding(
+                padding: EdgeInsets.only(
+                  top: 60,
+                  // left: MediaQuery.of(context).size.width * .5 - 42,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                  ],
+                ),
+              );
+            return ListView.builder(
+              physics: ClampingScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: controller.listaCategoriaProdutos.length,
+              itemBuilder: (context, indexCategoria) {
+                return CategoriaHome(
+                  indexCategoria: indexCategoria,
+                  verMais: () {
+                    Navigator.of(context).pushNamed(
+                      '/produtosCategorias',
+                      arguments: {'indexCategorias': indexCategoria},
+                    );
+                  },
+                );
+              },
+            );
+          }),
+        ],
+      );
+    });
   }
 }
 
@@ -287,7 +338,7 @@ class CategoriaHome extends StatefulWidget {
   _CategoriaHomeState createState() => _CategoriaHomeState();
 }
 
-class _CategoriaHomeState extends State<CategoriaHome> {
+class _CategoriaHomeState extends ModularState<CategoriaHome, HomeController> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -304,7 +355,8 @@ class _CategoriaHomeState extends State<CategoriaHome> {
         ListTile(
           leading: Icon(Icons.fastfood),
           title: Text(
-            categoriaList[widget.indexCategoria],
+            controller.listaCategoriaProdutos[widget.indexCategoria].categoria
+                .descricao,
             style: Theme.of(context).textTheme.bodyText1.copyWith(
                   fontSize: 18,
                   color: Theme.of(context)
@@ -328,23 +380,29 @@ class _CategoriaHomeState extends State<CategoriaHome> {
         Container(
           height: 235,
           margin: EdgeInsets.only(
-            bottom: widget.indexCategoria == categoriaList.length - 1
+            bottom: widget.indexCategoria ==
+                    controller.listaCategoriaProdutos.length - 1
                 ? kDefaultPadding
                 : 0.0,
           ),
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             physics: BouncingScrollPhysics(),
-            itemCount: produtoList.length,
+            itemCount: controller
+                .listaCategoriaProdutos[widget.indexCategoria].produtos.length,
             itemBuilder: (context, index) {
               return index != 4
                   ? CardHome(
                       index: index,
-                      produto: produtoList[index],
+                      produto: controller
+                          .listaCategoriaProdutos[widget.indexCategoria]
+                          .produtos[index],
                       verDetalhes: () => Modular.to.pushNamed(
                         '/produtoDetalhes',
                         arguments: {
-                          'produto': produtoList[index],
+                          'produto': controller
+                              .listaCategoriaProdutos[widget.indexCategoria]
+                              .produtos[index],
                         },
                       ),
                     )
@@ -352,11 +410,15 @@ class _CategoriaHomeState extends State<CategoriaHome> {
                       children: [
                         CardHome(
                           index: index,
-                          produto: produtoList[index],
+                          produto: controller
+                              .listaCategoriaProdutos[widget.indexCategoria]
+                              .produtos[index],
                           verDetalhes: () => Modular.to.pushNamed(
                             '/produtoDetalhes',
                             arguments: {
-                              'produto': produtoList[index],
+                              'produto': controller
+                                  .listaCategoriaProdutos[widget.indexCategoria]
+                                  .produtos[index],
                             },
                           ),
                         ),

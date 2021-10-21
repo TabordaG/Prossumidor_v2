@@ -33,7 +33,7 @@ abstract class _PerfilControllerBase with Store {
           authController.usuario.local_retirada_id.toString()) {
         local = element["nome"].toString();
         print("Encontrado");
-      } else if (local.isEmpty) local = 'Não encontrado';
+      } else if (local == null || local.isEmpty) local = 'Não encontrado';
     });
     return local;
   }

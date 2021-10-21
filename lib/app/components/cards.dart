@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:prossumidor_v2/app/dados_basicos.dart';
 import 'package:prossumidor_v2/app/models/produto/produto_model.dart';
 
 import '../constants.dart';
@@ -43,11 +45,16 @@ class _CardHomeState extends State<CardHome> {
                 child: Container(
                   height: 150,
                   width: 150,
-                  child: Image(
-                    fit: BoxFit.fill,
-                    image: AssetImage(
-                      widget.produto.imagem,
+                  child: CachedNetworkImage(
+                    imageUrl: "${Basicos.ip}/media/" + widget.produto.imagem,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) => Padding(
+                      padding: EdgeInsets.all(15.0),
+                      child: CircularProgressIndicator(
+                        strokeWidth: 1,
+                      ),
                     ),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                 ),
               ),
@@ -70,7 +77,7 @@ class _CardHomeState extends State<CardHome> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: kDefaultPadding * .2),
                 child: Text(
-                  widget.produto.marca_produto_id.toString(),
+                  widget.produto.marca,
                   maxLines: 1,
                   textAlign: TextAlign.left,
                   overflow: TextOverflow.ellipsis,

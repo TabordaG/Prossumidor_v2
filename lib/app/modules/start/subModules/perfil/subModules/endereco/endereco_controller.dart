@@ -135,21 +135,32 @@ abstract class _EnderecoControllerBase with Store {
     // authController.usuario.estado = uf.text;
     // authController.usuario.cep = cep.text;
     // authController.usuario.empresa = dropdownvalue;
-    perfilController.centroDistribuicao = dropdownvalue;
-    homeController.centroDistribuicao = dropdownvalue;
+    perfilController.centroDistribuicao =
+        dropdownvalue.substring(dropdownvalue.indexOf('-')).substring(2);
+    authController.centroDistribuicao =
+        dropdownvalue.substring(dropdownvalue.indexOf('-')).substring(2);
     return response;
   }
 
   String removeCaracterEspecial(String texto) {
     // remove aspas, virgula e *
-    String nova = texto.replaceAll("(", "");
-    String nova1 = nova.replaceAll(")", "");
-    String nova2 = nova1.replaceAll(",", "");
-    String nova3 = nova2.replaceAll("\"", "");
-    String nova4 = nova3.replaceAll("*", "");
-    String nova5 = nova4.replaceAll("'", "");
-    String novaf = nova5.replaceAll("-", "");
-    return novaf;
+    String nova = texto
+        .replaceAll("(", "")
+        .replaceAll(")", "")
+        .replaceAll(",", "")
+        .replaceAll("\"", "")
+        .replaceAll("*", "")
+        .replaceAll("'", "")
+        .replaceAll("-", "")
+        .replaceAll(".", "");
+    // String nova1 = nova.replaceAll(")", "");
+    // String nova2 = nova1.replaceAll(",", "");
+    // String nova3 = nova2.replaceAll("\"", "");
+    // String nova4 = nova3.replaceAll("*", "");
+    // String nova5 = nova4.replaceAll("'", "");
+    // String novaf = nova5.replaceAll("-", "");
+    // String novaf = nova5.replaceAll(".", "");
+    return nova;
   }
 
   String formataDataYYYYmmdd(String text) {

@@ -16,6 +16,12 @@ abstract class _AuthControllerBase with Store {
   Usuario usuario;
 
   @observable
+  String nomeCompleto;
+
+  @observable
+  String centroDistribuicao;
+
+  @observable
   List localRetirada;
 
   @observable
@@ -62,5 +68,40 @@ abstract class _AuthControllerBase with Store {
   removeValues() async {
     SharedPreferences prefs1 = await SharedPreferences.getInstance();
     prefs1.remove('email');
+  }
+
+  @action
+  Future<String> setCentroDistribuicao() async {
+    String local;
+    localRetirada.forEach((element) {
+      if (element['id'].toString() == usuario.local_retirada_id.toString()) {
+        local = element["nome"].toString();
+        print("Encontrado");
+      } else if (local == null || local.isEmpty) local = 'Não encontrado';
+    });
+    return local;
+  }
+
+  @action
+  Future<String> setNome() async {
+    String name;
+    if (usuario != null) {
+      name = usuario.nome_razao_social[0].toUpperCase() +
+          usuario.nome_razao_social.substring(1) +
+          usuario.sobre_nome;
+    } else
+      name = 'nome';
+    return name;
+  }
+
+  @action
+  Future buscaUsuarioCompleto() async {
+    usuario = await authRepository.buscaUsuarioCompleto(usuario.id);
+    localRetirada =
+        await authRepository.localRetirada(usuario.email.toLowerCase());
+    localRetirada = List.from(localRetirada);
+
+    centroDistribuicao = await setCentroDistribuicao();
+    nomeCompleto = await setNome();
   }
 }

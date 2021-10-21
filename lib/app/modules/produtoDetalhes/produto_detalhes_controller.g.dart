@@ -19,6 +19,21 @@ final $ProdutoDetalhesController = BindInject(
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$ProdutoDetalhesController on _ProdutoDetalhesControllerBase, Store {
+  final _$produtoAtom = Atom(name: '_ProdutoDetalhesControllerBase.produto');
+
+  @override
+  Produto get produto {
+    _$produtoAtom.reportRead();
+    return super.produto;
+  }
+
+  @override
+  set produto(Produto value) {
+    _$produtoAtom.reportWrite(value, super.produto, () {
+      super.produto = value;
+    });
+  }
+
   final _$valueAtom = Atom(name: '_ProdutoDetalhesControllerBase.value');
 
   @override
@@ -32,6 +47,14 @@ mixin _$ProdutoDetalhesController on _ProdutoDetalhesControllerBase, Store {
     _$valueAtom.reportWrite(value, super.value, () {
       super.value = value;
     });
+  }
+
+  final _$setProdutoAsyncAction =
+      AsyncAction('_ProdutoDetalhesControllerBase.setProduto');
+
+  @override
+  Future setProduto(Produto produtoReceived) {
+    return _$setProdutoAsyncAction.run(() => super.setProduto(produtoReceived));
   }
 
   final _$_ProdutoDetalhesControllerBaseActionController =
@@ -62,6 +85,7 @@ mixin _$ProdutoDetalhesController on _ProdutoDetalhesControllerBase, Store {
   @override
   String toString() {
     return '''
+produto: ${produto},
 value: ${value}
     ''';
   }

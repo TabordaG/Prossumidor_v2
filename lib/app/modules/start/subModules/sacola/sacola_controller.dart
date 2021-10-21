@@ -119,6 +119,6 @@ abstract class _SacolaControllerBase with Store {
     authController.usuario.estado = uf.text;
     authController.usuario.cep = cep.text;
     //authController.usuario.empresa = dropdownvalue;
-    homeController.centroDistribuicao = dropdownvalue;
+    authController.centroDistribuicao = dropdownvalue;
   }
 }

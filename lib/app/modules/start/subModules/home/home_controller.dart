@@ -16,14 +16,24 @@ abstract class _HomeControllerBase with Store {
       ..addListener(() {
         setOffsetHomeList(scrollController.offset);
       });
-    centroDistribuicao = authController.usuario.empresa_id.toString();
+    authController.buscaUsuarioCompleto();
+    // centroDistribuicao = authController.usuario.empresa_id.toString();
+
+    setRefreshTrue();
+    buscarCategorias();
   }
 
   final AuthController authController = Modular.get<AuthController>();
   final IHomeRepository homeRepository = Modular.get<IHomeRepository>();
 
   @observable
-  String centroDistribuicao;
+  bool refreshPage = true;
+
+  @action
+  setRefreshTrue() {
+    listaCategoriaProdutos = List.from([]);
+    refreshPage = true;
+  }
 
   @observable
   List categoriasID = [];
@@ -50,18 +60,45 @@ abstract class _HomeControllerBase with Store {
   setBuscarString(String valor) => buscarString = valor;
 
   @action
+  iniciarHome() {
+    // carregado = false;
+    String res = buscarCategorias();
+    String res2 = "";
+    if (res == "sucesso") res2 = buscarProdutosPorCategoriaID();
+    // carregado = true;
+    if (res2 == "sucesso") refreshPage = false;
+    return res2;
+  }
+
+  @action
   buscarCategorias() async {
+    print("Teste Lista 1 $listaCategoriaProdutos");
+    // if (carregado == false ||
+    //     listaCategoriaProdutos == null ||
+    //     listaCategoriaProdutos.isEmpty) {
+    // listaCategorias = List.from([]);
     var res = await homeRepository.listaCategorias();
     if (res != null) {
       listaCategorias = List.from(res);
-      print("Teste");
+      String res2 = await buscarProdutosPorCategoriaID();
+      if (res2 == "sucesso") {
+        print("MUDOU O REFRESH AQUI");
+        refreshPage = false;
+      }
+      return "sucesso";
     }
+    return "falhou";
+    // }
   }
 
   @action
   buscarProdutosPorCategoriaID() async {
+    print("Teste Lista 2 $listaCategoriaProdutos");
+    // if (carregado == false ||
+    //     listaCategoriaProdutos == null ||
+    //     listaCategoriaProdutos.isEmpty) {
     int count = 0;
-    listaCategoriaProdutos = [];
+    // carregado = false;
     for (var categoria in listaCategorias) {
       count++;
       if (count < 8) {
@@ -81,5 +118,7 @@ abstract class _HomeControllerBase with Store {
       }
     }
     print("Deu certo ?");
+    return "sucesso";
   }
+  // }
 }

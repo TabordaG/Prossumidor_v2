@@ -19,19 +19,18 @@ final $HomeController = BindInject(
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HomeController on _HomeControllerBase, Store {
-  final _$centroDistribuicaoAtom =
-      Atom(name: '_HomeControllerBase.centroDistribuicao');
+  final _$refreshPageAtom = Atom(name: '_HomeControllerBase.refreshPage');
 
   @override
-  String get centroDistribuicao {
-    _$centroDistribuicaoAtom.reportRead();
-    return super.centroDistribuicao;
+  bool get refreshPage {
+    _$refreshPageAtom.reportRead();
+    return super.refreshPage;
   }
 
   @override
-  set centroDistribuicao(String value) {
-    _$centroDistribuicaoAtom.reportWrite(value, super.centroDistribuicao, () {
-      super.centroDistribuicao = value;
+  set refreshPage(bool value) {
+    _$refreshPageAtom.reportWrite(value, super.refreshPage, () {
+      super.refreshPage = value;
     });
   }
 
@@ -150,6 +149,17 @@ mixin _$HomeController on _HomeControllerBase, Store {
       ActionController(name: '_HomeControllerBase');
 
   @override
+  dynamic setRefreshTrue() {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setRefreshTrue');
+    try {
+      return super.setRefreshTrue();
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setOffsetHomeList(double valor) {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
         name: '_HomeControllerBase.setOffsetHomeList');
@@ -172,9 +182,20 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
+  dynamic iniciarHome() {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.iniciarHome');
+    try {
+      return super.iniciarHome();
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-centroDistribuicao: ${centroDistribuicao},
+refreshPage: ${refreshPage},
 categoriasID: ${categoriasID},
 scrollController: ${scrollController},
 offsetHomeList: ${offsetHomeList},

@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/constants.dart';
+import 'package:prossumidor_v2/app/dados_basicos.dart';
 import 'package:prossumidor_v2/app/models/produto/produto_model.dart';
 import 'produto_detalhes_controller.dart';
 
@@ -16,6 +18,12 @@ class ProdutoDetalhesPage extends StatefulWidget {
 
 class _ProdutoDetalhesPageState
     extends ModularState<ProdutoDetalhesPage, ProdutoDetalhesController> {
+  @override
+  void initState() {
+    controller.setProduto(widget.produto);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,10 +63,23 @@ class _ProdutoDetalhesPageState
               child: Center(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5.0),
-                  child: Image(
-                    width: 300,
-                    height: 300,
-                    image: AssetImage(widget.produto.imagem),
+                  child: Container(
+                    height: 250,
+                    width: MediaQuery.of(context).size.width,
+                    child: Observer(builder: (_) {
+                      return CachedNetworkImage(
+                        imageUrl:
+                            "${Basicos.ip}/media/" + controller.produto.imagem,
+                        placeholder: (context, url) => Padding(
+                          padding: EdgeInsets.all(35.0),
+                          child: CircularProgressIndicator(
+                            strokeWidth: 1,
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                        fit: BoxFit.contain,
+                      );
+                    }),
                   ),
                 ),
               ),
@@ -71,25 +92,29 @@ class _ProdutoDetalhesPageState
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Flexible(
-                    child: Text(
-                      widget.produto.descricao_simplificada,
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                          ),
-                    ),
+                    child: Observer(builder: (_) {
+                      return Text(
+                        controller.produto.descricao_simplificada,
+                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                            ),
+                      );
+                    }),
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: kDefaultPadding),
-                    child: Text(
-                      'R\$ ' +
-                          double.parse(widget.produto.preco_venda)
-                              .toStringAsFixed(2),
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                          ),
-                    ),
+                    child: Observer(builder: (_) {
+                      return Text(
+                        'R\$ ' +
+                            double.parse(controller.produto.preco_venda)
+                                .toStringAsFixed(2),
+                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                            ),
+                      );
+                    }),
                   ),
                 ],
               ),
@@ -103,29 +128,40 @@ class _ProdutoDetalhesPageState
                 children: [
                   Padding(
                     padding: EdgeInsets.only(left: kDefaultPadding),
-                    child: Text(
-                      widget.produto.marca_produto_id.toString(),
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            fontSize: 12,
-                            color: Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                .color
-                                .withOpacity(.8),
-                          ),
-                    ),
+                    child: Observer(builder: (_) {
+                      return Text(
+                        controller.produto.marca,
+                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                              fontSize: 12,
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  .color
+                                  .withOpacity(.8),
+                            ),
+                      );
+                    }),
                   ),
                 ],
               ),
             ),
             Padding(
               padding: EdgeInsets.only(top: kDefaultPadding * .8),
-              child: Text(
-                widget.produto.descricao,
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
-                      fontSize: 14,
+              child: Observer(builder: (_) {
+                if (controller.produto.descricao_completa == null) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      strokeWidth: 1,
                     ),
-              ),
+                  );
+                }
+                return Text(
+                  controller.produto.descricao_completa,
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        fontSize: 14,
+                      ),
+                );
+              }),
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: kDefaultPadding * .5),
@@ -144,12 +180,21 @@ class _ProdutoDetalhesPageState
             ),
             Padding(
               padding: EdgeInsets.only(top: kDefaultPadding * .8),
-              child: Text(
-                widget.produto.descricao,
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
-                      fontSize: 14,
+              child: Observer(builder: (_) {
+                if (controller.produto.marketing == null) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      strokeWidth: 1,
                     ),
-              ),
+                  );
+                }
+                return Text(
+                  controller.produto.marketing,
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        fontSize: 14,
+                      ),
+                );
+              }),
             ),
             Padding(
               padding: EdgeInsets.only(top: kDefaultPadding),
@@ -165,12 +210,22 @@ class _ProdutoDetalhesPageState
                           ),
                     ),
                   ),
-                  Text(
-                    widget.produto.estoque_atual.toString(),
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
-                          fontSize: 14,
+                  Observer(builder: (_) {
+                    if (controller.produto.estoque_atual == null) {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          strokeWidth: 1,
                         ),
-                  ),
+                      );
+                    }
+                    return Text(
+                      double.parse(controller.produto.estoque_atual)
+                          .toStringAsFixed(2),
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            fontSize: 14,
+                          ),
+                    );
+                  }),
                 ],
               ),
             ),
@@ -191,12 +246,14 @@ class _ProdutoDetalhesPageState
                           ),
                     ),
                   ),
-                  Text(
-                    widget.produto.unidade_medida,
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
-                          fontSize: 14,
-                        ),
-                  ),
+                  Observer(builder: (_) {
+                    return Text(
+                      controller.produto.unidade_medida,
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            fontSize: 14,
+                          ),
+                    );
+                  }),
                 ],
               ),
             ),
@@ -240,7 +297,7 @@ class _ProdutoDetalhesPageState
                 ),
                 InkWell(
                   onTap: () => controller
-                      .increment(int.parse(widget.produto.estoque_atual)),
+                      .increment(int.parse(controller.produto.estoque_atual)),
                   child: Card(
                     elevation: 4,
                     color: Colors.white,
