@@ -7,7 +7,7 @@ part of 'produtos_categorias_repository.dart';
 // **************************************************************************
 
 final $ProdutosCategoriasRepository = BindInject(
-  (i) => ProdutosCategoriasRepository(i<DioForNative>()),
+  (i) => ProdutosCategoriasRepository(),
   singleton: true,
   lazy: true,
 );

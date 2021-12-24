@@ -43,13 +43,32 @@ class _ProdutoDetalhesPageState
         centerTitle: true,
         elevation: 4.0,
         actions: [
-          IconButton(
-            splashRadius: 2,
-            icon: Icon(
-              Icons.shopping_bag,
-              color: Theme.of(context).textTheme.bodyText1.color,
-            ),
-            onPressed: () => Modular.to.pushNamed('/sacola'),
+          Stack(
+            children: [
+              IconButton(
+                splashRadius: 2,
+                icon: Icon(
+                  Icons.shopping_bag,
+                  color: Theme.of(context).textTheme.bodyText1.color,
+                ),
+                onPressed: () => Modular.to.pushNamed('/sacola'),
+              ),
+              Observer(builder: (_) {
+                if (!controller.adicionado) return Container();
+                return Positioned(
+                  left: 11,
+                  top: 14,
+                  child: Container(
+                    height: 8,
+                    width: 8,
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                );
+              }),
+            ],
           ),
         ],
       ),
@@ -59,7 +78,8 @@ class _ProdutoDetalhesPageState
           physics: BouncingScrollPhysics(),
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(top: kDefaultPadding * .5),
+              padding: EdgeInsets.only(
+                  top: kDefaultPadding * .5, bottom: kDefaultPadding),
               child: Center(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5.0),
@@ -67,17 +87,26 @@ class _ProdutoDetalhesPageState
                     height: 250,
                     width: MediaQuery.of(context).size.width,
                     child: Observer(builder: (_) {
-                      return CachedNetworkImage(
-                        imageUrl:
-                            "${Basicos.ip}/media/" + controller.produto.imagem,
-                        placeholder: (context, url) => Padding(
-                          padding: EdgeInsets.all(35.0),
-                          child: CircularProgressIndicator(
-                            strokeWidth: 1,
+                      if (controller.produto.imagem != null &&
+                          controller.produto.imagem != "")
+                        return CachedNetworkImage(
+                          imageUrl: "${Basicos.ip2}/media/" +
+                              controller.produto.imagem,
+                          placeholder: (context, url) => Padding(
+                            padding: EdgeInsets.all(35.0),
+                            child: Container(
+                              width: 40,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 1,
+                              ),
+                            ),
                           ),
-                        ),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
-                        fit: BoxFit.contain,
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                          fit: BoxFit.contain,
+                        );
+                      return Center(
+                        child: Icon(Icons.error),
                       );
                     }),
                   ),
@@ -108,7 +137,8 @@ class _ProdutoDetalhesPageState
                       return Text(
                         'R\$ ' +
                             double.parse(controller.produto.preco_venda)
-                                .toStringAsFixed(2),
+                                .toStringAsFixed(2)
+                                .replaceAll('.', ','),
                         style: Theme.of(context).textTheme.bodyText1.copyWith(
                               fontSize: 20,
                               fontWeight: FontWeight.w700,
@@ -148,7 +178,7 @@ class _ProdutoDetalhesPageState
             Padding(
               padding: EdgeInsets.only(top: kDefaultPadding * .8),
               child: Observer(builder: (_) {
-                if (controller.produto.descricao_completa == null) {
+                if (controller.produto.marketing == null) {
                   return Center(
                     child: CircularProgressIndicator(
                       strokeWidth: 1,
@@ -156,7 +186,7 @@ class _ProdutoDetalhesPageState
                   );
                 }
                 return Text(
-                  controller.produto.descricao_completa,
+                  controller.produto.marketing,
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                         fontSize: 14,
                       ),
@@ -174,14 +204,14 @@ class _ProdutoDetalhesPageState
             Text(
               'Condições do Produto',
               style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.w700,
                   ),
             ),
             Padding(
               padding: EdgeInsets.only(top: kDefaultPadding * .8),
               child: Observer(builder: (_) {
-                if (controller.produto.marketing == null) {
+                if (controller.produto.observacoes == null) {
                   return Center(
                     child: CircularProgressIndicator(
                       strokeWidth: 1,
@@ -189,7 +219,7 @@ class _ProdutoDetalhesPageState
                   );
                 }
                 return Text(
-                  controller.produto.marketing,
+                  controller.produto.observacoes,
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                         fontSize: 14,
                       ),
@@ -206,7 +236,7 @@ class _ProdutoDetalhesPageState
                       'Estoque Atual',
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
                             fontSize: 14,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w600,
                           ),
                     ),
                   ),
@@ -242,7 +272,7 @@ class _ProdutoDetalhesPageState
                       'Unidade',
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
                             fontSize: 14,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w600,
                           ),
                     ),
                   ),
@@ -296,8 +326,7 @@ class _ProdutoDetalhesPageState
                   ),
                 ),
                 InkWell(
-                  onTap: () => controller
-                      .increment(int.parse(controller.produto.estoque_atual)),
+                  onTap: () => controller.increment(),
                   child: Card(
                     elevation: 4,
                     color: Colors.white,
@@ -313,7 +342,44 @@ class _ProdutoDetalhesPageState
               color: Colors.white,
               highlightColor: Colors.white,
               highlightElevation: 24,
-              onPressed: () {},
+              onPressed: () {
+                controller.adicionarSacola(context);
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (BuildContext context) {
+                    // retorna um objeto do tipo Dialog
+                    return AlertDialog(
+                      content: Observer(builder: (_) {
+                        if (controller.adicionandoSacola)
+                          return Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              CircularProgressIndicator(
+                                strokeWidth: 1,
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                "Adicionando...",
+                                style: TextStyle(color: Colors.black54),
+                              ),
+                            ],
+                          );
+                        return Text(
+                          controller.adicionarMensagem,
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(.7),
+                            fontWeight: FontWeight.w700,
+                          ),
+                          textAlign: TextAlign.center,
+                        );
+                      }),
+                    );
+                  },
+                );
+              },
               child: Text(
                 'Adicionar a Sacola',
                 style: Theme.of(context).textTheme.bodyText1.copyWith(

@@ -32,18 +32,23 @@ class Produto {
   @JsonKey(required: false, disallowNullValue: false)
   String marketing;
   @JsonKey(required: false, disallowNullValue: false)
+  String observacoes;
+  @JsonKey(required: false, disallowNullValue: false)
   String marca;
-  // @JsonKey(required: false, disallowNullValue: false)
-  // String quantidade;
+  @JsonKey(required: false, disallowNullValue: false)
+  String quantidade;
+  @JsonKey(required: false, disallowNullValue: false)
+  // ignore: non_constant_identifier_names
+  int empresa_id;
   // @JsonKey(required: false, disallowNullValue: false)
   // List<int> categorias;
   // @JsonKey(required: false, disallowNullValue: false)
   // String distribuicao;
   @JsonKey(required: false, disallowNullValue: false)
   String status;
+  @JsonKey(required: false, disallowNullValue: false)
+  int carrinhoid;
   // @JsonKey(required: false, disallowNullValue: false)
-  // // ignore: non_constant_identifier_names
-  // String preco_venda;
 
   Produto({
     // ignore: non_constant_identifier_names
@@ -64,12 +69,14 @@ class Produto {
     this.unidade_medida,
     this.marketing,
     this.marca,
-    // this.quantidade,
+    this.observacoes,
+    this.quantidade,
+    // ignore: non_constant_identifier_names
+    this.empresa_id,
     // this.categorias,
     // this.distribuicao,
     this.status,
-    // ignore: non_constant_identifier_names
-    // this.preco_venda,
+    this.carrinhoid,
   });
 
   factory Produto.fromJson(Map<String, dynamic> json) =>

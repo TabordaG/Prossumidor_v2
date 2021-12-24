@@ -1,7 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/components/button.dart';
 import 'package:prossumidor_v2/app/constants.dart';
+import 'package:prossumidor_v2/app/dados_basicos.dart';
 import 'sacola_controller.dart';
 
 class SacolaPage extends StatefulWidget {
@@ -14,6 +17,12 @@ class SacolaPage extends StatefulWidget {
 
 class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
   ScrollController scrollController = ScrollController();
+
+  @override
+  void initState() {
+    controller.buscarProdutos();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,38 +63,47 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
             Padding(
               padding: EdgeInsets.only(
                   top: kDefaultPadding * .5, bottom: kDefaultPadding * .5),
-              child: Text(
-                'Total de itens: 5',
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
-                      color: Theme.of(context)
-                          .textTheme
-                          .bodyText1
-                          .color
-                          .withOpacity(.8),
-                    ),
-              ),
+              child: Observer(builder: (_) {
+                if (!controller.carregandoProdutos &&
+                    controller.listaProdutos.isEmpty) return Container();
+                return Text(
+                  'Total de itens: ${controller.listaProdutos.length}',
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        color: Theme.of(context)
+                            .textTheme
+                            .bodyText1
+                            .color
+                            .withOpacity(.8),
+                      ),
+                );
+              }),
             ),
-            // Divider(
-            //   thickness: .3,
-            //   color:
-            //       Theme.of(context).textTheme.bodyText1.color.withOpacity(.8),
-            // ),
             Expanded(
-              child: Scrollbar(
-                controller: scrollController,
-                radius: Radius.circular(10),
-                thickness: 3,
-                isAlwaysShown: true,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(5),
-                  child: ListView.builder(
-                    controller: scrollController,
-                    physics: BouncingScrollPhysics(),
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {},
-                        child: Container(
+              child: Observer(builder: (_) {
+                if (controller.carregandoProdutos)
+                  return Center(
+                    child: CircularProgressIndicator(
+                      strokeWidth: 1,
+                    ),
+                  );
+                if (!controller.carregandoProdutos &&
+                    controller.listaProdutos.isEmpty)
+                  return Center(
+                    child: Text("Carrinho Vazio.."),
+                  );
+                return Scrollbar(
+                  controller: scrollController,
+                  radius: Radius.circular(10),
+                  thickness: 3,
+                  isAlwaysShown: true,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: ListView.builder(
+                      controller: scrollController,
+                      physics: BouncingScrollPhysics(),
+                      itemCount: controller.listaProdutos.length,
+                      itemBuilder: (context, index) {
+                        return Container(
                           height: 100,
                           width: double.infinity,
                           margin: EdgeInsets.only(
@@ -96,20 +114,35 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(5),
-                                ),
-                                child: Container(
-                                  height: 90,
-                                  width: 90,
-                                  child: Image(
-                                    fit: BoxFit.fill,
-                                    image: AssetImage(
-                                      produtoList[index].imagem,
-                                    ),
-                                  ),
-                                ),
+                              Container(
+                                height: 90,
+                                width: 90,
+                                child: Observer(builder: (_) {
+                                  if (controller.listaProdutos[index].imagem !=
+                                          null &&
+                                      controller.listaProdutos[index].imagem !=
+                                          "")
+                                    return CachedNetworkImage(
+                                      imageUrl: "${Basicos.ip2}/media/" +
+                                          controller
+                                              .listaProdutos[index].imagem,
+                                      placeholder: (context, url) => Padding(
+                                        padding: EdgeInsets.all(35.0),
+                                        child: Container(
+                                          width: 40,
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 1,
+                                          ),
+                                        ),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error),
+                                      fit: BoxFit.contain,
+                                    );
+                                  return Center(
+                                    child: Icon(Icons.error),
+                                  );
+                                }),
                               ),
                               SizedBox(
                                 width: kDefaultPadding * .5,
@@ -120,7 +153,8 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      produtoList[index].descricao_simplificada,
+                                      controller.listaProdutos[index]
+                                          .descricao_simplificada,
                                       softWrap: true,
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 2,
@@ -132,9 +166,7 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                           ),
                                     ),
                                     Text(
-                                      produtoList[index]
-                                          .marca_produto_id
-                                          .toString(),
+                                      controller.listaProdutos[index].marca,
                                       maxLines: 1,
                                       style: Theme.of(context)
                                           .textTheme
@@ -153,7 +185,7 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                         InkWell(
                                           onTap: () {
                                             setState(() {
-                                              controller.decrement();
+                                              controller.decrement(index);
                                             });
                                           },
                                           child: Card(
@@ -171,7 +203,7 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                           width: 30,
                                           child: Center(
                                             child: Text(
-                                              controller.value.toString(),
+                                              "${double.parse(controller.listaProdutos[index].quantidade).toInt()}",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyText1
@@ -185,9 +217,7 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                         InkWell(
                                           onTap: () {
                                             setState(() {
-                                              controller.increment(int.parse(
-                                                  produtoList[index]
-                                                      .estoque_atual));
+                                              controller.increment(index);
                                             });
                                           },
                                           child: Card(
@@ -230,9 +260,11 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                               fontSize: 11,
                                             ),
                                         text: '\nR\$ ' +
-                                            double.parse(produtoList[index]
+                                            double.parse(controller
+                                                    .listaProdutos[index]
                                                     .preco_venda)
-                                                .toStringAsFixed(2),
+                                                .toStringAsFixed(2)
+                                                .replaceAll(".", ","),
                                       ),
                                     ],
                                   ),
@@ -244,17 +276,61 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                     Icons.delete,
                                     size: 20,
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        // retorna um objeto do tipo Dialog
+                                        return AlertDialog(
+                                          title: Text(
+                                              "Deseja mesmo deletar item do carrinho ?"),
+                                          content: Text(
+                                            "Deletar item: ${controller.listaProdutos[index].descricao_simplificada}",
+                                            style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          actions: <Widget>[
+                                            FlatButton(
+                                              child: Text(
+                                                "Deletar",
+                                                style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                controller.deletarItem(index);
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                            FlatButton(
+                                              child: Text(
+                                                "Cancelar",
+                                                style: TextStyle(
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
                                 ),
                               )
                             ],
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
-                ),
-              ),
+                );
+              }),
             ),
             // Divider(
             //   thickness: .3,
@@ -278,13 +354,18 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                           fontWeight: FontWeight.w700,
                         ),
                   ),
-                  Text(
-                    'R\$ 40,00',
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                        ),
-                  ),
+                  Observer(builder: (_) {
+                    return Text(
+                      'R\$ ' +
+                          controller.subtotal
+                              .toStringAsFixed(2)
+                              .replaceAll(".", ","),
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                          ),
+                    );
+                  }),
                 ],
               ),
             ),

@@ -3,11 +3,20 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/components/cards.dart';
 import 'package:prossumidor_v2/app/constants.dart';
+import 'package:prossumidor_v2/app/models/categoria/categoria_model.dart';
+import 'package:prossumidor_v2/app/models/marca/marca_model.dart';
 import 'produtos_categorias_controller.dart';
 
 class ProdutosCategoriasPage extends StatefulWidget {
-  final int indexCategorias;
-  ProdutosCategoriasPage({Key key, this.indexCategorias}) : super(key: key);
+  final MarcaProduto marcaProduto;
+  final CategoriaProduto categoriaProduto;
+  final bool isCategoria;
+  ProdutosCategoriasPage({
+    Key key,
+    this.marcaProduto,
+    this.categoriaProduto,
+    this.isCategoria,
+  }) : super(key: key);
 
   @override
   _ProdutosCategoriasPageState createState() => _ProdutosCategoriasPageState();
@@ -15,7 +24,35 @@ class ProdutosCategoriasPage extends StatefulWidget {
 
 class _ProdutosCategoriasPageState
     extends ModularState<ProdutosCategoriasPage, ProdutosCategoriasController> {
-  ScrollController scrollController = ScrollController();
+  ScrollController scrollController;
+
+  scrollListener() async {
+    if (scrollController.position.atEdge &&
+        scrollController.position.pixels > 0 &&
+        controller.habilitarNovaBusca) {
+      await controller.carregarMaisProdutos(
+        context,
+        widget.isCategoria,
+        widget.marcaProduto,
+        widget.categoriaProduto,
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    scrollController = ScrollController();
+    scrollController.addListener(scrollListener);
+    if (widget.isCategoria)
+      controller.buscarSubcategorias(widget.categoriaProduto.categoria.id);
+    controller.carregarProdutos(
+      widget.isCategoria,
+      widget.marcaProduto,
+      widget.categoriaProduto,
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
@@ -23,7 +60,11 @@ class _ProdutosCategoriasPageState
         appBar: AppBar(
           title: controller.isSearching
               ? buildSearchField()
-              : Text(categoriaList[widget.indexCategorias]),
+              : Text(
+                  widget.isCategoria
+                      ? widget.categoriaProduto.categoria.descricao
+                      : widget.marcaProduto.marca.descricao,
+                ),
           actions: [
             IconButton(
               splashRadius: 2,
@@ -35,71 +76,112 @@ class _ProdutosCategoriasPageState
             ),
           ],
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(
-                left: kDefaultPadding,
-                top: kDefaultPadding * .6,
-                bottom: kDefaultPadding * .2,
-              ),
-              child: Text(
-                'Subcategorias',
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
-                      color: Theme.of(context)
-                          .textTheme
-                          .bodyText1
-                          .color
-                          .withOpacity(.8),
-                    ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(bottom: 5.0),
-              height: 38,
-              child: ListView.builder(
-                physics: BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                itemCount: controller.subcategorias.length,
-                itemBuilder: (context, indexSub) => CardSubcategoria(
-                  index: indexSub,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.only(
-                    left: kDefaultPadding, right: kDefaultPadding - 10),
-                child: Scrollbar(
-                  controller: scrollController,
-                  thickness: 3,
-                  radius: Radius.circular(10),
-                  isAlwaysShown: true,
-                  child: GridView.builder(
-                    controller: scrollController,
-                    padding: EdgeInsets.only(right: 10),
-                    physics: BouncingScrollPhysics(),
-                    itemCount: produtoList.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 0.68,
-                    ),
-                    itemBuilder: (_, indexProduto) => CardProdutosCategoria(
-                      index: indexProduto,
-                      verDetalhes: () => Modular.to.pushNamed(
-                        '/produtoDetalhes',
-                        arguments: {
-                          'produto': produtoList[indexProduto],
-                        },
+        body: Observer(builder: (_) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              widget.isCategoria
+                  ? Padding(
+                      padding: EdgeInsets.only(
+                        left: kDefaultPadding,
+                        top: kDefaultPadding * .6,
+                        bottom: kDefaultPadding * .2,
                       ),
+                      child: Text(
+                        'Subcategorias',
+                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  .color
+                                  .withOpacity(.8),
+                            ),
+                      ),
+                    )
+                  : Container(),
+              widget.isCategoria
+                  ? Container(
+                      margin: EdgeInsets.only(bottom: 5.0),
+                      height: 38,
+                      child: Observer(builder: (_) {
+                        if (controller.subcategorias.isEmpty)
+                          return Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 1,
+                            ),
+                          );
+                        return ListView.builder(
+                          physics: BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: controller.subcategorias.length,
+                          itemBuilder: (context, indexSub) => CardSubcategoria(
+                            index: indexSub,
+                            isCategoria: widget.isCategoria,
+                            marcaProduto: widget.marcaProduto,
+                            categoriaProduto: widget.categoriaProduto,
+                          ),
+                        );
+                      }),
+                    )
+                  : Container(),
+              Expanded(
+                child: Observer(builder: (_) {
+                  if (controller.buscandoProdutos)
+                    return Center(
+                      child: CircularProgressIndicator(
+                        strokeWidth: 1,
+                      ),
+                    );
+                  if (!controller.buscandoProdutos &&
+                      controller.listaProdutos.isEmpty)
+                    return Center(
+                      child: Text(
+                        "Produto não encotrado\nPara esta seção.",
+                        textAlign: TextAlign.center,
+                      ),
+                    );
+                  return Scrollbar(
+                    controller: scrollController,
+                    thickness: 5,
+                    radius: Radius.circular(5),
+                    child: GridView.count(
+                      controller: scrollController,
+                      physics: BouncingScrollPhysics(),
+                      primary: false,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      childAspectRatio: 0.7,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      crossAxisCount: 2,
+                      children: List.generate(
+                        controller.listaProdutos.length,
+                        (index) => CardHome(
+                          index: index,
+                          produto: controller.listaProdutos[index],
+                          verDetalhes: () => Modular.to.pushNamed(
+                            '/produtoDetalhes',
+                            arguments: {
+                              'produto': controller.listaProdutos[index],
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+              ),
+              if (controller.buscandoMaisProdutos)
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 15.0),
+                    child: CircularProgressIndicator(
+                      strokeWidth: 1,
                     ),
                   ),
                 ),
-              ),
-            ),
-          ],
-        ),
+            ],
+          );
+        }),
       );
     });
   }
@@ -115,16 +197,22 @@ class _ProdutosCategoriasPageState
         hintStyle: TextStyle(color: Colors.white54),
       ),
       style: TextStyle(color: Colors.white, fontSize: 16.0),
-      onSubmitted: (value) => controller.buscarProduto(),
+      onSubmitted: (value) => controller.pesquisarProduto(),
     );
   }
 }
 
 class CardSubcategoria extends StatefulWidget {
   final int index;
+  final MarcaProduto marcaProduto;
+  final CategoriaProduto categoriaProduto;
+  final bool isCategoria;
   const CardSubcategoria({
     Key key,
     this.index,
+    this.marcaProduto,
+    this.categoriaProduto,
+    this.isCategoria,
   }) : super(key: key);
 
   @override
@@ -143,7 +231,12 @@ class _CardSubcategoriaState extends State<CardSubcategoria> {
         return InkWell(
           borderRadius: BorderRadius.all(Radius.circular(5)),
           onTap: () {
-            controller.selecionarSubcategoria(widget.index);
+            controller.selecionarSubcategoria(
+              widget.index,
+              widget.isCategoria,
+              widget.marcaProduto,
+              widget.categoriaProduto,
+            );
           },
           child: Card(
             color: controller.subcategorias[widget.index].ativo

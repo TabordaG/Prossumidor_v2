@@ -19,7 +19,11 @@ Produto _$ProdutoFromJson(Map<String, dynamic> json) {
     unidade_medida: json['unidade_medida'] as String,
     marketing: json['marketing'] as String,
     marca: json['marca'] as String,
+    observacoes: json['observacoes'] as String,
+    quantidade: json['quantidade'] as String,
+    empresa_id: json['empresa_id'] as int,
     status: json['status'] as String,
+    carrinhoid: json['carrinhoid'] as int,
   );
 }
 
@@ -34,8 +38,12 @@ Map<String, dynamic> _$ProdutoToJson(Produto instance) => <String, dynamic>{
       'estoque_atual': instance.estoque_atual,
       'unidade_medida': instance.unidade_medida,
       'marketing': instance.marketing,
+      'observacoes': instance.observacoes,
       'marca': instance.marca,
+      'quantidade': instance.quantidade,
+      'empresa_id': instance.empresa_id,
       'status': instance.status,
+      'carrinhoid': instance.carrinhoid,
     };
 
 ProdutoPedido _$ProdutoPedidoFromJson(Map<String, dynamic> json) {

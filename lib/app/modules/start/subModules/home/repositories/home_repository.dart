@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/dados_basicos.dart';
 import 'package:prossumidor_v2/app/models/categoria/categoria_model.dart';
+import 'package:prossumidor_v2/app/models/marca/marca_model.dart';
 import 'package:prossumidor_v2/app/models/produto/produto_model.dart';
 
 import 'interfaces/home_repository_interface.dart';
@@ -24,8 +25,10 @@ class HomeRepository implements IHomeRepository {
   Response response;
 
   @override
-  Future listaCategorias() async {
-    String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consul111.");
+  Future listaCategorias(int empresaId) async {
+    print("Empresa ID: " + empresaId.toString());
+    String link =
+        Basicos.codifica("${Basicos.ip}/crud/?crud=consul111.$empresaId");
 
     response = await dio.get(
       Uri.encodeFull(link),
@@ -47,8 +50,74 @@ class HomeRepository implements IHomeRepository {
   }
 
   @override
-  Future listaProdutosPorCategoria(int id) async {
+  Future listaProdutosPorCategoria(int id, int empresaId) async {
+    print("Empresa ID: " + empresaId.toString());
     String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consul112.$id");
+
+    response = await dio.get(
+      Uri.encodeFull(link),
+      options: Options(
+        headers: {"Accept": "application/json"},
+      ),
+    );
+    // try {
+    if (response.data != null && response.statusCode == 200) {
+      var respondeDecoded = response.data
+          .map<Produto>((json) => Produto.fromJson(json))
+          .toList(); // Basicos.decodifica(response.data);
+      print(respondeDecoded);
+      return respondeDecoded;
+    } else
+      return null;
+  }
+
+  @override
+  Future listaProdutosPorMarca(int id) async {
+    String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consul115.$id");
+
+    response = await dio.get(
+      Uri.encodeFull(link),
+      options: Options(
+        headers: {"Accept": "application/json"},
+      ),
+    );
+    // try {
+    if (response.data != null && response.statusCode == 200) {
+      var respondeDecoded = response.data
+          .map<Produto>((json) => Produto.fromJson(json))
+          .toList(); // Basicos.decodifica(response.data);
+      print(respondeDecoded);
+      return respondeDecoded;
+    } else
+      return null;
+  }
+
+  @override
+  Future listaMarcas(int id) async {
+    String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consul114.$id");
+
+    response = await dio.get(
+      Uri.encodeFull(link),
+      options: Options(
+        headers: {"Accept": "application/json"},
+      ),
+    );
+    // try {
+    if (response.data != null && response.statusCode == 200) {
+      var respondeDecoded =
+          response.data.map<Marca>((json) => Marca.fromJson(json)).toList();
+      // .cast<List<Categoria>>(); // cast<Map<String, dynamic>>();
+      // List list = json.decode(response.data).cast<Map<String, dynamic>>();
+      print(respondeDecoded);
+      return respondeDecoded;
+    } else
+      return null;
+  }
+
+  @override
+  Future pesquisarProduto(String texto, int offset) async {
+    String link =
+        Basicos.codifica("${Basicos.ip}/crud/?crud=consul116.$texto,$offset");
 
     response = await dio.get(
       Uri.encodeFull(link),

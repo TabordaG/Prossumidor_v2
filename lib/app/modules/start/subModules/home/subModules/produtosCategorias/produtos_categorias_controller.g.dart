@@ -68,6 +68,128 @@ mixin _$ProdutosCategoriasController
     });
   }
 
+  final _$categoriasIDsAtom =
+      Atom(name: '_ProdutosCategoriasControllerBase.categoriasIDs');
+
+  @override
+  List<int> get categoriasIDs {
+    _$categoriasIDsAtom.reportRead();
+    return super.categoriasIDs;
+  }
+
+  @override
+  set categoriasIDs(List<int> value) {
+    _$categoriasIDsAtom.reportWrite(value, super.categoriasIDs, () {
+      super.categoriasIDs = value;
+    });
+  }
+
+  final _$listaProdutosAtom =
+      Atom(name: '_ProdutosCategoriasControllerBase.listaProdutos');
+
+  @override
+  List<Produto> get listaProdutos {
+    _$listaProdutosAtom.reportRead();
+    return super.listaProdutos;
+  }
+
+  @override
+  set listaProdutos(List<Produto> value) {
+    _$listaProdutosAtom.reportWrite(value, super.listaProdutos, () {
+      super.listaProdutos = value;
+    });
+  }
+
+  final _$buscandoProdutosAtom =
+      Atom(name: '_ProdutosCategoriasControllerBase.buscandoProdutos');
+
+  @override
+  bool get buscandoProdutos {
+    _$buscandoProdutosAtom.reportRead();
+    return super.buscandoProdutos;
+  }
+
+  @override
+  set buscandoProdutos(bool value) {
+    _$buscandoProdutosAtom.reportWrite(value, super.buscandoProdutos, () {
+      super.buscandoProdutos = value;
+    });
+  }
+
+  final _$buscandoMaisProdutosAtom =
+      Atom(name: '_ProdutosCategoriasControllerBase.buscandoMaisProdutos');
+
+  @override
+  bool get buscandoMaisProdutos {
+    _$buscandoMaisProdutosAtom.reportRead();
+    return super.buscandoMaisProdutos;
+  }
+
+  @override
+  set buscandoMaisProdutos(bool value) {
+    _$buscandoMaisProdutosAtom.reportWrite(value, super.buscandoMaisProdutos,
+        () {
+      super.buscandoMaisProdutos = value;
+    });
+  }
+
+  final _$habilitarNovaBuscaAtom =
+      Atom(name: '_ProdutosCategoriasControllerBase.habilitarNovaBusca');
+
+  @override
+  bool get habilitarNovaBusca {
+    _$habilitarNovaBuscaAtom.reportRead();
+    return super.habilitarNovaBusca;
+  }
+
+  @override
+  set habilitarNovaBusca(bool value) {
+    _$habilitarNovaBuscaAtom.reportWrite(value, super.habilitarNovaBusca, () {
+      super.habilitarNovaBusca = value;
+    });
+  }
+
+  final _$selecionarSubcategoriaAsyncAction =
+      AsyncAction('_ProdutosCategoriasControllerBase.selecionarSubcategoria');
+
+  @override
+  Future selecionarSubcategoria(int index, bool isCategoria,
+      MarcaProduto marcaProduto, CategoriaProduto categoriaProduto) {
+    return _$selecionarSubcategoriaAsyncAction.run(() => super
+        .selecionarSubcategoria(
+            index, isCategoria, marcaProduto, categoriaProduto));
+  }
+
+  final _$carregarProdutosAsyncAction =
+      AsyncAction('_ProdutosCategoriasControllerBase.carregarProdutos');
+
+  @override
+  Future carregarProdutos(bool isCategoria, MarcaProduto marcaProduto,
+      CategoriaProduto categoriaProduto) {
+    return _$carregarProdutosAsyncAction.run(() =>
+        super.carregarProdutos(isCategoria, marcaProduto, categoriaProduto));
+  }
+
+  final _$carregarMaisProdutosAsyncAction =
+      AsyncAction('_ProdutosCategoriasControllerBase.carregarMaisProdutos');
+
+  @override
+  Future carregarMaisProdutos(BuildContext context, bool isCategoria,
+      MarcaProduto marcaProduto, CategoriaProduto categoriaProduto) {
+    return _$carregarMaisProdutosAsyncAction.run(() => super
+        .carregarMaisProdutos(
+            context, isCategoria, marcaProduto, categoriaProduto));
+  }
+
+  final _$buscarSubcategoriasAsyncAction =
+      AsyncAction('_ProdutosCategoriasControllerBase.buscarSubcategorias');
+
+  @override
+  Future buscarSubcategorias(int id) {
+    return _$buscarSubcategoriasAsyncAction
+        .run(() => super.buscarSubcategorias(id));
+  }
+
   final _$_ProdutosCategoriasControllerBaseActionController =
       ActionController(name: '_ProdutosCategoriasControllerBase');
 
@@ -84,24 +206,12 @@ mixin _$ProdutosCategoriasController
   }
 
   @override
-  dynamic buscarProduto() {
-    final _$actionInfo = _$_ProdutosCategoriasControllerBaseActionController
-        .startAction(name: '_ProdutosCategoriasControllerBase.buscarProduto');
-    try {
-      return super.buscarProduto();
-    } finally {
-      _$_ProdutosCategoriasControllerBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic selecionarSubcategoria(int index) {
+  dynamic pesquisarProduto() {
     final _$actionInfo =
         _$_ProdutosCategoriasControllerBaseActionController.startAction(
-            name: '_ProdutosCategoriasControllerBase.selecionarSubcategoria');
+            name: '_ProdutosCategoriasControllerBase.pesquisarProduto');
     try {
-      return super.selecionarSubcategoria(index);
+      return super.pesquisarProduto();
     } finally {
       _$_ProdutosCategoriasControllerBaseActionController
           .endAction(_$actionInfo);
@@ -113,7 +223,12 @@ mixin _$ProdutosCategoriasController
     return '''
 buscarText: ${buscarText},
 isSearching: ${isSearching},
-subcategorias: ${subcategorias}
+subcategorias: ${subcategorias},
+categoriasIDs: ${categoriasIDs},
+listaProdutos: ${listaProdutos},
+buscandoProdutos: ${buscandoProdutos},
+buscandoMaisProdutos: ${buscandoMaisProdutos},
+habilitarNovaBusca: ${habilitarNovaBusca}
     ''';
   }
 }

@@ -7,10 +7,10 @@ import 'package:prossumidor_v2/app/app_controller.dart';
 import 'package:prossumidor_v2/app/components/button.dart';
 import 'package:prossumidor_v2/app/constants.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/sacola/sacola_controller.dart';
-import 'package:prossumidor_v2/app/shared/auth/auth_controller.dart';
+// import 'package:prossumidor_v2/app/shared/auth/auth_controller.dart';
 
 class ConfirmarEndereco extends StatefulWidget {
-  const ConfirmarEndereco({Key key}) : super(key: key);
+  const ConfirmarEndereco() : super();
 
   @override
   _ConfirmarEnderecoState createState() => _ConfirmarEnderecoState();
@@ -18,10 +18,10 @@ class ConfirmarEndereco extends StatefulWidget {
 
 class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
   SacolaController controller = Modular.get<SacolaController>();
-  AuthController authController = Modular.get<AuthController>();
+  // AuthController authController = Modular.get<AuthController>();
+  final AppController appController = Modular.get<AppController>();
   final FocusScopeNode node = FocusScopeNode();
   ScrollController scrollController = ScrollController();
-  final AppController appController = Modular.get<AppController>();
 
   @override
   Widget build(BuildContext context) {
@@ -93,13 +93,20 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                       fontSize: 18,
                                     ),
                           ),
-                          Text(
-                            'R\$ 40,00',
-                            style:
-                                Theme.of(context).textTheme.bodyText1.copyWith(
-                                      fontSize: 18,
-                                    ),
-                          ),
+                          Observer(builder: (_) {
+                            return Text(
+                              'R\$ ' +
+                                  controller.subtotal
+                                      .toStringAsFixed(2)
+                                      .replaceAll(".", ","),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  .copyWith(
+                                    fontSize: 18,
+                                  ),
+                            );
+                          }),
                         ],
                       ),
                     ),
@@ -227,348 +234,12 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                   ],
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  if (controller.entrega == 0) {}
-                },
-                child: Card(
-                  child: ListTile(
-                    onTap: () => showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("Alterar Endereço"),
-                          content: Scrollbar(
-                            controller: scrollController,
-                            radius: Radius.circular(10),
-                            thickness: 2,
-                            isAlwaysShown: true,
-                            child: SingleChildScrollView(
-                              controller: scrollController,
-                              child: Observer(builder: (_) {
-                                return Form(
-                                  key: controller.formkeyPage,
-                                  child: FocusScope(
-                                    node: node,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      // shrinkWrap: true,
-                                      // physics: BouncingScrollPhysics(),
-                                      children: [
-                                        TextFormField(
-                                          enabled: controller.entrega == 1
-                                              ? false
-                                              : true,
-                                          onChanged: (value) {
-                                            controller.endereco.text = value;
-                                          },
-                                          keyboardType:
-                                              TextInputType.streetAddress,
-                                          textInputAction: TextInputAction.next,
-                                          textCapitalization:
-                                              TextCapitalization.words,
-                                          onEditingComplete: node.nextFocus,
-                                          initialValue:
-                                              controller.endereco.text,
-                                          validator: (value) {
-                                            if (value.isEmpty) {
-                                              return 'Insira um endereço válido';
-                                            } else {
-                                              return null;
-                                            }
-                                          },
-                                          decoration: InputDecoration(
-                                            labelText: 'Endereço',
-                                            border: UnderlineInputBorder(),
-                                            prefixIcon: Icon(
-                                              Icons.apartment,
-                                              color: Theme.of(context)
-                                                  .primaryColor,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: kDefaultPadding * 0.5,
-                                        ),
-                                        TextFormField(
-                                          enabled: controller.entrega == 1
-                                              ? false
-                                              : true,
-                                          onChanged: (value) {
-                                            controller.numero.text = value;
-                                          },
-                                          keyboardType: TextInputType.number,
-                                          textInputAction: TextInputAction.next,
-                                          onEditingComplete: node.nextFocus,
-                                          initialValue: controller.numero.text,
-                                          inputFormatters: [
-                                            FilteringTextInputFormatter
-                                                .digitsOnly,
-                                            LengthLimitingTextInputFormatter(5),
-                                          ],
-                                          validator: (value) {
-                                            if (value.isEmpty) {
-                                              return 'Insira um número válido';
-                                            } else {
-                                              return null;
-                                            }
-                                          },
-                                          decoration: InputDecoration(
-                                            labelText: 'Número',
-                                            border: UnderlineInputBorder(),
-                                            prefixIcon: Icon(
-                                              Icons.filter_1,
-                                              color: Theme.of(context)
-                                                  .primaryColor,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: kDefaultPadding * 0.5,
-                                        ),
-                                        TextFormField(
-                                          enabled: controller.entrega == 1
-                                              ? false
-                                              : true,
-                                          onChanged: (value) {
-                                            controller.complemento.text = value;
-                                          },
-                                          keyboardType: TextInputType.text,
-                                          textInputAction: TextInputAction.next,
-                                          onEditingComplete: node.nextFocus,
-                                          initialValue:
-                                              controller.complemento.text,
-                                          inputFormatters: [
-                                            LengthLimitingTextInputFormatter(
-                                                250),
-                                          ],
-                                          decoration: InputDecoration(
-                                            labelText: 'Complemento',
-                                            border: UnderlineInputBorder(),
-                                            prefixIcon: Icon(
-                                              Icons.house,
-                                              color: Theme.of(context)
-                                                  .primaryColor,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: kDefaultPadding * 0.5,
-                                        ),
-                                        TextFormField(
-                                          enabled: controller.entrega == 1
-                                              ? false
-                                              : true,
-                                          onChanged: (value) {
-                                            controller.bairro.text = value;
-                                          },
-                                          keyboardType: TextInputType.text,
-                                          textInputAction: TextInputAction.next,
-                                          textCapitalization:
-                                              TextCapitalization.words,
-                                          onEditingComplete: node.nextFocus,
-                                          initialValue: controller.bairro.text,
-                                          validator: (value) {
-                                            if (value.isEmpty) {
-                                              return 'Insira um bairro válido';
-                                            } else {
-                                              return null;
-                                            }
-                                          },
-                                          decoration: InputDecoration(
-                                            labelText: 'Bairro',
-                                            border: UnderlineInputBorder(),
-                                            prefixIcon: Icon(
-                                              Icons.house_siding,
-                                              color: Theme.of(context)
-                                                  .primaryColor,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: kDefaultPadding * 0.5,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              flex: 3,
-                                              child: TextFormField(
-                                                enabled: controller.entrega == 1
-                                                    ? false
-                                                    : true,
-                                                onChanged: (value) {
-                                                  controller.cidade.text =
-                                                      value;
-                                                },
-                                                inputFormatters: [
-                                                  LengthLimitingTextInputFormatter(
-                                                      250),
-                                                ],
-                                                keyboardType:
-                                                    TextInputType.text,
-                                                textInputAction:
-                                                    TextInputAction.next,
-                                                textCapitalization:
-                                                    TextCapitalization.words,
-                                                onEditingComplete:
-                                                    node.nextFocus,
-                                                initialValue:
-                                                    controller.cidade.text,
-                                                validator: (value) {
-                                                  if (value.isEmpty) {
-                                                    return 'Insira uma cidade válida';
-                                                  } else {
-                                                    return null;
-                                                  }
-                                                },
-                                                decoration: InputDecoration(
-                                                  labelText: 'Cidade',
-                                                  border:
-                                                      UnderlineInputBorder(),
-                                                  prefixIcon: Icon(
-                                                    Icons.location_city,
-                                                    color: Theme.of(context)
-                                                        .primaryColor,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Expanded(
-                                              flex: 2,
-                                              child: TextFormField(
-                                                enabled: controller.entrega == 1
-                                                    ? false
-                                                    : true,
-                                                onChanged: (value) {
-                                                  controller.uf.text = value;
-                                                },
-                                                keyboardType:
-                                                    TextInputType.name,
-                                                textInputAction:
-                                                    TextInputAction.next,
-                                                textCapitalization:
-                                                    TextCapitalization
-                                                        .sentences,
-                                                onEditingComplete:
-                                                    node.nextFocus,
-                                                initialValue:
-                                                    controller.uf.text,
-                                                inputFormatters: [
-                                                  FilteringTextInputFormatter
-                                                      .singleLineFormatter,
-                                                  LengthLimitingTextInputFormatter(
-                                                      2),
-                                                ],
-                                                validator: (value) {
-                                                  if (value.isEmpty) {
-                                                    return 'Insira um UF válido';
-                                                  } else {
-                                                    return null;
-                                                  }
-                                                },
-                                                decoration: InputDecoration(
-                                                  labelText: 'Estado',
-                                                  border:
-                                                      UnderlineInputBorder(),
-                                                  prefixIcon: Icon(
-                                                    Icons.business,
-                                                    color: Theme.of(context)
-                                                        .primaryColor,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: kDefaultPadding * 0.5,
-                                        ),
-                                        TextFormField(
-                                          enabled: controller.entrega == 1
-                                              ? false
-                                              : true,
-                                          onChanged: (value) {
-                                            controller.cep.text = value;
-                                          },
-                                          keyboardType: TextInputType.number,
-                                          textInputAction: TextInputAction.done,
-                                          textCapitalization:
-                                              TextCapitalization.words,
-                                          onEditingComplete: node.unfocus,
-                                          initialValue: controller.cep.text,
-                                          inputFormatters: [
-                                            FilteringTextInputFormatter
-                                                .digitsOnly,
-                                            CepInputFormatter(),
-                                          ],
-                                          validator: (value) {
-                                            if (value.isEmpty) {
-                                              return 'Insira um CEP válido';
-                                            } else {
-                                              return null;
-                                            }
-                                          },
-                                          decoration: InputDecoration(
-                                            labelText: 'CEP',
-                                            border: UnderlineInputBorder(),
-                                            prefixIcon: Icon(
-                                              Icons.location_on,
-                                              color: Theme.of(context)
-                                                  .primaryColor,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              }),
-                            ),
-                          ),
-                          actions: <Widget>[
-                            FlatButton(
-                              child: Text(
-                                "Cancelar",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    .copyWith(
-                                      color: Theme.of(context).primaryColor,
-                                    ),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            RaisedButton(
-                              color: Theme.of(context).primaryColor,
-                              child: Text(
-                                "Alterar",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    .copyWith(
-                                      color: Colors.white,
-                                    ),
-                              ),
-                              onPressed: () {
-                                controller.isPageValid();
-                                if (controller.pageValid == true) {
-                                  controller.atualizaDados();
-                                  Navigator.of(context).pop();
-                                } else
-                                  print("form invalido");
-                              },
-                            ),
-                          ],
-                        );
-                      },
-                    ),
+              Card(
+                child: Observer(builder: (_) {
+                  return ListTile(
+                    onTap: () => controller.entrega == 0
+                        ? buildEntregaDomicilio(context)
+                        : buildRetirarLocal(context),
                     leading: Icon(
                       Icons.location_on,
                       color: Theme.of(context).primaryColor,
@@ -580,15 +251,15 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                           .bodyText1
                           .copyWith(fontSize: 16),
                     ),
-                    subtitle: Observer(builder: (_) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Observer(builder: (_) {
+                          return Text(
                             controller.entrega == 0
-                                ? authController.usuario.endereco +
+                                ? controller.endereco.text +
                                     ', ' +
-                                    authController.usuario.numero
+                                    controller.numero.text
                                 : 'Porto, 0',
                             style:
                                 Theme.of(context).textTheme.bodyText1.copyWith(
@@ -598,12 +269,14 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                           .color
                                           .withOpacity(.6),
                                     ),
-                          ),
-                          Text(
+                          );
+                        }),
+                        Observer(builder: (_) {
+                          return Text(
                             controller.entrega == 0
-                                ? authController.usuario.bairro +
+                                ? controller.bairro.text +
                                     ' - ' +
-                                    authController.usuario.complemento
+                                    controller.complemento.text
                                 : 'Corimbatá',
                             style:
                                 Theme.of(context).textTheme.bodyText1.copyWith(
@@ -613,18 +286,18 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                           .color
                                           .withOpacity(.6),
                                     ),
-                          ),
-                        ],
-                      );
-                    }),
+                          );
+                        }),
+                      ],
+                    ),
                     trailing: Icon(
                       controller.entrega == 0
                           ? Icons.chevron_right
                           : Icons.info,
                       color: Theme.of(context).primaryColor,
                     ),
-                  ),
-                ),
+                  );
+                }),
               ),
               Card(
                 child: Padding(
@@ -824,11 +497,71 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                   minWidth: double.infinity,
                   height: 45,
                   child: StandardButton(
-                    onPressed: () {
-                      appController.pageViewController.jumpToPage(
-                        2,
+                    onPressed: () async {
+                      controller.inserePedido();
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            content: Observer(builder: (_) {
+                              if (!controller.pedidoFinalizado)
+                                return Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    CircularProgressIndicator(
+                                      strokeWidth: 1,
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Text(
+                                      "Registrando...",
+                                      style: TextStyle(color: Colors.black54),
+                                    ),
+                                  ],
+                                );
+                              return Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    controller.adicionarMensagem,
+                                    style: TextStyle(
+                                      color: Colors.black.withOpacity(.7),
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  RaisedButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        Navigator.of(context).pop();
+                                        appController.pageViewController
+                                            .jumpToPage(
+                                          2,
+                                        );
+                                        Modular.to
+                                            .pushReplacementNamed('/start');
+                                      });
+                                    },
+                                    color: kPrimaryColor,
+                                    child: Text(
+                                      "Voltar Loja",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w800,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }),
+                          );
+                        },
                       );
-                      Modular.to.pushReplacementNamed('/start');
                     },
                     color: Theme.of(context).primaryColor,
                     text: 'Finalizar Pedido',
@@ -845,6 +578,576 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
           ),
         ),
       ),
+    );
+  }
+
+  Future buildEntregaDomicilio(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: AlertDialog(
+            title: Text("Alterar Endereço"),
+            content: Scrollbar(
+              controller: scrollController,
+              radius: Radius.circular(10),
+              thickness: 2,
+              isAlwaysShown: true,
+              child: SingleChildScrollView(
+                controller: scrollController,
+                child: Observer(builder: (_) {
+                  return Form(
+                    key: controller.formkeyPage,
+                    child: FocusScope(
+                      node: node,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        // shrinkWrap: true,
+                        // physics: BouncingScrollPhysics(),
+                        children: [
+                          Observer(builder: (_) {
+                            return TextFormField(
+                              enabled: controller.entrega == 1 ? false : true,
+                              // onChanged: (value) {
+                              //   controller.endereco.text = value;
+                              // },
+                              keyboardType: TextInputType.streetAddress,
+                              textInputAction: TextInputAction.next,
+                              textCapitalization: TextCapitalization.words,
+                              onEditingComplete: node.nextFocus,
+                              controller: controller.endereco,
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Insira um endereço válido';
+                                } else {
+                                  return null;
+                                }
+                              },
+                              decoration: InputDecoration(
+                                labelText: 'Endereço',
+                                border: UnderlineInputBorder(),
+                                prefixIcon: Icon(
+                                  Icons.apartment,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
+                            );
+                          }),
+                          SizedBox(
+                            height: kDefaultPadding * 0.5,
+                          ),
+                          Observer(builder: (_) {
+                            return TextFormField(
+                              enabled: controller.entrega == 1 ? false : true,
+                              // onChanged: (value) {
+                              //   controller.numero.text = value;
+                              // },
+                              keyboardType: TextInputType.number,
+                              textInputAction: TextInputAction.next,
+                              onEditingComplete: node.nextFocus,
+                              controller: controller.numero,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(5),
+                              ],
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Insira um número válido';
+                                } else {
+                                  return null;
+                                }
+                              },
+                              decoration: InputDecoration(
+                                labelText: 'Número',
+                                border: UnderlineInputBorder(),
+                                prefixIcon: Icon(
+                                  Icons.filter_1,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
+                            );
+                          }),
+                          SizedBox(
+                            height: kDefaultPadding * 0.5,
+                          ),
+                          Observer(builder: (_) {
+                            return TextFormField(
+                              enabled: controller.entrega == 1 ? false : true,
+                              // onChanged: (value) {
+                              //   controller.complemento.text = value;
+                              // },
+                              keyboardType: TextInputType.text,
+                              textInputAction: TextInputAction.next,
+                              onEditingComplete: node.nextFocus,
+                              controller: controller.complemento,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(250),
+                              ],
+                              decoration: InputDecoration(
+                                labelText: 'Complemento',
+                                border: UnderlineInputBorder(),
+                                prefixIcon: Icon(
+                                  Icons.house,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
+                            );
+                          }),
+                          SizedBox(
+                            height: kDefaultPadding * 0.5,
+                          ),
+                          Observer(builder: (_) {
+                            return TextFormField(
+                              enabled: controller.entrega == 1 ? false : true,
+                              // onChanged: (value) {
+                              //   controller.bairro.text = value;
+                              // },
+                              keyboardType: TextInputType.text,
+                              textInputAction: TextInputAction.next,
+                              textCapitalization: TextCapitalization.words,
+                              onEditingComplete: node.nextFocus,
+                              controller: controller.bairro,
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Insira um bairro válido';
+                                } else {
+                                  return null;
+                                }
+                              },
+                              decoration: InputDecoration(
+                                labelText: 'Bairro',
+                                border: UnderlineInputBorder(),
+                                prefixIcon: Icon(
+                                  Icons.house_siding,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
+                            );
+                          }),
+                          SizedBox(
+                            height: kDefaultPadding * 0.5,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                flex: 3,
+                                child: Observer(builder: (_) {
+                                  return TextFormField(
+                                    enabled:
+                                        controller.entrega == 1 ? false : true,
+                                    // onChanged: (value) {
+                                    //   controller.cidade.text = value;
+                                    // },
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(250),
+                                    ],
+                                    keyboardType: TextInputType.text,
+                                    textInputAction: TextInputAction.next,
+                                    textCapitalization:
+                                        TextCapitalization.words,
+                                    onEditingComplete: node.nextFocus,
+                                    controller: controller.cidade,
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Insira uma cidade válida';
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                    decoration: InputDecoration(
+                                      labelText: 'Cidade',
+                                      border: UnderlineInputBorder(),
+                                      prefixIcon: Icon(
+                                        Icons.location_city,
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                    ),
+                                  );
+                                }),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Observer(builder: (_) {
+                                  return TextFormField(
+                                    enabled:
+                                        controller.entrega == 1 ? false : true,
+                                    // onChanged: (value) {
+                                    //   controller.uf.text = value;
+                                    // },
+                                    keyboardType: TextInputType.name,
+                                    textInputAction: TextInputAction.next,
+                                    textCapitalization:
+                                        TextCapitalization.sentences,
+                                    onEditingComplete: node.nextFocus,
+                                    controller: controller.uf,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter
+                                          .singleLineFormatter,
+                                      LengthLimitingTextInputFormatter(2),
+                                    ],
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Insira um UF válido';
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                    decoration: InputDecoration(
+                                      labelText: 'Estado',
+                                      border: UnderlineInputBorder(),
+                                      prefixIcon: Icon(
+                                        Icons.business,
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                    ),
+                                  );
+                                }),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: kDefaultPadding * 0.5,
+                          ),
+                          Observer(builder: (_) {
+                            return TextFormField(
+                              enabled: controller.entrega == 1 ? false : true,
+                              // onChanged: (value) {
+                              //   controller.cep.text = value;
+                              // },
+                              keyboardType: TextInputType.number,
+                              textInputAction: TextInputAction.done,
+                              textCapitalization: TextCapitalization.words,
+                              onEditingComplete: node.unfocus,
+                              controller: controller.cep,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                                CepInputFormatter(),
+                              ],
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Insira um CEP válido';
+                                } else {
+                                  return null;
+                                }
+                              },
+                              decoration: InputDecoration(
+                                labelText: 'CEP',
+                                border: UnderlineInputBorder(),
+                                prefixIcon: Icon(
+                                  Icons.location_on,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
+                            );
+                          }),
+                        ],
+                      ),
+                    ),
+                  );
+                }),
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text(
+                  "Cancelar",
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        color: Theme.of(context).primaryColor,
+                      ),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              RaisedButton(
+                color: Theme.of(context).primaryColor,
+                child: Text(
+                  "Alterar",
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        color: Colors.white,
+                      ),
+                ),
+                onPressed: () {
+                  controller.isPageValid();
+                  if (controller.pageValid == true) {
+                    controller.atualizaDados();
+                    Navigator.of(context).pop();
+                  } else
+                    print("form invalido");
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future buildRetirarLocal(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Alterar Endereço"),
+          content: Scrollbar(
+            controller: scrollController,
+            radius: Radius.circular(10),
+            thickness: 2,
+            isAlwaysShown: true,
+            child: SingleChildScrollView(
+              controller: scrollController,
+              child: Observer(builder: (_) {
+                return Form(
+                  key: controller.formkeyPage,
+                  child: FocusScope(
+                    node: node,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      // shrinkWrap: true,
+                      // physics: BouncingScrollPhysics(),
+                      children: [
+                        Observer(builder: (_) {
+                          return TextFormField(
+                            enabled: false,
+                            keyboardType: TextInputType.streetAddress,
+                            textInputAction: TextInputAction.next,
+                            textCapitalization: TextCapitalization.words,
+                            onEditingComplete: node.nextFocus,
+                            controller: controller.endereco,
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Insira um endereço válido';
+                              } else {
+                                return null;
+                              }
+                            },
+                            decoration: InputDecoration(
+                              labelText: 'Endereço',
+                              border: UnderlineInputBorder(),
+                              prefixIcon: Icon(
+                                Icons.apartment,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
+                          );
+                        }),
+                        SizedBox(
+                          height: kDefaultPadding * 0.5,
+                        ),
+                        Observer(builder: (_) {
+                          return TextFormField(
+                            enabled: false,
+                            keyboardType: TextInputType.number,
+                            textInputAction: TextInputAction.next,
+                            onEditingComplete: node.nextFocus,
+                            controller: controller.numero,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(5),
+                            ],
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Insira um número válido';
+                              } else {
+                                return null;
+                              }
+                            },
+                            decoration: InputDecoration(
+                              labelText: 'Número',
+                              border: UnderlineInputBorder(),
+                              prefixIcon: Icon(
+                                Icons.filter_1,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
+                          );
+                        }),
+                        SizedBox(
+                          height: kDefaultPadding * 0.5,
+                        ),
+                        Observer(builder: (_) {
+                          return TextFormField(
+                            enabled: false,
+                            keyboardType: TextInputType.text,
+                            textInputAction: TextInputAction.next,
+                            onEditingComplete: node.nextFocus,
+                            controller: controller.complemento,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(250),
+                            ],
+                            decoration: InputDecoration(
+                              labelText: 'Complemento',
+                              border: UnderlineInputBorder(),
+                              prefixIcon: Icon(
+                                Icons.house,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
+                          );
+                        }),
+                        SizedBox(
+                          height: kDefaultPadding * 0.5,
+                        ),
+                        Observer(builder: (_) {
+                          return TextFormField(
+                            enabled: false,
+                            keyboardType: TextInputType.text,
+                            textInputAction: TextInputAction.next,
+                            textCapitalization: TextCapitalization.words,
+                            onEditingComplete: node.nextFocus,
+                            controller: controller.bairro,
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Insira um bairro válido';
+                              } else {
+                                return null;
+                              }
+                            },
+                            decoration: InputDecoration(
+                              labelText: 'Bairro',
+                              border: UnderlineInputBorder(),
+                              prefixIcon: Icon(
+                                Icons.house_siding,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
+                          );
+                        }),
+                        SizedBox(
+                          height: kDefaultPadding * 0.5,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              flex: 3,
+                              child: Observer(builder: (_) {
+                                return TextFormField(
+                                  enabled: false,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(250),
+                                  ],
+                                  keyboardType: TextInputType.text,
+                                  textInputAction: TextInputAction.next,
+                                  textCapitalization: TextCapitalization.words,
+                                  onEditingComplete: node.nextFocus,
+                                  controller: controller.cidade,
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Insira uma cidade válida';
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  decoration: InputDecoration(
+                                    labelText: 'Cidade',
+                                    border: UnderlineInputBorder(),
+                                    prefixIcon: Icon(
+                                      Icons.location_city,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                  ),
+                                );
+                              }),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: Observer(builder: (_) {
+                                return TextFormField(
+                                  enabled: false,
+                                  keyboardType: TextInputType.name,
+                                  textInputAction: TextInputAction.next,
+                                  textCapitalization:
+                                      TextCapitalization.sentences,
+                                  onEditingComplete: node.nextFocus,
+                                  controller: controller.uf,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter
+                                        .singleLineFormatter,
+                                    LengthLimitingTextInputFormatter(2),
+                                  ],
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Insira um UF válido';
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  decoration: InputDecoration(
+                                    labelText: 'Estado',
+                                    border: UnderlineInputBorder(),
+                                    prefixIcon: Icon(
+                                      Icons.business,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                  ),
+                                );
+                              }),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: kDefaultPadding * 0.5,
+                        ),
+                        Observer(builder: (_) {
+                          return TextFormField(
+                            enabled: false,
+                            keyboardType: TextInputType.number,
+                            textInputAction: TextInputAction.done,
+                            textCapitalization: TextCapitalization.words,
+                            onEditingComplete: node.unfocus,
+                            controller: controller.cep,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                              CepInputFormatter(),
+                            ],
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Insira um CEP válido';
+                              } else {
+                                return null;
+                              }
+                            },
+                            decoration: InputDecoration(
+                              labelText: 'CEP',
+                              border: UnderlineInputBorder(),
+                              prefixIcon: Icon(
+                                Icons.location_on,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
+                          );
+                        }),
+                      ],
+                    ),
+                  ),
+                );
+              }),
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text(
+                "Fechar",
+                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      color: Theme.of(context).primaryColor,
+                    ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

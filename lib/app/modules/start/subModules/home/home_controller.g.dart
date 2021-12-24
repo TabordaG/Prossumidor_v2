@@ -49,6 +49,37 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$listaMarcasAtom = Atom(name: '_HomeControllerBase.listaMarcas');
+
+  @override
+  List<Marca> get listaMarcas {
+    _$listaMarcasAtom.reportRead();
+    return super.listaMarcas;
+  }
+
+  @override
+  set listaMarcas(List<Marca> value) {
+    _$listaMarcasAtom.reportWrite(value, super.listaMarcas, () {
+      super.listaMarcas = value;
+    });
+  }
+
+  final _$marcaSelecionadaAtom =
+      Atom(name: '_HomeControllerBase.marcaSelecionada');
+
+  @override
+  String get marcaSelecionada {
+    _$marcaSelecionadaAtom.reportRead();
+    return super.marcaSelecionada;
+  }
+
+  @override
+  set marcaSelecionada(String value) {
+    _$marcaSelecionadaAtom.reportWrite(value, super.marcaSelecionada, () {
+      super.marcaSelecionada = value;
+    });
+  }
+
   final _$scrollControllerAtom =
       Atom(name: '_HomeControllerBase.scrollController');
 
@@ -83,13 +114,13 @@ mixin _$HomeController on _HomeControllerBase, Store {
   final _$buscarStringAtom = Atom(name: '_HomeControllerBase.buscarString');
 
   @override
-  String get buscarString {
+  TextEditingController get buscarString {
     _$buscarStringAtom.reportRead();
     return super.buscarString;
   }
 
   @override
-  set buscarString(String value) {
+  set buscarString(TextEditingController value) {
     _$buscarStringAtom.reportWrite(value, super.buscarString, () {
       super.buscarString = value;
     });
@@ -128,6 +159,79 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$listaMarcaProdutosAtom =
+      Atom(name: '_HomeControllerBase.listaMarcaProdutos');
+
+  @override
+  List<MarcaProduto> get listaMarcaProdutos {
+    _$listaMarcaProdutosAtom.reportRead();
+    return super.listaMarcaProdutos;
+  }
+
+  @override
+  set listaMarcaProdutos(List<MarcaProduto> value) {
+    _$listaMarcaProdutosAtom.reportWrite(value, super.listaMarcaProdutos, () {
+      super.listaMarcaProdutos = value;
+    });
+  }
+
+  final _$produtosDaBuscaAtom =
+      Atom(name: '_HomeControllerBase.produtosDaBusca');
+
+  @override
+  List<Produto> get produtosDaBusca {
+    _$produtosDaBuscaAtom.reportRead();
+    return super.produtosDaBusca;
+  }
+
+  @override
+  set produtosDaBusca(List<Produto> value) {
+    _$produtosDaBuscaAtom.reportWrite(value, super.produtosDaBusca, () {
+      super.produtosDaBusca = value;
+    });
+  }
+
+  final _$buscandoProdutosAtom =
+      Atom(name: '_HomeControllerBase.buscandoProdutos');
+
+  @override
+  bool get buscandoProdutos {
+    _$buscandoProdutosAtom.reportRead();
+    return super.buscandoProdutos;
+  }
+
+  @override
+  set buscandoProdutos(bool value) {
+    _$buscandoProdutosAtom.reportWrite(value, super.buscandoProdutos, () {
+      super.buscandoProdutos = value;
+    });
+  }
+
+  final _$buscandoMaisProdutosAtom =
+      Atom(name: '_HomeControllerBase.buscandoMaisProdutos');
+
+  @override
+  bool get buscandoMaisProdutos {
+    _$buscandoMaisProdutosAtom.reportRead();
+    return super.buscandoMaisProdutos;
+  }
+
+  @override
+  set buscandoMaisProdutos(bool value) {
+    _$buscandoMaisProdutosAtom.reportWrite(value, super.buscandoMaisProdutos,
+        () {
+      super.buscandoMaisProdutos = value;
+    });
+  }
+
+  final _$setRefreshTrueAsyncAction =
+      AsyncAction('_HomeControllerBase.setRefreshTrue');
+
+  @override
+  Future setRefreshTrue() {
+    return _$setRefreshTrueAsyncAction.run(() => super.setRefreshTrue());
+  }
+
   final _$buscarCategoriasAsyncAction =
       AsyncAction('_HomeControllerBase.buscarCategorias');
 
@@ -145,19 +249,50 @@ mixin _$HomeController on _HomeControllerBase, Store {
         .run(() => super.buscarProdutosPorCategoriaID());
   }
 
-  final _$_HomeControllerBaseActionController =
-      ActionController(name: '_HomeControllerBase');
+  final _$buscarProdutosPorMarcasAsyncAction =
+      AsyncAction('_HomeControllerBase.buscarProdutosPorMarcas');
 
   @override
-  dynamic setRefreshTrue() {
-    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
-        name: '_HomeControllerBase.setRefreshTrue');
-    try {
-      return super.setRefreshTrue();
-    } finally {
-      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
-    }
+  Future buscarProdutosPorMarcas() {
+    return _$buscarProdutosPorMarcasAsyncAction
+        .run(() => super.buscarProdutosPorMarcas());
   }
+
+  final _$buscarMarcasAsyncAction =
+      AsyncAction('_HomeControllerBase.buscarMarcas');
+
+  @override
+  Future buscarMarcas() {
+    return _$buscarMarcasAsyncAction.run(() => super.buscarMarcas());
+  }
+
+  final _$confirmarMarcaAsyncAction =
+      AsyncAction('_HomeControllerBase.confirmarMarca');
+
+  @override
+  Future confirmarMarca() {
+    return _$confirmarMarcaAsyncAction.run(() => super.confirmarMarca());
+  }
+
+  final _$pesquisarProdutoAsyncAction =
+      AsyncAction('_HomeControllerBase.pesquisarProduto');
+
+  @override
+  Future pesquisarProduto() {
+    return _$pesquisarProdutoAsyncAction.run(() => super.pesquisarProduto());
+  }
+
+  final _$pesquisarMaisProdutosAsyncAction =
+      AsyncAction('_HomeControllerBase.pesquisarMaisProdutos');
+
+  @override
+  Future pesquisarMaisProdutos() {
+    return _$pesquisarMaisProdutosAsyncAction
+        .run(() => super.pesquisarMaisProdutos());
+  }
+
+  final _$_HomeControllerBaseActionController =
+      ActionController(name: '_HomeControllerBase');
 
   @override
   dynamic setOffsetHomeList(double valor) {
@@ -171,11 +306,11 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
-  dynamic setBuscarString(String valor) {
+  dynamic resetBuscarString() {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
-        name: '_HomeControllerBase.setBuscarString');
+        name: '_HomeControllerBase.resetBuscarString');
     try {
-      return super.setBuscarString(valor);
+      return super.resetBuscarString();
     } finally {
       _$_HomeControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -193,15 +328,43 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
+  dynamic selecionarMarca(int index, bool selecionar) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.selecionarMarca');
+    try {
+      return super.selecionarMarca(index, selecionar);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic resetarMarcas() {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.resetarMarcas');
+    try {
+      return super.resetarMarcas();
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 refreshPage: ${refreshPage},
 categoriasID: ${categoriasID},
+listaMarcas: ${listaMarcas},
+marcaSelecionada: ${marcaSelecionada},
 scrollController: ${scrollController},
 offsetHomeList: ${offsetHomeList},
 buscarString: ${buscarString},
 listaCategorias: ${listaCategorias},
-listaCategoriaProdutos: ${listaCategoriaProdutos}
+listaCategoriaProdutos: ${listaCategoriaProdutos},
+listaMarcaProdutos: ${listaMarcaProdutos},
+produtosDaBusca: ${produtosDaBusca},
+buscandoProdutos: ${buscandoProdutos},
+buscandoMaisProdutos: ${buscandoMaisProdutos}
     ''';
   }
 }

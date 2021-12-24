@@ -49,6 +49,54 @@ mixin _$ProdutoDetalhesController on _ProdutoDetalhesControllerBase, Store {
     });
   }
 
+  final _$adicionandoSacolaAtom =
+      Atom(name: '_ProdutoDetalhesControllerBase.adicionandoSacola');
+
+  @override
+  bool get adicionandoSacola {
+    _$adicionandoSacolaAtom.reportRead();
+    return super.adicionandoSacola;
+  }
+
+  @override
+  set adicionandoSacola(bool value) {
+    _$adicionandoSacolaAtom.reportWrite(value, super.adicionandoSacola, () {
+      super.adicionandoSacola = value;
+    });
+  }
+
+  final _$adicionadoAtom =
+      Atom(name: '_ProdutoDetalhesControllerBase.adicionado');
+
+  @override
+  bool get adicionado {
+    _$adicionadoAtom.reportRead();
+    return super.adicionado;
+  }
+
+  @override
+  set adicionado(bool value) {
+    _$adicionadoAtom.reportWrite(value, super.adicionado, () {
+      super.adicionado = value;
+    });
+  }
+
+  final _$adicionarMensagemAtom =
+      Atom(name: '_ProdutoDetalhesControllerBase.adicionarMensagem');
+
+  @override
+  String get adicionarMensagem {
+    _$adicionarMensagemAtom.reportRead();
+    return super.adicionarMensagem;
+  }
+
+  @override
+  set adicionarMensagem(String value) {
+    _$adicionarMensagemAtom.reportWrite(value, super.adicionarMensagem, () {
+      super.adicionarMensagem = value;
+    });
+  }
+
   final _$setProdutoAsyncAction =
       AsyncAction('_ProdutoDetalhesControllerBase.setProduto');
 
@@ -57,15 +105,24 @@ mixin _$ProdutoDetalhesController on _ProdutoDetalhesControllerBase, Store {
     return _$setProdutoAsyncAction.run(() => super.setProduto(produtoReceived));
   }
 
+  final _$adicionarSacolaAsyncAction =
+      AsyncAction('_ProdutoDetalhesControllerBase.adicionarSacola');
+
+  @override
+  Future adicionarSacola(BuildContext context) {
+    return _$adicionarSacolaAsyncAction
+        .run(() => super.adicionarSacola(context));
+  }
+
   final _$_ProdutoDetalhesControllerBaseActionController =
       ActionController(name: '_ProdutoDetalhesControllerBase');
 
   @override
-  void increment(int limite) {
+  void increment() {
     final _$actionInfo = _$_ProdutoDetalhesControllerBaseActionController
         .startAction(name: '_ProdutoDetalhesControllerBase.increment');
     try {
-      return super.increment(limite);
+      return super.increment();
     } finally {
       _$_ProdutoDetalhesControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -86,7 +143,10 @@ mixin _$ProdutoDetalhesController on _ProdutoDetalhesControllerBase, Store {
   String toString() {
     return '''
 produto: ${produto},
-value: ${value}
+value: ${value},
+adicionandoSacola: ${adicionandoSacola},
+adicionado: ${adicionado},
+adicionarMensagem: ${adicionarMensagem}
     ''';
   }
 }

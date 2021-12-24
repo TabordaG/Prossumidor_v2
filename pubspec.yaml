@@ -48,6 +48,8 @@ dependencies:
   mobx: ^1.2.1+4
   flutter_modular: ^2.0.1
   cached_network_image: ^2.5.1
+  simple_animations: ^2.5.1
+
   flutter:
     sdk: flutter
 

@@ -71,7 +71,9 @@ class _SplashScreenState extends State<SplashScreen>
             top: MediaQuery.of(context).size.height * .75,
             right: MediaQuery.of(context).size.width * .45,
             child: Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                strokeWidth: 1,
+              ),
             ),
           )
         ],

@@ -22,15 +22,30 @@ mixin _$SacolaController on _SacolaControllerBase, Store {
   final _$totalAtom = Atom(name: '_SacolaControllerBase.total');
 
   @override
-  int get total {
+  double get total {
     _$totalAtom.reportRead();
     return super.total;
   }
 
   @override
-  set total(int value) {
+  set total(double value) {
     _$totalAtom.reportWrite(value, super.total, () {
       super.total = value;
+    });
+  }
+
+  final _$subtotalAtom = Atom(name: '_SacolaControllerBase.subtotal');
+
+  @override
+  double get subtotal {
+    _$subtotalAtom.reportRead();
+    return super.subtotal;
+  }
+
+  @override
+  set subtotal(double value) {
+    _$subtotalAtom.reportWrite(value, super.subtotal, () {
+      super.subtotal = value;
     });
   }
 
@@ -76,21 +91,6 @@ mixin _$SacolaController on _SacolaControllerBase, Store {
   set frete(double value) {
     _$freteAtom.reportWrite(value, super.frete, () {
       super.frete = value;
-    });
-  }
-
-  final _$valueAtom = Atom(name: '_SacolaControllerBase.value');
-
-  @override
-  int get value {
-    _$valueAtom.reportRead();
-    return super.value;
-  }
-
-  @override
-  set value(int value) {
-    _$valueAtom.reportWrite(value, super.value, () {
-      super.value = value;
     });
   }
 
@@ -229,19 +229,121 @@ mixin _$SacolaController on _SacolaControllerBase, Store {
     });
   }
 
-  final _$dropdownvalueAtom = Atom(name: '_SacolaControllerBase.dropdownvalue');
+  final _$listaProdutosAtom = Atom(name: '_SacolaControllerBase.listaProdutos');
 
   @override
-  String get dropdownvalue {
-    _$dropdownvalueAtom.reportRead();
-    return super.dropdownvalue;
+  List<Produto> get listaProdutos {
+    _$listaProdutosAtom.reportRead();
+    return super.listaProdutos;
   }
 
   @override
-  set dropdownvalue(String value) {
-    _$dropdownvalueAtom.reportWrite(value, super.dropdownvalue, () {
-      super.dropdownvalue = value;
+  set listaProdutos(List<Produto> value) {
+    _$listaProdutosAtom.reportWrite(value, super.listaProdutos, () {
+      super.listaProdutos = value;
     });
+  }
+
+  final _$carregandoProdutosAtom =
+      Atom(name: '_SacolaControllerBase.carregandoProdutos');
+
+  @override
+  bool get carregandoProdutos {
+    _$carregandoProdutosAtom.reportRead();
+    return super.carregandoProdutos;
+  }
+
+  @override
+  set carregandoProdutos(bool value) {
+    _$carregandoProdutosAtom.reportWrite(value, super.carregandoProdutos, () {
+      super.carregandoProdutos = value;
+    });
+  }
+
+  final _$pedidoFinalizadoAtom =
+      Atom(name: '_SacolaControllerBase.pedidoFinalizado');
+
+  @override
+  bool get pedidoFinalizado {
+    _$pedidoFinalizadoAtom.reportRead();
+    return super.pedidoFinalizado;
+  }
+
+  @override
+  set pedidoFinalizado(bool value) {
+    _$pedidoFinalizadoAtom.reportWrite(value, super.pedidoFinalizado, () {
+      super.pedidoFinalizado = value;
+    });
+  }
+
+  final _$adicionarMensagemAtom =
+      Atom(name: '_SacolaControllerBase.adicionarMensagem');
+
+  @override
+  String get adicionarMensagem {
+    _$adicionarMensagemAtom.reportRead();
+    return super.adicionarMensagem;
+  }
+
+  @override
+  set adicionarMensagem(String value) {
+    _$adicionarMensagemAtom.reportWrite(value, super.adicionarMensagem, () {
+      super.adicionarMensagem = value;
+    });
+  }
+
+  final _$incrementAsyncAction = AsyncAction('_SacolaControllerBase.increment');
+
+  @override
+  Future increment(int index) {
+    return _$incrementAsyncAction.run(() => super.increment(index));
+  }
+
+  final _$decrementAsyncAction = AsyncAction('_SacolaControllerBase.decrement');
+
+  @override
+  Future decrement(int index) {
+    return _$decrementAsyncAction.run(() => super.decrement(index));
+  }
+
+  final _$deletarItemAsyncAction =
+      AsyncAction('_SacolaControllerBase.deletarItem');
+
+  @override
+  Future deletarItem(int index) {
+    return _$deletarItemAsyncAction.run(() => super.deletarItem(index));
+  }
+
+  final _$atualizaDadosAsyncAction =
+      AsyncAction('_SacolaControllerBase.atualizaDados');
+
+  @override
+  Future atualizaDados() {
+    return _$atualizaDadosAsyncAction.run(() => super.atualizaDados());
+  }
+
+  final _$buscarProdutosAsyncAction =
+      AsyncAction('_SacolaControllerBase.buscarProdutos');
+
+  @override
+  Future buscarProdutos() {
+    return _$buscarProdutosAsyncAction.run(() => super.buscarProdutos());
+  }
+
+  final _$calcularFreteAsyncAction =
+      AsyncAction('_SacolaControllerBase.calcularFrete');
+
+  @override
+  Future calcularFrete() {
+    return _$calcularFreteAsyncAction.run(() => super.calcularFrete());
+  }
+
+  final _$inserePedidoAsyncAction =
+      AsyncAction('_SacolaControllerBase.inserePedido');
+
+  @override
+  Future inserePedido() {
+    return _$inserePedidoAsyncAction.run(() => super.inserePedido());
   }
 
   final _$_SacolaControllerBaseActionController =
@@ -281,39 +383,6 @@ mixin _$SacolaController on _SacolaControllerBase, Store {
   }
 
   @override
-  void increment(int limite) {
-    final _$actionInfo = _$_SacolaControllerBaseActionController.startAction(
-        name: '_SacolaControllerBase.increment');
-    try {
-      return super.increment(limite);
-    } finally {
-      _$_SacolaControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void decrement() {
-    final _$actionInfo = _$_SacolaControllerBaseActionController.startAction(
-        name: '_SacolaControllerBase.decrement');
-    try {
-      return super.decrement();
-    } finally {
-      _$_SacolaControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic mudaDropDown(String value) {
-    final _$actionInfo = _$_SacolaControllerBaseActionController.startAction(
-        name: '_SacolaControllerBase.mudaDropDown');
-    try {
-      return super.mudaDropDown(value);
-    } finally {
-      _$_SacolaControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic isPageValid() {
     final _$actionInfo = _$_SacolaControllerBaseActionController.startAction(
         name: '_SacolaControllerBase.isPageValid');
@@ -325,24 +394,13 @@ mixin _$SacolaController on _SacolaControllerBase, Store {
   }
 
   @override
-  dynamic atualizaDados() {
-    final _$actionInfo = _$_SacolaControllerBaseActionController.startAction(
-        name: '_SacolaControllerBase.atualizaDados');
-    try {
-      return super.atualizaDados();
-    } finally {
-      _$_SacolaControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 total: ${total},
+subtotal: ${subtotal},
 entrega: ${entrega},
 pagamento: ${pagamento},
 frete: ${frete},
-value: ${value},
 formkeyPage: ${formkeyPage},
 endereco: ${endereco},
 numero: ${numero},
@@ -352,7 +410,10 @@ cidade: ${cidade},
 uf: ${uf},
 cep: ${cep},
 pageValid: ${pageValid},
-dropdownvalue: ${dropdownvalue}
+listaProdutos: ${listaProdutos},
+carregandoProdutos: ${carregandoProdutos},
+pedidoFinalizado: ${pedidoFinalizado},
+adicionarMensagem: ${adicionarMensagem}
     ''';
   }
 }

@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:prossumidor_v2/app/app_controller.dart';
-import 'package:prossumidor_v2/app/components/cards.dart';
 import 'package:prossumidor_v2/app/constants.dart';
+import 'package:prossumidor_v2/app/modules/start/subModules/home/componentes/search_page.dart';
+import 'package:prossumidor_v2/app/modules/start/subModules/home/componentes/widgetHome.dart';
 import 'package:prossumidor_v2/app/shared/auth/auth_controller.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
-  const HomePage({Key key, this.title = "Home"}) : super(key: key);
+  const HomePage({this.title = "Home"}) : super();
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -45,391 +45,514 @@ class _HomeListViewState extends State<HomeListView> {
 
   @override
   void initState() {
-    // controller.setRefreshTrue();
-    // controller.buscarCategorias();
-    // print("INIT STATE");
+    controller.setRefreshTrue();
+    controller.buscarCategorias();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
-      return ListView(
-        controller: controller.scrollController,
-        physics: BouncingScrollPhysics(),
-        children: [
-          // RaisedButton(
-          //   onPressed: () => controller.buscarCategorias(),
-          //   child: Text('Buscar Categorias'),
-          // ),
-          // RaisedButton(
-          //   onPressed: () => controller.buscarProdutosPorCategoriaID(),
-          //   child: Text('Buscar Produtos'),
-          // ),
-          Padding(
-            padding: EdgeInsets.only(
-              left: kDefaultPadding,
-              right: kDefaultPadding,
-              top: kDefaultPadding * 1.5,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          'Olá, ${authController.usuario.nome_razao_social}',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24,
-                              ),
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            'Bem vindo a ',
-                            style:
-                                Theme.of(context).textTheme.bodyText1.copyWith(
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1
-                                          .color
-                                          .withOpacity(.6),
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
-                                    ),
-                          ),
-                          Text(
-                            'Recoopsol',
-                            style:
-                                Theme.of(context).textTheme.bodyText1.copyWith(
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1
-                                          .color
-                                          .withOpacity(.6),
-                                      fontWeight: FontWeight.w800,
-                                      fontSize: 16,
-                                    ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(5.0),
-                  child: Image(
-                    width: 45,
-                    image: AssetImage("assets/images/newLogo_1.png"),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(
-                  kDefaultPadding,
-                  kDefaultPadding * 0.25,
-                  kDefaultPadding * 0.1,
-                  kDefaultPadding * 0.25,
-                ),
-                child: Text(
-                  "Centro de Distribuição:",
-                  textAlign: TextAlign.start,
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
-                        color: Theme.of(context)
-                            .textTheme
-                            .bodyText1
-                            .color
-                            .withOpacity(.6),
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12,
-                      ),
-                ),
+      return Container(
+        color: Colors.white,
+        child: ListView(
+          controller: controller.scrollController,
+          physics: BouncingScrollPhysics(),
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                left: kDefaultPadding,
+                right: kDefaultPadding,
+                top: kDefaultPadding * 1,
               ),
-              Observer(builder: (_) {
-                return Text(
-                  "${authController.centroDistribuicao}",
-                  textAlign: TextAlign.start,
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
-                        color: Theme.of(context)
-                            .textTheme
-                            .bodyText1
-                            .color
-                            .withOpacity(.6),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            authController.usuario != null
+                                ? 'Olá, ${authController.usuario.nome_razao_social}'
+                                : 'Olá, ...',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style:
+                                Theme.of(context).textTheme.bodyText1.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22,
+                                    ),
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              'Bem vindo a ',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  .copyWith(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        .color
+                                        .withOpacity(.6),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16,
+                                  ),
+                            ),
+                            Text(
+                              'Recoopsol',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  .copyWith(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        .color
+                                        .withOpacity(.8),
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 16,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 10.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(5.0),
+                      child: Image(
+                        width: 65,
+                        image: AssetImage("assets/images/newLogo_1.png"),
                       ),
-                );
-              }),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              top: kDefaultPadding * 0.25,
-              bottom: kDefaultPadding * .5,
-              left: kDefaultPadding,
-              right: kDefaultPadding,
-            ),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Color(0xFFF6F6F6),
-                borderRadius: BorderRadius.circular(5),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.25),
-                    spreadRadius: 0,
-                    blurRadius: 1,
-                    offset: Offset(0, 0),
+                    ),
                   ),
                 ],
               ),
-              child: TextFormField(
-                onChanged: (value) => controller.setBuscarString(value),
-                keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.done,
-                textCapitalization: TextCapitalization.words,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Insira uma busca válida';
-                  } else {
-                    if (value.length < 3) {
-                      return "A busca precisa ter pelo menos 3 caracteres";
-                    } else {
-                      return null;
-                    }
-                  }
-                },
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.only(
-                    top: 14.0,
+            ),
+            // Row(
+            //   children: [
+            //     Padding(
+            //       padding: EdgeInsets.fromLTRB(
+            //         kDefaultPadding,
+            //         kDefaultPadding * 0.25,
+            //         kDefaultPadding * 0.1,
+            //         kDefaultPadding * 0.25,
+            //       ),
+            //       child: Text(
+            //         "Centro de Distribuição:",
+            //         textAlign: TextAlign.start,
+            //         style: Theme.of(context).textTheme.bodyText1.copyWith(
+            //               color: Theme.of(context)
+            //                   .textTheme
+            //                   .bodyText1
+            //                   .color
+            //                   .withOpacity(.6),
+            //               fontWeight: FontWeight.w600,
+            //               fontSize: 12,
+            //             ),
+            //       ),
+            //     ),
+            //     Observer(builder: (_) {
+            //       return Text(
+            //         "${authController.centroDistribuicao}",
+            //         textAlign: TextAlign.start,
+            //         style: Theme.of(context).textTheme.bodyText1.copyWith(
+            //               color: Theme.of(context)
+            //                   .textTheme
+            //                   .bodyText1
+            //                   .color
+            //                   .withOpacity(.6),
+            //               fontWeight: FontWeight.bold,
+            //               fontSize: 12,
+            //             ),
+            //       );
+            //     }),
+            //   ],
+            // ),
+            Padding(
+              padding: EdgeInsets.only(
+                top: kDefaultPadding * 0.5,
+                bottom: kDefaultPadding * .5,
+                left: kDefaultPadding,
+                right: kDefaultPadding,
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Observer(builder: (_) {
+                      return TextFormField(
+                        controller: controller.buscarString,
+                        onFieldSubmitted: (value) {
+                          // if (controller.buscarString.text.length >= 3) {
+                          controller.pesquisarProduto();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SearchPage(),
+                            ),
+                          );
+                          // } else {
+                          //   final snackBar = SnackBar(
+                          //     content: Text(
+                          //         'A pesquisa precisa ter mais de 3 letras'),
+                          //   );
+
+                          //   Scaffold.of(context).showSnackBar(snackBar);
+                          // }
+                        },
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.search,
+                        textCapitalization: TextCapitalization.words,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(
+                            top: 14.0,
+                          ),
+                          filled: true,
+                          fillColor: Theme.of(context).cardColor,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(24.0),
+                            // borderSide: BorderSide(
+                            //   color: Theme.of(context).cardColor,
+                            // ),
+                            borderSide: BorderSide.none,
+                          ),
+                          prefixIcon: IconButton(
+                            splashRadius: 2,
+                            onPressed: () {
+                              // if (controller.buscarString.text.length >= 3) {
+                              controller.pesquisarProduto();
+                              //   Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => SearchPage()),
+                              //   );
+                              // } else {
+                              //   final snackBar = SnackBar(
+                              //     content: Text(
+                              //         'A pesquisa precisa ter mais de 3 letras'),
+                              //   );
+
+                              //   Scaffold.of(context).showSnackBar(snackBar);
+                              // }
+                            },
+                            icon: Icon(
+                              Icons.search,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
+                          hintText: 'Produto',
+                        ),
+                      );
+                    }),
                   ),
-                  fillColor: Theme.of(context).cardColor,
-                  border: InputBorder.none,
-                  prefixIcon: IconButton(
-                    splashRadius: 2,
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.search,
-                      color: Theme.of(context).primaryColor,
+                  Padding(
+                    padding: EdgeInsets.only(left: kDefaultPadding * .5),
+                    child: InkWell(
+                      onTap: () async {
+                        if (controller.listaMarcas == null ||
+                            controller.listaMarcas.length <= 1)
+                          controller.buscarMarcas();
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            // return FiltroHome();
+                            return buildFiltroHome(context);
+                          },
+                        );
+                      },
+                      child: Container(
+                        width: 90,
+                        height: 47,
+                        padding: EdgeInsets.only(left: 5),
+                        decoration: BoxDecoration(
+                          color: Color(0xFFF6F6F6),
+                          borderRadius: BorderRadius.circular(25),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.25),
+                              spreadRadius: 0,
+                              blurRadius: .2,
+                              offset: Offset(0, 0),
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(bottom: 2.0),
+                                child: Text(
+                                  "Filtro", //controller.marcaSelecionada,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              Icon(
+                                Icons.chevron_right,
+                                color: kPrimaryColor,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                  suffixIcon: IconButton(
-                    splashRadius: 2,
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.tune,
-                      color: Theme.of(context).primaryColor,
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              child: Text(
+                'Não se esqueça de efetuar as compras até quarta!',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      fontSize: 12,
+                      color: Theme.of(context)
+                          .textTheme
+                          .bodyText1
+                          .color
+                          .withOpacity(.8),
+                      fontWeight: FontWeight.normal,
+                    ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                top: kDefaultPadding * .75,
+                left: kDefaultPadding,
+                right: kDefaultPadding,
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: Container(
+                  height: 115,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFF6F6F6),
+                    borderRadius: BorderRadius.circular(5),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.25),
+                        spreadRadius: 0,
+                        blurRadius: 1,
+                        offset: Offset(0, 0),
+                      ),
+                    ],
+                  ),
+                  child: Image(
+                    fit: BoxFit.fill,
+                    image: AssetImage(
+                      'assets/images/banner01.jpeg',
                     ),
                   ),
-                  hintText: 'Produto ou Empreendimento',
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-            child: Text(
-              'Não se esqueça de efetuar as compras até quarta!',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    fontSize: 12,
-                    color: Theme.of(context)
-                        .textTheme
-                        .bodyText1
-                        .color
-                        .withOpacity(.8),
-                    fontWeight: FontWeight.normal,
+            Observer(builder: (_) {
+              if (controller.refreshPage)
+                return Padding(
+                  padding: EdgeInsets.only(
+                    top: 60,
+                    // left: MediaQuery.of(context).size.width * .5 - 42,
                   ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              top: kDefaultPadding * .75,
-              left: kDefaultPadding,
-              right: kDefaultPadding,
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(5),
-              child: Container(
-                height: 115,
-                decoration: BoxDecoration(
-                  color: Color(0xFFF6F6F6),
-                  borderRadius: BorderRadius.circular(5),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.25),
-                      spreadRadius: 0,
-                      blurRadius: 1,
-                      offset: Offset(0, 0),
-                    ),
-                  ],
-                ),
-                child: Image(
-                  fit: BoxFit.fill,
-                  image: AssetImage(
-                    'assets/images/banner01.jpeg',
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(
+                        strokeWidth: 1,
+                      ),
+                    ],
                   ),
-                ),
-              ),
-            ),
-          ),
-          // for (var indexCategoria = 0;
-          //     indexCategoria < controller.listaCategoriaProdutos.length;
-          //     indexCategoria++)
-          Observer(builder: (_) {
-            if (controller.listaCategoriaProdutos.isEmpty)
-              return Padding(
-                padding: EdgeInsets.only(
-                  top: 60,
-                  // left: MediaQuery.of(context).size.width * .5 - 42,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(),
-                  ],
-                ),
-              );
-            return ListView.builder(
-              physics: ClampingScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: controller.listaCategoriaProdutos.length,
-              itemBuilder: (context, indexCategoria) {
-                return CategoriaHome(
-                  indexCategoria: indexCategoria,
-                  verMais: () {
-                    Navigator.of(context).pushNamed(
-                      '/produtosCategorias',
-                      arguments: {'indexCategorias': indexCategoria},
-                    );
-                  },
                 );
-              },
-            );
-          }),
-        ],
+              return ListView.builder(
+                physics: ClampingScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: controller.marcaSelecionada == "Todas Categorias"
+                    ? controller.listaCategoriaProdutos.length
+                    : controller.listaMarcaProdutos.length,
+                itemBuilder: (context, indexItem) {
+                  return Observer(builder: (_) {
+                    return WidgetHome(
+                      indexItem: indexItem,
+                      isCategoria:
+                          controller.marcaSelecionada == "Todas Categorias"
+                              ? true
+                              : false,
+                      verMais: () {
+                        Navigator.of(context).pushNamed(
+                          '/produtosCategorias',
+                          arguments: {
+                            'categoriaProduto': controller.marcaSelecionada ==
+                                    "Todas Categorias"
+                                ? controller.listaCategoriaProdutos[indexItem]
+                                : null,
+                            'marcaProduto': controller.marcaSelecionada !=
+                                    "Todas Categorias"
+                                ? controller.listaMarcaProdutos[indexItem]
+                                : null,
+                            'isCategoria': controller.marcaSelecionada ==
+                                    "Todas Categorias"
+                                ? true
+                                : false,
+                          },
+                        );
+                      },
+                    );
+                  });
+                },
+              );
+            }),
+          ],
+        ),
       );
     });
   }
-}
 
-class CategoriaHome extends StatefulWidget {
-  final int indexCategoria;
-  final Function verMais;
-
-  CategoriaHome({
-    Key key,
-    this.indexCategoria,
-    this.verMais,
-  }) : super(key: key);
-
-  @override
-  _CategoriaHomeState createState() => _CategoriaHomeState();
-}
-
-class _CategoriaHomeState extends ModularState<CategoriaHome, HomeController> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.only(
-            top: kDefaultPadding * .75,
-          ),
-          child: Divider(
-            thickness: 10,
-            color: Theme.of(context).colorScheme.secondary.withOpacity(.2),
-          ),
-        ),
-        ListTile(
-          leading: Icon(Icons.fastfood),
-          title: Text(
-            controller.listaCategoriaProdutos[widget.indexCategoria].categoria
-                .descricao,
-            style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  fontSize: 18,
-                  color: Theme.of(context)
-                      .textTheme
-                      .bodyText1
-                      .color
-                      .withOpacity(1),
+  AlertDialog buildFiltroHome(BuildContext context) {
+    return AlertDialog(
+      scrollable: true,
+      insetPadding: EdgeInsets.fromLTRB(20.0, 60.0, 20.0, 60.0),
+      content: Column(
+        children: [
+          Observer(builder: (_) {
+            if (controller.listaMarcas == null ||
+                controller.listaMarcas.length == 0)
+              return Center(
+                child: CircularProgressIndicator(
+                  strokeWidth: 1,
                 ),
-          ),
-          trailing: TextButton(
-            onPressed: widget.verMais,
-            child: Text(
-              'Ver mais',
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    fontSize: 14,
-                    color: Theme.of(context).primaryColor,
+              );
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: 10.0,
+                    bottom: 5.0,
                   ),
+                  child: Text(
+                    "Por Categoria",
+                    style: TextStyle(
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ),
+                Observer(builder: (_) {
+                  return RaisedButton(
+                    color: controller.listaMarcas[0].selecionado
+                        ? kPrimaryColor
+                        : Colors.white,
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(color: kPrimaryColor),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(5),
+                      ),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        controller.selecionarMarca(
+                          0,
+                          !controller.listaMarcas[0].selecionado,
+                        );
+                      });
+                    },
+                    child: Text(
+                      controller.listaMarcas[0].descricao,
+                      style: TextStyle(
+                        color: controller.listaMarcas[0].selecionado
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                    ),
+                  );
+                }),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: 15.0,
+                    bottom: 5.0,
+                  ),
+                  child: Text(
+                    "Por Empreendimento",
+                    style: TextStyle(
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ),
+                Wrap(
+                  runSpacing: 5.0,
+                  spacing: 5.0,
+                  children: [
+                    for (var i = 4; i < controller.listaMarcas.length; i++)
+                      Observer(builder: (_) {
+                        return RaisedButton(
+                          color: controller.listaMarcas[i].selecionado
+                              ? kPrimaryColor
+                              : Colors.white,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(color: kPrimaryColor),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              controller.selecionarMarca(
+                                i,
+                                !controller.listaMarcas[i].selecionado,
+                              );
+                            });
+                          },
+                          child: Text(
+                            controller.listaMarcas[i].descricao,
+                            style: TextStyle(
+                              color: controller.listaMarcas[i].selecionado
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                          ),
+                        );
+                      }),
+                  ],
+                ),
+              ],
+            );
+            //   ],
+            // );
+          }),
+        ],
+      ),
+      actions: <Widget>[
+        FlatButton(
+          child: Text(
+            "Resetar",
+            style: TextStyle(
+              color: kPrimaryColor,
             ),
           ),
+          onPressed: () {
+            controller.resetarMarcas();
+            Navigator.of(context).pop();
+          },
         ),
-        Container(
-          height: 235,
-          margin: EdgeInsets.only(
-            bottom: widget.indexCategoria ==
-                    controller.listaCategoriaProdutos.length - 1
-                ? kDefaultPadding
-                : 0.0,
+        FlatButton(
+          child: Text(
+            "Confirmar",
+            style: TextStyle(
+              color: kPrimaryColor,
+            ),
           ),
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            physics: BouncingScrollPhysics(),
-            itemCount: controller
-                .listaCategoriaProdutos[widget.indexCategoria].produtos.length,
-            itemBuilder: (context, index) {
-              return index != 4
-                  ? CardHome(
-                      index: index,
-                      produto: controller
-                          .listaCategoriaProdutos[widget.indexCategoria]
-                          .produtos[index],
-                      verDetalhes: () => Modular.to.pushNamed(
-                        '/produtoDetalhes',
-                        arguments: {
-                          'produto': controller
-                              .listaCategoriaProdutos[widget.indexCategoria]
-                              .produtos[index],
-                        },
-                      ),
-                    )
-                  : Row(
-                      children: [
-                        CardHome(
-                          index: index,
-                          produto: controller
-                              .listaCategoriaProdutos[widget.indexCategoria]
-                              .produtos[index],
-                          verDetalhes: () => Modular.to.pushNamed(
-                            '/produtoDetalhes',
-                            arguments: {
-                              'produto': controller
-                                  .listaCategoriaProdutos[widget.indexCategoria]
-                                  .produtos[index],
-                            },
-                          ),
-                        ),
-                        CardVerMaisHome(
-                          indexCategoria: widget.indexCategoria,
-                          verMais: widget.verMais,
-                        ),
-                      ],
-                    );
-            },
-          ),
+          onPressed: () {
+            controller.confirmarMarca();
+            Navigator.of(context).pop();
+          },
         ),
       ],
     );

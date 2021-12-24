@@ -16,7 +16,9 @@ class ProdutosCategoriasModule extends ChildModule {
         ModularRouter(
           Modular.initialRoute,
           child: (_, args) => ProdutosCategoriasPage(
-            indexCategorias: args.data['indexCategorias'],
+            marcaProduto: args.data['marcaProduto'],
+            categoriaProduto: args.data['categoriaProduto'],
+            isCategoria: args.data['isCategoria'],
           ),
           transition: TransitionType.rightToLeft,
         ),

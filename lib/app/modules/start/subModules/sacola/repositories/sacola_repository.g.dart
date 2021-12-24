@@ -7,7 +7,7 @@ part of 'sacola_repository.dart';
 // **************************************************************************
 
 final $SacolaRepository = BindInject(
-  (i) => SacolaRepository(i<DioForNative>()),
+  (i) => SacolaRepository(),
   singleton: true,
   lazy: true,
 );
