@@ -6,4 +6,5 @@ abstract class IProdutoDetalhesRepository implements Disposable {
       double preco, int usuarioId);
   Future procurarProdutoCarrinho(int produtoId, int clienteId);
   Future incrementaQuantidadeCarrinho(int quantidade, int carrinhoId);
+  Future buscarCategoriasProduto(int id);
 }

@@ -30,27 +30,22 @@ abstract class _PedidosControllerBase with Store {
 
   @action
   chamarListaNaoEntregue() async {
-    pedidosNaoEntregueList = null;
+    pedidosNaoEntregueList = [];
     pedidosNaoEntregueList = List.from(await pedidosRepository
         .listaPedidosNaoEntregue(authController.usuario.id));
   }
 
   @action
   chamarListaEntregue() async {
-    pedidosEntregueList = null;
+    pedidosEntregueList = [];
     pedidosEntregueList = List.from(await pedidosRepository
         .listaPedidosEntregue(authController.usuario.id));
   }
 
   @action
   buscarProdutos(int id) async {
-    produtosList = null;
+    produtosList = [];
     produtosList = List.from(await pedidosRepository.listaProdutos(id));
-    produtosList.add(produtosList[0]);
-    produtosList.add(produtosList[0]);
-    produtosList.add(produtosList[0]);
-    produtosList.add(produtosList[0]);
-    produtosList.add(produtosList[0]);
     produtosList = List.from(produtosList);
   }
 }

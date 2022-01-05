@@ -124,6 +124,94 @@ class ProdutosCategoriasRepository implements IProdutosCategoriasRepository {
       return null;
   }
 
+  @override
+  Future<List<Produto>> pesquisaProdutosMulticategorias(
+    int id,
+    List<int> categoriasIDs,
+    String pesquisa,
+    int offset,
+  ) async {
+    String linkBase =
+        "${Basicos.ip}/crud/?crud=consul123.$id,$pesquisa,$offset";
+    for (var item in categoriasIDs) {
+      linkBase += ',$item';
+    }
+    print(linkBase);
+    String link = Basicos.codifica(linkBase);
+
+    response = await dio.get(
+      Uri.encodeFull(link),
+      options: Options(
+        headers: {"Accept": "application/json"},
+      ),
+    );
+    // try {
+    if (response.data != null && response.statusCode == 200) {
+      var respondeDecoded = response.data
+          .map<Produto>((json) => Produto.fromJson(json))
+          .toList(); // Basicos.decodifica(response.data);
+      print(respondeDecoded);
+      return respondeDecoded;
+    } else
+      return null;
+  }
+
+  @override
+  Future<List<Produto>> pesquisaProdutosCategoria(
+    int id,
+    String pesquisa,
+    int offset,
+  ) async {
+    String linkBase =
+        "${Basicos.ip}/crud/?crud=consul124.$id,$pesquisa,$offset";
+    print(linkBase);
+    String link = Basicos.codifica(linkBase);
+
+    response = await dio.get(
+      Uri.encodeFull(link),
+      options: Options(
+        headers: {"Accept": "application/json"},
+      ),
+    );
+    // try {
+    if (response.data != null && response.statusCode == 200) {
+      var respondeDecoded = response.data
+          .map<Produto>((json) => Produto.fromJson(json))
+          .toList(); // Basicos.decodifica(response.data);
+      print(respondeDecoded);
+      return respondeDecoded;
+    } else
+      return null;
+  }
+
+  @override
+  Future<List<Produto>> pesquisaProdutosEmpreendimento(
+    int id,
+    String pesquisa,
+    int offset,
+  ) async {
+    String linkBase =
+        "${Basicos.ip}/crud/?crud=consul126.$id,$pesquisa,$offset";
+    print(linkBase);
+    String link = Basicos.codifica(linkBase);
+
+    response = await dio.get(
+      Uri.encodeFull(link),
+      options: Options(
+        headers: {"Accept": "application/json"},
+      ),
+    );
+    // try {
+    if (response.data != null && response.statusCode == 200) {
+      var respondeDecoded = response.data
+          .map<Produto>((json) => Produto.fromJson(json))
+          .toList(); // Basicos.decodifica(response.data);
+      print(respondeDecoded);
+      return respondeDecoded;
+    } else
+      return null;
+  }
+
   //dispose will be called automatically
   @override
   void dispose() {}

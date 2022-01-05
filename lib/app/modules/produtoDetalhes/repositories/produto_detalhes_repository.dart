@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/dados_basicos.dart';
 import 'package:prossumidor_v2/app/models/produto/produto_model.dart';
-
+import 'package:prossumidor_v2/app/models/categoria/categoria_model.dart';
 import 'interfaces/produto_detalhes_repository_interface.dart';
 
 part 'produto_detalhes_repository.g.dart';
@@ -99,6 +99,24 @@ class ProdutoDetalhesRepository implements IProdutoDetalhesRepository {
     // try {
     if (response.data != null && response.statusCode == 200) {
       return response.data;
+    } else
+      return null;
+  }
+
+  @override
+  Future buscarCategoriasProduto(int id) async {
+    String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consul125.$id");
+    response = await dio.get(
+      Uri.encodeFull(link),
+      options: Options(
+        headers: {"Accept": "application/json"},
+      ),
+    );
+
+    if (response.data != null && response.statusCode == 200) {
+      var respondeDecoded =
+          response.data.map<Categoria>((json) => Categoria.fromJson(json)).toList();
+      return respondeDecoded;
     } else
       return null;
   }

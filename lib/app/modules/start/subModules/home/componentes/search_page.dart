@@ -6,15 +6,14 @@ import 'package:prossumidor_v2/app/models/produto/produto_model.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/home/home_controller.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({Key key}) : super(key: key);
-
+  const SearchPage() : super();
   @override
   _SearchPageState createState() => _SearchPageState();
 }
 
 class _SearchPageState extends State<SearchPage> {
   HomeController controller = Modular.get<HomeController>();
-  final formKey = GlobalKey<FormState>();
+
   ScrollController scrollController;
 
   scrollListener() async {
@@ -61,7 +60,6 @@ class _SearchPageState extends State<SearchPage> {
             elevation: 2,
             color: Colors.white,
             child: Form(
-              key: formKey,
               child: Observer(builder: (_) {
                 return TextFormField(
                   controller: controller.buscarString,

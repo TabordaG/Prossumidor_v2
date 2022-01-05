@@ -94,21 +94,6 @@ mixin _$SacolaController on _SacolaControllerBase, Store {
     });
   }
 
-  final _$formkeyPageAtom = Atom(name: '_SacolaControllerBase.formkeyPage');
-
-  @override
-  GlobalKey<FormState> get formkeyPage {
-    _$formkeyPageAtom.reportRead();
-    return super.formkeyPage;
-  }
-
-  @override
-  set formkeyPage(GlobalKey<FormState> value) {
-    _$formkeyPageAtom.reportWrite(value, super.formkeyPage, () {
-      super.formkeyPage = value;
-    });
-  }
-
   final _$enderecoAtom = Atom(name: '_SacolaControllerBase.endereco');
 
   @override
@@ -401,7 +386,6 @@ subtotal: ${subtotal},
 entrega: ${entrega},
 pagamento: ${pagamento},
 frete: ${frete},
-formkeyPage: ${formkeyPage},
 endereco: ${endereco},
 numero: ${numero},
 complemento: ${complemento},

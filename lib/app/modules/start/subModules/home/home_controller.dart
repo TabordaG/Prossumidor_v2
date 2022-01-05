@@ -81,6 +81,9 @@ abstract class _HomeControllerBase with Store {
   @observable
   bool buscandoMaisProdutos = false;
 
+  @observable
+  List<String> banner = [];
+
   // @action
   // setBuscarString(String valor) => buscarString = valor;
 
@@ -262,5 +265,11 @@ abstract class _HomeControllerBase with Store {
       produtos = [];
     buscandoMaisProdutos = false;
     return produtos;
+  }
+
+  @action
+  implementaBanner() async {
+    banner = [];
+    banner = List.from(await homeRepository.buscaBanner());
   }
 }

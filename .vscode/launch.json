@@ -9,11 +9,6 @@
             "request": "launch",
             "type": "dart"
         },
-        {
-            "name": "Prossumidor_v2 (profile mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        }
+        
     ]
 }

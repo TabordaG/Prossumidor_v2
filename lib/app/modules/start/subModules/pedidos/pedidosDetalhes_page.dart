@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -6,10 +7,12 @@ import 'package:prossumidor_v2/app/models/pedidos/pedidos_model.dart';
 import 'package:prossumidor_v2/app/models/produto/produto_model.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/pedidos/pedidos_controller.dart';
 
+import '../../../../dados_basicos.dart';
+
 class PedidosDetalhes extends StatefulWidget {
   final Pedidos pedido;
   final Produto produto;
-  const PedidosDetalhes({Key key, this.pedido, this.produto}) : super(key: key);
+  const PedidosDetalhes({ this.pedido, this.produto}) : super();
 
   @override
   _PedidosDetalhesState createState() => _PedidosDetalhesState();
@@ -114,9 +117,32 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                           borderRadius: BorderRadius.all(
                             Radius.circular(5),
                           ),
-                          child: Image(
-                            image: AssetImage("assets/images/sem-imagem.png"),
-                          ),
+                          child: controller.produtosList[index].imagem !=
+                                      null &&
+                                  controller.produtosList[index].imagem != ""
+                              ? CachedNetworkImage(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.2,
+                                  imageUrl: "${Basicos.ip2}/media/" +
+                                      controller.produtosList[index].imagem,
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, url) => Padding(
+                                    padding: EdgeInsets.all(25.0),
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 1,
+                                    ),
+                                  ),
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
+                                )
+                              : Center(
+                                  child: Icon(Icons.error),
+                                ),
+
+                          // CachedNetworkImage(
+                          //   imageUrl: "${Basicos.ip2}/media/" +
+                          //       controller.produtosList[index].imagem,
+                          // ),
                           // child: Image.network(
                           //   Basicos.ip + '/media/' + produtoList[index].imagem,
                           //   fit: BoxFit.contain,
@@ -137,7 +163,7 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                           // ),
                         ),
                         title: Text(
-                          widget.produto.descricao_simplificada,
+                          controller.produtosList[index].descricao_simplificada,
                           softWrap: true,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
@@ -149,7 +175,8 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              widget.produto.marca_produto_id.toString(),
+                              controller.produtosList[index].descricao
+                                  .toString(),
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: Theme.of(context)
@@ -166,8 +193,9 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                             ),
                             Text(
                               "Quantidade: " +
-                                  int.parse(widget.produto.estoque_atual)
-                                      .toStringAsFixed(2),
+                                  double.parse(controller
+                                          .produtosList[index].quantidade)
+                                      .toStringAsFixed(0),
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1
@@ -201,8 +229,10 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                                       fontSize: 11,
                                     ),
                                 text: '\nR\$ ' +
-                                    double.parse(widget.produto.preco_venda)
-                                        .toStringAsFixed(2),
+                                    double.parse(controller
+                                            .produtosList[index].preco_venda)
+                                        .toStringAsFixed(2)
+                                        .replaceAll(".", ","),
                               ),
                             ],
                           ),

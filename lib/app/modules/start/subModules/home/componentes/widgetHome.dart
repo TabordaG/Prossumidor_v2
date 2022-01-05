@@ -4,6 +4,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/components/cards.dart';
 import 'package:prossumidor_v2/app/constants.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/home/home_controller.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:prossumidor_v2/app/dados_basicos.dart';
 
 class WidgetHome extends StatefulWidget {
   final int indexItem;
@@ -11,11 +13,10 @@ class WidgetHome extends StatefulWidget {
   final bool isCategoria;
 
   WidgetHome({
-    Key key,
     this.indexItem,
     this.verMais,
     this.isCategoria = true,
-  }) : super(key: key);
+  }) : super();
 
   @override
   _WidgetHomeState createState() => _WidgetHomeState();
@@ -39,7 +40,16 @@ class _WidgetHomeState extends State<WidgetHome> {
         ),
         Observer(builder: (_) {
           return ListTile(
-            leading: Icon(Icons.fastfood),
+            leading: widget.isCategoria
+                ? CachedNetworkImage(
+                    width: 30,
+                    imageUrl: '${Basicos.ip}/' +
+                        controller.listaCategoriaProdutos[widget.indexItem]
+                            .categoria.imagem_cat[0],
+                    fit: BoxFit.cover,
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  )
+                : Icon(Icons.storefront, color: Colors.black),
             title: Text(
               widget.isCategoria
                   ? controller.listaCategoriaProdutos[widget.indexItem]

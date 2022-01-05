@@ -13,12 +13,12 @@ class CardHome extends StatefulWidget {
   final bool margin;
 
   CardHome({
-    Key key,
+    
     this.index,
     this.produto,
     this.verDetalhes,
     this.margin = false,
-  }) : super(key: key);
+  }) : super();
 
   @override
   _CardHomeState createState() => _CardHomeState();
@@ -160,10 +160,10 @@ class CardVerMaisHome extends StatefulWidget {
   final Function verMais;
 
   CardVerMaisHome({
-    Key key,
+   
     this.indexItem,
     this.verMais,
-  }) : super(key: key);
+  }) : super();
 
   @override
   _CardVerMaisHomeState createState() => _CardVerMaisHomeState();
@@ -219,11 +219,11 @@ class CardProdutosCategoria extends StatefulWidget {
   final Function verDetalhes;
 
   CardProdutosCategoria({
-    Key key,
+   
     this.index,
     this.produto,
     this.verDetalhes,
-  }) : super(key: key);
+  }) : super();
 
   @override
   _CardProdutosCategoriaState createState() => _CardProdutosCategoriaState();

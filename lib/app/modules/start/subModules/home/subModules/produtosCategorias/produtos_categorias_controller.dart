@@ -1,7 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:prossumidor_v2/app/constants.dart';
 import 'package:prossumidor_v2/app/models/categoria/categoria_model.dart';
 import 'package:prossumidor_v2/app/models/marca/marca_model.dart';
 import 'package:prossumidor_v2/app/models/produto/produto_model.dart';
@@ -40,7 +39,64 @@ abstract class _ProdutosCategoriasControllerBase with Store {
   }
 
   @action
-  pesquisarProduto() {}
+  pesquisarProduto(
+    bool isCategoria,
+    MarcaProduto marcaProduto,
+    CategoriaProduto categoriaProduto,
+  ) async {
+    if (isCategoria) {
+      categoriasIDs = [];
+      int verifica = 0;
+      for (var i = 1; i < subcategorias.length; i++) {
+        if (subcategorias[i].ativo == true) {
+          verifica = 1;
+          categoriasIDs.add(subcategorias[i].subcategoria_id);
+        }
+      }
+      subcategorias = List.from(subcategorias);
+      if (verifica == 0) {
+        listaProdutos = [];
+        buscandoProdutos = true;
+        subcategorias[0].ativo = true;
+        subcategorias = List.from(subcategorias);
+        List<Produto> res =
+            await produtosCategoriasRepository.pesquisaProdutosCategoria(
+                categoriaProduto.categoria.id,
+                buscarText.text,
+                listaProdutos.length);
+        if (res != null) listaProdutos = res;
+        listaProdutos = List.from(listaProdutos);
+        buscandoProdutos = false;
+      } else {
+        listaProdutos = [];
+        buscandoProdutos = true;
+        print(categoriasIDs);
+        List<Produto> res =
+            await produtosCategoriasRepository.pesquisaProdutosMulticategorias(
+          categoriaProduto.categoria.id,
+          categoriasIDs,
+          buscarText.text,
+          listaProdutos.length,
+        );
+        if (res != null) listaProdutos = res;
+        listaProdutos = List.from(listaProdutos);
+        buscandoProdutos = false;
+      }
+    } else {
+      listaProdutos = [];
+      buscandoProdutos = true;
+      print(categoriasIDs);
+      List<Produto> res =
+          await produtosCategoriasRepository.pesquisaProdutosEmpreendimento(
+        marcaProduto.marca.id,
+        buscarText.text,
+        listaProdutos.length,
+      );
+      if (res != null) listaProdutos = res;
+      listaProdutos = List.from(listaProdutos);
+      buscandoProdutos = false;
+    }
+  }
 
   @observable
   List<Subcategoria> subcategorias = [];
@@ -56,6 +112,8 @@ abstract class _ProdutosCategoriasControllerBase with Store {
     CategoriaProduto categoriaProduto,
   ) async {
     categoriasIDs = [];
+    buscarText.clear();
+    isSearching = false;
     subcategorias[index].ativo = !subcategorias[index].ativo;
 
     if (index != 0 && subcategorias[index].ativo)

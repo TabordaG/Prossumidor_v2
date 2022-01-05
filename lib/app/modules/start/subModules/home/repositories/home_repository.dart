@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 // import 'package:dio/native_imp.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -134,6 +136,35 @@ class HomeRepository implements IHomeRepository {
       return respondeDecoded;
     } else
       return null;
+  }
+
+  @override
+  Future buscaBanner() async {
+    List bannerList = [];
+    for (var i = 4; i < 14; i++) {
+      String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consul-30.$i");
+
+      response = await dio.get(
+        Uri.encodeFull(link),
+        options: Options(
+          headers: {"Accept": "application/json"},
+        ),
+      );
+      // try {
+      if (response.data != null && response.statusCode == 200) {
+        try {
+          var list = json
+              .decode(Basicos.decodifica(response.data))
+              .cast<Map<String, dynamic>>();
+          if (list[0]["msg_notifica"] != null) {
+            String image = list[0]["msg_notifica"].toString();
+            print(image);
+            bannerList.add(image);
+          }
+        } catch (e) {}
+      }
+    }
+    return bannerList;
   }
 
   //dispose will be called automatically

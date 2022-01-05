@@ -119,17 +119,18 @@ class PedidosRepository implements IPedidosRepository {
     );
     if (response.data != null && response.statusCode == 200) {
       print(response.data);
-      try {
-        pedidos.add(
-          await response.data.map<Pedidos>((item) {
-            if (item['observacoes_entrega'].toString() == ' ')
-              item['observacoes_entrega'] = '0';
-            return Pedidos.fromJson(item);
-          }),
-        );
-      } catch (e) {}
-    }
+      pedidos =
+          response.data.map<Pedidos>((json) => Pedidos.fromJson(json)).toList();
+      // pedidos.add(
+      //   await response.data.map<Pedidos>((item) {
+      //     if (item['observacoes_entrega'].toString() == ' ')
+      //       item['observacoes_entrega'] = '0';
+      //     return Pedidos.fromJson(item);
 
+      //   }),
+      // );
+    }
+    print(pedidos.length);
     return pedidos;
   }
 

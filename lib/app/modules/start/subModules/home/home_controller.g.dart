@@ -224,6 +224,21 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$bannerAtom = Atom(name: '_HomeControllerBase.banner');
+
+  @override
+  List<String> get banner {
+    _$bannerAtom.reportRead();
+    return super.banner;
+  }
+
+  @override
+  set banner(List<String> value) {
+    _$bannerAtom.reportWrite(value, super.banner, () {
+      super.banner = value;
+    });
+  }
+
   final _$setRefreshTrueAsyncAction =
       AsyncAction('_HomeControllerBase.setRefreshTrue');
 
@@ -289,6 +304,14 @@ mixin _$HomeController on _HomeControllerBase, Store {
   Future pesquisarMaisProdutos() {
     return _$pesquisarMaisProdutosAsyncAction
         .run(() => super.pesquisarMaisProdutos());
+  }
+
+  final _$implementaBannerAsyncAction =
+      AsyncAction('_HomeControllerBase.implementaBanner');
+
+  @override
+  Future implementaBanner() {
+    return _$implementaBannerAsyncAction.run(() => super.implementaBanner());
   }
 
   final _$_HomeControllerBaseActionController =
@@ -364,7 +387,8 @@ listaCategoriaProdutos: ${listaCategoriaProdutos},
 listaMarcaProdutos: ${listaMarcaProdutos},
 produtosDaBusca: ${produtosDaBusca},
 buscandoProdutos: ${buscandoProdutos},
-buscandoMaisProdutos: ${buscandoMaisProdutos}
+buscandoMaisProdutos: ${buscandoMaisProdutos},
+banner: ${banner}
     ''';
   }
 }

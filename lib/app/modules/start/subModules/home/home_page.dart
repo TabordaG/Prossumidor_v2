@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -6,6 +8,7 @@ import 'package:prossumidor_v2/app/constants.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/home/componentes/search_page.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/home/componentes/widgetHome.dart';
 import 'package:prossumidor_v2/app/shared/auth/auth_controller.dart';
+import '../../../../dados_basicos.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -31,9 +34,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
 }
 
 class HomeListView extends StatefulWidget {
-  const HomeListView({
-    Key key,
-  }) : super(key: key);
+  const HomeListView() : super();
 
   @override
   _HomeListViewState createState() => _HomeListViewState();
@@ -45,9 +46,10 @@ class _HomeListViewState extends State<HomeListView> {
 
   @override
   void initState() {
+    super.initState();
     controller.setRefreshTrue();
     controller.buscarCategorias();
-    super.initState();
+    controller.implementaBanner();
   }
 
   @override
@@ -331,30 +333,58 @@ class _HomeListViewState extends State<HomeListView> {
                 left: kDefaultPadding,
                 right: kDefaultPadding,
               ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: Container(
-                  height: 115,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFF6F6F6),
-                    borderRadius: BorderRadius.circular(5),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.25),
-                        spreadRadius: 0,
-                        blurRadius: 1,
-                        offset: Offset(0, 0),
-                      ),
-                    ],
-                  ),
-                  child: Image(
-                    fit: BoxFit.fill,
-                    image: AssetImage(
-                      'assets/images/banner01.jpeg',
-                    ),
-                  ),
-                ),
-              ),
+              child: Observer(builder: (_) {
+                return controller.banner == []
+                    ? Container()
+                    : Container(
+                        height: 115,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFF6F6F6),
+                          borderRadius: BorderRadius.circular(5),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.25),
+                              spreadRadius: 0,
+                              blurRadius: 1,
+                              offset: Offset(0, 0),
+                            ),
+                          ],
+                        ),
+                        child: CarouselSlider(
+                          options: CarouselOptions(
+                            height: 110,
+                            enlargeCenterPage: false,
+                            viewportFraction: 1,
+                            autoPlay: true,
+                            autoPlayInterval: Duration(seconds: 10),
+                            // onPageChanged: (index, reason) {
+                            //   commands.setIndex(index);
+                            // },
+                          ),
+                          items: controller.banner.map((item) {
+                            return Builder(
+                              builder: (BuildContext context) {
+                                return ClipRRect(
+                                  borderRadius: BorderRadius.circular(5),
+                                  child: Container(
+                                      height: 110,
+                                      width: double.infinity,
+                                      child: CachedNetworkImage(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.2,
+                                        imageUrl: '${Basicos.ip2}/media/$item',
+                                        fit: BoxFit.cover,
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error),
+                                      )),
+                                );
+                              },
+                            );
+                          }).toList(),
+                        ),
+                      );
+              }),
             ),
             Observer(builder: (_) {
               if (controller.refreshPage)

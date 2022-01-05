@@ -6,4 +6,5 @@ abstract class IHomeRepository implements Disposable {
   Future pesquisarProduto(String texto, int offset);
   Future listaProdutosPorMarca(int id);
   Future listaMarcas(int id);
+  Future buscaBanner();
 }

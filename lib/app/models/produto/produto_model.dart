@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-
+import 'package:prossumidor_v2/app/models/categoria/categoria_model.dart';
 part 'produto_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
@@ -49,6 +49,8 @@ class Produto {
   @JsonKey(required: false, disallowNullValue: false)
   int carrinhoid;
   // @JsonKey(required: false, disallowNullValue: false)
+  @JsonKey(required: false, disallowNullValue: false)
+  List<Categoria> categorias;
 
   Produto({
     // ignore: non_constant_identifier_names
@@ -77,6 +79,7 @@ class Produto {
     // this.distribuicao,
     this.status,
     this.carrinhoid,
+    this.categorias,
   });
 
   factory Produto.fromJson(Map<String, dynamic> json) =>

@@ -149,6 +149,16 @@ mixin _$ProdutosCategoriasController
     });
   }
 
+  final _$pesquisarProdutoAsyncAction =
+      AsyncAction('_ProdutosCategoriasControllerBase.pesquisarProduto');
+
+  @override
+  Future pesquisarProduto(bool isCategoria, MarcaProduto marcaProduto,
+      CategoriaProduto categoriaProduto) {
+    return _$pesquisarProdutoAsyncAction.run(() =>
+        super.pesquisarProduto(isCategoria, marcaProduto, categoriaProduto));
+  }
+
   final _$selecionarSubcategoriaAsyncAction =
       AsyncAction('_ProdutosCategoriasControllerBase.selecionarSubcategoria');
 
@@ -199,19 +209,6 @@ mixin _$ProdutosCategoriasController
         .startAction(name: '_ProdutosCategoriasControllerBase.setIsSearching');
     try {
       return super.setIsSearching();
-    } finally {
-      _$_ProdutosCategoriasControllerBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic pesquisarProduto() {
-    final _$actionInfo =
-        _$_ProdutosCategoriasControllerBaseActionController.startAction(
-            name: '_ProdutosCategoriasControllerBase.pesquisarProduto');
-    try {
-      return super.pesquisarProduto();
     } finally {
       _$_ProdutosCategoriasControllerBaseActionController
           .endAction(_$actionInfo);

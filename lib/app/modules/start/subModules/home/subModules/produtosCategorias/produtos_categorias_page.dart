@@ -12,11 +12,10 @@ class ProdutosCategoriasPage extends StatefulWidget {
   final CategoriaProduto categoriaProduto;
   final bool isCategoria;
   ProdutosCategoriasPage({
-    Key key,
     this.marcaProduto,
     this.categoriaProduto,
     this.isCategoria,
-  }) : super(key: key);
+  }) : super();
 
   @override
   _ProdutosCategoriasPageState createState() => _ProdutosCategoriasPageState();
@@ -72,7 +71,13 @@ class _ProdutosCategoriasPageState
                 controller.isSearching ? Icons.close : Icons.search,
                 color: Colors.white,
               ),
-              onPressed: () => controller.setIsSearching(),
+              onPressed: () => {
+                controller.setIsSearching(),
+                controller.isSearching
+                    ? null
+                    : controller.carregarProdutos(widget.isCategoria,
+                        widget.marcaProduto, widget.categoriaProduto)
+              },
             ),
           ],
         ),
@@ -197,7 +202,11 @@ class _ProdutosCategoriasPageState
         hintStyle: TextStyle(color: Colors.white54),
       ),
       style: TextStyle(color: Colors.white, fontSize: 16.0),
-      onSubmitted: (value) => controller.pesquisarProduto(),
+      onSubmitted: (value) => controller.pesquisarProduto(
+        widget.isCategoria,
+        widget.marcaProduto,
+        widget.categoriaProduto,
+      ),
     );
   }
 }
@@ -241,18 +250,53 @@ class _CardSubcategoriaState extends State<CardSubcategoria> {
           child: Card(
             color: controller.subcategorias[widget.index].ativo
                 ? Theme.of(context).primaryColor
-                : Theme.of(context).colorScheme.secondary,
+                : Colors.white,
+            shape: RoundedRectangleBorder(
+              side: BorderSide(color: kPrimaryColor),
+              borderRadius: BorderRadius.all(
+                Radius.circular(5),
+              ),
+            ),
             child: Padding(
               padding: EdgeInsets.all(kDefaultPadding * .3),
               child: Text(
                 controller.subcategorias[widget.index].nome,
                 style: Theme.of(context).textTheme.bodyText1.copyWith(
                       fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                      color: controller.subcategorias[widget.index].ativo
+                          ? Colors.white
+                          : Colors.black,
                     ),
               ),
             ),
           ),
+
+          // Card(
+          //                           color: Colors.white,
+          //                           shape: RoundedRectangleBorder(
+          //                             side: BorderSide(color: kPrimaryColor),
+          //                             borderRadius: BorderRadius.all(
+          //                               Radius.circular(5),
+          //                             ),
+          //                           ),
+          //                           child: Padding(
+          //                             padding:
+          //                                 EdgeInsets.all(kDefaultPadding * .3),
+          //                             child: Text(
+          //                               controller
+          //                                   .produto.categorias[i].descricao,
+          //                               maxLines: 1,
+          //                               overflow: TextOverflow.ellipsis,
+          //                               style: Theme.of(context)
+          //                                   .textTheme
+          //                                   .bodyText1
+          //                                   .copyWith(
+          //                                     fontWeight: FontWeight.w600,
+          //                                     color: Colors.black,
+          //                                   ),
+          //                             ),
+          //                           ),
+          //                         );
         );
       }),
     );

@@ -9,7 +9,7 @@ import 'sacola_controller.dart';
 
 class SacolaPage extends StatefulWidget {
   final String title;
-  const SacolaPage({Key key, this.title = "Sacola"}) : super(key: key);
+  const SacolaPage({ this.title = "Sacola"}) : super();
 
   @override
   _SacolaPageState createState() => _SacolaPageState();

@@ -24,7 +24,11 @@ abstract class _ProdutoDetalhesControllerBase with Store {
     produto = produtoReceived;
     produto = await produtoDetalhesRepository.buscarProduto(produto.id);
     produto.marca = produtoReceived.marca;
-
+    var res =
+        await produtoDetalhesRepository.buscarCategoriasProduto(produto.id);
+    if (res != null) {
+      produto.categorias = res;
+    }
     Produto aux = produto;
     produto = Produto();
     produto = aux;

@@ -20,6 +20,9 @@ class Categoria {
   int empresa_id;
   @JsonKey(required: false, disallowNullValue: false)
   String obs;
+  @JsonKey(required: false, disallowNullValue: false)
+  // ignore: non_constant_identifier_names
+  List imagem_cat;
 
   Categoria({
     // ignore: non_constant_identifier_names
@@ -31,6 +34,8 @@ class Categoria {
     // ignore: non_constant_identifier_names
     this.empresa_id,
     this.obs,
+    // ignore: non_constant_identifier_names
+    this.imagem_cat,
   });
 
   factory Categoria.fromJson(Map<String, dynamic> json) =>

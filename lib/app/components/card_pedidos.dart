@@ -8,11 +8,11 @@ class CardPedidos extends StatefulWidget {
   final Function onTap;
 
   const CardPedidos({
-    Key key,
+    
     this.index,
     this.lista,
     this.onTap,
-  }) : super(key: key);
+  }) : super();
 
   @override
   _CardPedidosState createState() => _CardPedidosState();

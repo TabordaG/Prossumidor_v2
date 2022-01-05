@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/app_controller.dart';
-import 'package:prossumidor_v2/app/dados_basicos.dart';
 import 'package:prossumidor_v2/app/models/produto/produto_model.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/home/home_controller.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/sacola/repositories/sacola_repository.dart';
@@ -101,9 +100,6 @@ abstract class _SacolaControllerBase with Store {
   }
 
   @observable
-  GlobalKey<FormState> formkeyPage = new GlobalKey<FormState>();
-
-  @observable
   TextEditingController endereco = TextEditingController();
 
   @observable
@@ -129,7 +125,13 @@ abstract class _SacolaControllerBase with Store {
 
   @action
   isPageValid() {
-    if (formkeyPage.currentState.validate())
+    if (endereco.text.isNotEmpty &&
+        numero.text.isNotEmpty &&
+        complemento.text.isNotEmpty &&
+        bairro.text.isNotEmpty &&
+        cidade.text.isNotEmpty &&
+        uf.text.isNotEmpty &&
+        cep.text.isNotEmpty)
       pageValid = true;
     else
       pageValid = false;

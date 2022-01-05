@@ -5,7 +5,7 @@ import 'package:prossumidor_v2/app/constants.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/home/home_controller.dart';
 
 class FiltroHome extends StatefulWidget {
-  const FiltroHome({Key key}) : super(key: key);
+  const FiltroHome() : super();
 
   @override
   _FiltroHomeState createState() => _FiltroHomeState();

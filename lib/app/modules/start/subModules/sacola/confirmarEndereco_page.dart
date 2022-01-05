@@ -539,12 +539,15 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                     onPressed: () {
                                       setState(() {
                                         Navigator.of(context).pop();
+
                                         appController.pageViewController
                                             .jumpToPage(
                                           2,
                                         );
-                                        Modular.to
-                                            .pushReplacementNamed('/start');
+
+                                        Modular.to.popUntil(
+                                            ModalRoute.withName('/start'));
+                                       
                                       });
                                     },
                                     color: kPrimaryColor,
@@ -598,7 +601,6 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                 controller: scrollController,
                 child: Observer(builder: (_) {
                   return Form(
-                    key: controller.formkeyPage,
                     child: FocusScope(
                       node: node,
                       child: Column(
@@ -874,6 +876,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                 ),
                 onPressed: () {
                   controller.isPageValid();
+
                   if (controller.pageValid == true) {
                     controller.atualizaDados();
                     Navigator.of(context).pop();
@@ -903,7 +906,6 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
               controller: scrollController,
               child: Observer(builder: (_) {
                 return Form(
-                  key: controller.formkeyPage,
                   child: FocusScope(
                     node: node,
                     child: Column(

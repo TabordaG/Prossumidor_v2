@@ -7,4 +7,10 @@ abstract class IProdutosCategoriasRepository implements Disposable {
   Future listaCategoriasEmComum(int id);
   Future<List<Produto>> listaProdutosEmComum(
       int id, List<int> categoriasIDs, int offset);
+  Future<List<Produto>> pesquisaProdutosMulticategorias(
+      int id, List<int> categoriasIDs, String pesquisa, int offset);
+  Future<List<Produto>> pesquisaProdutosCategoria(
+      int id, String pesquisa, int offset);
+  Future<List<Produto>> pesquisaProdutosEmpreendimento(
+      int id, String pesquisa, int offset);
 }

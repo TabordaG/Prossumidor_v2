@@ -10,7 +10,7 @@ import 'produto_detalhes_controller.dart';
 
 class ProdutoDetalhesPage extends StatefulWidget {
   final Produto produto;
-  const ProdutoDetalhesPage({Key key, this.produto}) : super(key: key);
+  const ProdutoDetalhesPage({this.produto}) : super();
 
   @override
   _ProdutoDetalhesPageState createState() => _ProdutoDetalhesPageState();
@@ -77,9 +77,53 @@ class _ProdutoDetalhesPageState
         child: ListView(
           physics: BouncingScrollPhysics(),
           children: <Widget>[
+            Center(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  top: kDefaultPadding,
+                ),
+                child: Observer(builder: (_) {
+                  return Text(
+                    controller.produto.descricao_simplificada,
+                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                        ),
+                  );
+                }),
+              ),
+            ),
+            Center(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  top: kDefaultPadding * .25,
+                ),
+                child: Observer(builder: (_) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Marca: ',
+                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                              fontSize: 14,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                      ),
+                      Text(
+                        controller.produto.marca,
+                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                              fontSize: 14,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                      ),
+                    ],
+                  );
+                }),
+              ),
+            ),
             Padding(
               padding: EdgeInsets.only(
-                  top: kDefaultPadding * .5, bottom: kDefaultPadding),
+                  top: kDefaultPadding, bottom: kDefaultPadding),
               child: Center(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5.0),
@@ -121,15 +165,13 @@ class _ProdutoDetalhesPageState
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Flexible(
-                    child: Observer(builder: (_) {
-                      return Text(
-                        controller.produto.descricao_simplificada,
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                            ),
-                      );
-                    }),
+                    child: Text(
+                      "Preço: ",
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            fontSize: 18,
+                            // fontWeight: FontWeight.w700,
+                          ),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: kDefaultPadding),
@@ -142,6 +184,7 @@ class _ProdutoDetalhesPageState
                         style: Theme.of(context).textTheme.bodyText1.copyWith(
                               fontSize: 20,
                               fontWeight: FontWeight.w700,
+                              color: Theme.of(context).colorScheme.primary,
                             ),
                       );
                     }),
@@ -150,33 +193,158 @@ class _ProdutoDetalhesPageState
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(
-                top: kDefaultPadding * .1,
-              ),
+              padding: EdgeInsets.only(top: kDefaultPadding * 0.1),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: kDefaultPadding),
-                    child: Observer(builder: (_) {
-                      return Text(
-                        controller.produto.marca,
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
-                              fontSize: 12,
-                              color: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  .color
-                                  .withOpacity(.8),
-                            ),
-                      );
-                    }),
+                  Text(
+                    'Em Estoque: ',
+                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                          fontSize: 14,
+                          // fontWeight: FontWeight.w700,
+                          color: Colors.black87,
+                        ),
                   ),
+                  Observer(builder: (_) {
+                    if (controller.produto.estoque_atual == null) {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          strokeWidth: 1,
+                        ),
+                      );
+                    }
+                    return Text(
+                      double.parse(controller.produto.estoque_atual)
+                          .toStringAsFixed(0),
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            fontSize: 14,
+                            color: Colors.black87,
+                          ),
+                    );
+                  }),
                 ],
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: kDefaultPadding * .8),
+              padding: EdgeInsets.only(top: kDefaultPadding * .5),
+              child: Observer(builder: (_) {
+                if (controller.produto.marketing == null) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      strokeWidth: 1,
+                    ),
+                  );
+                }
+                return Container(
+                  width: double.infinity,
+                  // height: 100,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(top: kDefaultPadding * 0.5),
+                        child: Text(
+                          "Categorias: ",
+                          style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                fontSize: 14,
+                              ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Wrap(
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            if (controller.produto.categorias != null)
+                              for (var i = 0;
+                                  i < controller.produto.categorias.length;
+                                  i++)
+                                Observer(builder: (_) {
+                                  return Card(
+                                    color: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      side: BorderSide(color: kPrimaryColor),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(5),
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.all(kDefaultPadding * .3),
+                                      child: Text(
+                                        controller
+                                            .produto.categorias[i].descricao,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1
+                                            .copyWith(
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.black,
+                                            ),
+                                      ),
+                                    ),
+                                  );
+                                }),
+                            // Observer(builder: (_) {
+                            //   if (controller.produto.categorias == null ||
+                            //       controller.produto.categorias.isEmpty)
+                            //     return Container();
+                            //   return Expanded(
+                            //     child: ListView.builder(
+                            //         scrollDirection: Axis.horizontal,
+                            //         itemCount: controller.produto.categorias.length,
+                            //         itemBuilder: (context, index) {
+                            //           return Card(
+                            //             color: Colors.white,
+                            //             shape: RoundedRectangleBorder(
+                            //               side: BorderSide(color: kPrimaryColor),
+                            //               borderRadius: BorderRadius.all(
+                            //                 Radius.circular(5),
+                            //               ),
+                            //             ),
+                            //             child: Padding(
+                            //               padding:
+                            //                   EdgeInsets.all(kDefaultPadding * .3),
+                            //               child: Text(
+                            //                 controller
+                            //                     .produto.categorias[index].descricao,
+                            //                 maxLines: 1,
+                            //                 overflow: TextOverflow.ellipsis,
+                            //                 style: Theme.of(context)
+                            //                     .textTheme
+                            //                     .bodyText1
+                            //                     .copyWith(
+                            //                       fontWeight: FontWeight.w600,
+                            //                       color: Colors.black,
+                            //                     ),
+                            //               ),
+                            //             ),
+                            //           );
+                            //         }),
+                            //   );
+                            // })
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: kDefaultPadding),
+              child: Text(
+                'Sobre o Produto:',
+                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      fontSize: 16,
+                      // fontWeight: FontWeight.w700,
+                    ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: kDefaultPadding * 1),
               child: Observer(builder: (_) {
                 if (controller.produto.marketing == null) {
                   return Center(
@@ -194,22 +362,15 @@ class _ProdutoDetalhesPageState
               }),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: kDefaultPadding * .5),
+              padding: EdgeInsets.symmetric(vertical: kDefaultPadding * .2),
               child: Divider(
                 color:
                     Theme.of(context).textTheme.bodyText1.color.withOpacity(.2),
                 thickness: .8,
               ),
             ),
-            Text(
-              'Condições do Produto',
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                  ),
-            ),
             Padding(
-              padding: EdgeInsets.only(top: kDefaultPadding * .8),
+              padding: EdgeInsets.only(top: 0),
               child: Observer(builder: (_) {
                 if (controller.produto.observacoes == null) {
                   return Center(
@@ -225,39 +386,6 @@ class _ProdutoDetalhesPageState
                       ),
                 );
               }),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: kDefaultPadding),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(right: kDefaultPadding * 3.1),
-                    child: Text(
-                      'Estoque Atual',
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
-                    ),
-                  ),
-                  Observer(builder: (_) {
-                    if (controller.produto.estoque_atual == null) {
-                      return Center(
-                        child: CircularProgressIndicator(
-                          strokeWidth: 1,
-                        ),
-                      );
-                    }
-                    return Text(
-                      double.parse(controller.produto.estoque_atual)
-                          .toStringAsFixed(2),
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            fontSize: 14,
-                          ),
-                    );
-                  }),
-                ],
-              ),
             ),
             Padding(
               padding: EdgeInsets.only(

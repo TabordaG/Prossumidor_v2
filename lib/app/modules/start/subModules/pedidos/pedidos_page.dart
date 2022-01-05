@@ -7,7 +7,7 @@ import 'pedidos_controller.dart';
 
 class PedidosPage extends StatefulWidget {
   final String title;
-  const PedidosPage({Key key, this.title = "Pedidos"}) : super(key: key);
+  const PedidosPage({this.title = "Pedidos"}) : super();
 
   @override
   _PedidosPageState createState() => _PedidosPageState();
