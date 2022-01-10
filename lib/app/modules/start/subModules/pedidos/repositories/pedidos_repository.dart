@@ -158,4 +158,45 @@ class PedidosRepository implements IPedidosRepository {
     } else
       return [];
   }
+
+  @override
+  Future cancelaPedido(int pedidoID, String status) async {
+    String link = Basicos.codifica(
+        "${Basicos.ip}/crud/?crud=consult30.$pedidoID,$status");
+
+    response = await dio.get(
+      Uri.encodeFull(link),
+      options: Options(
+        headers: {"Accept": "application/json"},
+      ),
+    );
+    if (response.data != null && response.statusCode == 200) {
+      return 'sucesso';
+    } else
+      return null;
+  }
+
+  @override
+  Future enviaMensagem(
+      String mensagemVendedor, int marcaId, int usuarioID) async {
+    String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consult74."
+        "${mensagemVendedor.replaceAll(",", " ").replaceAll('\"', " ")}," //    msg text NOT NULL,
+        "Cliente-Produtor,"
+        "Enviado,"
+        //    data_envio timestamp with time zone NOT NULL,
+        //    data_leitura timestamp with time zone NOT NULL,
+        "$usuarioID," //    cliente_id integer NOT NULL,
+        "$marcaId");
+
+    response = await dio.get(
+      Uri.encodeFull(link),
+      options: Options(
+        headers: {"Accept": "application/json"},
+      ),
+    );
+    if (response.data != null && response.statusCode == 200) {
+      return "sucesso";
+    } else
+      return null;
+  }
 }

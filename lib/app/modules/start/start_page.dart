@@ -1,3 +1,4 @@
+
 import 'package:ff_navigation_bar/ff_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,8 +6,10 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/chat/chat_module.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/home/home_module.dart';
+import 'package:prossumidor_v2/app/modules/start/subModules/pedidos/pedidos_controller.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/pedidos/pedidos_module.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/perfil/perfil_module.dart';
+import 'package:prossumidor_v2/app/modules/start/subModules/sacola/sacola_controller.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/sacola/sacola_module.dart';
 import '../../app_controller.dart';
 import 'start_controller.dart';
@@ -57,6 +60,21 @@ class _StartPageState extends ModularState<StartPage, StartController> {
                   // duration: Duration(milliseconds: 500),
                   // curve: Curves.ease,
                 );
+                try {
+                  if (index == 0 && Modular.get<SacolaController>() != null) {
+                    final SacolaController sacolaController =
+                        Modular.get<SacolaController>();
+                    sacolaController.buscarProdutos();
+                  }
+                } catch (e) {}
+                try {
+                  if (index == 1 && Modular.get<PedidosController>() != null) {
+                    final PedidosController pedidosController =
+                        Modular.get<PedidosController>();
+                    pedidosController.chamarListaNaoEntregue();
+                    pedidosController.chamarListaEntregue();
+                  }
+                } catch (e) {}
               },
               items: [
                 FFNavigationBarItem(

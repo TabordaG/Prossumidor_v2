@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/constants.dart';
 import 'package:prossumidor_v2/app/dados_basicos.dart';
+import 'package:prossumidor_v2/app/models/marca/marca_model.dart';
 import 'package:prossumidor_v2/app/models/produto/produto_model.dart';
 import 'produto_detalhes_controller.dart';
 
@@ -109,13 +110,44 @@ class _ProdutoDetalhesPageState
                               color: Theme.of(context).colorScheme.primary,
                             ),
                       ),
-                      Text(
-                        controller.produto.marca,
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
-                              fontSize: 14,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
+                      // TextButton(
+                      //   style: TextButton.styleFrom(
+                      //       minimumSize: Size(0, 0), padding: EdgeInsets.zero),
+                      //   onPressed: () {
+                      //     MarcaProduto marcaProduto = MarcaProduto(
+                      //         marca: Marca(
+                      //             descricao: controller.produto.marca,
+                      //             id: controller.produto.marca_produto_id),
+                      //         produtos: []);
+                      //     Modular.to.pushNamed('/home/produtosCategorias',
+                      //         arguments: {
+                      //           'marcaProduto': marcaProduto,
+                      //           'isCategoria': false
+                      //         });
+                      //   },
+                      //   child:
+                      InkWell(
+                        child: Text(
+                          controller.produto.marca,
+                          style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                fontSize: 14,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                        ),
+                        onTap: () {
+                          MarcaProduto marcaProduto = MarcaProduto(
+                              marca: Marca(
+                                  descricao: controller.produto.marca,
+                                  id: controller.produto.marca_produto_id),
+                              produtos: []);
+                          Modular.to.pushNamed('/home/produtosCategorias',
+                              arguments: {
+                                'marcaProduto': marcaProduto,
+                                'isCategoria': false
+                              });
+                        },
                       ),
+                      // ),
                     ],
                   );
                 }),
@@ -287,44 +319,6 @@ class _ProdutoDetalhesPageState
                                     ),
                                   );
                                 }),
-                            // Observer(builder: (_) {
-                            //   if (controller.produto.categorias == null ||
-                            //       controller.produto.categorias.isEmpty)
-                            //     return Container();
-                            //   return Expanded(
-                            //     child: ListView.builder(
-                            //         scrollDirection: Axis.horizontal,
-                            //         itemCount: controller.produto.categorias.length,
-                            //         itemBuilder: (context, index) {
-                            //           return Card(
-                            //             color: Colors.white,
-                            //             shape: RoundedRectangleBorder(
-                            //               side: BorderSide(color: kPrimaryColor),
-                            //               borderRadius: BorderRadius.all(
-                            //                 Radius.circular(5),
-                            //               ),
-                            //             ),
-                            //             child: Padding(
-                            //               padding:
-                            //                   EdgeInsets.all(kDefaultPadding * .3),
-                            //               child: Text(
-                            //                 controller
-                            //                     .produto.categorias[index].descricao,
-                            //                 maxLines: 1,
-                            //                 overflow: TextOverflow.ellipsis,
-                            //                 style: Theme.of(context)
-                            //                     .textTheme
-                            //                     .bodyText1
-                            //                     .copyWith(
-                            //                       fontWeight: FontWeight.w600,
-                            //                       color: Colors.black,
-                            //                     ),
-                            //               ),
-                            //             ),
-                            //           );
-                            //         }),
-                            //   );
-                            // })
                           ],
                         ),
                       ),

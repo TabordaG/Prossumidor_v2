@@ -247,6 +247,14 @@ mixin _$HomeController on _HomeControllerBase, Store {
     return _$setRefreshTrueAsyncAction.run(() => super.setRefreshTrue());
   }
 
+  final _$iniciarHomeAsyncAction =
+      AsyncAction('_HomeControllerBase.iniciarHome');
+
+  @override
+  Future iniciarHome() {
+    return _$iniciarHomeAsyncAction.run(() => super.iniciarHome());
+  }
+
   final _$buscarCategoriasAsyncAction =
       AsyncAction('_HomeControllerBase.buscarCategorias');
 
@@ -334,17 +342,6 @@ mixin _$HomeController on _HomeControllerBase, Store {
         name: '_HomeControllerBase.resetBuscarString');
     try {
       return super.resetBuscarString();
-    } finally {
-      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic iniciarHome() {
-    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
-        name: '_HomeControllerBase.iniciarHome');
-    try {
-      return super.iniciarHome();
     } finally {
       _$_HomeControllerBaseActionController.endAction(_$actionInfo);
     }

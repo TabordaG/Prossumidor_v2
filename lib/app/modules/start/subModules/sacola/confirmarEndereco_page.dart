@@ -547,7 +547,6 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
 
                                         Modular.to.popUntil(
                                             ModalRoute.withName('/start'));
-                                       
                                       });
                                     },
                                     color: kPrimaryColor,
@@ -591,7 +590,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
         return SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: AlertDialog(
-            title: Text("Alterar Endereço"),
+            title: Center(child: Text("Endereço")),
             content: Scrollbar(
               controller: scrollController,
               radius: Radius.circular(10),
@@ -610,7 +609,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                         children: [
                           Observer(builder: (_) {
                             return TextFormField(
-                              enabled: controller.entrega == 1 ? false : true,
+                              enabled: false,
                               // onChanged: (value) {
                               //   controller.endereco.text = value;
                               // },
@@ -641,7 +640,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                           ),
                           Observer(builder: (_) {
                             return TextFormField(
-                              enabled: controller.entrega == 1 ? false : true,
+                              enabled: false,
                               // onChanged: (value) {
                               //   controller.numero.text = value;
                               // },
@@ -675,7 +674,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                           ),
                           Observer(builder: (_) {
                             return TextFormField(
-                              enabled: controller.entrega == 1 ? false : true,
+                              enabled: false,
                               // onChanged: (value) {
                               //   controller.complemento.text = value;
                               // },
@@ -701,7 +700,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                           ),
                           Observer(builder: (_) {
                             return TextFormField(
-                              enabled: controller.entrega == 1 ? false : true,
+                              enabled: false,
                               // onChanged: (value) {
                               //   controller.bairro.text = value;
                               // },
@@ -737,8 +736,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                 flex: 3,
                                 child: Observer(builder: (_) {
                                   return TextFormField(
-                                    enabled:
-                                        controller.entrega == 1 ? false : true,
+                                    enabled: false,
                                     // onChanged: (value) {
                                     //   controller.cidade.text = value;
                                     // },
@@ -776,8 +774,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                 flex: 2,
                                 child: Observer(builder: (_) {
                                   return TextFormField(
-                                    enabled:
-                                        controller.entrega == 1 ? false : true,
+                                    enabled: false,
                                     // onChanged: (value) {
                                     //   controller.uf.text = value;
                                     // },
@@ -817,7 +814,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                           ),
                           Observer(builder: (_) {
                             return TextFormField(
-                              enabled: controller.entrega == 1 ? false : true,
+                              enabled: false,
                               // onChanged: (value) {
                               //   controller.cep.text = value;
                               // },
@@ -857,7 +854,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
             actions: <Widget>[
               FlatButton(
                 child: Text(
-                  "Cancelar",
+                  "Fechar",
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                         color: Theme.of(context).primaryColor,
                       ),
@@ -866,24 +863,24 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                   Navigator.of(context).pop();
                 },
               ),
-              RaisedButton(
-                color: Theme.of(context).primaryColor,
-                child: Text(
-                  "Alterar",
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
-                        color: Colors.white,
-                      ),
-                ),
-                onPressed: () {
-                  controller.isPageValid();
+              // RaisedButton(
+              //   color: Theme.of(context).primaryColor,
+              //   child: Text(
+              //     "Alterar",
+              //     style: Theme.of(context).textTheme.bodyText1.copyWith(
+              //           color: Colors.white,
+              //         ),
+              //   ),
+              //   onPressed: () {
+              //     controller.isPageValid();
 
-                  if (controller.pageValid == true) {
-                    controller.atualizaDados();
-                    Navigator.of(context).pop();
-                  } else
-                    print("form invalido");
-                },
-              ),
+              //     if (controller.pageValid == true) {
+              //       controller.atualizaDados();
+              //       Navigator.of(context).pop();
+              //     } else
+              //       print("form invalido");
+              //   },
+              // ),
             ],
           ),
         );
@@ -896,7 +893,11 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Alterar Endereço"),
+          title: Center(
+              child: Text(
+            "Endereço - Centro de Distribuição",
+            textAlign: TextAlign.center,
+          )),
           content: Scrollbar(
             controller: scrollController,
             radius: Radius.circular(10),

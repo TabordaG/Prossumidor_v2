@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/models/pedidos/pedidos_model.dart';
@@ -18,6 +19,9 @@ abstract class _PedidosControllerBase with Store {
     chamarListaNaoEntregue();
     chamarListaEntregue();
   }
+
+  @observable
+  TextEditingController mensagemVendedor = TextEditingController();
 
   @observable
   List<Pedidos> pedidosNaoEntregueList = [];
@@ -47,5 +51,19 @@ abstract class _PedidosControllerBase with Store {
     produtosList = [];
     produtosList = List.from(await pedidosRepository.listaProdutos(id));
     produtosList = List.from(produtosList);
+  }
+
+  @action
+  enviaMensagem(String mensagemVendedor, int marcaId, int usuarioID) async {
+    var res = await pedidosRepository.enviaMensagem(
+        mensagemVendedor, marcaId, usuarioID);
+    return res;
+  }
+
+  @action
+  cancelaPedido(int pedidoID, String status) async {
+    var res = await pedidosRepository.cancelaPedido(pedidoID, status);
+
+    return res;
   }
 }

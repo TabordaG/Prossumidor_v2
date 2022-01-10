@@ -5,4 +5,6 @@ abstract class IPedidosRepository implements Disposable {
   Future<List<Pedidos>> listaPedidosNaoEntregue(int id);
   Future<List<Pedidos>> listaPedidosEntregue(int id);
   Future<List> listaProdutos(int id);
+  Future enviaMensagem(String mensagemVendedor, int marcaId, int usuarioID);
+  Future cancelaPedido(int pedidoID, String status);
 }

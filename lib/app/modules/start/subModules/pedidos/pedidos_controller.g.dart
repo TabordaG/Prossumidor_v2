@@ -19,6 +19,22 @@ final $PedidosController = BindInject(
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$PedidosController on _PedidosControllerBase, Store {
+  final _$mensagemVendedorAtom =
+      Atom(name: '_PedidosControllerBase.mensagemVendedor');
+
+  @override
+  TextEditingController get mensagemVendedor {
+    _$mensagemVendedorAtom.reportRead();
+    return super.mensagemVendedor;
+  }
+
+  @override
+  set mensagemVendedor(TextEditingController value) {
+    _$mensagemVendedorAtom.reportWrite(value, super.mensagemVendedor, () {
+      super.mensagemVendedor = value;
+    });
+  }
+
   final _$pedidosNaoEntregueListAtom =
       Atom(name: '_PedidosControllerBase.pedidosNaoEntregueList');
 
@@ -93,9 +109,28 @@ mixin _$PedidosController on _PedidosControllerBase, Store {
     return _$buscarProdutosAsyncAction.run(() => super.buscarProdutos(id));
   }
 
+  final _$enviaMensagemAsyncAction =
+      AsyncAction('_PedidosControllerBase.enviaMensagem');
+
+  @override
+  Future enviaMensagem(String mensagemVendedor, int marcaId, int usuarioID) {
+    return _$enviaMensagemAsyncAction
+        .run(() => super.enviaMensagem(mensagemVendedor, marcaId, usuarioID));
+  }
+
+  final _$cancelaPedidoAsyncAction =
+      AsyncAction('_PedidosControllerBase.cancelaPedido');
+
+  @override
+  Future cancelaPedido(int pedidoID, String status) {
+    return _$cancelaPedidoAsyncAction
+        .run(() => super.cancelaPedido(pedidoID, status));
+  }
+
   @override
   String toString() {
     return '''
+mensagemVendedor: ${mensagemVendedor},
 pedidosNaoEntregueList: ${pedidosNaoEntregueList},
 pedidosEntregueList: ${pedidosEntregueList},
 produtosList: ${produtosList}

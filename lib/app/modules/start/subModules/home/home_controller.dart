@@ -30,7 +30,7 @@ abstract class _HomeControllerBase with Store {
 
   @observable
   bool refreshPage = true;
-
+  @action
   @action
   setRefreshTrue() async {
     listaCategoriaProdutos = List.from([]);
@@ -88,14 +88,11 @@ abstract class _HomeControllerBase with Store {
   // setBuscarString(String valor) => buscarString = valor;
 
   @action
-  iniciarHome() {
-    // carregado = false;
-    String res = buscarCategorias();
-    String res2 = "";
-    if (res == "sucesso") res2 = buscarProdutosPorCategoriaID();
-    // carregado = true;
-    if (res2 == "sucesso") refreshPage = false;
-    return res2;
+  iniciarHome() async {
+    await setRefreshTrue();
+    await buscarCategorias();
+    await implementaBanner();
+    return 'sucesso';
   }
 
   @action
