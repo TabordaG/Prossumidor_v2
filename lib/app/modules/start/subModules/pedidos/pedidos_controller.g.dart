@@ -68,6 +68,22 @@ mixin _$PedidosController on _PedidosControllerBase, Store {
     });
   }
 
+  final _$pedidosEmAndamentoAtom =
+      Atom(name: '_PedidosControllerBase.pedidosEmAndamento');
+
+  @override
+  List<Pedidos> get pedidosEmAndamento {
+    _$pedidosEmAndamentoAtom.reportRead();
+    return super.pedidosEmAndamento;
+  }
+
+  @override
+  set pedidosEmAndamento(List<Pedidos> value) {
+    _$pedidosEmAndamentoAtom.reportWrite(value, super.pedidosEmAndamento, () {
+      super.pedidosEmAndamento = value;
+    });
+  }
+
   final _$produtosListAtom = Atom(name: '_PedidosControllerBase.produtosList');
 
   @override
@@ -83,15 +99,6 @@ mixin _$PedidosController on _PedidosControllerBase, Store {
     });
   }
 
-  final _$chamarListaNaoEntregueAsyncAction =
-      AsyncAction('_PedidosControllerBase.chamarListaNaoEntregue');
-
-  @override
-  Future chamarListaNaoEntregue() {
-    return _$chamarListaNaoEntregueAsyncAction
-        .run(() => super.chamarListaNaoEntregue());
-  }
-
   final _$chamarListaEntregueAsyncAction =
       AsyncAction('_PedidosControllerBase.chamarListaEntregue');
 
@@ -99,6 +106,24 @@ mixin _$PedidosController on _PedidosControllerBase, Store {
   Future chamarListaEntregue() {
     return _$chamarListaEntregueAsyncAction
         .run(() => super.chamarListaEntregue());
+  }
+
+  final _$chamarListaEmAndamentoAsyncAction =
+      AsyncAction('_PedidosControllerBase.chamarListaEmAndamento');
+
+  @override
+  Future chamarListaEmAndamento() {
+    return _$chamarListaEmAndamentoAsyncAction
+        .run(() => super.chamarListaEmAndamento());
+  }
+
+  final _$chamarListaNaoEntregueCanceladoAsyncAction =
+      AsyncAction('_PedidosControllerBase.chamarListaNaoEntregueCancelado');
+
+  @override
+  Future chamarListaNaoEntregueCancelado() {
+    return _$chamarListaNaoEntregueCanceladoAsyncAction
+        .run(() => super.chamarListaNaoEntregueCancelado());
   }
 
   final _$buscarProdutosAsyncAction =
@@ -133,6 +158,7 @@ mixin _$PedidosController on _PedidosControllerBase, Store {
 mensagemVendedor: ${mensagemVendedor},
 pedidosNaoEntregueList: ${pedidosNaoEntregueList},
 pedidosEntregueList: ${pedidosEntregueList},
+pedidosEmAndamento: ${pedidosEmAndamento},
 produtosList: ${produtosList}
     ''';
   }

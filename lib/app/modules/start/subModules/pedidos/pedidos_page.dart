@@ -17,7 +17,7 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
           appBar: AppBar(
             iconTheme: IconThemeData(color: Colors.white),
@@ -35,6 +35,7 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController> {
               ],
             ),
             bottom: TabBar(
+              isScrollable: true,
               indicatorColor: Colors.white,
               indicatorWeight: 5,
               unselectedLabelStyle: Theme.of(context)
@@ -43,12 +44,97 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController> {
                   .copyWith(color: Colors.white38),
               labelStyle: Theme.of(context).textTheme.bodyText1,
               tabs: [
+                Tab(text: 'Andamento'),
                 Tab(text: 'Entregues'),
-                Tab(text: 'Não entregues'),
+                Tab(text: 'Cancelado/Não Entregues'),
               ],
             ),
           ),
           body: TabBarView(children: [
+            RefreshIndicator(
+              displacement: 60.0,
+              color: Theme.of(context).primaryColor,
+              onRefresh: () => controller.chamarListaEmAndamento(),
+              child: Observer(builder: (_) {
+                if (controller.pedidosEntregueList == null)
+                  return Container(
+                    child: LayoutBuilder(
+                      builder:
+                          (BuildContext context, BoxConstraints constraints) =>
+                              ListView(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: constraints.maxHeight * .45),
+                            child: Text(
+                              "Carregando Pedidos..",
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  .copyWith(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        .color
+                                        .withOpacity(.7),
+                                    fontSize: 14,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                if (controller.pedidosEmAndamento.isEmpty)
+                  return Container(
+                    child: LayoutBuilder(
+                      builder:
+                          (BuildContext context, BoxConstraints constraints) =>
+                              ListView(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: constraints.maxHeight * .45),
+                            child: Text(
+                              "Não há pedidos\nem andamento ainda..",
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  .copyWith(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        .color
+                                        .withOpacity(.7),
+                                    fontSize: 14,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                return ListView.builder(
+                  itemCount: controller.pedidosEmAndamento.length,
+                  itemBuilder: (context, index) {
+                    return CardPedidos(
+                      index: index,
+                      lista: controller.pedidosEmAndamento,
+                      onTap: () {
+                        Navigator.of(context).pushNamed(
+                          'detalhes',
+                          arguments: {
+                            "pedido": controller.pedidosEmAndamento[index],
+                          },
+                        );
+                      },
+                    );
+                  },
+                );
+              }),
+            ),
             RefreshIndicator(
               displacement: 60.0,
               color: Theme.of(context).primaryColor,
@@ -85,33 +171,29 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController> {
                     ),
                   );
                 if (controller.pedidosEntregueList.isEmpty)
-                  return Container(
-                    child: LayoutBuilder(
-                      builder:
-                          (BuildContext context, BoxConstraints constraints) =>
-                              ListView(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: constraints.maxHeight * .45),
-                            child: Text(
-                              "Não há pedidos\nentregues ainda..",
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  .copyWith(
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1
-                                        .color
-                                        .withOpacity(.7),
-                                    fontSize: 14,
-                                  ),
-                            ),
+                  return LayoutBuilder(
+                    builder:
+                        (BuildContext context, BoxConstraints constraints) =>
+                            ListView(
+                      children: [
+                        Padding(
+                          padding:
+                              EdgeInsets.only(top: constraints.maxHeight * .45),
+                          child: Text(
+                            "Não há pedidos\nentregues ainda..",
+                            textAlign: TextAlign.center,
+                            style:
+                                Theme.of(context).textTheme.bodyText1.copyWith(
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          .color
+                                          .withOpacity(.7),
+                                      fontSize: 14,
+                                    ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   );
                 return ListView.builder(
@@ -136,7 +218,7 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController> {
             RefreshIndicator(
               displacement: 60.0,
               color: Theme.of(context).primaryColor,
-              onRefresh: () => controller.chamarListaNaoEntregue(),
+              onRefresh: () => controller.chamarListaNaoEntregueCancelado(),
               child: Observer(builder: (_) {
                 if (controller.pedidosNaoEntregueList == null)
                   return Container(
@@ -178,7 +260,7 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController> {
                           padding:
                               EdgeInsets.only(top: constraints.maxHeight * .45),
                           child: Text(
-                            "Não há pedidos\nentregues ainda..",
+                            "Não há pedidos\nnão entregues ainda..",
                             textAlign: TextAlign.center,
                             style:
                                 Theme.of(context).textTheme.bodyText1.copyWith(

@@ -510,9 +510,11 @@ class _CardPedidosState extends State<CardPedidos> {
                                                         .lista[widget.index].id,
                                                     "CANCELADO");
                                                 pedidosController
-                                                    .chamarListaNaoEntregue();
-                                                pedidosController
                                                     .chamarListaEntregue();
+                                                pedidosController
+                                                    .chamarListaEmAndamento();
+                                                pedidosController
+                                                    .chamarListaNaoEntregueCancelado();
                                                 showDialog(
                                                   context: context,
                                                   barrierDismissible: false,

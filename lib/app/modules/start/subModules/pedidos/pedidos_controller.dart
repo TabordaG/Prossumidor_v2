@@ -16,8 +16,9 @@ abstract class _PedidosControllerBase with Store {
   final IPedidosRepository pedidosRepository =
       Modular.get<IPedidosRepository>();
   _PedidosControllerBase() {
-    chamarListaNaoEntregue();
     chamarListaEntregue();
+    chamarListaEmAndamento();
+    chamarListaNaoEntregueCancelado();
   }
 
   @observable
@@ -30,20 +31,36 @@ abstract class _PedidosControllerBase with Store {
   List<Pedidos> pedidosEntregueList = [];
 
   @observable
-  List<Produto> produtosList = [];
+  List<Pedidos> pedidosEmAndamento = [];
 
-  @action
-  chamarListaNaoEntregue() async {
-    pedidosNaoEntregueList = [];
-    pedidosNaoEntregueList = List.from(await pedidosRepository
-        .listaPedidosNaoEntregue(authController.usuario.id));
-  }
+  @observable
+  List<Produto> produtosList = [];
 
   @action
   chamarListaEntregue() async {
     pedidosEntregueList = [];
-    pedidosEntregueList = List.from(await pedidosRepository
-        .listaPedidosEntregue(authController.usuario.id));
+    // pedidosEntregueList = List.from(await pedidosRepository
+    //     .listaPedidosEntregue(authController.usuario.id));
+    pedidosEntregueList = List.from(
+        await pedidosRepository.listaPedidos(authController.usuario.id, 0));
+  }
+
+  @action
+  chamarListaEmAndamento() async {
+    pedidosEmAndamento = [];
+    // pedidosEntregueList = List.from(await pedidosRepository
+    //     .listaPedidosEntregue(authController.usuario.id));
+    pedidosEmAndamento = List.from(
+        await pedidosRepository.listaPedidos(authController.usuario.id, 1));
+  }
+
+  @action
+  chamarListaNaoEntregueCancelado() async {
+    pedidosNaoEntregueList = [];
+    // pedidosNaoEntregueList = List.from(await pedidosRepository
+    //     .listaPedidosNaoEntregue(authController.usuario.id));
+    pedidosNaoEntregueList = List.from(
+        await pedidosRepository.listaPedidos(authController.usuario.id, 2));
   }
 
   @action

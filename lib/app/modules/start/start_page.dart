@@ -1,4 +1,3 @@
-
 import 'package:ff_navigation_bar/ff_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -71,8 +70,9 @@ class _StartPageState extends ModularState<StartPage, StartController> {
                   if (index == 1 && Modular.get<PedidosController>() != null) {
                     final PedidosController pedidosController =
                         Modular.get<PedidosController>();
-                    pedidosController.chamarListaNaoEntregue();
                     pedidosController.chamarListaEntregue();
+                    pedidosController.chamarListaEmAndamento();
+                    pedidosController.chamarListaNaoEntregueCancelado();
                   }
                 } catch (e) {}
               },
@@ -87,7 +87,7 @@ class _StartPageState extends ModularState<StartPage, StartController> {
                 ),
                 FFNavigationBarItem(
                   iconData: Icons.home,
-                  label: 'Home',
+                  label: 'Início',
                 ),
                 FFNavigationBarItem(
                   iconData: Icons.chat,

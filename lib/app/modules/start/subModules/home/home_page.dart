@@ -13,7 +13,7 @@ import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
-  const HomePage({this.title = "Home"}) : super();
+  const HomePage({this.title = "Início"}) : super();
 
   @override
   _HomePageState createState() => _HomePageState();
