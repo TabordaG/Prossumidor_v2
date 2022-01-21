@@ -120,116 +120,116 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                           .color
                           .withOpacity(.4),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        right: kDefaultPadding * .5,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Radio(
-                                value: 0,
-                                activeColor: Theme.of(context).primaryColor,
-                                groupValue: controller.entrega,
-                                onChanged: (value) {
-                                  setState(() {
-                                    controller.setEntrega(value);
-                                  });
-                                },
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    controller.setEntrega(0);
-                                  });
-                                },
-                                child: Text(
-                                  'Entrega em\ndomicílio',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      .copyWith(
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1
-                                            .color
-                                            .withOpacity(.8),
-                                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Radio(
+                                  value: 0,
+                                  activeColor: Theme.of(context).primaryColor,
+                                  groupValue: controller.entrega,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      controller.setEntrega(value);
+                                    });
+                                  },
                                 ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Radio(
-                                value: 1,
-                                activeColor: Theme.of(context).primaryColor,
-                                groupValue: controller.entrega,
-                                onChanged: (value) {
-                                  setState(() {
-                                    controller.setEntrega(value);
-                                  });
-                                },
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    controller.setEntrega(1);
-                                  });
-                                },
-                                child: Text(
-                                  'Retirar no Local',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      .copyWith(
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1
-                                            .color
-                                            .withOpacity(.8),
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: kDefaultPadding * .2,
-                        left: kDefaultPadding * .5,
-                        right: kDefaultPadding * .5,
-                        bottom: kDefaultPadding * .5,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Taxa de Entrega',
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                          Observer(builder: (_) {
-                            return Text(
-                              'R\$ ' +
-                                  controller.frete
-                                      .toStringAsFixed(2)
-                                      .replaceAll('.', ','),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  .copyWith(
-                                    fontSize: 16,
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      controller.setEntrega(0);
+                                    });
+                                  },
+                                  child: Text(
+                                    'Entrega em\ndomicílio',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        .copyWith(
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1
+                                              .color
+                                              .withOpacity(.8),
+                                        ),
                                   ),
-                            );
-                          }),
-                        ],
-                      ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Radio(
+                                  value: 1,
+                                  activeColor: Theme.of(context).primaryColor,
+                                  groupValue: controller.entrega,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      controller.setEntrega(value);
+                                    });
+                                  },
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      controller.setEntrega(1);
+                                    });
+                                  },
+                                  child: Text(
+                                    'Retirar no Local',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        .copyWith(
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1
+                                              .color
+                                              .withOpacity(.8),
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                            // top: kDefaultPadding * .2,
+                            // left: kDefaultPadding * .5,
+                            right: kDefaultPadding * .5,
+                            // bottom: kDefaultPadding * .5,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                'Taxa de Entrega',
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                              Observer(builder: (_) {
+                                return Text(
+                                  'R\$ ' +
+                                      controller.frete
+                                          .toStringAsFixed(2)
+                                          .replaceAll('.', ','),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1
+                                      .copyWith(
+                                        fontSize: 16,
+                                      ),
+                                );
+                              }),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

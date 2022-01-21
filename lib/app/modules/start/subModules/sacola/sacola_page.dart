@@ -9,7 +9,7 @@ import 'sacola_controller.dart';
 
 class SacolaPage extends StatefulWidget {
   final String title;
-  const SacolaPage({ this.title = "Sacola"}) : super();
+  const SacolaPage({this.title = "Sacola"}) : super();
 
   @override
   _SacolaPageState createState() => _SacolaPageState();
@@ -263,6 +263,26 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                             double.parse(controller
                                                     .listaProdutos[index]
                                                     .preco_venda)
+                                                .toStringAsFixed(2)
+                                                .replaceAll(".", ","),
+                                      ),
+                                      TextSpan(
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1
+                                            .copyWith(
+                                              fontSize: 11,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                        text: '\n\nR\$ ' +
+                                            (double.parse(controller
+                                                        .listaProdutos[index]
+                                                        .preco_venda) *
+                                                    double.parse(controller
+                                                            .listaProdutos[
+                                                                index]
+                                                            .quantidade)
+                                                        .toInt())
                                                 .toStringAsFixed(2)
                                                 .replaceAll(".", ","),
                                       ),
