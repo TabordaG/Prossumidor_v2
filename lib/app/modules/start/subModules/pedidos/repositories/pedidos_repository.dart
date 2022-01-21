@@ -135,13 +135,13 @@ class PedidosRepository implements IPedidosRepository {
   // }
 
   @override
-  Future<List<Pedidos>> listaPedidos(int id, int status) async {
+  Future<List<Pedidos>> listaPedidos(int id, int status, int offset) async {
     List<Pedidos> pedidos = [];
 
     //Pedidos Entregues
     if (status == 0) {
       String link = Basicos.codifica(
-          "${Basicos.ip}/crud/?crud=consult26.${'CONCLUIDO ENTREGUE'},$id,10,${Basicos.offset}");
+          "${Basicos.ip}/crud/?crud=consult26.${'CONCLUIDO ENTREGUE'},$id,10,$offset");
 
       response = await dio.get(
         Uri.encodeFull(link),
@@ -156,59 +156,38 @@ class PedidosRepository implements IPedidosRepository {
             .map<Pedidos>((json) => Pedidos.fromJson(json))
             .toList();
       }
-
-      print(pedidos.length);
-      return pedidos;
     }
 
     //Pedidos em Andamentos
-    {
-      if (status == 1) {
-        String link = Basicos.codifica(
-            "${Basicos.ip}/crud/?crud=consult26.${'EM ANDAMENTO'},$id,10,${Basicos.offset}");
+    if (status == 1) {
+      String link = Basicos.codifica(
+          "${Basicos.ip}/crud/?crud=consult26.${'EM ANDAMENTO'},$id,10,$offset");
 
-        response = await dio.get(
-          Uri.encodeFull(link),
-          options: Options(
-            headers: {"Accept": "application/json"},
-          ),
-        );
+      response = await dio.get(
+        Uri.encodeFull(link),
+        options: Options(
+          headers: {"Accept": "application/json"},
+        ),
+      );
+      if (response.data != null && response.statusCode == 200) {
+        print(response.data);
+        pedidos = response.data
+            .map<Pedidos>((json) => Pedidos.fromJson(json))
+            .toList();
       }
+    }
 
-      //Pedidos Não Entregues e Cancelados
-      if (status == 2) {
-        String link = Basicos.codifica(
-            "${Basicos.ip}/crud/?crud=consult26.${'CONCLUIDO NAO ENTREGUE'},$id,10,${Basicos.offset}");
+    //Pedidos Não Entregues e Cancelados
+    if (status == 2) {
+      String link = Basicos.codifica(
+          "${Basicos.ip}/crud/?crud=consult26.${'CANCELADO'},$id,10,$offset");
 
-        response = await dio.get(
-          Uri.encodeFull(link),
-          options: Options(
-            headers: {"Accept": "application/json"},
-          ),
-        );
-
-        if (response.data != null && response.statusCode == 200) {
-          List list = response.data;
-
-          try {
-            list.forEach((item) {
-              if (item['observacoes_entrega'].toString() == ' ')
-                item['observacoes_entrega'] = '0';
-              pedidos.add(Pedidos.fromJson(item));
-            });
-          } catch (e) {}
-        }
-
-        String link2 = Basicos.codifica(
-            "${Basicos.ip}/crud/?crud=consult26.${'CANCELADO'},$id,10,${Basicos.offset}");
-
-        response = await dio.get(
-          Uri.encodeFull(link2),
-          options: Options(
-            headers: {"Accept": "application/json"},
-          ),
-        );
-      }
+      response = await dio.get(
+        Uri.encodeFull(link),
+        options: Options(
+          headers: {"Accept": "application/json"},
+        ),
+      );
 
       if (response.data != null && response.statusCode == 200) {
         List list = response.data;
@@ -221,13 +200,14 @@ class PedidosRepository implements IPedidosRepository {
           });
         } catch (e) {}
       }
-      try {
-        print('From Repository: ' + pedidos.length.toString());
-        return pedidos;
-      } catch (e) {
-        print("Não enviou para o controller");
-        return [];
-      }
+    }
+
+    try {
+      print('From Repository: ' + pedidos.length.toString());
+      return pedidos;
+    } catch (e) {
+      print("Não enviou para o controller");
+      return [];
     }
   }
 

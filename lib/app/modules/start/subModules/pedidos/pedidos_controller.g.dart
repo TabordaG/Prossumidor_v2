@@ -108,6 +108,15 @@ mixin _$PedidosController on _PedidosControllerBase, Store {
         .run(() => super.chamarListaEntregue());
   }
 
+  final _$chamarMaisListaEntregueAsyncAction =
+      AsyncAction('_PedidosControllerBase.chamarMaisListaEntregue');
+
+  @override
+  Future chamarMaisListaEntregue(BuildContext context, SnackBar snackBar) {
+    return _$chamarMaisListaEntregueAsyncAction
+        .run(() => super.chamarMaisListaEntregue(context, snackBar));
+  }
+
   final _$chamarListaEmAndamentoAsyncAction =
       AsyncAction('_PedidosControllerBase.chamarListaEmAndamento');
 
@@ -117,6 +126,15 @@ mixin _$PedidosController on _PedidosControllerBase, Store {
         .run(() => super.chamarListaEmAndamento());
   }
 
+  final _$chamarMaisListaEmAndamentoAsyncAction =
+      AsyncAction('_PedidosControllerBase.chamarMaisListaEmAndamento');
+
+  @override
+  Future chamarMaisListaEmAndamento(BuildContext context, SnackBar snackBar) {
+    return _$chamarMaisListaEmAndamentoAsyncAction
+        .run(() => super.chamarMaisListaEmAndamento(context, snackBar));
+  }
+
   final _$chamarListaNaoEntregueCanceladoAsyncAction =
       AsyncAction('_PedidosControllerBase.chamarListaNaoEntregueCancelado');
 
@@ -124,6 +142,16 @@ mixin _$PedidosController on _PedidosControllerBase, Store {
   Future chamarListaNaoEntregueCancelado() {
     return _$chamarListaNaoEntregueCanceladoAsyncAction
         .run(() => super.chamarListaNaoEntregueCancelado());
+  }
+
+  final _$chamarMaisListaNaoEntregueCanceladoAsyncAction =
+      AsyncAction('_PedidosControllerBase.chamarMaisListaNaoEntregueCancelado');
+
+  @override
+  Future chamarMaisListaNaoEntregueCancelado(
+      BuildContext context, SnackBar snackBar) {
+    return _$chamarMaisListaNaoEntregueCanceladoAsyncAction.run(
+        () => super.chamarMaisListaNaoEntregueCancelado(context, snackBar));
   }
 
   final _$buscarProdutosAsyncAction =

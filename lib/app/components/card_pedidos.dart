@@ -403,8 +403,8 @@ class _CardPedidosState extends State<CardPedidos> {
                           height: 30,
                           child: RaisedButton(
                             onPressed: widget.lista[widget.index].status_pedido
-                                        .toUpperCase() ==
-                                    "CONCLUIDO ENTREGUE"
+                                        .toUpperCase() !=
+                                    "EM ANDAMENTO"
                                 ? () {
                                     showDialog(
                                       context: context,
@@ -509,12 +509,7 @@ class _CardPedidosState extends State<CardPedidos> {
                                                     widget
                                                         .lista[widget.index].id,
                                                     "CANCELADO");
-                                                pedidosController
-                                                    .chamarListaEntregue();
-                                                pedidosController
-                                                    .chamarListaEmAndamento();
-                                                pedidosController
-                                                    .chamarListaNaoEntregueCancelado();
+
                                                 showDialog(
                                                   context: context,
                                                   barrierDismissible: false,
@@ -524,6 +519,12 @@ class _CardPedidosState extends State<CardPedidos> {
                                                         Duration(
                                                             milliseconds: 2000),
                                                         () {
+                                                      pedidosController
+                                                          .chamarListaEntregue();
+                                                      pedidosController
+                                                          .chamarListaEmAndamento();
+                                                      pedidosController
+                                                          .chamarListaNaoEntregueCancelado();
                                                       Navigator.of(context3)
                                                           .pop();
                                                       Navigator.of(context3)
@@ -559,8 +560,8 @@ class _CardPedidosState extends State<CardPedidos> {
                                     );
                                   },
                             color: widget.lista[widget.index].status_pedido
-                                        .toUpperCase() !=
-                                    "CONCLUIDO ENTREGUE"
+                                        .toUpperCase() ==
+                                    "EM ANDAMENTO"
                                 ? Theme.of(context).colorScheme.secondary
                                 : Colors.grey,
                             shape: RoundedRectangleBorder(

@@ -39,28 +39,60 @@ abstract class _PedidosControllerBase with Store {
   @action
   chamarListaEntregue() async {
     pedidosEntregueList = [];
-    // pedidosEntregueList = List.from(await pedidosRepository
-    //     .listaPedidosEntregue(authController.usuario.id));
-    pedidosEntregueList = List.from(
-        await pedidosRepository.listaPedidos(authController.usuario.id, 0));
+    pedidosEntregueList = List.from(await pedidosRepository.listaPedidos(
+        authController.usuario.id, 0, pedidosEntregueList.length));
+  }
+
+  @action
+  chamarMaisListaEntregue(BuildContext context, SnackBar snackBar) async {
+    List<Pedidos> list = await pedidosRepository.listaPedidos(
+        authController.usuario.id, 0, pedidosEntregueList.length);
+    list.forEach((element) {
+      pedidosEntregueList.add(element);
+    });
+    pedidosEntregueList = List.from(pedidosEntregueList);
+    if (list == null || list.isEmpty)
+      Scaffold.of(context).showSnackBar(snackBar);
   }
 
   @action
   chamarListaEmAndamento() async {
     pedidosEmAndamento = [];
-    // pedidosEntregueList = List.from(await pedidosRepository
-    //     .listaPedidosEntregue(authController.usuario.id));
-    pedidosEmAndamento = List.from(
-        await pedidosRepository.listaPedidos(authController.usuario.id, 1));
+    pedidosEmAndamento = List.from(await pedidosRepository.listaPedidos(
+        authController.usuario.id, 1, pedidosEmAndamento.length));
+  }
+
+  @action
+  chamarMaisListaEmAndamento(BuildContext context, SnackBar snackBar) async {
+    List<Pedidos> list = await pedidosRepository.listaPedidos(
+        authController.usuario.id, 1, pedidosEmAndamento.length);
+    list.forEach((element) {
+      pedidosEmAndamento.add(element);
+    });
+
+    pedidosEmAndamento = List.from(pedidosEmAndamento);
+    if (list == null || list.isEmpty)
+      Scaffold.of(context).showSnackBar(snackBar);
   }
 
   @action
   chamarListaNaoEntregueCancelado() async {
     pedidosNaoEntregueList = [];
-    // pedidosNaoEntregueList = List.from(await pedidosRepository
-    //     .listaPedidosNaoEntregue(authController.usuario.id));
-    pedidosNaoEntregueList = List.from(
-        await pedidosRepository.listaPedidos(authController.usuario.id, 2));
+    pedidosNaoEntregueList = List.from(await pedidosRepository.listaPedidos(
+        authController.usuario.id, 2, pedidosNaoEntregueList.length));
+  }
+
+  @action
+  chamarMaisListaNaoEntregueCancelado(
+      BuildContext context, SnackBar snackBar) async {
+    List<Pedidos> list = await pedidosRepository.listaPedidos(
+        authController.usuario.id, 2, pedidosNaoEntregueList.length);
+    list.forEach((element) {
+      pedidosNaoEntregueList.add(element);
+    });
+    pedidosNaoEntregueList = List.from(pedidosNaoEntregueList);
+    if (list == null || list.isEmpty)
+      Scaffold.of(context).showSnackBar(snackBar);
   }
 
   @action
