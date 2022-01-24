@@ -118,11 +118,11 @@ mixin _$ProdutoDetalhesController on _ProdutoDetalhesControllerBase, Store {
       ActionController(name: '_ProdutoDetalhesControllerBase');
 
   @override
-  void increment() {
+  void increment(BuildContext context) {
     final _$actionInfo = _$_ProdutoDetalhesControllerBaseActionController
         .startAction(name: '_ProdutoDetalhesControllerBase.increment');
     try {
-      return super.increment();
+      return super.increment(context);
     } finally {
       _$_ProdutoDetalhesControllerBaseActionController.endAction(_$actionInfo);
     }

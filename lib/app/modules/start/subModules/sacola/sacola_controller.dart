@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/app_controller.dart';
+import 'package:prossumidor_v2/app/constants.dart';
 import 'package:prossumidor_v2/app/models/produto/produto_model.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/home/home_controller.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/sacola/repositories/sacola_repository.dart';
@@ -70,13 +71,38 @@ abstract class _SacolaControllerBase with Store {
   setFrete(double valor) => frete = valor;
 
   @action
-  increment(int index) async {
+  increment(int index, BuildContext context) async {
     if (double.parse(listaProdutos[index].quantidade) <
         double.parse(listaProdutos[index].estoque_atual)) {
       listaProdutos[index].quantidade =
           (double.parse(listaProdutos[index].quantidade) + 1).toString();
       subtotal += double.parse(listaProdutos[index].preco_venda);
       await sacolaRepository.incrementaSacola(listaProdutos[index].carrinhoid);
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Estoque Limite"),
+            content: Text(
+              "Não é possível aumentar a quantidade, pois o estoque máximo já foi atingido",
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text(
+                  "Fechar",
+                  style: TextStyle(
+                    color: kPrimaryColor,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 

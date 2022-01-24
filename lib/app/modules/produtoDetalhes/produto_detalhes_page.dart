@@ -506,7 +506,7 @@ class _ProdutoDetalhesPageState
                   ),
                 ),
                 InkWell(
-                  onTap: () => controller.increment(),
+                  onTap: () => controller.increment(context),
                   child: Card(
                     elevation: 4,
                     color: Colors.white,

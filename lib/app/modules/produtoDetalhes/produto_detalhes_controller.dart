@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:prossumidor_v2/app/constants.dart';
 import 'package:prossumidor_v2/app/models/produto/produto_model.dart';
 import 'package:prossumidor_v2/app/modules/produtoDetalhes/repositories/interfaces/produto_detalhes_repository_interface.dart';
 import 'package:prossumidor_v2/app/shared/auth/auth_controller.dart';
@@ -39,8 +40,35 @@ abstract class _ProdutoDetalhesControllerBase with Store {
   int value = 1;
 
   @action
-  void increment() {
-    if (value < double.parse(produto.estoque_atual)) value++;
+  void increment(BuildContext context) {
+    if (value < double.parse(produto.estoque_atual))
+      value++;
+    else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Estoque Limite"),
+            content: Text(
+              "Não é possível aumentar a quantidade, pois o estoque máximo já foi atingido",
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text(
+                  "Fechar",
+                  style: TextStyle(
+                    color: kPrimaryColor,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   @action

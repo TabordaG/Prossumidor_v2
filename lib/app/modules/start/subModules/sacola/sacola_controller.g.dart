@@ -280,8 +280,8 @@ mixin _$SacolaController on _SacolaControllerBase, Store {
   final _$incrementAsyncAction = AsyncAction('_SacolaControllerBase.increment');
 
   @override
-  Future increment(int index) {
-    return _$incrementAsyncAction.run(() => super.increment(index));
+  Future increment(int index, BuildContext context) {
+    return _$incrementAsyncAction.run(() => super.increment(index, context));
   }
 
   final _$decrementAsyncAction = AsyncAction('_SacolaControllerBase.decrement');

@@ -19,6 +19,14 @@ final $HomeController = BindInject(
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HomeController on _HomeControllerBase, Store {
+  Computed<List<Marca>> _$filtroMarcaComputed;
+
+  @override
+  List<Marca> get filtroMarca =>
+      (_$filtroMarcaComputed ??= Computed<List<Marca>>(() => super.filtroMarca,
+              name: '_HomeControllerBase.filtroMarca'))
+          .value;
+
   final _$refreshPageAtom = Atom(name: '_HomeControllerBase.refreshPage');
 
   @override
@@ -239,6 +247,21 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$buscarMarcaAtom = Atom(name: '_HomeControllerBase.buscarMarca');
+
+  @override
+  TextEditingController get buscarMarca {
+    _$buscarMarcaAtom.reportRead();
+    return super.buscarMarca;
+  }
+
+  @override
+  set buscarMarca(TextEditingController value) {
+    _$buscarMarcaAtom.reportWrite(value, super.buscarMarca, () {
+      super.buscarMarca = value;
+    });
+  }
+
   final _$setRefreshTrueAsyncAction =
       AsyncAction('_HomeControllerBase.setRefreshTrue');
 
@@ -348,6 +371,17 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
+  dynamic atualizaListaMarca() {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.atualizaListaMarca');
+    try {
+      return super.atualizaListaMarca();
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic selecionarMarca(int index, bool selecionar) {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
         name: '_HomeControllerBase.selecionarMarca');
@@ -385,7 +419,9 @@ listaMarcaProdutos: ${listaMarcaProdutos},
 produtosDaBusca: ${produtosDaBusca},
 buscandoProdutos: ${buscandoProdutos},
 buscandoMaisProdutos: ${buscandoMaisProdutos},
-banner: ${banner}
+banner: ${banner},
+buscarMarca: ${buscarMarca},
+filtroMarca: ${filtroMarca}
     ''';
   }
 }

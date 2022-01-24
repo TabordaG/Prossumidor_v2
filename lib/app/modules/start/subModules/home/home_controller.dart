@@ -46,7 +46,7 @@ abstract class _HomeControllerBase with Store {
   List<Marca> listaMarcas = [];
 
   @observable
-  String marcaSelecionada = "Todas Categorias";
+  String marcaSelecionada = "Todos Empreendimentos";
 
   @observable
   ScrollController scrollController;
@@ -113,7 +113,7 @@ abstract class _HomeControllerBase with Store {
 
   @action
   buscarProdutosPorCategoriaID() async {
-    marcaSelecionada = "Todas Categorias";
+    marcaSelecionada = "Todos Empreendimentos";
     buscandoProdutos = true;
     for (var categoria in listaCategorias) {
       // if (count < 8) {
@@ -162,6 +162,19 @@ abstract class _HomeControllerBase with Store {
     return "sucesso";
   }
 
+  @observable
+  TextEditingController buscarMarca = TextEditingController(text: "");
+
+  @action
+  atualizaListaMarca() => listaMarcas = List.from(listaMarcas);
+
+  @computed
+  List<Marca> get filtroMarca => listaMarcas.map<Marca>((e) {
+        if (e.descricao.toLowerCase().contains(buscarMarca.text.toLowerCase()))
+          return e;
+        return null;
+      }).toList();
+
   @action
   buscarMarcas() async {
     var res =
@@ -170,7 +183,7 @@ abstract class _HomeControllerBase with Store {
       listaMarcas = [
         Marca(
           id: 0,
-          descricao: "Todas Categorias",
+          descricao: "Todos Empreendimentos",
           selecionado: true,
         )
       ];
@@ -217,7 +230,7 @@ abstract class _HomeControllerBase with Store {
     } else {
       await setRefreshTrue();
       await buscarCategorias();
-      // marcaSelecionada = "Todas Categorias";
+      // marcaSelecionada = "Todos Empreendimentos";
     }
     refreshPage = false;
   }

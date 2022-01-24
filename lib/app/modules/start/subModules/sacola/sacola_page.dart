@@ -217,7 +217,8 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                         InkWell(
                                           onTap: () {
                                             setState(() {
-                                              controller.increment(index);
+                                              controller.increment(
+                                                  index, context);
                                             });
                                           },
                                           child: Card(
