@@ -116,7 +116,6 @@ abstract class _HomeControllerBase with Store {
     marcaSelecionada = "Todos Empreendimentos";
     buscandoProdutos = true;
     for (var categoria in listaCategorias) {
-      // if (count < 8) {
       var res = await homeRepository.listaProdutosPorCategoria(
           categoria.id, authController.usuario.empresa_id);
       if (res != null && res.length > 0) {
@@ -130,7 +129,10 @@ abstract class _HomeControllerBase with Store {
         listaCategoriaProdutos.add(categoriaProduto);
       }
       listaCategoriaProdutos = List.from(listaCategoriaProdutos);
-      // }
+      if (listaCategoriaProdutos.length > 3 && refreshPage) {
+        refreshPage = false;
+        buscandoProdutos = false;
+      }
     }
     buscandoProdutos = false;
 
@@ -242,8 +244,10 @@ abstract class _HomeControllerBase with Store {
       listaMarcas[i].selecionado = false;
     }
 
-    setRefreshTrue();
-    buscarCategorias();
+    if (listaCategoriaProdutos.isEmpty) {
+      setRefreshTrue();
+      buscarCategorias();
+    }
   }
 
   @action

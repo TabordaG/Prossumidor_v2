@@ -49,28 +49,32 @@ class _ChatIndividualState extends State<ChatIndividual> {
             Container(
                 color: Theme.of(context).primaryColor,
                 padding: EdgeInsets.symmetric(
-                  horizontal: kDefaultPadding,
-                  vertical: kDefaultPadding * 0.5,
+                  horizontal: kDefaultPadding * .5,
+                  vertical: kDefaultPadding * .5,
                 ),
                 height: 75,
                 width: double.infinity,
                 child: Row(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.secondary,
-                            borderRadius: BorderRadius.circular(25)),
+                          color: Theme.of(context).colorScheme.secondary,
+                          borderRadius: BorderRadius.circular(25),
+                        ),
                         child: TextField(
                           controller: chatController.mensagem,
                           onSubmitted: (value) =>
                               chatController.setMensagem(value),
                           decoration: InputDecoration(
-                            contentPadding:
-                                EdgeInsets.only(left: kDefaultPadding),
+                            contentPadding: EdgeInsets.only(
+                              left: kDefaultPadding * .7,
+                              right: kDefaultPadding * .7,
+                            ),
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25)),
+                              borderRadius: BorderRadius.circular(25),
+                            ),
                             hintText: 'Digite uma mensagem',
                             hintStyle: Theme.of(context)
                                 .textTheme
@@ -85,7 +89,9 @@ class _ChatIndividualState extends State<ChatIndividual> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: kDefaultPadding),
+                      padding: EdgeInsets.only(
+                        left: kDefaultPadding / 2,
+                      ),
                       child: IconButton(
                         icon: Icon(
                           Icons.send,

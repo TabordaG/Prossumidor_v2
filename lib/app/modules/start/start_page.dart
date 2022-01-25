@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/chat/chat_module.dart';
+import 'package:prossumidor_v2/app/modules/start/subModules/home/home_controller.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/home/home_module.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/pedidos/pedidos_controller.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/pedidos/pedidos_module.dart';
@@ -54,6 +55,18 @@ class _StartPageState extends ModularState<StartPage, StartController> {
               ),
               selectedIndex: appController.indexBottomNavigator,
               onSelectTab: (index) {
+                try {
+                  if (index == 2 &&
+                      appController.pageViewController.page == 2) {
+                    final HomeController homeController =
+                        Modular.get<HomeController>();
+                    homeController.scrollController.animateTo(
+                      0,
+                      duration: Duration(milliseconds: 800),
+                      curve: Curves.easeInOut,
+                    );
+                  }
+                } catch (e) {}
                 appController.pageViewController.jumpToPage(
                   index,
                   // duration: Duration(milliseconds: 500),
