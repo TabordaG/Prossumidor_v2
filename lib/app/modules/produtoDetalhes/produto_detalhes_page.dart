@@ -45,55 +45,42 @@ class _ProdutoDetalhesPageState
                   ),
             ),
             Observer(builder: (_) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Marca: ',
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
-                          fontSize: 14,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                  ),
-                  // TextButton(
-                  //   style: TextButton.styleFrom(
-                  //       minimumSize: Size(0, 0), padding: EdgeInsets.zero),
-                  //   onPressed: () {
-                  //     MarcaProduto marcaProduto = MarcaProduto(
-                  //         marca: Marca(
-                  //             descricao: controller.produto.marca,
-                  //             id: controller.produto.marca_produto_id),
-                  //         produtos: []);
-                  //     Modular.to.pushNamed('/home/produtosCategorias',
-                  //         arguments: {
-                  //           'marcaProduto': marcaProduto,
-                  //           'isCategoria': false
-                  //         });
-                  //   },
-                  //   child:
-                  InkWell(
-                    child: Text(
+              return InkWell(
+                highlightColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                splashColor: Colors.transparent,
+                onTap: () {
+                  MarcaProduto marcaProduto = MarcaProduto(
+                      marca: Marca(
+                          descricao: controller.produto.marca,
+                          id: controller.produto.marca_produto_id),
+                      produtos: []);
+                  Modular.to.pushNamed('/home/produtosCategorias', arguments: {
+                    'marcaProduto': marcaProduto,
+                    'isCategoria': false
+                  });
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Marca: ',
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            fontSize: 14,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                    ),
+                    Text(
                       controller.produto.marca,
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
                             fontSize: 14,
                             color: Theme.of(context).colorScheme.primary,
                           ),
                     ),
-                    onTap: () {
-                      MarcaProduto marcaProduto = MarcaProduto(
-                          marca: Marca(
-                              descricao: controller.produto.marca,
-                              id: controller.produto.marca_produto_id),
-                          produtos: []);
-                      Modular.to.pushNamed('/home/produtosCategorias',
-                          arguments: {
-                            'marcaProduto': marcaProduto,
-                            'isCategoria': false
-                          });
-                    },
-                  ),
-                  // ),
-                ],
+                    // ),
+                  ],
+                ),
               );
             }),
           ],

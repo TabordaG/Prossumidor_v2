@@ -40,12 +40,15 @@ class HomeListView extends StatefulWidget {
   _HomeListViewState createState() => _HomeListViewState();
 }
 
-class _HomeListViewState extends State<HomeListView> {
+class _HomeListViewState extends State<HomeListView>
+    with SingleTickerProviderStateMixin {
   final AuthController authController = Modular.get<AuthController>();
   final HomeController controller = Modular.get<HomeController>();
+  TabController tabControllerFiltro;
 
   @override
   void initState() {
+    tabControllerFiltro = TabController(length: 2, vsync: this);
     super.initState();
     controller.iniciarHome();
   }
@@ -234,7 +237,7 @@ class _HomeListViewState extends State<HomeListView> {
                               context: context,
                               builder: (BuildContext context) {
                                 return SingleChildScrollView(
-                                    child: buildFiltroHome(context));
+                                    child: buildFiltroHomeTest(context));
                               },
                             );
                           },
@@ -376,40 +379,42 @@ class _HomeListViewState extends State<HomeListView> {
                   return ListView.builder(
                     physics: ClampingScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount:
-                        controller.marcaSelecionada == "Todos Empreendimentos"
-                            ? controller.listaCategoriaProdutos.length
-                            : controller.listaMarcaProdutos.length,
+                    itemCount: !controller.marcaSelecionada
+                        ? controller.listaCategoriaProdutos.length
+                        : controller.listaMarcaProdutos.length,
                     itemBuilder: (context, indexItem) {
                       return Observer(builder: (_) {
-                        return WidgetHome(
-                          indexItem: indexItem,
-                          isCategoria: controller.marcaSelecionada ==
-                                  "Todos Empreendimentos"
-                              ? true
-                              : false,
-                          verMais: () {
-                            Navigator.of(context).pushNamed(
-                              '/produtosCategorias',
-                              arguments: {
-                                'categoriaProduto':
-                                    controller.marcaSelecionada ==
-                                            "Todos Empreendimentos"
-                                        ? controller
-                                            .listaCategoriaProdutos[indexItem]
-                                        : null,
-                                'marcaProduto': controller.marcaSelecionada !=
-                                        "Todos Empreendimentos"
-                                    ? controller.listaMarcaProdutos[indexItem]
-                                    : null,
-                                'isCategoria': controller.marcaSelecionada ==
-                                        "Todos Empreendimentos"
-                                    ? true
-                                    : false,
-                              },
-                            );
-                          },
-                        );
+                        return !controller.marcaSelecionada &&
+                                !controller.listaCategoriaProdutos[indexItem]
+                                    .categoria.selecionado &&
+                                controller.isFiltering
+                            ? Container()
+                            : WidgetHome(
+                                indexItem: indexItem,
+                                isCategoria:
+                                    !controller.marcaSelecionada ? true : false,
+                                verMais: () {
+                                  Navigator.of(context).pushNamed(
+                                    '/produtosCategorias',
+                                    arguments: {
+                                      'categoriaProduto': !controller
+                                              .marcaSelecionada
+                                          ? controller
+                                              .listaCategoriaProdutos[indexItem]
+                                          : null,
+                                      'marcaProduto':
+                                          controller.marcaSelecionada
+                                              ? controller
+                                                  .listaMarcaProdutos[indexItem]
+                                              : null,
+                                      'isCategoria':
+                                          !controller.marcaSelecionada
+                                              ? true
+                                              : false,
+                                    },
+                                  );
+                                },
+                              );
                       });
                     },
                   );
@@ -422,193 +427,621 @@ class _HomeListViewState extends State<HomeListView> {
     );
   }
 
-  AlertDialog buildFiltroHome(BuildContext context) {
-    return AlertDialog(
-      scrollable: true,
+  Dialog buildFiltroHomeTest(BuildContext context) {
+    return Dialog(
       insetPadding: EdgeInsets.fromLTRB(20.0, 60.0, 20.0, 60.0),
-      content: Observer(builder: (_) {
-        if (controller.listaMarcas == null ||
-            controller.listaMarcas.length == 0)
-          return Center(
-            child: CircularProgressIndicator(
-              strokeWidth: 1,
-            ),
-          );
-        return Container(
-          height: MediaQuery.of(context).size.height * 0.65,
-          width: double.infinity,
+      child: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.8,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: EdgeInsets.only(
-                  top: 15.0,
-                  bottom: 15.0,
-                ),
-                child: Text(
-                  "Empreendimentos",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
               Container(
-                height: 60,
-                width: double.infinity,
-                child: Observer(builder: (_) {
-                  return TextFormField(
-                    controller: controller.buscarMarca,
-                    onChanged: (value) => controller.atualizaListaMarca(),
-                    keyboardType: TextInputType.text,
-                    textInputAction: TextInputAction.search,
-                    textCapitalization: TextCapitalization.words,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(
-                        top: 14.0,
+                height: 50,
+                child: TabBar(
+                  controller: tabControllerFiltro,
+                  tabs: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 15.0),
+                      child: Text(
+                        "Categorias",
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black),
                       ),
-                      filled: true,
-                      fillColor: Theme.of(context).cardColor,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide.none,
-                      ),
-                      prefixIcon: IconButton(
-                        splashRadius: 2,
-                        onPressed: () {
-                          controller.pesquisarProduto();
-                        },
-                        icon: Icon(
-                          Icons.search,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                      hintText: 'Pesquisar',
                     ),
-                  );
-                }),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 15.0),
+                      child: Text(
+                        "Empreendimentos",
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Flexible(
-                fit: FlexFit.tight,
-                child: Observer(builder: (_) {
-                  return controller.filtroMarca.length != null &&
-                          controller.filtroMarca.length > 0
-                      ? SingleChildScrollView(
-                          child: Wrap(
-                          runSpacing: 5.0,
-                          spacing: 5.0,
+                child: TabBarView(
+                  controller: tabControllerFiltro,
+                  children: [
+                    Observer(builder: (_) {
+                      if (controller.listaCategoriasFiltro == null ||
+                          controller.listaCategoriasFiltro.length == 0)
+                        return Center(
+                          child: CircularProgressIndicator(
+                            strokeWidth: 1,
+                          ),
+                        );
+                      return Container(
+                        height: MediaQuery.of(context).size.height * 0.65,
+                        width: double.infinity,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            controller.buscarMarca.text.isEmpty
-                                ? Observer(builder: (_) {
-                                    return RaisedButton(
-                                      color:
-                                          controller.listaMarcas[0].selecionado
-                                              ? kPrimaryColor
-                                              : Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                        side: BorderSide(color: kPrimaryColor),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(5),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          controller.selecionarMarca(
-                                            0,
-                                            !controller
-                                                .listaMarcas[0].selecionado,
-                                          );
-                                        });
-                                      },
-                                      child: Text(
-                                        controller.listaMarcas[0].descricao,
-                                        style: TextStyle(
-                                          color: controller
-                                                  .listaMarcas[0].selecionado
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
-                                      ),
-                                    );
-                                  })
-                                : Container(),
-                            for (var i = 4;
-                                i < controller.filtroMarca.length;
-                                i++)
-                              if (controller.filtroMarca[i] != null)
-                                Observer(builder: (_) {
-                                  return RaisedButton(
-                                    color: controller.filtroMarca[i].selecionado
-                                        ? kPrimaryColor
-                                        : Colors.white,
+                            Container(
+                              height: 60,
+                              width: double.infinity,
+                              child: Observer(builder: (_) {
+                                return TextFormField(
+                                  controller: controller.buscarCategoria,
+                                  onChanged: (value) =>
+                                      controller.atualizaListaCategoria(),
+                                  keyboardType: TextInputType.text,
+                                  textInputAction: TextInputAction.search,
+                                  textCapitalization: TextCapitalization.words,
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.only(top: 14.0),
+                                    filled: true,
+                                    fillColor: Theme.of(context).cardColor,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                    prefixIcon: Icon(
+                                      Icons.search,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                    hintText: 'Pesquisar',
+                                  ),
+                                );
+                              }),
+                            ),
+                            Flexible(
+                              fit: FlexFit.tight,
+                              child: Observer(builder: (_) {
+                                return controller
+                                                .listaCategoriasFiltro.length !=
+                                            null &&
+                                        controller
+                                                .listaCategoriasFiltro.length >
+                                            0
+                                    ? SingleChildScrollView(
+                                        child: Wrap(
+                                        runSpacing: 5.0,
+                                        spacing: 5.0,
+                                        children: [
+                                          controller
+                                                  .buscarCategoria.text.isEmpty
+                                              ? Observer(builder: (_) {
+                                                  return RaisedButton(
+                                                    color: controller
+                                                            .listaCategoriasFiltro[
+                                                                0]
+                                                            .selecionado
+                                                        ? kPrimaryColor
+                                                        : Colors.white,
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      side: BorderSide(
+                                                          color: kPrimaryColor),
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                        Radius.circular(5),
+                                                      ),
+                                                    ),
+                                                    onPressed: () {
+                                                      controller
+                                                          .selecionarCategoria(
+                                                        0,
+                                                        !controller
+                                                            .listaCategoriasFiltro[
+                                                                0]
+                                                            .selecionado,
+                                                      );
+                                                    },
+                                                    child: Text(
+                                                      controller
+                                                          .listaCategoriasFiltro[
+                                                              0]
+                                                          .descricao,
+                                                      style: TextStyle(
+                                                        color: controller
+                                                                .listaCategoriasFiltro[
+                                                                    0]
+                                                                .selecionado
+                                                            ? Colors.white
+                                                            : Colors.black,
+                                                      ),
+                                                    ),
+                                                  );
+                                                })
+                                              : Container(),
+                                          for (var i = 4;
+                                              i <
+                                                  controller
+                                                      .filtroCategoria.length;
+                                              i++)
+                                            if (controller.filtroCategoria[i] !=
+                                                null)
+                                              Observer(builder: (_) {
+                                                return RaisedButton(
+                                                  color: controller
+                                                          .filtroCategoria[i]
+                                                          .selecionado
+                                                      ? kPrimaryColor
+                                                      : Colors.white,
+                                                  shape: RoundedRectangleBorder(
+                                                    side: BorderSide(
+                                                        color: kPrimaryColor),
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                      Radius.circular(5),
+                                                    ),
+                                                  ),
+                                                  onPressed: () {
+                                                    controller
+                                                        .selecionarCategoria(
+                                                      i,
+                                                      !controller
+                                                          .filtroCategoria[i]
+                                                          .selecionado,
+                                                    );
+                                                  },
+                                                  child: Text(
+                                                    controller
+                                                        .filtroCategoria[i]
+                                                        .descricao,
+                                                    style: TextStyle(
+                                                      color: controller
+                                                              .filtroCategoria[
+                                                                  i]
+                                                              .selecionado
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                    ),
+                                                  ),
+                                                );
+                                              }),
+                                        ],
+                                      ))
+                                    : Container();
+                              }),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                FlatButton(
+                                  child: Text(
+                                    "Cancelar",
+                                    style: TextStyle(
+                                      color: kPrimaryColor,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    // controller.resetarMarcasCategoria(0);
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      right: kDefaultPadding * .6),
+                                  child: RaisedButton(
                                     shape: RoundedRectangleBorder(
-                                      side: BorderSide(color: kPrimaryColor),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(5),
+                                        borderRadius: BorderRadius.circular(6)),
+                                    color: kPrimaryColor,
+                                    child: Text(
+                                      "Confirmar",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w400,
                                       ),
                                     ),
                                     onPressed: () {
-                                      setState(() {
-                                        controller.selecionarMarca(
-                                          i,
-                                          !controller
-                                              .filtroMarca[i].selecionado,
-                                        );
-                                      });
+                                      controller.confirmarMarcaCategoria(0);
+                                      Navigator.of(context).pop();
                                     },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
+                    Observer(builder: (_) {
+                      if (controller.listaMarcas == null ||
+                          controller.listaMarcas.length == 0)
+                        return Center(
+                          child: CircularProgressIndicator(
+                            strokeWidth: 1,
+                          ),
+                        );
+                      return Container(
+                        height: MediaQuery.of(context).size.height * 0.65,
+                        width: double.infinity,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 60,
+                              width: double.infinity,
+                              child: Observer(builder: (_) {
+                                return TextFormField(
+                                  controller: controller.buscarMarca,
+                                  onChanged: (value) =>
+                                      controller.atualizaListaMarca(),
+                                  keyboardType: TextInputType.text,
+                                  textInputAction: TextInputAction.search,
+                                  textCapitalization: TextCapitalization.words,
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.only(
+                                      top: 14.0,
+                                    ),
+                                    filled: true,
+                                    fillColor: Theme.of(context).cardColor,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                    prefixIcon: Icon(
+                                      Icons.search,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                    hintText: 'Pesquisar',
+                                  ),
+                                );
+                              }),
+                            ),
+                            Flexible(
+                              fit: FlexFit.tight,
+                              child: Observer(builder: (_) {
+                                return controller.filtroMarca.length != null &&
+                                        controller.filtroMarca.length > 0
+                                    ? SingleChildScrollView(
+                                        child: Wrap(
+                                        runSpacing: 5.0,
+                                        spacing: 5.0,
+                                        children: [
+                                          controller.buscarMarca.text.isEmpty
+                                              ? Observer(builder: (_) {
+                                                  return RaisedButton(
+                                                    color: controller
+                                                            .listaMarcas[0]
+                                                            .selecionado
+                                                        ? kPrimaryColor
+                                                        : Colors.white,
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      side: BorderSide(
+                                                          color: kPrimaryColor),
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                        Radius.circular(5),
+                                                      ),
+                                                    ),
+                                                    onPressed: () {
+                                                      controller
+                                                          .selecionarMarca(
+                                                        0,
+                                                        !controller
+                                                            .listaMarcas[0]
+                                                            .selecionado,
+                                                      );
+                                                    },
+                                                    child: Text(
+                                                      controller.listaMarcas[0]
+                                                          .descricao,
+                                                      style: TextStyle(
+                                                        color: controller
+                                                                .listaMarcas[0]
+                                                                .selecionado
+                                                            ? Colors.white
+                                                            : Colors.black,
+                                                      ),
+                                                    ),
+                                                  );
+                                                })
+                                              : Container(),
+                                          for (var i = 4;
+                                              i < controller.filtroMarca.length;
+                                              i++)
+                                            if (controller.filtroMarca[i] !=
+                                                null)
+                                              Observer(builder: (_) {
+                                                return RaisedButton(
+                                                  color: controller
+                                                          .filtroMarca[i]
+                                                          .selecionado
+                                                      ? kPrimaryColor
+                                                      : Colors.white,
+                                                  shape: RoundedRectangleBorder(
+                                                    side: BorderSide(
+                                                        color: kPrimaryColor),
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                      Radius.circular(5),
+                                                    ),
+                                                  ),
+                                                  onPressed: () {
+                                                    controller.selecionarMarca(
+                                                      i,
+                                                      !controller.filtroMarca[i]
+                                                          .selecionado,
+                                                    );
+                                                  },
+                                                  child: Text(
+                                                    controller.filtroMarca[i]
+                                                        .descricao,
+                                                    style: TextStyle(
+                                                      color: controller
+                                                              .filtroMarca[i]
+                                                              .selecionado
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                    ),
+                                                  ),
+                                                );
+                                              }),
+                                        ],
+                                      ))
+                                    : Container();
+                              }),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                FlatButton(
+                                  child: Text(
+                                    "Cancelar",
+                                    style: TextStyle(
+                                      color: kPrimaryColor,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    // controller.resetarMarcasCategoria(1);
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      right: kDefaultPadding * .6),
+                                  child: RaisedButton(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(6)),
+                                    color: kPrimaryColor,
                                     child: Text(
-                                      controller.filtroMarca[i].descricao,
+                                      "Confirmar",
                                       style: TextStyle(
-                                        color: controller
-                                                .filtroMarca[i].selecionado
-                                            ? Colors.white
-                                            : Colors.black,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w400,
                                       ),
                                     ),
-                                  );
-                                }),
+                                    onPressed: () {
+                                      controller.confirmarMarcaCategoria(1);
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
-                        ))
-                      : Container();
-                }),
+                        ),
+                      );
+                    }),
+                  ],
+                ),
               ),
             ],
           ),
-        );
-      }),
-      actions: <Widget>[
-        FlatButton(
-          child: Text(
-            "Cancelar",
-            style: TextStyle(
-              color: kPrimaryColor,
-            ),
-          ),
-          onPressed: () {
-            controller.resetarMarcas();
-            Navigator.of(context).pop();
-          },
         ),
-        Padding(
-          padding: EdgeInsets.only(right: kDefaultPadding * .6),
-          child: RaisedButton(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-            color: kPrimaryColor,
-            child: Text(
-              "Confirmar",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            onPressed: () {
-              controller.confirmarMarca();
-              Navigator.of(context).pop();
-            },
-          ),
-        ),
-      ],
+      ),
     );
   }
+
+  // AlertDialog buildFiltroHome(BuildContext context) {
+  //   return AlertDialog(
+  //     scrollable: true,
+  //     insetPadding: EdgeInsets.fromLTRB(20.0, 60.0, 20.0, 60.0),
+  //     content: Observer(builder: (_) {
+  //       if (controller.listaMarcas == null ||
+  //           controller.listaMarcas.length == 0)
+  //         return Center(
+  //           child: CircularProgressIndicator(
+  //             strokeWidth: 1,
+  //           ),
+  //         );
+  //       return Container(
+  //         height: MediaQuery.of(context).size.height * 0.65,
+  //         width: double.infinity,
+  //         child: Column(
+  //           crossAxisAlignment: CrossAxisAlignment.start,
+  //           children: [
+  //             Padding(
+  //               padding: EdgeInsets.only(
+  //                 top: 15.0,
+  //                 bottom: 15.0,
+  //               ),
+  //               child: Text(
+  //                 "Empreendimentos",
+  //                 style: TextStyle(
+  //                   fontSize: 16,
+  //                   fontWeight: FontWeight.w500,
+  //                 ),
+  //               ),
+  //             ),
+  //             Container(
+  //               height: 60,
+  //               width: double.infinity,
+  //               child: Observer(builder: (_) {
+  //                 return TextFormField(
+  //                   controller: controller.buscarMarca,
+  //                   onChanged: (value) => controller.atualizaListaMarca(),
+  //                   keyboardType: TextInputType.text,
+  //                   textInputAction: TextInputAction.search,
+  //                   textCapitalization: TextCapitalization.words,
+  //                   decoration: InputDecoration(
+  //                     contentPadding: EdgeInsets.only(
+  //                       top: 14.0,
+  //                     ),
+  //                     filled: true,
+  //                     fillColor: Theme.of(context).cardColor,
+  //                     border: OutlineInputBorder(
+  //                       borderRadius: BorderRadius.circular(8.0),
+  //                       borderSide: BorderSide.none,
+  //                     ),
+  //                     prefixIcon: IconButton(
+  //                       splashRadius: 2,
+  //                       onPressed: () {
+  //                         controller.pesquisarProduto();
+  //                       },
+  //                       icon: Icon(
+  //                         Icons.search,
+  //                         color: Theme.of(context).primaryColor,
+  //                       ),
+  //                     ),
+  //                     hintText: 'Pesquisar',
+  //                   ),
+  //                 );
+  //               }),
+  //             ),
+  //             Flexible(
+  //               fit: FlexFit.tight,
+  //               child: Observer(builder: (_) {
+  //                 return controller.filtroMarca.length != null &&
+  //                         controller.filtroMarca.length > 0
+  //                     ? SingleChildScrollView(
+  //                         child: Wrap(
+  //                         runSpacing: 5.0,
+  //                         spacing: 5.0,
+  //                         children: [
+  //                           controller.buscarMarca.text.isEmpty
+  //                               ? Observer(builder: (_) {
+  //                                   return RaisedButton(
+  //                                     color:
+  //                                         controller.listaMarcas[0].selecionado
+  //                                             ? kPrimaryColor
+  //                                             : Colors.white,
+  //                                     shape: RoundedRectangleBorder(
+  //                                       side: BorderSide(color: kPrimaryColor),
+  //                                       borderRadius: BorderRadius.all(
+  //                                         Radius.circular(5),
+  //                                       ),
+  //                                     ),
+  //                                     onPressed: () {
+  //                                       setState(() {
+  //                                         controller.selecionarMarca(
+  //                                           0,
+  //                                           !controller
+  //                                               .listaMarcas[0].selecionado,
+  //                                         );
+  //                                       });
+  //                                     },
+  //                                     child: Text(
+  //                                       controller.listaMarcas[0].descricao,
+  //                                       style: TextStyle(
+  //                                         color: controller
+  //                                                 .listaMarcas[0].selecionado
+  //                                             ? Colors.white
+  //                                             : Colors.black,
+  //                                       ),
+  //                                     ),
+  //                                   );
+  //                                 })
+  //                               : Container(),
+  //                           for (var i = 4;
+  //                               i < controller.filtroMarca.length;
+  //                               i++)
+  //                             if (controller.filtroMarca[i] != null)
+  //                               Observer(builder: (_) {
+  //                                 return RaisedButton(
+  //                                   color: controller.filtroMarca[i].selecionado
+  //                                       ? kPrimaryColor
+  //                                       : Colors.white,
+  //                                   shape: RoundedRectangleBorder(
+  //                                     side: BorderSide(color: kPrimaryColor),
+  //                                     borderRadius: BorderRadius.all(
+  //                                       Radius.circular(5),
+  //                                     ),
+  //                                   ),
+  //                                   onPressed: () {
+  //                                     setState(() {
+  //                                       controller.selecionarMarca(
+  //                                         i,
+  //                                         !controller
+  //                                             .filtroMarca[i].selecionado,
+  //                                       );
+  //                                     });
+  //                                   },
+  //                                   child: Text(
+  //                                     controller.filtroMarca[i].descricao,
+  //                                     style: TextStyle(
+  //                                       color: controller
+  //                                               .filtroMarca[i].selecionado
+  //                                           ? Colors.white
+  //                                           : Colors.black,
+  //                                     ),
+  //                                   ),
+  //                                 );
+  //                               }),
+  //                         ],
+  //                       ))
+  //                     : Container();
+  //               }),
+  //             ),
+  //           ],
+  //         ),
+  //       );
+  //     }),
+  //     actions: <Widget>[
+  //       FlatButton(
+  //         child: Text(
+  //           "Cancelar",
+  //           style: TextStyle(
+  //             color: kPrimaryColor,
+  //           ),
+  //         ),
+  //         onPressed: () {
+  //           controller.resetarMarcas();
+  //           Navigator.of(context).pop();
+  //         },
+  //       ),
+  //       Padding(
+  //         padding: EdgeInsets.only(right: kDefaultPadding * .6),
+  //         child: RaisedButton(
+  //           shape:
+  //               RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+  //           color: kPrimaryColor,
+  //           child: Text(
+  //             "Confirmar",
+  //             style: TextStyle(
+  //               color: Colors.white,
+  //               fontWeight: FontWeight.w400,
+  //             ),
+  //           ),
+  //           onPressed: () {
+  //             controller.confirmarMarca();
+  //             Navigator.of(context).pop();
+  //           },
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 }

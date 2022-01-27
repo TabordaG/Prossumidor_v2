@@ -19,6 +19,7 @@ Categoria _$CategoriaFromJson(Map<String, dynamic> json) {
     empresa_id: json['empresa_id'] as int,
     obs: json['obs'] as String,
     imagem_cat: json['imagem_cat'] as List,
+    selecionado: json['selecionado'] as bool ?? false,
   );
 }
 
@@ -30,6 +31,7 @@ Map<String, dynamic> _$CategoriaToJson(Categoria instance) => <String, dynamic>{
       'empresa_id': instance.empresa_id,
       'obs': instance.obs,
       'imagem_cat': instance.imagem_cat,
+      'selecionado': instance.selecionado,
     };
 
 CategoriaProduto _$CategoriaProdutoFromJson(Map<String, dynamic> json) {

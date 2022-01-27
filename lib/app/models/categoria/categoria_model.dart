@@ -23,6 +23,8 @@ class Categoria {
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
   List imagem_cat;
+  @JsonKey(required: false, disallowNullValue: false, defaultValue: false)
+  bool selecionado;
 
   Categoria({
     // ignore: non_constant_identifier_names
@@ -36,6 +38,7 @@ class Categoria {
     this.obs,
     // ignore: non_constant_identifier_names
     this.imagem_cat,
+    this.selecionado,
   });
 
   factory Categoria.fromJson(Map<String, dynamic> json) =>

@@ -26,6 +26,13 @@ mixin _$HomeController on _HomeControllerBase, Store {
       (_$filtroMarcaComputed ??= Computed<List<Marca>>(() => super.filtroMarca,
               name: '_HomeControllerBase.filtroMarca'))
           .value;
+  Computed<List<Categoria>> _$filtroCategoriaComputed;
+
+  @override
+  List<Categoria> get filtroCategoria => (_$filtroCategoriaComputed ??=
+          Computed<List<Categoria>>(() => super.filtroCategoria,
+              name: '_HomeControllerBase.filtroCategoria'))
+      .value;
 
   final _$refreshPageAtom = Atom(name: '_HomeControllerBase.refreshPage');
 
@@ -39,6 +46,21 @@ mixin _$HomeController on _HomeControllerBase, Store {
   set refreshPage(bool value) {
     _$refreshPageAtom.reportWrite(value, super.refreshPage, () {
       super.refreshPage = value;
+    });
+  }
+
+  final _$isFilteringAtom = Atom(name: '_HomeControllerBase.isFiltering');
+
+  @override
+  bool get isFiltering {
+    _$isFilteringAtom.reportRead();
+    return super.isFiltering;
+  }
+
+  @override
+  set isFiltering(bool value) {
+    _$isFilteringAtom.reportWrite(value, super.isFiltering, () {
+      super.isFiltering = value;
     });
   }
 
@@ -76,13 +98,13 @@ mixin _$HomeController on _HomeControllerBase, Store {
       Atom(name: '_HomeControllerBase.marcaSelecionada');
 
   @override
-  String get marcaSelecionada {
+  bool get marcaSelecionada {
     _$marcaSelecionadaAtom.reportRead();
     return super.marcaSelecionada;
   }
 
   @override
-  set marcaSelecionada(String value) {
+  set marcaSelecionada(bool value) {
     _$marcaSelecionadaAtom.reportWrite(value, super.marcaSelecionada, () {
       super.marcaSelecionada = value;
     });
@@ -119,6 +141,37 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$buscarMarcaAtom = Atom(name: '_HomeControllerBase.buscarMarca');
+
+  @override
+  TextEditingController get buscarMarca {
+    _$buscarMarcaAtom.reportRead();
+    return super.buscarMarca;
+  }
+
+  @override
+  set buscarMarca(TextEditingController value) {
+    _$buscarMarcaAtom.reportWrite(value, super.buscarMarca, () {
+      super.buscarMarca = value;
+    });
+  }
+
+  final _$buscarCategoriaAtom =
+      Atom(name: '_HomeControllerBase.buscarCategoria');
+
+  @override
+  TextEditingController get buscarCategoria {
+    _$buscarCategoriaAtom.reportRead();
+    return super.buscarCategoria;
+  }
+
+  @override
+  set buscarCategoria(TextEditingController value) {
+    _$buscarCategoriaAtom.reportWrite(value, super.buscarCategoria, () {
+      super.buscarCategoria = value;
+    });
+  }
+
   final _$buscarStringAtom = Atom(name: '_HomeControllerBase.buscarString');
 
   @override
@@ -147,6 +200,23 @@ mixin _$HomeController on _HomeControllerBase, Store {
   set listaCategorias(List<Categoria> value) {
     _$listaCategoriasAtom.reportWrite(value, super.listaCategorias, () {
       super.listaCategorias = value;
+    });
+  }
+
+  final _$listaCategoriasFiltroAtom =
+      Atom(name: '_HomeControllerBase.listaCategoriasFiltro');
+
+  @override
+  List<Categoria> get listaCategoriasFiltro {
+    _$listaCategoriasFiltroAtom.reportRead();
+    return super.listaCategoriasFiltro;
+  }
+
+  @override
+  set listaCategoriasFiltro(List<Categoria> value) {
+    _$listaCategoriasFiltroAtom.reportWrite(value, super.listaCategoriasFiltro,
+        () {
+      super.listaCategoriasFiltro = value;
     });
   }
 
@@ -247,21 +317,6 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
-  final _$buscarMarcaAtom = Atom(name: '_HomeControllerBase.buscarMarca');
-
-  @override
-  TextEditingController get buscarMarca {
-    _$buscarMarcaAtom.reportRead();
-    return super.buscarMarca;
-  }
-
-  @override
-  set buscarMarca(TextEditingController value) {
-    _$buscarMarcaAtom.reportWrite(value, super.buscarMarca, () {
-      super.buscarMarca = value;
-    });
-  }
-
   final _$setRefreshTrueAsyncAction =
       AsyncAction('_HomeControllerBase.setRefreshTrue');
 
@@ -312,12 +367,13 @@ mixin _$HomeController on _HomeControllerBase, Store {
     return _$buscarMarcasAsyncAction.run(() => super.buscarMarcas());
   }
 
-  final _$confirmarMarcaAsyncAction =
-      AsyncAction('_HomeControllerBase.confirmarMarca');
+  final _$confirmarMarcaCategoriaAsyncAction =
+      AsyncAction('_HomeControllerBase.confirmarMarcaCategoria');
 
   @override
-  Future confirmarMarca() {
-    return _$confirmarMarcaAsyncAction.run(() => super.confirmarMarca());
+  Future confirmarMarcaCategoria(int index) {
+    return _$confirmarMarcaCategoriaAsyncAction
+        .run(() => super.confirmarMarcaCategoria(index));
   }
 
   final _$pesquisarProdutoAsyncAction =
@@ -393,11 +449,33 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
-  dynamic resetarMarcas() {
+  dynamic resetarMarcasCategoria(int index) {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
-        name: '_HomeControllerBase.resetarMarcas');
+        name: '_HomeControllerBase.resetarMarcasCategoria');
     try {
-      return super.resetarMarcas();
+      return super.resetarMarcasCategoria(index);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic selecionarCategoria(int index, bool selecionar) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.selecionarCategoria');
+    try {
+      return super.selecionarCategoria(index, selecionar);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic atualizaListaCategoria() {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.atualizaListaCategoria');
+    try {
+      return super.atualizaListaCategoria();
     } finally {
       _$_HomeControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -407,21 +485,25 @@ mixin _$HomeController on _HomeControllerBase, Store {
   String toString() {
     return '''
 refreshPage: ${refreshPage},
+isFiltering: ${isFiltering},
 categoriasID: ${categoriasID},
 listaMarcas: ${listaMarcas},
 marcaSelecionada: ${marcaSelecionada},
 scrollController: ${scrollController},
 offsetHomeList: ${offsetHomeList},
+buscarMarca: ${buscarMarca},
+buscarCategoria: ${buscarCategoria},
 buscarString: ${buscarString},
 listaCategorias: ${listaCategorias},
+listaCategoriasFiltro: ${listaCategoriasFiltro},
 listaCategoriaProdutos: ${listaCategoriaProdutos},
 listaMarcaProdutos: ${listaMarcaProdutos},
 produtosDaBusca: ${produtosDaBusca},
 buscandoProdutos: ${buscandoProdutos},
 buscandoMaisProdutos: ${buscandoMaisProdutos},
 banner: ${banner},
-buscarMarca: ${buscarMarca},
-filtroMarca: ${filtroMarca}
+filtroMarca: ${filtroMarca},
+filtroCategoria: ${filtroCategoria}
     ''';
   }
 }
