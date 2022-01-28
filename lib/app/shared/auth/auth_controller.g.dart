@@ -111,6 +111,21 @@ mixin _$AuthController on _AuthControllerBase, Store {
     });
   }
 
+  final _$temMensagemAtom = Atom(name: '_AuthControllerBase.temMensagem');
+
+  @override
+  bool get temMensagem {
+    _$temMensagemAtom.reportRead();
+    return super.temMensagem;
+  }
+
+  @override
+  set temMensagem(bool value) {
+    _$temMensagemAtom.reportWrite(value, super.temMensagem, () {
+      super.temMensagem = value;
+    });
+  }
+
   final _$verificaLogadoAsyncAction =
       AsyncAction('_AuthControllerBase.verificaLogado');
 
@@ -144,6 +159,14 @@ mixin _$AuthController on _AuthControllerBase, Store {
         .run(() => super.buscaUsuarioCompleto());
   }
 
+  final _$buscaMensagemAsyncAction =
+      AsyncAction('_AuthControllerBase.buscaMensagem');
+
+  @override
+  Future<dynamic> buscaMensagem() {
+    return _$buscaMensagemAsyncAction.run(() => super.buscaMensagem());
+  }
+
   final _$_AuthControllerBaseActionController =
       ActionController(name: '_AuthControllerBase');
 
@@ -166,7 +189,8 @@ nomeCompleto: ${nomeCompleto},
 centroDistribuicao: ${centroDistribuicao},
 localRetirada: ${localRetirada},
 localRetiradaAtual: ${localRetiradaAtual},
-versaoAtual: ${versaoAtual}
+versaoAtual: ${versaoAtual},
+temMensagem: ${temMensagem}
     ''';
   }
 }

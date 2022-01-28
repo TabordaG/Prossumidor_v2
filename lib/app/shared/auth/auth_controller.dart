@@ -30,6 +30,9 @@ abstract class _AuthControllerBase with Store {
   @observable
   String versaoAtual;
 
+  @observable
+  bool temMensagem = false;
+
   @action
   verificaLogado() async {
     versaoAtual = await authRepository.buscarVersao();
@@ -38,6 +41,7 @@ abstract class _AuthControllerBase with Store {
       final email = await getValuesSF();
       if (email != '') {
         usuario = await authRepository.buscarUsuario(email);
+        await buscaMensagem();
         return 0;
       } else {
         usuario = null;
@@ -103,5 +107,14 @@ abstract class _AuthControllerBase with Store {
 
     centroDistribuicao = await setCentroDistribuicao();
     nomeCompleto = await setNome();
+  }
+
+  @action
+  Future buscaMensagem() async {
+    var res = await authRepository.buscaMensagens(usuario.id);
+    if (res != null && res != 0)
+      temMensagem = true;
+    else
+      temMensagem = false;
   }
 }

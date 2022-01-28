@@ -101,7 +101,31 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                         textInputAction: TextInputAction.done,
                         onFieldSubmitted: (value) async {
                           if (formkey.currentState.validate()) {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        CircularProgressIndicator(
+                                          strokeWidth: 1,
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        Text(
+                                          "Entrando..",
+                                          style:
+                                              TextStyle(color: Colors.black54),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                });
                             int response = await controller.verificaLogin();
+                            await Future.delayed(Duration(seconds: 1));
+                            Navigator.of(context).pop();
                             switch (response) {
                               case 0:
                                 await authController
@@ -182,7 +206,30 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                     child: StandardButton(
                       onPressed: () async {
                         if (formkey.currentState.validate()) {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      CircularProgressIndicator(
+                                        strokeWidth: 1,
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Text(
+                                        "Entrando..",
+                                        style: TextStyle(color: Colors.black54),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              });
                           int response = await controller.verificaLogin();
+                          await Future.delayed(Duration(seconds: 1));
+                          Navigator.of(context).pop();
                           switch (response) {
                             case 0:
                               await authController

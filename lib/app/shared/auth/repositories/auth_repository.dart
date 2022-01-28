@@ -124,4 +124,30 @@ class AuthRepository implements IAuthRepository {
     } else
       return null;
   }
+
+  Future buscaMensagens(int id) async {
+    String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consult81.$id");
+
+    response = await dio.get(
+      Uri.encodeFull(link),
+      options: Options(
+        headers: {"Accept": "application/json"},
+      ),
+    );
+
+    if (response.data != null && response.statusCode == 200) {
+      try {
+        var respondeDecoded = Basicos.decodifica(response.data);
+        List list = json.decode(respondeDecoded).cast<Map<String, dynamic>>();
+        String chat = list[0]["count"].toString();
+        if (chat == "0") {
+          return 0;
+        } else
+          return 1;
+      } catch (e) {
+        return null;
+      }
+    } else
+      return null;
+  }
 }

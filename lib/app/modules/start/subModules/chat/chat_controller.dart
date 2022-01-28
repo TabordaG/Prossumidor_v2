@@ -86,6 +86,8 @@ abstract class _ChatControllerBase with Store {
       if (chatConversas == null) {
         chatConversas = List.from([]);
       }
+      await chatRepository.atualizaMensagem(idEmpresa, idCliente);
+      authController.temMensagem = false;
     }
   }
 }

@@ -20,6 +20,7 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white60,
         appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.white),
           title: Row(
@@ -51,19 +52,24 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
                             ? Center(
                                 child: CircularProgressIndicator(),
                               )
-                            : CardChat(
-                                chat:
-                                    chatController.listaUltimasConversas[index],
-                                onTap: () async {
-                                  await chatController.buscaChatIndividual(
-                                      chatController
-                                          .listaUltimasConversas[index]
-                                          .id_cliente_id,
-                                      chatController
-                                          .listaUltimasConversas[index]
-                                          .id_empresa_id);
-                                  Modular.to.pushNamed('chat/chatIndividual');
-                                },
+                            : Column(
+                                children: [
+                                  CardChat(
+                                    chat: chatController
+                                        .listaUltimasConversas[index],
+                                    onTap: () async {
+                                      await chatController.buscaChatIndividual(
+                                          chatController
+                                              .listaUltimasConversas[index]
+                                              .id_cliente_id,
+                                          chatController
+                                              .listaUltimasConversas[index]
+                                              .id_empresa_id);
+                                      Modular.to
+                                          .pushNamed('chat/chatIndividual');
+                                    },
+                                  ),
+                                ],
                               );
                       });
                     },

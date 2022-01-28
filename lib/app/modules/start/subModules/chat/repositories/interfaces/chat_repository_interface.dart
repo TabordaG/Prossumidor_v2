@@ -5,4 +5,5 @@ abstract class IChatRepository implements Disposable {
   Future iniciaChat(int id, int offset);
   Future buscaUltimaMensagem(int id, String string);
   Future enviaMensagem(String menssagem, int idCliente, int idEmpresa);
+  Future atualizaMensagem(int idEmpresa, int idCliente);
 }

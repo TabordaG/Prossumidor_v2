@@ -5,4 +5,5 @@ abstract class IAuthRepository implements Disposable {
   Future buscarUsuario(String email);
   Future buscaUsuarioCompleto(int id);
   Future localRetirada(String email);
+  Future buscaMensagens(int id);
 }

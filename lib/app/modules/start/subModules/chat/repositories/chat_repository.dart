@@ -118,4 +118,31 @@ class ChatRepository implements IChatRepository {
     } else
       return null;
   }
+
+  @override
+  Future atualizaMensagem(int idEmpresa, int idCliente) async {
+    String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consult83."
+        "$idEmpresa," //"${widget.ID_Produtor.substring(widget.ID_Produtor.lastIndexOf('(', widget.ID_Produtor.length) + 1, widget.ID_Produtor.length - 1)}," //    produtor_id integer NOT NULL,
+        "Lido,"
+        //    data_envio timestamp with time zone NOT NULL,
+        "${DateTime.now()}," //data_leitura timestamp with time zone NOT NULL,
+        "$idCliente," //    cliente_id integer NOT NULL,
+        "Produtor-Cliente,");
+
+    response = await dio.get(
+      Uri.encodeFull(link),
+      options: Options(
+        headers: {"Accept": "application/json"},
+      ),
+    );
+    if (response.data != null && response.statusCode == 200) {
+      try {
+        print('sucesso');
+        return 'sucesso';
+      } catch (e) {
+        return null;
+      }
+    } else
+      return null;
+  }
 }

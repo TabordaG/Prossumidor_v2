@@ -86,13 +86,26 @@ class CardMensagemState extends State<CardMensagem> {
                     ),
                     Positioned(
                       bottom: 4,
-                      right: 4,
+                      right: 30,
                       child: Text(
                         horaFormatada + time,
                         style: Theme.of(context)
                             .textTheme
                             .bodyText1
-                            .copyWith(fontSize: 16, color: Colors.white),
+                            .copyWith(fontSize: 14, color: Colors.white),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 4,
+                      right: 4,
+                      child: Icon(
+                        widget.chat.status == ' Enviado'
+                            ? Icons.done
+                            : Icons.done_all,
+                        color: widget.chat.status == 'Lido'
+                            ? Colors.blue
+                            : Colors.grey,
+                        size: 16,
                       ),
                     ),
                   ],
