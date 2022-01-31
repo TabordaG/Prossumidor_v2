@@ -42,18 +42,18 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
             Text(widget.title),
           ],
         ),
-        actions: [
-          IconButton(
-            splashRadius: 2,
-            icon: Icon(
-              Icons.info,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              print('Pressed');
-            },
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     splashRadius: 2,
+        //     icon: Icon(
+        //       Icons.info,
+        //       color: Colors.white,
+        //     ),
+        //     onPressed: () {
+        //       print('Pressed');
+        //     },
+        //   ),
+        // ],
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),

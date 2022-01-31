@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:carousel_slider/carousel_controller.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -9,6 +10,7 @@ import 'package:prossumidor_v2/app/dados_basicos.dart';
 import 'package:prossumidor_v2/app/models/usuario/usuario_model.dart';
 import 'package:prossumidor_v2/app/modules/registro/repositories/interfaces/registro_repository_interface.dart';
 import 'package:prossumidor_v2/app/shared/auth/auth_controller.dart';
+import 'package:search_cep/search_cep.dart';
 
 part 'registro_controller.g.dart';
 
@@ -55,70 +57,40 @@ abstract class _RegistroControllerBase with Store {
   setGeneroOutro(String valor) => generoOutro = valor;
 
   @observable
-  String nome = '';
-
-  @action
-  setNome(String valor) => nome = valor;
+  TextEditingController nome = TextEditingController(text: "");
 
   @observable
-  String cpf = '';
-
-  @action
-  setCPF(String valor) => cpf = valor;
+  TextEditingController cpf = TextEditingController(text: "");
 
   @observable
-  String telefone = '';
-
-  @action
-  setTelefone(String valor) => telefone = valor;
+  TextEditingController telefone = TextEditingController(text: "");
 
   @observable
-  String endereco = '';
+  TextEditingController endereco = TextEditingController(text: "");
 
-  @action
-  setEndereco(String valor) => endereco = valor;
-
-  @observable
-  String numero = '';
-
-  @action
-  setNumero(String valor) => numero = valor;
+  // @action
+  // setEndereco(String valor) => endereco = valor;
 
   @observable
-  String complemento = '';
-
-  @action
-  setComplemento(String valor) => complemento = valor;
+  TextEditingController numero = TextEditingController(text: "");
 
   @observable
-  String bairro = '';
-
-  @action
-  setBairro(String valor) => bairro = valor;
+  TextEditingController complemento = TextEditingController(text: "");
 
   @observable
-  String cidade = '';
-
-  @action
-  setCidade(String valor) => cidade = valor;
+  TextEditingController bairro = TextEditingController(text: "");
 
   @observable
-  String uf = '';
-
-  @action
-  setUF(String valor) => uf = valor;
+  TextEditingController cidade = TextEditingController(text: "");
 
   @observable
-  String cep = '';
-
-  @action
-  setCEP(String valor) => cep = valor;
+  TextEditingController uf = TextEditingController(text: "");
 
   @observable
-  String email = '';
+  TextEditingController cep = TextEditingController(text: "");
 
-  @action
-  setEmail(String valor) => email = valor;
+  @observable
+  TextEditingController email = TextEditingController(text: "");
 
   @observable
   String retirada = 'Local de Retirada';
@@ -134,10 +106,11 @@ abstract class _RegistroControllerBase with Store {
 
   @action
   setRetiradaID(String valor) {
+    
     int index =
         locaisRetirada.indexWhere((element) => element["nome"] == valor);
     retiradaID = index;
-    print(index);
+    
   }
 
   @observable
@@ -145,12 +118,8 @@ abstract class _RegistroControllerBase with Store {
 
   @observable
   List locaisRetiradaNomes = [];
-
   @observable
-  String senha = '';
-
-  @action
-  setSenha(String valor) => senha = valor;
+  TextEditingController senha = TextEditingController(text: "");
 
   @observable
   String codigoGerado = "";
@@ -291,7 +260,7 @@ abstract class _RegistroControllerBase with Store {
 
   @action
   emailValido() async {
-    var res = await registrarRepository.verificaEmail(email);
+    var res = await registrarRepository.verificaEmail(email.text);
     print(res);
     if (res != null && res == 'livre') return true;
     return false;
@@ -300,7 +269,7 @@ abstract class _RegistroControllerBase with Store {
   @action
   enviarEmail() async {
     await gerarCodigo();
-    var res = await registrarRepository.enviarEmail(email, codigoGerado);
+    var res = await registrarRepository.enviarEmail(email.text, codigoGerado);
     print(res);
   }
 
@@ -317,28 +286,28 @@ abstract class _RegistroControllerBase with Store {
       generoText = "OUTRO";
 
     var res = await registrarRepository.registrar(
-      nome,
-      cpf,
-      telefone,
+      nome.text,
+      cpf.text,
+      telefone.text,
       generoText,
-      email,
-      Basicos.codificapwss(senha),
+      email.text,
+      Basicos.codificapwss(senha.text),
       retiradaID.toString(),
-      removeCaracterEspecial(endereco),
-      removeCaracterEspecial(bairro),
-      removeCaracterEspecial(cidade),
-      cep,
-      removeCaracterEspecial(uf),
-      numero,
-      removeCaracterEspecial(complemento),
+      removeCaracterEspecial(endereco.text),
+      removeCaracterEspecial(bairro.text),
+      removeCaracterEspecial(cidade.text),
+      cep.text,
+      removeCaracterEspecial(uf.text),
+      numero.text,
+      removeCaracterEspecial(complemento.text),
     );
     if (res != null) {
-      var usuario = await registrarRepository.getData(email);
+      var usuario = await registrarRepository.getData(email.text);
       if (usuario != null) {
         Basicos.localRetiradaID = usuario['local_retirada_id'].toString();
         authController.usuario = Usuario(
           id: usuario['id'],
-          email: email,
+          email: email.text,
           senha: usuario['senha'],
           empresa_id: usuario['empresa_id'],
         );
@@ -350,6 +319,29 @@ abstract class _RegistroControllerBase with Store {
       return null;
     else
       return "registrado";
+  }
+
+  @observable
+  String responseCEP = "";
+
+  @action
+  buscaCEP() async {
+    responseCEP = "waiting";
+    final viaCepSearchCep = ViaCepSearchCep();
+    final infoCepJSON = await viaCepSearchCep.searchInfoByCep(
+        cep: cep.text.replaceAll(".", '').replaceAll("-", ""));
+    if (infoCepJSON.isRight()) {
+      print(infoCepJSON);
+      Right(infoCepJSON).value.map((r) => {
+            endereco.text = r.logradouro,
+            complemento.text = r.complemento,
+            bairro.text = r.bairro,
+            cidade.text = r.localidade,
+            uf.text = r.uf
+          });
+      responseCEP = "sucess";
+    } else
+      responseCEP = "Erro";
   }
 
   String removeCaracterEspecial(String texto) {

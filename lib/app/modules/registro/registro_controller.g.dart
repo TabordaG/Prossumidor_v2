@@ -144,13 +144,13 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
   final _$nomeAtom = Atom(name: '_RegistroControllerBase.nome');
 
   @override
-  String get nome {
+  TextEditingController get nome {
     _$nomeAtom.reportRead();
     return super.nome;
   }
 
   @override
-  set nome(String value) {
+  set nome(TextEditingController value) {
     _$nomeAtom.reportWrite(value, super.nome, () {
       super.nome = value;
     });
@@ -159,13 +159,13 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
   final _$cpfAtom = Atom(name: '_RegistroControllerBase.cpf');
 
   @override
-  String get cpf {
+  TextEditingController get cpf {
     _$cpfAtom.reportRead();
     return super.cpf;
   }
 
   @override
-  set cpf(String value) {
+  set cpf(TextEditingController value) {
     _$cpfAtom.reportWrite(value, super.cpf, () {
       super.cpf = value;
     });
@@ -174,13 +174,13 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
   final _$telefoneAtom = Atom(name: '_RegistroControllerBase.telefone');
 
   @override
-  String get telefone {
+  TextEditingController get telefone {
     _$telefoneAtom.reportRead();
     return super.telefone;
   }
 
   @override
-  set telefone(String value) {
+  set telefone(TextEditingController value) {
     _$telefoneAtom.reportWrite(value, super.telefone, () {
       super.telefone = value;
     });
@@ -189,13 +189,13 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
   final _$enderecoAtom = Atom(name: '_RegistroControllerBase.endereco');
 
   @override
-  String get endereco {
+  TextEditingController get endereco {
     _$enderecoAtom.reportRead();
     return super.endereco;
   }
 
   @override
-  set endereco(String value) {
+  set endereco(TextEditingController value) {
     _$enderecoAtom.reportWrite(value, super.endereco, () {
       super.endereco = value;
     });
@@ -204,13 +204,13 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
   final _$numeroAtom = Atom(name: '_RegistroControllerBase.numero');
 
   @override
-  String get numero {
+  TextEditingController get numero {
     _$numeroAtom.reportRead();
     return super.numero;
   }
 
   @override
-  set numero(String value) {
+  set numero(TextEditingController value) {
     _$numeroAtom.reportWrite(value, super.numero, () {
       super.numero = value;
     });
@@ -219,13 +219,13 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
   final _$complementoAtom = Atom(name: '_RegistroControllerBase.complemento');
 
   @override
-  String get complemento {
+  TextEditingController get complemento {
     _$complementoAtom.reportRead();
     return super.complemento;
   }
 
   @override
-  set complemento(String value) {
+  set complemento(TextEditingController value) {
     _$complementoAtom.reportWrite(value, super.complemento, () {
       super.complemento = value;
     });
@@ -234,13 +234,13 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
   final _$bairroAtom = Atom(name: '_RegistroControllerBase.bairro');
 
   @override
-  String get bairro {
+  TextEditingController get bairro {
     _$bairroAtom.reportRead();
     return super.bairro;
   }
 
   @override
-  set bairro(String value) {
+  set bairro(TextEditingController value) {
     _$bairroAtom.reportWrite(value, super.bairro, () {
       super.bairro = value;
     });
@@ -249,13 +249,13 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
   final _$cidadeAtom = Atom(name: '_RegistroControllerBase.cidade');
 
   @override
-  String get cidade {
+  TextEditingController get cidade {
     _$cidadeAtom.reportRead();
     return super.cidade;
   }
 
   @override
-  set cidade(String value) {
+  set cidade(TextEditingController value) {
     _$cidadeAtom.reportWrite(value, super.cidade, () {
       super.cidade = value;
     });
@@ -264,13 +264,13 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
   final _$ufAtom = Atom(name: '_RegistroControllerBase.uf');
 
   @override
-  String get uf {
+  TextEditingController get uf {
     _$ufAtom.reportRead();
     return super.uf;
   }
 
   @override
-  set uf(String value) {
+  set uf(TextEditingController value) {
     _$ufAtom.reportWrite(value, super.uf, () {
       super.uf = value;
     });
@@ -279,13 +279,13 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
   final _$cepAtom = Atom(name: '_RegistroControllerBase.cep');
 
   @override
-  String get cep {
+  TextEditingController get cep {
     _$cepAtom.reportRead();
     return super.cep;
   }
 
   @override
-  set cep(String value) {
+  set cep(TextEditingController value) {
     _$cepAtom.reportWrite(value, super.cep, () {
       super.cep = value;
     });
@@ -294,13 +294,13 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
   final _$emailAtom = Atom(name: '_RegistroControllerBase.email');
 
   @override
-  String get email {
+  TextEditingController get email {
     _$emailAtom.reportRead();
     return super.email;
   }
 
   @override
-  set email(String value) {
+  set email(TextEditingController value) {
     _$emailAtom.reportWrite(value, super.email, () {
       super.email = value;
     });
@@ -386,13 +386,13 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
   final _$senhaAtom = Atom(name: '_RegistroControllerBase.senha');
 
   @override
-  String get senha {
+  TextEditingController get senha {
     _$senhaAtom.reportRead();
     return super.senha;
   }
 
   @override
-  set senha(String value) {
+  set senha(TextEditingController value) {
     _$senhaAtom.reportWrite(value, super.senha, () {
       super.senha = value;
     });
@@ -504,6 +504,21 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
     });
   }
 
+  final _$responseCEPAtom = Atom(name: '_RegistroControllerBase.responseCEP');
+
+  @override
+  String get responseCEP {
+    _$responseCEPAtom.reportRead();
+    return super.responseCEP;
+  }
+
+  @override
+  set responseCEP(String value) {
+    _$responseCEPAtom.reportWrite(value, super.responseCEP, () {
+      super.responseCEP = value;
+    });
+  }
+
   final _$buscarLocaisRetiradaAsyncAction =
       AsyncAction('_RegistroControllerBase.buscarLocaisRetirada');
 
@@ -537,6 +552,13 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
     return _$registrarAsyncAction.run(() => super.registrar());
   }
 
+  final _$buscaCEPAsyncAction = AsyncAction('_RegistroControllerBase.buscaCEP');
+
+  @override
+  Future buscaCEP() {
+    return _$buscaCEPAsyncAction.run(() => super.buscaCEP());
+  }
+
   final _$_RegistroControllerBaseActionController =
       ActionController(name: '_RegistroControllerBase');
 
@@ -563,127 +585,6 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
   }
 
   @override
-  dynamic setNome(String valor) {
-    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
-        name: '_RegistroControllerBase.setNome');
-    try {
-      return super.setNome(valor);
-    } finally {
-      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setCPF(String valor) {
-    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
-        name: '_RegistroControllerBase.setCPF');
-    try {
-      return super.setCPF(valor);
-    } finally {
-      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setTelefone(String valor) {
-    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
-        name: '_RegistroControllerBase.setTelefone');
-    try {
-      return super.setTelefone(valor);
-    } finally {
-      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setEndereco(String valor) {
-    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
-        name: '_RegistroControllerBase.setEndereco');
-    try {
-      return super.setEndereco(valor);
-    } finally {
-      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setNumero(String valor) {
-    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
-        name: '_RegistroControllerBase.setNumero');
-    try {
-      return super.setNumero(valor);
-    } finally {
-      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setComplemento(String valor) {
-    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
-        name: '_RegistroControllerBase.setComplemento');
-    try {
-      return super.setComplemento(valor);
-    } finally {
-      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setBairro(String valor) {
-    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
-        name: '_RegistroControllerBase.setBairro');
-    try {
-      return super.setBairro(valor);
-    } finally {
-      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setCidade(String valor) {
-    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
-        name: '_RegistroControllerBase.setCidade');
-    try {
-      return super.setCidade(valor);
-    } finally {
-      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setUF(String valor) {
-    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
-        name: '_RegistroControllerBase.setUF');
-    try {
-      return super.setUF(valor);
-    } finally {
-      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setCEP(String valor) {
-    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
-        name: '_RegistroControllerBase.setCEP');
-    try {
-      return super.setCEP(valor);
-    } finally {
-      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setEmail(String valor) {
-    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
-        name: '_RegistroControllerBase.setEmail');
-    try {
-      return super.setEmail(valor);
-    } finally {
-      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic setRetirada(String valor) {
     final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
         name: '_RegistroControllerBase.setRetirada');
@@ -700,17 +601,6 @@ mixin _$RegistroController on _RegistroControllerBase, Store {
         name: '_RegistroControllerBase.setRetiradaID');
     try {
       return super.setRetiradaID(valor);
-    } finally {
-      _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setSenha(String valor) {
-    final _$actionInfo = _$_RegistroControllerBaseActionController.startAction(
-        name: '_RegistroControllerBase.setSenha');
-    try {
-      return super.setSenha(valor);
     } finally {
       _$_RegistroControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -871,7 +761,8 @@ page1Valid: ${page1Valid},
 clickedButton: ${clickedButton},
 generoValid: ${generoValid},
 page2Valid: ${page2Valid},
-page3Valid: ${page3Valid}
+page3Valid: ${page3Valid},
+responseCEP: ${responseCEP}
     ''';
   }
 }

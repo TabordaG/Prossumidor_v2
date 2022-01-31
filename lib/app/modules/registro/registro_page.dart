@@ -55,16 +55,6 @@ class _RegistroPageState
               fontSize: 20,
             ),
       ),
-      actions: [
-        IconButton(
-          splashRadius: 2,
-          icon: Icon(
-            Icons.help,
-            color: Theme.of(context).primaryColor,
-          ),
-          onPressed: () {},
-        ),
-      ],
     );
     var screenHeigh = (size.height - appBar.preferredSize.height) -
         MediaQuery.of(context).padding.top;
@@ -359,7 +349,8 @@ class _RegistroPageState
                     Future.delayed(Duration(seconds: 2), () async {
                       progressDialog.hide();
                       if (res != null) {
-                        await authController.addStringToSF(controller.email);
+                        await authController
+                            .addStringToSF(controller.email.text);
                         Modular.to.pushReplacementNamed('/start');
                       } else {
                         buildShowGeneralDialogMessage(

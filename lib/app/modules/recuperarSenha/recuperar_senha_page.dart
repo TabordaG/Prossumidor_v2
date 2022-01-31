@@ -51,15 +51,6 @@ class _RecuperarSenhaPageState
               fontSize: 20,
             ),
       ),
-      actions: [
-        IconButton(
-          icon: Icon(
-            Icons.help,
-            color: Theme.of(context).primaryColor,
-          ),
-          onPressed: () {},
-        ),
-      ],
     );
     var screenHeigh = (size.height - appBar.preferredSize.height) -
         MediaQuery.of(context).padding.top;
@@ -227,7 +218,6 @@ class _RecuperarSenhaPageState
                           color: Theme.of(context).primaryColor,
                         ),
                       );
-                      
                     }),
                   ],
                 ),

@@ -50,97 +50,103 @@ class _RegistrarPage1State extends State<RegistrarPage1> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-              child: TextFormField(
-                onChanged: (value) => controller.setNome(value),
-                keyboardType: TextInputType.name,
-                textInputAction: TextInputAction.next,
-                textCapitalization: TextCapitalization.words,
-                onEditingComplete: node.nextFocus,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Insira um nome válido';
-                  } else {
-                    return null;
-                  }
-                },
-                decoration: InputDecoration(
-                  border: UnderlineInputBorder(),
-                  prefixIcon: Icon(
-                    Icons.person,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  hintText: 'Nome',
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-              child: TextFormField(
-                onChanged: (value) => controller.setCPF(value),
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.next,
-                onEditingComplete: node.nextFocus,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  CpfInputFormatter(),
-                ],
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Insira seu CPF';
-                  } else {
-                    Pattern pattern =
-                        r'^(([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2}))$';
-                    RegExp regex = new RegExp(pattern);
-                    if (!regex.hasMatch(value)) {
-                      return 'Insira um CPF válido';
+              child: Observer(builder: (_) {
+                return TextFormField(
+                  controller: controller.nome,
+                  keyboardType: TextInputType.name,
+                  textInputAction: TextInputAction.next,
+                  textCapitalization: TextCapitalization.words,
+                  onEditingComplete: node.nextFocus,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Insira um nome válido';
                     } else {
                       return null;
                     }
-                  }
-                },
-                decoration: InputDecoration(
-                  border: UnderlineInputBorder(),
-                  prefixIcon: Icon(
-                    Icons.contact_page,
-                    color: Theme.of(context).primaryColor,
+                  },
+                  decoration: InputDecoration(
+                    border: UnderlineInputBorder(),
+                    prefixIcon: Icon(
+                      Icons.person,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    labelText: 'Nome',
                   ),
-                  hintText: 'CPF',
-                ),
-              ),
+                );
+              }),
             ),
             SizedBox(
               height: 5,
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-              child: TextFormField(
-                onChanged: (value) => controller.setTelefone(value),
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.done,
-                onEditingComplete: node.unfocus,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  TelefoneInputFormatter()
-                ],
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Insira um telefone válido';
-                  } else {
-                    return null;
-                  }
-                },
-                decoration: InputDecoration(
-                  border: UnderlineInputBorder(),
-                  prefixIcon: Icon(
-                    Icons.phone,
-                    color: Theme.of(context).primaryColor,
+              child: Observer(builder: (_) {
+                return TextFormField(
+                  controller: controller.cpf,
+                  keyboardType: TextInputType.number,
+                  textInputAction: TextInputAction.next,
+                  onEditingComplete: node.nextFocus,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    CpfInputFormatter(),
+                  ],
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Insira seu CPF';
+                    } else {
+                      Pattern pattern =
+                          r'^(([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2}))$';
+                      RegExp regex = new RegExp(pattern);
+                      if (!regex.hasMatch(value)) {
+                        return 'Insira um CPF válido';
+                      } else {
+                        return null;
+                      }
+                    }
+                  },
+                  decoration: InputDecoration(
+                    border: UnderlineInputBorder(),
+                    prefixIcon: Icon(
+                      Icons.contact_page,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    labelText: 'CPF',
                   ),
-                  hintText: 'Telefone',
-                ),
-              ),
+                );
+              }),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              child: Observer(builder: (_) {
+                return TextFormField(
+                  controller: controller.telefone,
+                  keyboardType: TextInputType.number,
+                  textInputAction: TextInputAction.done,
+                  onEditingComplete: node.unfocus,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    TelefoneInputFormatter()
+                  ],
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Insira um telefone válido';
+                    } else {
+                      return null;
+                    }
+                  },
+                  decoration: InputDecoration(
+                    border: UnderlineInputBorder(),
+                    prefixIcon: Icon(
+                      Icons.phone,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    labelText: 'Telefone',
+                  ),
+                );
+              }),
             ),
             SizedBox(
               height: 5,

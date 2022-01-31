@@ -48,38 +48,40 @@ class _RegistrarPage3State extends State<RegistrarPage3> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-              child: TextFormField(
-                onChanged: (value) => controller.setEmail(value),
-                // textCapitalization: TextCapitalization.words,
-                onEditingComplete: node.nextFocus,
-                keyboardType: TextInputType.emailAddress,
-                textInputAction: TextInputAction.next,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Insira um endereço de email';
-                  } else {
-                    if (value.length < 3) {
-                      return "Email Tem Que Ter Pelo Menos 3 Caracteres";
+              child: Observer(builder: (_) {
+                return TextFormField(
+                  controller: controller.email,
+                  // textCapitalization: TextCapitalization.words,
+                  onEditingComplete: node.nextFocus,
+                  keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.next,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Insira um endereço de email';
                     } else {
-                      Pattern pattern =
-                          r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-                      RegExp regex = new RegExp(pattern);
-                      if (!regex.hasMatch(value)) {
-                        return 'Insira um endereço de email válido';
-                      } else
-                        return null;
+                      if (value.length < 3) {
+                        return "Email Tem Que Ter Pelo Menos 3 Caracteres";
+                      } else {
+                        Pattern pattern =
+                            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                        RegExp regex = new RegExp(pattern);
+                        if (!regex.hasMatch(value)) {
+                          return 'Insira um endereço de email válido';
+                        } else
+                          return null;
+                      }
                     }
-                  }
-                },
-                decoration: InputDecoration(
-                  border: UnderlineInputBorder(),
-                  prefixIcon: Icon(
-                    Icons.email,
-                    color: Theme.of(context).primaryColor,
+                  },
+                  decoration: InputDecoration(
+                    border: UnderlineInputBorder(),
+                    prefixIcon: Icon(
+                      Icons.email,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    labelText: 'E-mail',
                   ),
-                  hintText: 'E-mail',
-                ),
-              ),
+                );
+              }),
             ),
             SizedBox(
               height: 5,
@@ -155,29 +157,31 @@ class _RegistrarPage3State extends State<RegistrarPage3> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-              child: TextFormField(
-                onChanged: (value) => controller.setSenha(value),
-                keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.next,
-                onEditingComplete: node.unfocus,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Insira uma senha válida';
-                  } else if (value.length < 6) {
-                    return 'A senha deve ter no mínimo 6 caracteres.';
-                  } else {
-                    return null;
-                  }
-                },
-                decoration: InputDecoration(
-                  border: UnderlineInputBorder(),
-                  prefixIcon: Icon(
-                    Icons.lock,
-                    color: Theme.of(context).primaryColor,
+              child: Observer(builder: (_) {
+                return TextFormField(
+                  controller: controller.senha,
+                  keyboardType: TextInputType.text,
+                  textInputAction: TextInputAction.next,
+                  onEditingComplete: node.unfocus,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Insira uma senha válida';
+                    } else if (value.length < 6) {
+                      return 'A senha deve ter no mínimo 6 caracteres.';
+                    } else {
+                      return null;
+                    }
+                  },
+                  decoration: InputDecoration(
+                    border: UnderlineInputBorder(),
+                    prefixIcon: Icon(
+                      Icons.lock,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    labelText: 'Senha',
                   ),
-                  hintText: 'Senha',
-                ),
-              ),
+                );
+              }),
             ),
             SizedBox(
               height: 5,
@@ -191,7 +195,7 @@ class _RegistrarPage3State extends State<RegistrarPage3> {
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Campo não pode estar vazio';
-                  } else if (value != controller.senha) {
+                  } else if (value != controller.senha.text) {
                     return 'Senhas não coincidem';
                   } else
                     return null;
@@ -202,7 +206,7 @@ class _RegistrarPage3State extends State<RegistrarPage3> {
                     Icons.lock,
                     color: Theme.of(context).primaryColor,
                   ),
-                  hintText: 'Confirmar Senha',
+                  labelText: 'Confirmar Senha',
                 ),
               ),
             ),
