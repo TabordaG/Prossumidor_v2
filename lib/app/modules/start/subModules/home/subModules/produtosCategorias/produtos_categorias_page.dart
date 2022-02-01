@@ -62,7 +62,7 @@ class _ProdutosCategoriasPageState
               : Text(
                   widget.isCategoria
                       ? widget.categoriaProduto.categoria.descricao
-                      : widget.marcaProduto.marca.descricao,
+                      : "Marca: " + widget.marcaProduto.marca.descricao,
                 ),
           actions: [
             IconButton(

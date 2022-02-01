@@ -31,26 +31,47 @@ abstract class _AuthControllerBase with Store {
   String versaoAtual;
 
   @observable
+  String mensagemVersao;
+
+  @observable
   bool temMensagem = false;
 
   @action
   verificaLogado() async {
     versaoAtual = await authRepository.buscarVersao();
-
-    if (versaoAtual == '1.0.2') {
-      final email = await getValuesSF();
+    
+    final email = await getValuesSF();
+    if (versaoAtual != '1.0.2') {
+      if (versaoAtual == "2.0.1") {
+        if (email != '') {
+          usuario = await authRepository.buscarUsuario(email);
+          await buscaMensagem();
+          return 2;
+        } else {
+          usuario = null;
+          return 3;
+        }
+      } else {
+        mensagemVersao =
+            'Nova versão disponivel, recomendamos que você atualize seu aplicativo para ter um melhor proveito do mesmo. Entre na sua loja de aplicativos e clique em atualizar Recoopsol';
+        if (email != '') {
+          usuario = await authRepository.buscarUsuario(email);
+          await buscaMensagem();
+          return 0;
+        } else {
+          usuario = null;
+          return 1;
+        }
+      }
+    } else {
       if (email != '') {
         usuario = await authRepository.buscarUsuario(email);
         await buscaMensagem();
-        return 0;
+        return 2;
       } else {
         usuario = null;
-        return 1;
+        return 3;
       }
-    } else {
-      versaoAtual =
-          'Versão desatualizada, é necessário a nova versão para prosseguir. Entre na sua loja de aplicativos e clique em atualizar Recoopsol';
-      return 2;
     }
   }
 

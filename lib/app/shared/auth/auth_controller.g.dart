@@ -111,6 +111,21 @@ mixin _$AuthController on _AuthControllerBase, Store {
     });
   }
 
+  final _$mensagemVersaoAtom = Atom(name: '_AuthControllerBase.mensagemVersao');
+
+  @override
+  String get mensagemVersao {
+    _$mensagemVersaoAtom.reportRead();
+    return super.mensagemVersao;
+  }
+
+  @override
+  set mensagemVersao(String value) {
+    _$mensagemVersaoAtom.reportWrite(value, super.mensagemVersao, () {
+      super.mensagemVersao = value;
+    });
+  }
+
   final _$temMensagemAtom = Atom(name: '_AuthControllerBase.temMensagem');
 
   @override
@@ -190,6 +205,7 @@ centroDistribuicao: ${centroDistribuicao},
 localRetirada: ${localRetirada},
 localRetiradaAtual: ${localRetiradaAtual},
 versaoAtual: ${versaoAtual},
+mensagemVersao: ${mensagemVersao},
 temMensagem: ${temMensagem}
     ''';
   }

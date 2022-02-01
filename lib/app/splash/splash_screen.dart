@@ -30,14 +30,26 @@ class _SplashScreenState extends State<SplashScreen>
         int response = await auth.verificaLogado();
         switch (response) {
           case 0:
-            Modular.to.pushReplacementNamed('/start');
+            buildShowGeneralDialog(context);
+            Future.delayed(Duration(seconds: 5), () {
+              Modular.to.pushReplacementNamed('/start');
+            });
+
             break;
           case 1:
-            Modular.to.pushReplacementNamed('/login');
+            buildShowGeneralDialog(context);
+            Future.delayed(Duration(seconds: 5), () {
+              Modular.to.pushReplacementNamed('/login');
+            });
+
             break;
           case 2:
-            buildShowGeneralDialog(context);
+            Modular.to.pushReplacementNamed('/start');
             break;
+          case 3:
+            Modular.to.pushReplacementNamed('/login');
+            break;
+
           default:
         }
       });
@@ -84,7 +96,7 @@ class _SplashScreenState extends State<SplashScreen>
   Future buildShowGeneralDialog(BuildContext context) {
     return showGeneralDialog(
       barrierLabel: "Mensage",
-      barrierDismissible: true,
+      barrierDismissible: false,
       barrierColor: Colors.black.withOpacity(0.5),
       transitionDuration: Duration(milliseconds: 400),
       context: context,
@@ -119,7 +131,7 @@ class _SplashScreenState extends State<SplashScreen>
             flex: 1,
           ),
           Text(
-            "Erro de Versão",
+            "Nova Versão",
             style: Theme.of(context).textTheme.bodyText1.copyWith(
                   fontSize: 28,
                   color: Theme.of(context)
@@ -133,7 +145,7 @@ class _SplashScreenState extends State<SplashScreen>
             flex: 2,
           ),
           Text(
-            authcontroller.versaoAtual,
+            authcontroller.mensagemVersao,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyText1.copyWith(
                   fontSize: 16,

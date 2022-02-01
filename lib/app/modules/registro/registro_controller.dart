@@ -106,11 +106,9 @@ abstract class _RegistroControllerBase with Store {
 
   @action
   setRetiradaID(String valor) {
-    
     int index =
         locaisRetirada.indexWhere((element) => element["nome"] == valor);
-    retiradaID = index;
-    
+    retiradaID = locaisRetirada[index]["id"];
   }
 
   @observable
@@ -340,8 +338,15 @@ abstract class _RegistroControllerBase with Store {
             uf.text = r.uf
           });
       responseCEP = "sucess";
-    } else
+    } else {
       responseCEP = "Erro";
+
+      endereco.clear();
+      complemento.clear();
+      bairro.clear();
+      cidade.clear();
+      uf.clear();
+    }
   }
 
   String removeCaracterEspecial(String texto) {

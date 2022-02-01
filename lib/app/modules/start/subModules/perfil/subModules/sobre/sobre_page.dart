@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/constants.dart';
+import 'package:prossumidor_v2/app/shared/auth/auth_controller.dart';
 import 'sobre_controller.dart';
 
 class SobrePage extends StatefulWidget {
@@ -13,6 +14,7 @@ class SobrePage extends StatefulWidget {
 
 class _SobrePageState extends ModularState<SobrePage, SobreController> {
   final SobreController sobreController = Modular.get<SobreController>();
+  final AuthController authController = Modular.get<AuthController>();
   final String introducao =
       "O Aplicativo RECOOPSOL foi desenvolvido pelo Instituto de Computação da "
       "Universidade Federal de Mato Grosso. É parte dos projetos "
@@ -210,7 +212,7 @@ class _SobrePageState extends ModularState<SobrePage, SobreController> {
                       ),
                 ),
                 TextSpan(
-                  text: "\n2015-2021 Recoopsol - versão: 1.0.2",
+                  text: "\n2015-2022 Recoopsol - versão: 2.0.1",
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                         color: kPrimaryColor,
                         fontWeight: FontWeight.w400,
