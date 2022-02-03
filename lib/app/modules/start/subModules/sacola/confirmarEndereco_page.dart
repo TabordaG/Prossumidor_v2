@@ -239,7 +239,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                   return ListTile(
                     onTap: () => controller.entrega == 0
                         ? buildEntregaDomicilio(context)
-                        : buildRetirarLocal(context),
+                        : null, //buildRetirarLocal(context),
                     leading: Icon(
                       Icons.location_on,
                       color: Theme.of(context).primaryColor,

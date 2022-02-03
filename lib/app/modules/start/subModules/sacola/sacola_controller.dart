@@ -344,7 +344,9 @@ abstract class _SacolaControllerBase with Store {
 
       var res7 = await sacolaRepository
           .resetarCarrinho(authController.usuario.id.toString());
-      if (res7 != null) print(res7);
+      if (res7 != null) {
+        await buscarProdutos();
+      }
 
       adicionarMensagem = "Pedido realizado com sucesso";
     } else {

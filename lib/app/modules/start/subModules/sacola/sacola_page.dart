@@ -42,18 +42,18 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
             Text(widget.title),
           ],
         ),
-        // actions: [
-        //   IconButton(
-        //     splashRadius: 2,
-        //     icon: Icon(
-        //       Icons.info,
-        //       color: Colors.white,
-        //     ),
-        //     onPressed: () {
-        //       print('Pressed');
-        //     },
-        //   ),
-        // ],
+        actions: [
+          IconButton(
+            splashRadius: 2,
+            icon: Icon(
+              Icons.refresh_rounded,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              controller.buscarProdutos();
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
@@ -118,7 +118,8 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                 height: 90,
                                 width: 90,
                                 child: Observer(builder: (_) {
-                                  if (controller.listaProdutos[index].imagem !=
+                                  if (controller.listaProdutos.isNotEmpty &&
+                                      controller.listaProdutos[index].imagem !=
                                           null &&
                                       controller.listaProdutos[index].imagem !=
                                           "")
@@ -183,6 +184,10 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                     Row(
                                       children: [
                                         InkWell(
+                                          splashColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
                                           onTap: () {
                                             setState(() {
                                               controller.decrement(index);
@@ -215,6 +220,10 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                           ),
                                         ),
                                         InkWell(
+                                          splashColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
                                           onTap: () {
                                             setState(() {
                                               controller.increment(
@@ -315,6 +324,17 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                           actions: <Widget>[
                                             FlatButton(
                                               child: Text(
+                                                "Cancelar",
+                                                style: TextStyle(
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                            FlatButton(
+                                              child: Text(
                                                 "Deletar",
                                                 style: TextStyle(
                                                   color: Colors.red,
@@ -323,17 +343,6 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                               ),
                                               onPressed: () {
                                                 controller.deletarItem(index);
-                                                Navigator.of(context).pop();
-                                              },
-                                            ),
-                                            FlatButton(
-                                              child: Text(
-                                                "Cancelar",
-                                                style: TextStyle(
-                                                  color: Colors.grey,
-                                                ),
-                                              ),
-                                              onPressed: () {
                                                 Navigator.of(context).pop();
                                               },
                                             ),

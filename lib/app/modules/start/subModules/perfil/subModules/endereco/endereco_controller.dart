@@ -84,9 +84,11 @@ abstract class _EnderecoControllerBase with Store {
     uf = TextEditingController(
         text: authController.usuario.estado.toUpperCase());
     cep = TextEditingController(
-        text: authController.usuario.cep.substring(0, 5) +
+        text: removeCaracterEspecial(authController.usuario.cep)
+                .substring(0, 5) +
             "-" +
-            authController.usuario.cep.substring(5));
+            removeCaracterEspecial(authController.usuario.cep).substring(5));
+    print(cep);
   }
 
   @action

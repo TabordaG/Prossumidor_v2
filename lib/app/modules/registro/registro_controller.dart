@@ -294,9 +294,9 @@ abstract class _RegistroControllerBase with Store {
       removeCaracterEspecial(endereco.text),
       removeCaracterEspecial(bairro.text),
       removeCaracterEspecial(cidade.text),
-      cep.text,
+      removeCaracterEspecial(cep.text),
       removeCaracterEspecial(uf.text),
-      numero.text,
+      removeCaracterEspecial(numero.text),
       removeCaracterEspecial(complemento.text),
     );
     if (res != null) {
@@ -351,10 +351,15 @@ abstract class _RegistroControllerBase with Store {
 
   String removeCaracterEspecial(String texto) {
     // remove aspas, virgula e *
-    String nova1 = texto.replaceAll(",", " ");
-    String nova2 = nova1.replaceAll("\"", " ");
-    String nova3 = nova2.replaceAll("*", " ");
-    String novaf = nova3.replaceAll("'", " ");
-    return novaf;
+    String nova = texto
+        .replaceAll(",", " ")
+        .replaceAll("\"", " ")
+        .replaceAll("*", " ")
+        .replaceAll("'", " ")
+        .replaceAll("(", "")
+        .replaceAll(")", "")
+        .replaceAll("-", "")
+        .replaceAll(".", "");
+    return nova;
   }
 }
