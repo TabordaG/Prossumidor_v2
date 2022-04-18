@@ -4,25 +4,23 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import 'produtos_categorias_page.dart';
 
-class ProdutosCategoriasModule extends ChildModule {
+class ProdutosCategoriasModule extends Module {
   @override
-  List<Bind> get binds => [
-        $ProdutosCategoriasRepository,
-        $ProdutosCategoriasController,
-      ];
+  final List<Bind> binds = [
+    $ProdutosCategoriasRepository,
+    $ProdutosCategoriasController,
+  ];
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter(
-          Modular.initialRoute,
-          child: (_, args) => ProdutosCategoriasPage(
-            marcaProduto: args.data['marcaProduto'],
-            categoriaProduto: args.data['categoriaProduto'],
-            isCategoria: args.data['isCategoria'],
-          ),
-          transition: TransitionType.rightToLeft,
-        ),
-      ];
-
-  static Inject get to => Inject<ProdutosCategoriasModule>.of();
+  final List<ModularRoute> routes = [
+    ChildRoute(
+      Modular.initialRoute,
+      child: (_, args) => ProdutosCategoriasPage(
+        marcaProduto: args.data['marcaProduto'],
+        categoriaProduto: args.data['categoriaProduto'],
+        isCategoria: args.data['isCategoria'],
+      ),
+      transition: TransitionType.rightToLeft,
+    ),
+  ];
 }

@@ -8,8 +8,8 @@ part of 'login_controller.dart';
 
 final $LoginController = BindInject(
   (i) => LoginController(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );
 
 // **************************************************************************

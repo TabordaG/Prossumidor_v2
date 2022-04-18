@@ -8,8 +8,8 @@ part of 'ajuda_controller.dart';
 
 final $AjudaController = BindInject(
   (i) => AjudaController(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );
 
 // **************************************************************************

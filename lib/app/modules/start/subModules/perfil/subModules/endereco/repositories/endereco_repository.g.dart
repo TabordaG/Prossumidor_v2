@@ -8,6 +8,6 @@ part of 'endereco_repository.dart';
 
 final $EnderecoRepository = BindInject(
   (i) => EnderecoRepository(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );

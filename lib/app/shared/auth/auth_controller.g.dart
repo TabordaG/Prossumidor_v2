@@ -8,8 +8,8 @@ part of 'auth_controller.dart';
 
 final $AuthController = BindInject(
   (i) => AuthController(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );
 
 // **************************************************************************

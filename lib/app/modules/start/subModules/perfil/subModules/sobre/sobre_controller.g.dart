@@ -8,8 +8,8 @@ part of 'sobre_controller.dart';
 
 final $SobreController = BindInject(
   (i) => SobreController(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );
 
 // **************************************************************************

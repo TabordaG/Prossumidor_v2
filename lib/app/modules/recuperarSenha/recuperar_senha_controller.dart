@@ -4,8 +4,8 @@ import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:progress_dialog/progress_dialog.dart';
 import 'package:prossumidor_v2/app/modules/recuperarSenha/repositories/interfaces/recuperar_senha_repository_interface.dart';
+import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
 part 'recuperar_senha_controller.g.dart';
 
@@ -117,10 +117,16 @@ abstract class _RecuperarSenhaControllerBase with Store {
         emailValido = false;
         isPage1Valid();
         if (page1Valid) {
-          progressDialog.show();
+          progressDialog.show(
+            msg: "Carregando...",
+            backgroundColor: Colors.white,
+            borderRadius: 5.0,
+            progressType: ProgressType.normal,
+            max: null,
+          );
           bool response = await verificarEmail();
           Future.delayed(Duration(seconds: 2), () {
-            progressDialog.hide();
+            progressDialog.close();
             if (response) {
               buttonCarouselController.nextPage(
                 duration: Duration(milliseconds: 300),
@@ -136,9 +142,15 @@ abstract class _RecuperarSenhaControllerBase with Store {
         // Verifica se os campos estão preenchidos
         isPage2Valid();
         if (page2Valid) {
-          progressDialog.show();
+          progressDialog.show(
+            msg: "Carregando...",
+            backgroundColor: Colors.white,
+            borderRadius: 5.0,
+            progressType: ProgressType.normal,
+            max: null,
+          );
           Future.delayed(Duration(seconds: 2), () {
-            progressDialog.hide();
+            progressDialog.close();
             // Se os códigos batem
             if (verificaCodigo()) {
               buttonCarouselController.nextPage(

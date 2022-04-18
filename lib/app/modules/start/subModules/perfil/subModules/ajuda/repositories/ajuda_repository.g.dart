@@ -8,6 +8,6 @@ part of 'ajuda_repository.dart';
 
 final $AjudaRepository = BindInject(
   (i) => AjudaRepository(i<DioForNative>()),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );

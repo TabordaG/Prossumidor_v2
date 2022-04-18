@@ -3,16 +3,14 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import 'start_page.dart';
 
-class StartModule extends ChildModule {
+class StartModule extends Module {
   @override
-  List<Bind> get binds => [
-        $StartController,
-      ];
+  final List<Bind> binds = [
+    $StartController,
+  ];
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter(Modular.initialRoute, child: (_, args) => StartPage()),
-      ];
-
-  static Inject get to => Inject<StartModule>.of();
+  final List<ModularRoute> routes = [
+    ChildRoute(Modular.initialRoute, child: (_, args) => StartPage()),
+  ];
 }

@@ -5,7 +5,8 @@ class StandardButton extends StatefulWidget {
   final String text;
   final Color color;
 
-  StandardButton({this.onPressed, this.text, this.color}) : super();
+  const StandardButton({Key key, this.onPressed, this.text, this.color})
+      : super(key: key);
 
   @override
   _StandardButtonState createState() => _StandardButtonState();

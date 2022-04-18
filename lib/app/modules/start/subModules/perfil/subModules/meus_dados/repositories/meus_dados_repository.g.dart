@@ -8,6 +8,6 @@ part of 'meus_dados_repository.dart';
 
 final $MeusDadosRepository = BindInject(
   (i) => MeusDadosRepository(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );

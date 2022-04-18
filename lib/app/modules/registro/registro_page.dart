@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:progress_dialog/progress_dialog.dart';
 import 'package:prossumidor_v2/app/components/button.dart';
 import 'package:prossumidor_v2/app/constants.dart';
 import 'package:prossumidor_v2/app/shared/auth/auth_controller.dart';
+import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 import '../../components/button.dart';
 import '../../constants.dart';
 import 'registro_controller.dart';
@@ -31,16 +31,16 @@ class _RegistroPageState
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    progressDialog = ProgressDialog(context, type: ProgressDialogType.Normal);
-    progressDialog.style(
-      message: "Carregando...",
-      backgroundColor: Colors.white,
-      borderRadius: 5.0,
-      progressWidget: Padding(
-        padding: EdgeInsets.all(15.0),
-        child: CircularProgressIndicator(),
-      ),
-    );
+    progressDialog = ProgressDialog(context: context);
+    // progressDialog.style(
+    // message: "Carregando...",
+    // backgroundColor: Colors.white,
+    // borderRadius: 5.0,
+    // progressWidget: Padding(
+    //   padding: EdgeInsets.all(15.0),
+    //   child: CircularProgressIndicator(),
+    // ),
+    // );
     var appBar = AppBar(
       // brightness: Brightness.light,
       leading: IconButton(
@@ -343,11 +343,21 @@ class _RegistroPageState
                 if (controller.formkeyPage4.currentState.validate()) {
                   controller.setClickedButton(true);
                   if (controller.code == controller.codigoGerado) {
-                    progressDialog.style(message: "Validando..");
-                    progressDialog.show();
+                    // progressDialog.style(message: "Validando..");
+                    progressDialog.show(
+                      msg: "Carregando...",
+                      backgroundColor: Colors.white,
+                      borderRadius: 5.0,
+                      progressType: ProgressType.normal,
+                      // progressWidget: Padding(
+                      //   padding: EdgeInsets.all(15.0),
+                      //   child: CircularProgressIndicator(),
+                      // ),
+                      max: null,
+                    );
                     var res = await controller.registrar();
                     Future.delayed(Duration(seconds: 2), () async {
-                      progressDialog.hide();
+                      progressDialog.close();
                       if (res != null) {
                         await authController
                             .addStringToSF(controller.email.text);

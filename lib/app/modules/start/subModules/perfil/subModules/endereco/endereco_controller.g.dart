@@ -8,8 +8,8 @@ part of 'endereco_controller.dart';
 
 final $EnderecoController = BindInject(
   (i) => EnderecoController(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );
 
 // **************************************************************************

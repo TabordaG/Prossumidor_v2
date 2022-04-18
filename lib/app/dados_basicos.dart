@@ -50,7 +50,6 @@ class Basicos {
         'Decimal(', ''); // remove esse tido de retorno Decimal("111.000")
     dados = dados.replaceAll(')', ''); // remove o ")"
     // dados = dados.substring(0, dados.length);
-    print(dados);
     return dados;
   }
 

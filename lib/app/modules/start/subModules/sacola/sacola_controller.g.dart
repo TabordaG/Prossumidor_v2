@@ -8,8 +8,8 @@ part of 'sacola_controller.dart';
 
 final $SacolaController = BindInject(
   (i) => SacolaController(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );
 
 // **************************************************************************

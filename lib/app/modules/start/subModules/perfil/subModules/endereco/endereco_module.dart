@@ -4,17 +4,15 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import 'endereco_page.dart';
 
-class EnderecoModule extends ChildModule {
+class EnderecoModule extends Module {
   @override
-  List<Bind> get binds => [
-        $EnderecoRepository,
-        $EnderecoController,
-      ];
+  final List<Bind> binds = [
+    $EnderecoRepository,
+    $EnderecoController,
+  ];
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter(Modular.initialRoute, child: (_, args) => EnderecoPage()),
-      ];
-
-  static Inject get to => Inject<EnderecoModule>.of();
+  final List<ModularRoute> routes = [
+    ChildRoute(Modular.initialRoute, child: (_, args) => EnderecoPage()),
+  ];
 }

@@ -8,8 +8,8 @@ part of 'produtos_categorias_controller.dart';
 
 final $ProdutosCategoriasController = BindInject(
   (i) => ProdutosCategoriasController(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );
 
 // **************************************************************************

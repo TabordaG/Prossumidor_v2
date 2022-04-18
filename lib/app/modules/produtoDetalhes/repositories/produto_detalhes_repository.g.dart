@@ -8,6 +8,6 @@ part of 'produto_detalhes_repository.dart';
 
 final $ProdutoDetalhesRepository = BindInject(
   (i) => ProdutoDetalhesRepository(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );

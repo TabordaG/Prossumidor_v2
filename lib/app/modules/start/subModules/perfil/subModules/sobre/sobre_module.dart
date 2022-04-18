@@ -4,17 +4,15 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import 'sobre_page.dart';
 
-class SobreModule extends ChildModule {
+class SobreModule extends Module {
   @override
-  List<Bind> get binds => [
-        $SobreRepository,
-        $SobreController,
-      ];
+  final List<Bind> binds = [
+    $SobreRepository,
+    $SobreController,
+  ];
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter(Modular.initialRoute, child: (_, args) => SobrePage()),
-      ];
-
-  static Inject get to => Inject<SobreModule>.of();
+  final List<ModularRoute> routes = [
+    ChildRoute(Modular.initialRoute, child: (_, args) => SobrePage()),
+  ];
 }

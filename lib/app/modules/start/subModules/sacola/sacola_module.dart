@@ -6,26 +6,24 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import 'sacola_page.dart';
 
-class SacolaModule extends ChildModule {
+class SacolaModule extends Module {
   @override
-  List<Bind> get binds => [
-        $SacolaRepository,
-        $SacolaController,
-      ];
+  final List<Bind> binds = [
+    $SacolaRepository,
+    $SacolaController,
+  ];
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter(
-          Modular.initialRoute,
-          child: (_, args) => SacolaPage(),
-          transition: TransitionType.rightToLeft,
-        ),
-        ModularRouter(
-          '/confirmarEndereco',
-          child: (_, args) => ConfirmarEndereco(),
-          transition: TransitionType.rightToLeft,
-        ),
-      ];
-
-  static Inject get to => Inject<SacolaModule>.of();
+  final List<ModularRoute> routes = [
+    ChildRoute(
+      Modular.initialRoute,
+      child: (_, args) => SacolaPage(),
+      transition: TransitionType.rightToLeft,
+    ),
+    ChildRoute(
+      '/confirmarEndereco',
+      child: (_, args) => ConfirmarEndereco(),
+      transition: TransitionType.rightToLeft,
+    ),
+  ];
 }

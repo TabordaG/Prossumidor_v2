@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_const
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:prossumidor_v2/app/FadeAnimation.dart';
@@ -12,13 +14,13 @@ class CardHome extends StatefulWidget {
   final Function verDetalhes;
   final bool margin;
 
-  CardHome({
-    
+  const CardHome({
+    Key key,
     this.index,
     this.produto,
     this.verDetalhes,
     this.margin = false,
-  }) : super();
+  }) : super(key: key);
 
   @override
   _CardHomeState createState() => _CardHomeState();
@@ -40,17 +42,17 @@ class _CardHomeState extends State<CardHome> {
           height: 245,
           width: 150,
           child: Card(
-            color: Color(0xFFF6F6F6),
+            color: const Color(0xFFF6F6F6),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(5),
                     topRight: Radius.circular(5),
                   ),
-                  child: Container(
+                  child: SizedBox(
                     height: 145,
                     width: double.infinity,
                     child: widget.produto.imagem != null &&
@@ -59,22 +61,22 @@ class _CardHomeState extends State<CardHome> {
                             imageUrl:
                                 "${Basicos.ip2}/media/" + widget.produto.imagem,
                             fit: BoxFit.cover,
-                            placeholder: (context, url) => Padding(
+                            placeholder: (context, url) => const Padding(
                               padding: EdgeInsets.all(25.0),
                               child: CircularProgressIndicator(
                                 strokeWidth: 1,
                               ),
                             ),
                             errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
+                                const Icon(Icons.error),
                           )
-                        : Center(
-                            child: Icon(Icons.error),
+                        : const Center(
+                            child: const Icon(Icons.error),
                           ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     left: kDefaultPadding * .2,
                     right: kDefaultPadding * .2,
                     top: kDefaultPadding * .2,
@@ -90,8 +92,8 @@ class _CardHomeState extends State<CardHome> {
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: kDefaultPadding * .2),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: kDefaultPadding * .2),
                   child: Text(
                     widget.produto.marca,
                     maxLines: 1,
@@ -107,9 +109,9 @@ class _CardHomeState extends State<CardHome> {
                         ),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Padding(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     left: kDefaultPadding * .4,
                     right: kDefaultPadding * .4,
                     bottom: kDefaultPadding * .4,
@@ -130,7 +132,7 @@ class _CardHomeState extends State<CardHome> {
                       ),
                       Flexible(
                         child: Container(
-                          padding: EdgeInsets.only(left: 5.0),
+                          padding: const EdgeInsets.only(left: 5.0),
                           child: Text(
                             widget.produto.unidade_medida,
                             textAlign: TextAlign.right,
@@ -159,11 +161,11 @@ class CardVerMaisHome extends StatefulWidget {
   final int indexItem;
   final Function verMais;
 
-  CardVerMaisHome({
-   
+  const CardVerMaisHome({
+    Key key,
     this.indexItem,
     this.verMais,
-  }) : super();
+  }) : super(key: key);
 
   @override
   _CardVerMaisHomeState createState() => _CardVerMaisHomeState();
@@ -173,7 +175,7 @@ class _CardVerMaisHomeState extends State<CardVerMaisHome> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         left: kDefaultPadding * .2,
         right: kDefaultPadding * .7,
       ),
@@ -183,19 +185,19 @@ class _CardVerMaisHomeState extends State<CardVerMaisHome> {
         borderRadius: BorderRadius.circular(5.0),
         onTap: widget.verMais,
         child: Card(
-          color: Color(0xFFF6F6F6),
+          color: const Color(0xFFF6F6F6),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CircleAvatar(
                 backgroundColor: Theme.of(context).primaryColor,
-                child: Icon(
+                child: const Icon(
                   Icons.add,
                   color: Colors.white,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: kDefaultPadding,
               ),
               Text(
@@ -218,12 +220,12 @@ class CardProdutosCategoria extends StatefulWidget {
   final Produto produto;
   final Function verDetalhes;
 
-  CardProdutosCategoria({
-   
+  const CardProdutosCategoria({
+    Key key,
     this.index,
     this.produto,
     this.verDetalhes,
-  }) : super();
+  }) : super(key: key);
 
   @override
   _CardProdutosCategoriaState createState() => _CardProdutosCategoriaState();
@@ -234,20 +236,20 @@ class _CardProdutosCategoriaState extends State<CardProdutosCategoria> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: widget.verDetalhes,
-      child: Container(
+      child: SizedBox(
         // height: 235,
         width: double.infinity,
         child: Card(
-          color: Color(0xFFF6F6F6),
+          color: const Color(0xFFF6F6F6),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(5),
                   topRight: Radius.circular(5),
                 ),
-                child: Container(
+                child: SizedBox(
                   height: 150,
                   width: double.infinity,
                   child: Image(
@@ -259,7 +261,7 @@ class _CardProdutosCategoriaState extends State<CardProdutosCategoria> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   left: kDefaultPadding * .2,
                   right: kDefaultPadding * .2,
                   top: kDefaultPadding * .2,
@@ -275,7 +277,8 @@ class _CardProdutosCategoriaState extends State<CardProdutosCategoria> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: kDefaultPadding * .2),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: kDefaultPadding * .2),
                 child: Text(
                   widget.produto.marca_produto_id.toString(),
                   maxLines: 1,
@@ -291,9 +294,9 @@ class _CardProdutosCategoriaState extends State<CardProdutosCategoria> {
                       ),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               Padding(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   left: kDefaultPadding * .2,
                   right: kDefaultPadding * .2,
                   bottom: kDefaultPadding * .2,
@@ -313,7 +316,7 @@ class _CardProdutosCategoriaState extends State<CardProdutosCategoria> {
                     ),
                     Flexible(
                       child: Container(
-                        padding: EdgeInsets.only(left: 5.0),
+                        padding: const EdgeInsets.only(left: 5.0),
                         child: Text(
                           widget.produto.unidade_medida,
                           textAlign: TextAlign.right,

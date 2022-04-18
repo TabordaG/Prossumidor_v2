@@ -8,8 +8,8 @@ part of 'pedidos_controller.dart';
 
 final $PedidosController = BindInject(
   (i) => PedidosController(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );
 
 // **************************************************************************

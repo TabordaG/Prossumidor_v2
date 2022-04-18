@@ -4,14 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/chat/chat_controller.dart';
-import 'package:prossumidor_v2/app/modules/start/subModules/chat/chat_module.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/home/home_controller.dart';
-import 'package:prossumidor_v2/app/modules/start/subModules/home/home_module.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/pedidos/pedidos_controller.dart';
-import 'package:prossumidor_v2/app/modules/start/subModules/pedidos/pedidos_module.dart';
-import 'package:prossumidor_v2/app/modules/start/subModules/perfil/perfil_module.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/sacola/sacola_controller.dart';
-import 'package:prossumidor_v2/app/modules/start/subModules/sacola/sacola_module.dart';
 import 'package:prossumidor_v2/app/shared/auth/auth_controller.dart';
 import '../../app_controller.dart';
 import 'start_controller.dart';
@@ -33,17 +28,7 @@ class _StartPageState extends ModularState<StartPage, StartController> {
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.dark,
         child: Scaffold(
-          body: PageView(
-            controller: appController.pageViewController,
-            physics: NeverScrollableScrollPhysics(),
-            children: [
-              RouterOutlet(module: SacolaModule()),
-              RouterOutlet(module: PedidosModule()),
-              RouterOutlet(module: HomeModule()),
-              RouterOutlet(module: ChatModule()),
-              RouterOutlet(module: PerfilModule()),
-            ],
-          ),
+          body: RouterOutlet(),
           bottomNavigationBar: Observer(builder: (_) {
             return Stack(
               children: [
@@ -66,53 +51,53 @@ class _StartPageState extends ModularState<StartPage, StartController> {
                   type: BottomNavigationBarType.fixed,
                   showSelectedLabels: true,
                   onTap: (index) {
-                    try {
-                      if (index == 2 &&
-                          appController.pageViewController.page == 2) {
-                        final HomeController homeController =
-                            Modular.get<HomeController>();
-                        homeController.scrollController.animateTo(
-                          0,
-                          duration: Duration(milliseconds: 800),
-                          curve: Curves.easeInOut,
-                        );
-                      }
-                    } catch (e) {}
-                    appController.pageViewController.jumpToPage(
-                      index,
-                      // duration: Duration(milliseconds: 500),
-                      // curve: Curves.ease,
-                    );
-                    try {
-                      if (index == 0 &&
-                          Modular.get<SacolaController>() != null) {
-                        final SacolaController sacolaController =
-                            Modular.get<SacolaController>();
-                        sacolaController.buscarProdutos();
-                      }
-                    } catch (e) {}
-                    try {
-                      if (index == 1 &&
-                          Modular.get<PedidosController>() != null) {
-                        final PedidosController pedidosController =
-                            Modular.get<PedidosController>();
-                        pedidosController.chamarListaEntregue();
-                        pedidosController.chamarListaEmAndamento();
-                        pedidosController.chamarListaNaoEntregueCancelado();
-                      }
-                    } catch (e) {}
-                    try {
-                      if (index == 2) {
-                        authController.buscaMensagem();
-                      }
-                    } catch (e) {}
-                    try {
-                      if (index == 3) {
+                    if (index == 0) {
+                      try {
+                        Modular.to.navigate('/sacola/');
+                        if (Modular.get<SacolaController>() != null) {
+                          final SacolaController sacolaController =
+                              Modular.get<SacolaController>();
+                          sacolaController.buscarProdutos();
+                        }
+                      } catch (e) {}
+                    } else if (index == 1) {
+                      try {
+                        Modular.to.navigate('/pedidos/');
+                        if (Modular.get<PedidosController>() != null) {
+                          final PedidosController pedidosController =
+                              Modular.get<PedidosController>();
+                          pedidosController.chamarListaEntregue();
+                          pedidosController.chamarListaEmAndamento();
+                          pedidosController.chamarListaNaoEntregueCancelado();
+                        }
+                      } catch (e) {}
+                    } else if (index == 2) {
+                      try {
+                        if (appController.pageViewController.page == 2) {
+                          final HomeController homeController =
+                              Modular.get<HomeController>();
+                          homeController.scrollController.animateTo(
+                            0,
+                            duration: Duration(milliseconds: 800),
+                            curve: Curves.easeInOut,
+                          );
+                        } else {
+                          Modular.to.navigate('/home/');
+                          authController.buscaMensagem();
+                        }
+                      } catch (e) {}
+                    } else if (index == 3) {
+                      try {
+                        Modular.to.navigate('/chat/');
                         final ChatController chatController =
                             Modular.get<ChatController>();
                         chatController.buscaChats();
-                      }
-                    } catch (e) {}
+                      } catch (e) {}
+                    } else if (index == 4) {
+                      try {
+                        Modular.to.navigate('/perfil/');
+                      } catch (e) {}
+                    }
                   },
                   currentIndex: appController.indexBottomNavigator,
                   items: [

@@ -2,9 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:progress_dialog/progress_dialog.dart';
 import 'package:prossumidor_v2/app/modules/recuperarSenha/widgets/page1.dart';
 import 'package:prossumidor_v2/app/modules/recuperarSenha/widgets/page3.dart';
+import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 import '../../components/button.dart';
 import '../../constants.dart';
 import 'recuperar_senha_controller.dart';
@@ -26,16 +26,16 @@ class _RecuperarSenhaPageState
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    progressDialog = ProgressDialog(context, type: ProgressDialogType.Normal);
-    progressDialog.style(
-      message: "Carregando...",
-      backgroundColor: Colors.white,
-      borderRadius: 5.0,
-      progressWidget: Padding(
-        padding: EdgeInsets.all(15.0),
-        child: CircularProgressIndicator(),
-      ),
-    );
+    progressDialog = ProgressDialog(context: context);
+    // progressDialog.style(
+    //   message: "Carregando...",
+    //   backgroundColor: Colors.white,
+    //   borderRadius: 5.0,
+    //   progressWidget: Padding(
+    //     padding: EdgeInsets.all(15.0),
+    //     child: CircularProgressIndicator(),
+    //   ),
+    // );
     var appBar = AppBar(
       // brightness: Brightness.light,
       leading: IconButton(
@@ -190,11 +190,15 @@ class _RecuperarSenhaPageState
                             } else {
                               controller.isPage3Valid();
                               if (controller.page3Valid) {
-                                progressDialog.style(message: "Alterando..");
-                                progressDialog.show();
+                                progressDialog.show(
+                                  msg: "Alterando...",
+                                  backgroundColor: Colors.white,
+                                  borderRadius: 5.0,
+                                  max: null,
+                                );
                                 var res = await controller.alterarNovaSenha();
                                 Future.delayed(Duration(seconds: 3), () {
-                                  progressDialog.hide();
+                                  progressDialog.close();
                                   if (res == "sucesso") {
                                     buildShowGeneralDialog(
                                       context,

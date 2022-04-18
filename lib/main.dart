@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prossumidor_v2/app/app_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:prossumidor_v2/app/app_widget.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
@@ -12,5 +13,8 @@ void main() {
       statusBarIconBrightness: Brightness.light,
     ),
   );
-  runApp(ModularApp(module: AppModule()));
+  runApp(ModularApp(
+    module: AppModule(),
+    child: AppWidget(),
+  ));
 }
