@@ -242,7 +242,7 @@ class _CardPedidosState extends State<CardPedidos> {
                       child: ButtonTheme(
                           minWidth: 150,
                           height: 30,
-                          child: RaisedButton(
+                          child: ElevatedButton(
                             onPressed: () {
                               showDialog(
                                 context: context,
@@ -365,7 +365,7 @@ class _CardPedidosState extends State<CardPedidos> {
                                       ),
                                     ),
                                     actions: <Widget>[
-                                      FlatButton(
+                                      TextButton(
                                         child: Text(
                                           'Cancelar',
                                         ),
@@ -378,10 +378,10 @@ class _CardPedidosState extends State<CardPedidos> {
                                 },
                               );
                             },
-                            color: Theme.of(context).primaryColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
+                            // color: Theme.of(context).primaryColor,
+                            // shape: RoundedRectangleBorder(
+                            //   borderRadius: BorderRadius.circular(5.0),
+                            // ),
                             child: Text(
                               "Falar com o vendedor",
                               style: Theme.of(context)
@@ -401,7 +401,7 @@ class _CardPedidosState extends State<CardPedidos> {
                       child: ButtonTheme(
                           minWidth: 100,
                           height: 30,
-                          child: RaisedButton(
+                          child: ElevatedButton(
                             onPressed: widget.lista[widget.index].status_pedido
                                         .toUpperCase() !=
                                     "EM ANDAMENTO"
@@ -428,7 +428,7 @@ class _CardPedidosState extends State<CardPedidos> {
                                                   ),
                                             ),
                                             actions: <Widget>[
-                                              FlatButton(
+                                              TextButton(
                                                 child: Text(
                                                   'Cancelar',
                                                   style: Theme.of(context2)
@@ -475,7 +475,7 @@ class _CardPedidosState extends State<CardPedidos> {
                                                 ),
                                           ),
                                           actions: <Widget>[
-                                            FlatButton(
+                                            TextButton(
                                               child: Text(
                                                 'Voltar',
                                                 style: Theme.of(context2)
@@ -491,7 +491,7 @@ class _CardPedidosState extends State<CardPedidos> {
                                                     .pop(context2);
                                               },
                                             ),
-                                            FlatButton(
+                                            TextButton(
                                               child: Text(
                                                 'Confirmar',
                                                 style: Theme.of(context2)
@@ -559,14 +559,14 @@ class _CardPedidosState extends State<CardPedidos> {
                                       },
                                     );
                                   },
-                            color: widget.lista[widget.index].status_pedido
-                                        .toUpperCase() ==
-                                    "EM ANDAMENTO"
-                                ? Theme.of(context).colorScheme.secondary
-                                : Colors.grey,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
+                            // color: widget.lista[widget.index].status_pedido
+                            //             .toUpperCase() ==
+                            //         "EM ANDAMENTO"
+                            //     ? Theme.of(context).colorScheme.secondary
+                            //     : Colors.grey,
+                            // shape: RoundedRectangleBorder(
+                            //   borderRadius: BorderRadius.circular(5.0),
+                            // ),
                             child: Text(
                               "Cancelar",
                               style: Theme.of(context)

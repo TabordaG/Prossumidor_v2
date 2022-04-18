@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -38,7 +37,7 @@ class _RecuperarSenhaPageState
       ),
     );
     var appBar = AppBar(
-      brightness: Brightness.light,
+      // brightness: Brightness.light,
       leading: IconButton(
         splashRadius: 2,
         icon: Icon(Icons.arrow_back, color: Theme.of(context).primaryColor),
@@ -310,7 +309,8 @@ class _RecuperarSenhaPageState
   }
 
   Color returnColorIndex(int i) {
-    Color color = Theme.of(context).textSelectionColor.withOpacity(.2);
+    Color color = kContentColorLightTheme.withOpacity(
+        .2); //Theme.of(context).textSelectionColor.withOpacity(.2);
     switch (i) {
       case 0:
         return controller.page1Valid

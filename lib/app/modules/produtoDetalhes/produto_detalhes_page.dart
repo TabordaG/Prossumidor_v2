@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/constants.dart';
@@ -29,7 +28,7 @@ class _ProdutoDetalhesPageState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        brightness: Brightness.light,
+        // brightness: Brightness.light,
         backgroundColor: Colors.white,
         leading: BackButton(
           color: Theme.of(context).textTheme.bodyText1.color,
@@ -505,10 +504,10 @@ class _ProdutoDetalhesPageState
                 ),
               ],
             ),
-            RaisedButton(
-              color: Colors.white,
-              highlightColor: Colors.white,
-              highlightElevation: 24,
+            ElevatedButton(
+              // color: Colors.white,
+              // highlightColor: Colors.white,
+              // highlightElevation: 24,
               onPressed: () {
                 controller.adicionarSacola(context);
                 showDialog(

@@ -26,7 +26,7 @@ class _SearchPageState extends State<SearchPage> {
           content: Text('Não foi encontrado mais produtos'),
         );
 
-        Scaffold.of(context).showSnackBar(snackBar);
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     }
   }

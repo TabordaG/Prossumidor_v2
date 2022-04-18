@@ -57,7 +57,7 @@ class _HomeListViewState extends State<HomeListView>
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      resizeToAvoidBottomPadding: false,
+      // resizeToAvoidBottomPadding: false,
       body: Observer(builder: (_) {
         return Container(
           color: Colors.white,
@@ -528,22 +528,22 @@ class _HomeListViewState extends State<HomeListView>
                                           controller
                                                   .buscarCategoria.text.isEmpty
                                               ? Observer(builder: (_) {
-                                                  return RaisedButton(
-                                                    color: controller
-                                                            .listaCategoriasFiltro[
-                                                                0]
-                                                            .selecionado
-                                                        ? kPrimaryColor
-                                                        : Colors.white,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      side: BorderSide(
-                                                          color: kPrimaryColor),
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                        Radius.circular(5),
-                                                      ),
-                                                    ),
+                                                  return ElevatedButton(
+                                                    // color: controller
+                                                    //         .listaCategoriasFiltro[
+                                                    //             0]
+                                                    //         .selecionado
+                                                    //     ? kPrimaryColor
+                                                    //     : Colors.white,
+                                                    // shape:
+                                                    //     RoundedRectangleBorder(
+                                                    //   side: BorderSide(
+                                                    //       color: kPrimaryColor),
+                                                    //   borderRadius:
+                                                    //       BorderRadius.all(
+                                                    //     Radius.circular(5),
+                                                    //   ),
+                                                    // ),
                                                     onPressed: () {
                                                       controller
                                                           .selecionarCategoria(

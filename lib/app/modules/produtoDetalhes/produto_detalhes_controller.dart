@@ -53,7 +53,7 @@ abstract class _ProdutoDetalhesControllerBase with Store {
               "Não é possível aumentar a quantidade, pois o estoque máximo já foi atingido",
             ),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                 child: Text(
                   "Fechar",
                   style: TextStyle(
