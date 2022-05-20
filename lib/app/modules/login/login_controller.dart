@@ -51,10 +51,11 @@ abstract class _LoginControllerBase with Store {
     } else {
       Usuario usuarioInativo =
           await loginRepository.buscarUsuarioSemFiltro(email);
-      if (usuarioInativo == null)
+      if (usuarioInativo == null) {
         return 2;
-      else
+      } else {
         return 3;
+      }
     }
   }
 }

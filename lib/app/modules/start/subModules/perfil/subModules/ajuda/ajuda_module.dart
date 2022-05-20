@@ -13,6 +13,6 @@ class AjudaModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute(Modular.initialRoute, child: (_, args) => AjudaPage()),
+    ChildRoute(Modular.initialRoute, child: (_, args) => const AjudaPage()),
   ];
 }

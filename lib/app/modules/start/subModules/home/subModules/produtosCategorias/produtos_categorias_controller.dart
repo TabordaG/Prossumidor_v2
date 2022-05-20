@@ -1,3 +1,5 @@
+// ignore_for_file: curly_braces_in_flow_control_structures
+
 import 'package:mobx/mobx.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -50,7 +52,7 @@ abstract class _ProdutosCategoriasControllerBase with Store {
       for (var i = 1; i < subcategorias.length; i++) {
         if (subcategorias[i].ativo == true) {
           verifica = 1;
-          categoriasIDs.add(subcategorias[i].subcategoria_id);
+          categoriasIDs.add(subcategorias[i].subcategoria_id!);
         }
       }
       subcategorias = List.from(subcategorias);
@@ -61,7 +63,7 @@ abstract class _ProdutosCategoriasControllerBase with Store {
         subcategorias = List.from(subcategorias);
         List<Produto> res =
             await produtosCategoriasRepository.pesquisaProdutosCategoria(
-                categoriaProduto.categoria.id,
+                categoriaProduto.categoria!.id,
                 buscarText.text,
                 listaProdutos.length);
         if (res != null) listaProdutos = res;
@@ -70,10 +72,9 @@ abstract class _ProdutosCategoriasControllerBase with Store {
       } else {
         listaProdutos = [];
         buscandoProdutos = true;
-        print(categoriasIDs);
         List<Produto> res =
             await produtosCategoriasRepository.pesquisaProdutosMulticategorias(
-          categoriaProduto.categoria.id,
+          categoriaProduto.categoria!.id,
           categoriasIDs,
           buscarText.text,
           listaProdutos.length,
@@ -85,10 +86,9 @@ abstract class _ProdutosCategoriasControllerBase with Store {
     } else {
       listaProdutos = [];
       buscandoProdutos = true;
-      print(categoriasIDs);
       List<Produto> res =
           await produtosCategoriasRepository.pesquisaProdutosEmpreendimento(
-        marcaProduto.marca.id,
+        marcaProduto.marca!.id,
         buscarText.text,
         listaProdutos.length,
       );
@@ -114,12 +114,13 @@ abstract class _ProdutosCategoriasControllerBase with Store {
     categoriasIDs = [];
     buscarText.clear();
     isSearching = false;
-    subcategorias[index].ativo = !subcategorias[index].ativo;
+    subcategorias[index].ativo = !subcategorias[index].ativo!;
 
-    if (index != 0 && subcategorias[index].ativo)
+    if (index != 0 && subcategorias[index].ativo!) {
       subcategorias[0].ativo = false;
+    }
 
-    if (index == 0 && subcategorias[index].ativo)
+    if (index == 0 && subcategorias[index].ativo!)
       for (var i = 1; i < subcategorias.length; i++) {
         subcategorias[i].ativo = false;
       }
@@ -128,7 +129,7 @@ abstract class _ProdutosCategoriasControllerBase with Store {
     for (var i = 1; i < subcategorias.length; i++) {
       if (subcategorias[i].ativo == true) {
         verifica = 1;
-        categoriasIDs.add(subcategorias[i].subcategoria_id);
+        categoriasIDs.add(subcategorias[i].subcategoria_id!);
       }
     }
     // subcategorias.forEach((element) {
@@ -144,10 +145,9 @@ abstract class _ProdutosCategoriasControllerBase with Store {
     } else {
       listaProdutos = [];
       buscandoProdutos = true;
-      print(categoriasIDs);
       List<Produto> res =
           await produtosCategoriasRepository.listaProdutosEmComum(
-        categoriaProduto.categoria.id,
+        categoriaProduto.categoria!.id,
         categoriasIDs,
         listaProdutos.length,
       );
@@ -171,10 +171,10 @@ abstract class _ProdutosCategoriasControllerBase with Store {
     if (isCategoria) {
       listaProdutos =
           await produtosCategoriasRepository.listaProdutosPorCategoria(
-              categoriaProduto.categoria.id, listaProdutos.length);
+              categoriaProduto.categoria!.id, listaProdutos.length);
     } else {
       listaProdutos = await produtosCategoriasRepository.listaProdutosPorMarca(
-          marcaProduto.marca.id, listaProdutos.length);
+          marcaProduto.marca!.id, listaProdutos.length);
     }
     listaProdutos = List.from(listaProdutos);
     buscandoProdutos = false;
@@ -193,38 +193,39 @@ abstract class _ProdutosCategoriasControllerBase with Store {
     habilitarNovaBusca = false;
     List<Produto> produtos = [];
     if (isCategoria) {
-      if (subcategorias[0].ativo)
+      if (subcategorias[0].ativo!) {
         produtos = await produtosCategoriasRepository.listaProdutosPorCategoria(
-            categoriaProduto.categoria.id, listaProdutos.length);
-      else {
+            categoriaProduto.categoria!.id, listaProdutos.length);
+      } else {
         List<Produto> res =
             await produtosCategoriasRepository.listaProdutosEmComum(
-                categoriaProduto.categoria.id,
+                categoriaProduto.categoria!.id,
                 categoriasIDs,
                 listaProdutos.length);
         if (res != null) produtos = res;
       }
     } else {
       produtos = await produtosCategoriasRepository.listaProdutosPorMarca(
-          marcaProduto.marca.id, listaProdutos.length);
+          marcaProduto.marca!.id, listaProdutos.length);
     }
 
     if (produtos != null)
       for (var item in produtos) {
         listaProdutos.add(item);
       }
-    else
+    else {
       produtos = [];
+    }
 
     listaProdutos = List.from(listaProdutos);
     buscandoMaisProdutos = false;
 
     if (produtos.isEmpty) {
-      final snackBar = SnackBar(
+      const snackBar = SnackBar(
         content: Text('Não foi encontrado mais produtos'),
       );
 
-      Scaffold.of(context).showSnackBar(snackBar);
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
 
     habilitarNovaBusca = true;

@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,6 +20,7 @@ class EnderecoPage extends StatefulWidget {
 
 class _EnderecoPageState
     extends ModularState<EnderecoPage, EnderecoController> {
+  @override
   final EnderecoController controller = Modular.get<EnderecoController>();
   final AppController appController = Modular.get<AppController>();
   final FocusScopeNode node = FocusScopeNode();
@@ -34,7 +37,7 @@ class _EnderecoPageState
       appBar: AppBar(
         title: Row(
           mainAxisSize: MainAxisSize.min,
-          children: [
+          children: const [
             Icon(Icons.location_on, color: Colors.white),
             SizedBox(
               width: kDefaultPadding * 0.25,
@@ -45,9 +48,9 @@ class _EnderecoPageState
       ),
       body: Center(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Padding(
-            padding: EdgeInsets.fromLTRB(kDefaultPadding, kDefaultPadding,
+            padding: const EdgeInsets.fromLTRB(kDefaultPadding, kDefaultPadding,
                 kDefaultPadding, kDefaultPadding * 0.5),
             child: Container(
               width: MediaQuery.of(context).size.width,
@@ -59,7 +62,7 @@ class _EnderecoPageState
                     color: Colors.black.withOpacity(0.25),
                     spreadRadius: 0,
                     blurRadius: 1,
-                    offset: Offset(0, 0),
+                    offset: const Offset(0, 0),
                   ),
                 ],
               ),
@@ -70,26 +73,26 @@ class _EnderecoPageState
                     node: node,
                     child: ListView(
                       shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         Center(
                           child: Text(
                             "Dados de Entrega",
                             style:
-                                Theme.of(context).textTheme.bodyText1.copyWith(
+                                Theme.of(context).textTheme.bodyText1!.copyWith(
                                       fontSize: 18,
                                     ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: kDefaultPadding * 0.25,
                         ),
                         Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: kDefaultPadding),
                           child: Observer(builder: (_) {
                             return TextFormField(
                               controller: controller.endereco,
@@ -98,7 +101,7 @@ class _EnderecoPageState
                               textCapitalization: TextCapitalization.words,
                               onEditingComplete: node.nextFocus,
                               validator: (value) {
-                                if (value.isEmpty) {
+                                if (value!.isEmpty) {
                                   return 'Insira um endereço válido';
                                 } else {
                                   return null;
@@ -106,7 +109,7 @@ class _EnderecoPageState
                               },
                               decoration: InputDecoration(
                                 labelText: 'Endereço',
-                                border: UnderlineInputBorder(),
+                                border: const UnderlineInputBorder(),
                                 prefixIcon: Icon(
                                   Icons.apartment,
                                   color: Theme.of(context).primaryColor,
@@ -115,12 +118,12 @@ class _EnderecoPageState
                             );
                           }),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: kDefaultPadding * 0.5,
                         ),
                         Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: kDefaultPadding),
                           child: Observer(builder: (_) {
                             return TextFormField(
                               keyboardType: TextInputType.number,
@@ -132,7 +135,7 @@ class _EnderecoPageState
                                 LengthLimitingTextInputFormatter(5),
                               ],
                               validator: (value) {
-                                if (value.isEmpty) {
+                                if (value!.isEmpty) {
                                   return 'Insira um número válido';
                                 } else {
                                   return null;
@@ -140,7 +143,7 @@ class _EnderecoPageState
                               },
                               decoration: InputDecoration(
                                 labelText: 'Número',
-                                border: UnderlineInputBorder(),
+                                border: const UnderlineInputBorder(),
                                 prefixIcon: Icon(
                                   Icons.filter_1,
                                   color: Theme.of(context).primaryColor,
@@ -149,12 +152,12 @@ class _EnderecoPageState
                             );
                           }),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: kDefaultPadding * 0.5,
                         ),
                         Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: kDefaultPadding),
                           child: Observer(builder: (_) {
                             return TextFormField(
                               controller: controller.complemento,
@@ -166,7 +169,7 @@ class _EnderecoPageState
                               ],
                               decoration: InputDecoration(
                                 labelText: 'Complemento',
-                                border: UnderlineInputBorder(),
+                                border: const UnderlineInputBorder(),
                                 prefixIcon: Icon(
                                   Icons.house,
                                   color: Theme.of(context).primaryColor,
@@ -175,12 +178,12 @@ class _EnderecoPageState
                             );
                           }),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: kDefaultPadding * 0.5,
                         ),
                         Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: kDefaultPadding),
                           child: Observer(builder: (_) {
                             return TextFormField(
                               controller: controller.bairro,
@@ -189,7 +192,7 @@ class _EnderecoPageState
                               textCapitalization: TextCapitalization.words,
                               onEditingComplete: node.nextFocus,
                               validator: (value) {
-                                if (value.isEmpty) {
+                                if (value!.isEmpty) {
                                   return 'Insira um bairro válido';
                                 } else {
                                   return null;
@@ -197,7 +200,7 @@ class _EnderecoPageState
                               },
                               decoration: InputDecoration(
                                 labelText: 'Bairro',
-                                border: UnderlineInputBorder(),
+                                border: const UnderlineInputBorder(),
                                 prefixIcon: Icon(
                                   Icons.house_siding,
                                   color: Theme.of(context).primaryColor,
@@ -206,7 +209,7 @@ class _EnderecoPageState
                             );
                           }),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: kDefaultPadding * 0.5,
                         ),
                         Row(
@@ -214,7 +217,8 @@ class _EnderecoPageState
                             Expanded(
                               flex: 3,
                               child: Padding(
-                                padding: EdgeInsets.only(left: kDefaultPadding),
+                                padding: const EdgeInsets.only(
+                                    left: kDefaultPadding),
                                 child: Observer(builder: (_) {
                                   return TextFormField(
                                     controller: controller.cidade,
@@ -227,7 +231,7 @@ class _EnderecoPageState
                                         TextCapitalization.words,
                                     onEditingComplete: node.nextFocus,
                                     validator: (value) {
-                                      if (value.isEmpty) {
+                                      if (value!.isEmpty) {
                                         return 'Insira uma cidade válida';
                                       } else {
                                         return null;
@@ -235,7 +239,7 @@ class _EnderecoPageState
                                     },
                                     decoration: InputDecoration(
                                       labelText: 'Cidade',
-                                      border: UnderlineInputBorder(),
+                                      border: const UnderlineInputBorder(),
                                       prefixIcon: Icon(
                                         Icons.location_city,
                                         color: Theme.of(context).primaryColor,
@@ -245,14 +249,14 @@ class _EnderecoPageState
                                 }),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Expanded(
                               flex: 2,
                               child: Padding(
-                                padding:
-                                    EdgeInsets.only(right: kDefaultPadding),
+                                padding: const EdgeInsets.only(
+                                    right: kDefaultPadding),
                                 child: Observer(builder: (_) {
                                   return TextFormField(
                                     controller: controller.uf,
@@ -267,7 +271,7 @@ class _EnderecoPageState
                                       LengthLimitingTextInputFormatter(2),
                                     ],
                                     validator: (value) {
-                                      if (value.isEmpty) {
+                                      if (value!.isEmpty) {
                                         return 'Insira um UF válido';
                                       } else {
                                         return null;
@@ -275,7 +279,7 @@ class _EnderecoPageState
                                     },
                                     decoration: InputDecoration(
                                       labelText: 'UF',
-                                      border: UnderlineInputBorder(),
+                                      border: const UnderlineInputBorder(),
                                       prefixIcon: Icon(
                                         Icons.business,
                                         color: Theme.of(context).primaryColor,
@@ -287,12 +291,12 @@ class _EnderecoPageState
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: kDefaultPadding * 0.5,
                         ),
                         Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: kDefaultPadding),
                           child: Observer(builder: (_) {
                             return TextFormField(
                               controller: controller.cep,
@@ -305,7 +309,7 @@ class _EnderecoPageState
                                 CepInputFormatter(),
                               ],
                               validator: (value) {
-                                if (value.isEmpty) {
+                                if (value!.isEmpty) {
                                   return 'Insira um CEP válido';
                                 } else {
                                   return null;
@@ -313,7 +317,7 @@ class _EnderecoPageState
                               },
                               decoration: InputDecoration(
                                 labelText: 'CEP',
-                                border: UnderlineInputBorder(),
+                                border: const UnderlineInputBorder(),
                                 prefixIcon: Icon(
                                   Icons.location_on,
                                   color: Theme.of(context).primaryColor,
@@ -323,17 +327,17 @@ class _EnderecoPageState
                           }),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               left: kDefaultPadding,
                               right: kDefaultPadding,
                               top: kDefaultPadding),
-                          child: Container(
+                          child: SizedBox(
                             height: 65,
                             width: double.infinity,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
+                                const Padding(
                                   padding: EdgeInsets.only(
                                       left: kDefaultPadding * 2.5),
                                   child: Text('Local de Retirada'),
@@ -349,7 +353,7 @@ class _EnderecoPageState
                                     ),
                                     Expanded(
                                       child: Padding(
-                                        padding: EdgeInsets.only(
+                                        padding: const EdgeInsets.only(
                                             left: kDefaultPadding * 0.5),
                                         child: Observer(builder: (_) {
                                           return DropdownButton<String>(
@@ -364,10 +368,10 @@ class _EnderecoPageState
                                                   .colorScheme
                                                   .secondary,
                                             ),
-                                            onChanged: (String newValue) {
+                                            onChanged: (newValue) {
                                               setState(() {
                                                 controller
-                                                    .mudaDropDown(newValue);
+                                                    .mudaDropDown(newValue!);
                                               });
                                             },
                                             items: controller.listLocalRetirada
@@ -389,7 +393,7 @@ class _EnderecoPageState
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: kDefaultPadding * 2,
                               vertical: kDefaultPadding * 0.5),
                           child: ButtonTheme(
@@ -401,14 +405,13 @@ class _EnderecoPageState
                                 if (controller.pageValid == true) {
                                   String response =
                                       await controller.atualizaDados();
-                                  print(response);
                                   if (response != null) {
                                     buildShowDialog(context, response);
                                     Navigator.of(context).pop();
-                                  } else
+                                  } else {
                                     buildShowDialog(context, response);
-                                } else
-                                  print("form invalido");
+                                  }
+                                } else {}
                               },
                               color: Theme.of(context).primaryColor,
                               text: "Alterar dados",
@@ -432,8 +435,9 @@ class _EnderecoPageState
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Alteração de Dados', textAlign: TextAlign.center),
-            content: Container(
+            title:
+                const Text('Alteração de Dados', textAlign: TextAlign.center),
+            content: SizedBox(
               height: 75,
               child: Column(
                 children: [
@@ -449,7 +453,7 @@ class _EnderecoPageState
                       response == 'sucesso'
                           ? 'Dados Alterados com Sucesso'
                           : 'Houve um erro, por favor tente de novo!',
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             fontSize: 14,
                           ),
                       textAlign: TextAlign.center,
@@ -460,7 +464,7 @@ class _EnderecoPageState
             ),
             actions: [
               TextButton(
-                child: Text("OK"),
+                child: const Text("OK"),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },

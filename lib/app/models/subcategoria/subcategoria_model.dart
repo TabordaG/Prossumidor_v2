@@ -6,11 +6,11 @@ part 'subcategoria_model.g.dart';
 class Subcategoria {
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  int subcategoria_id;
+  int? subcategoria_id;
   @JsonKey(required: false, disallowNullValue: false)
-  String nome;
+  String? nome;
   @JsonKey(required: false, disallowNullValue: false, defaultValue: false)
-  bool ativo;
+  bool? ativo;
 
   Subcategoria({
     // ignore: non_constant_identifier_names

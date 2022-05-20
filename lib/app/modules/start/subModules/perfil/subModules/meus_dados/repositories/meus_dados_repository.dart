@@ -9,7 +9,7 @@ part 'meus_dados_repository.g.dart';
 
 @Injectable()
 class MeusDadosRepository implements IMeusDadosRepository {
-  Dio dio;
+  late Dio dio;
   MeusDadosRepository() {
     BaseOptions options = BaseOptions(
       receiveDataWhenStatusError: true,
@@ -20,16 +20,15 @@ class MeusDadosRepository implements IMeusDadosRepository {
     dio = Dio(options);
   }
 
-  Response response;
-
   //dispose will be called automatically
   @override
   void dispose() {}
 
-  Future<Usuario> buscaUsuario(int id) async {
+  @override
+  Future<Usuario?> buscaUsuario(int id) async {
     String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consult22.$id");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -43,8 +42,9 @@ class MeusDadosRepository implements IMeusDadosRepository {
       } catch (e) {
         return null;
       }
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
@@ -68,21 +68,20 @@ class MeusDadosRepository implements IMeusDadosRepository {
     String link = Basicos.codifica(
         "${Basicos.ip}/crud/?crud=consult23.$id,$nome,$cpf,$telefone,$sexo,$endereco,$numero,$complemento,"
         "$bairro,$cidade,$cep,$estado,$nascimento,$civil,$retirada");
-    print(link);
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
       ),
     );
-    print(response.data);
     if (response.data != null && response.statusCode == 200) {
       try {
         return 'sucesso';
       } catch (e) {
         return null;
       }
-    } else
+    } else {
       return null;
+    }
   }
 }

@@ -11,7 +11,7 @@ part 'perfil_repository.g.dart';
 
 @Injectable()
 class PerfilRepository implements IPerfilRepository {
-  Dio dio;
+  late Dio dio;
   PerfilRepository() {
     BaseOptions options = BaseOptions(
       receiveDataWhenStatusError: true,
@@ -22,13 +22,11 @@ class PerfilRepository implements IPerfilRepository {
     dio = Dio(options);
   }
 
-  Response response;
-
   @override
-  Future<Usuario> buscaUsuario(int id) async {
+  Future<Usuario?> buscaUsuario(int? id) async {
     String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consult22.$id");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -42,15 +40,16 @@ class PerfilRepository implements IPerfilRepository {
       } catch (e) {
         return null;
       }
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
-  Future localRetirada(String email) async {
+  Future localRetirada(String? email) async {
     String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consult20.$email");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -65,8 +64,9 @@ class PerfilRepository implements IPerfilRepository {
       } catch (e) {
         return null;
       }
-    } else
+    } else {
       return null;
+    }
   }
 
   //dispose will be called automatically

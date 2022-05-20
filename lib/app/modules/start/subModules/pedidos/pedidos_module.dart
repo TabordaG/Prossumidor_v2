@@ -15,7 +15,7 @@ class PedidosModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute(Modular.initialRoute, child: (_, args) => PedidosPage()),
+    ChildRoute(Modular.initialRoute, child: (_, args) => const PedidosPage()),
     ChildRoute(
       '/detalhes',
       child: (_, args) => PedidosDetalhes(pedido: args.data["pedido"]),

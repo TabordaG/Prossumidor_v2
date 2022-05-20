@@ -47,12 +47,13 @@ abstract class _PedidosControllerBase with Store {
   chamarMaisListaEntregue(BuildContext context, SnackBar snackBar) async {
     List<Pedidos> list = await pedidosRepository.listaPedidos(
         authController.usuario.id, 0, pedidosEntregueList.length);
-    list.forEach((element) {
+    for (var element in list) {
       pedidosEntregueList.add(element);
-    });
+    }
     pedidosEntregueList = List.from(pedidosEntregueList);
-    if (list == null || list.isEmpty)
-      Scaffold.of(context).showSnackBar(snackBar);
+    if (list == null || list.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 
   @action
@@ -66,13 +67,14 @@ abstract class _PedidosControllerBase with Store {
   chamarMaisListaEmAndamento(BuildContext context, SnackBar snackBar) async {
     List<Pedidos> list = await pedidosRepository.listaPedidos(
         authController.usuario.id, 1, pedidosEmAndamento.length);
-    list.forEach((element) {
+    for (var element in list) {
       pedidosEmAndamento.add(element);
-    });
+    }
 
     pedidosEmAndamento = List.from(pedidosEmAndamento);
-    if (list == null || list.isEmpty)
-      Scaffold.of(context).showSnackBar(snackBar);
+    if (list == null || list.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 
   @action
@@ -87,12 +89,13 @@ abstract class _PedidosControllerBase with Store {
       BuildContext context, SnackBar snackBar) async {
     List<Pedidos> list = await pedidosRepository.listaPedidos(
         authController.usuario.id, 2, pedidosNaoEntregueList.length);
-    list.forEach((element) {
+    for (var element in list) {
       pedidosNaoEntregueList.add(element);
-    });
+    }
     pedidosNaoEntregueList = List.from(pedidosNaoEntregueList);
-    if (list == null || list.isEmpty)
-      Scaffold.of(context).showSnackBar(snackBar);
+    if (list == null || list.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 
   @action

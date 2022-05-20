@@ -3,7 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/theme.dart';
 
 class AppWidget extends StatelessWidget {
-  const AppWidget({Key key}) : super(key: key);
+  const AppWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

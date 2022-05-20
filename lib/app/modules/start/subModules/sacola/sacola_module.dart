@@ -17,12 +17,12 @@ class SacolaModule extends Module {
   final List<ModularRoute> routes = [
     ChildRoute(
       Modular.initialRoute,
-      child: (_, args) => SacolaPage(),
+      child: (_, args) => const SacolaPage(),
       transition: TransitionType.rightToLeft,
     ),
     ChildRoute(
       '/confirmarEndereco',
-      child: (_, args) => ConfirmarEndereco(),
+      child: (_, args) => const ConfirmarEndereco(),
       transition: TransitionType.rightToLeft,
     ),
   ];

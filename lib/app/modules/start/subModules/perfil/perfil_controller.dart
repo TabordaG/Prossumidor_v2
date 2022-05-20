@@ -12,6 +12,7 @@ class PerfilController = _PerfilControllerBase with _$PerfilController;
 abstract class _PerfilControllerBase with Store {
   _PerfilControllerBase() {
     buscaUsuario();
+    scrollController = ScrollController();
   }
   final AuthController authController = Modular.get<AuthController>();
   final IPerfilRepository perfilRepository = Modular.get<IPerfilRepository>();
@@ -23,40 +24,42 @@ abstract class _PerfilControllerBase with Store {
   String nome = '';
 
   @observable
-  ScrollController scrollController;
+  late ScrollController scrollController;
 
   @action
   Future<String> setCentroDistribuicao() async {
-    String local;
-    authController.localRetirada.forEach((element) {
+    String? local;
+    for (var element in authController.localRetirada!) {
       if (element['id'].toString() ==
-          authController.usuario.local_retirada_id.toString()) {
+          authController.usuario!.local_retirada_id.toString()) {
         local = element["nome"].toString();
-        print("Encontrado");
-      } else if (local == null || local.isEmpty) local = 'Não encontrado';
-    });
-    return local;
+      } else if (local == null || local.isEmpty) {
+        local = 'Não encontrado';
+      }
+    }
+    return local!;
   }
 
   @action
   Future<String> setNome() async {
     String name;
     if (authController.usuario != null) {
-      name = authController.usuario.nome_razao_social[0].toUpperCase() +
-          authController.usuario.nome_razao_social.substring(1) +
-          authController.usuario.sobre_nome;
-    } else
+      name = authController.usuario!.nome_razao_social![0].toUpperCase() +
+          authController.usuario!.nome_razao_social!.substring(1) +
+          authController.usuario!.sobre_nome!;
+    } else {
       name = 'nome';
+    }
     return name;
   }
 
   @action
   Future buscaUsuario() async {
     authController.usuario =
-        await perfilRepository.buscaUsuario(authController.usuario.id);
+        await perfilRepository.buscaUsuario(authController.usuario!.id);
     authController.localRetirada = await perfilRepository
-        .localRetirada(authController.usuario.email.toLowerCase());
-    authController.localRetirada = List.from(authController.localRetirada);
+        .localRetirada(authController.usuario!.email!.toLowerCase());
+    authController.localRetirada = List.from(authController.localRetirada!);
 
     centroDistribuicao = await setCentroDistribuicao();
     nome = await setNome();

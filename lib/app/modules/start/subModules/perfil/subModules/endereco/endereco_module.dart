@@ -13,6 +13,6 @@ class EnderecoModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute(Modular.initialRoute, child: (_, args) => EnderecoPage()),
+    ChildRoute(Modular.initialRoute, child: (_, args) => const EnderecoPage()),
   ];
 }

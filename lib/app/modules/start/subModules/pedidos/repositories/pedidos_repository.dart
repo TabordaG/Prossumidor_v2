@@ -1,3 +1,5 @@
+// ignore_for_file: empty_catches, unnecessary_string_escapes
+
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -151,7 +153,6 @@ class PedidosRepository implements IPedidosRepository {
       );
 
       if (response.data != null && response.statusCode == 200) {
-        print(response.data);
         pedidos = response.data
             .map<Pedidos>((json) => Pedidos.fromJson(json))
             .toList();
@@ -170,7 +171,6 @@ class PedidosRepository implements IPedidosRepository {
         ),
       );
       if (response.data != null && response.statusCode == 200) {
-        print(response.data);
         pedidos = response.data
             .map<Pedidos>((json) => Pedidos.fromJson(json))
             .toList();
@@ -193,20 +193,19 @@ class PedidosRepository implements IPedidosRepository {
         List list = response.data;
 
         try {
-          list.forEach((item) {
-            if (item['observacoes_entrega'].toString() == ' ')
+          for (var item in list) {
+            if (item['observacoes_entrega'].toString() == ' ') {
               item['observacoes_entrega'] = '0';
+            }
             pedidos.add(Pedidos.fromJson(item));
-          });
+          }
         } catch (e) {}
       }
     }
 
     try {
-      print('From Repository: ' + pedidos.length.toString());
       return pedidos;
     } catch (e) {
-      print("Não enviou para o controller");
       return [];
     }
   }
@@ -223,7 +222,6 @@ class PedidosRepository implements IPedidosRepository {
     );
     if (response.data != null && response.statusCode == 200) {
       var res = Basicos.decodifica(response.data);
-      print(res);
       try {
         List list = await json.decode(res).cast<Map<String, dynamic>>();
         List produtos =
@@ -232,8 +230,9 @@ class PedidosRepository implements IPedidosRepository {
       } catch (e) {
         return [];
       }
-    } else
+    } else {
       return [];
+    }
   }
 
   @override
@@ -249,8 +248,9 @@ class PedidosRepository implements IPedidosRepository {
     );
     if (response.data != null && response.statusCode == 200) {
       return 'sucesso';
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
@@ -273,7 +273,8 @@ class PedidosRepository implements IPedidosRepository {
     );
     if (response.data != null && response.statusCode == 200) {
       return "sucesso";
-    } else
+    } else {
       return null;
+    }
   }
 }

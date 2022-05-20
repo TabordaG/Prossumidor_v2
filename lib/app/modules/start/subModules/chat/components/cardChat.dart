@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:prossumidor_v2/app/models/chat/chat_model.dart';
 
@@ -16,8 +18,8 @@ class _CardChatState extends State<CardChat> {
     return InkWell(
       onTap: widget.onTap,
       child: Container(
-        margin: EdgeInsets.only(bottom: 5),
-        decoration: BoxDecoration(
+        margin: const EdgeInsets.only(bottom: 5),
+        decoration: const BoxDecoration(
           border: Border(
             bottom: BorderSide(
               color: Colors.black54,
@@ -37,7 +39,7 @@ class _CardChatState extends State<CardChat> {
                 color: widget.chat.status == 'Lido' ? Colors.blue : Colors.grey,
                 size: 12,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 8,
               ),
               Flexible(
@@ -65,7 +67,7 @@ class _CardChatState extends State<CardChat> {
                       : widget.chat.data_envio.hour < 10 &&
                               widget.chat.data_envio.minute >= 10
                           ? "0${widget.chat.data_envio.hour}"
-                                  ":" +
+                              ":"
                               "${widget.chat.data_envio.minute}"
                           : widget.chat.data_envio.hour >= 10 &&
                                   widget.chat.data_envio.minute < 10
@@ -80,29 +82,29 @@ class _CardChatState extends State<CardChat> {
               ),
               Text(widget.chat.data_envio.day < 10 &&
                       widget.chat.data_envio.month < 10
-                  ? "0${widget.chat.data_envio.day}" +
-                      "/" +
+                  ? "0${widget.chat.data_envio.day}"
+                      "/"
                       "0${widget.chat.data_envio.month}"
-                          "/" +
+                      "/"
                       "${widget.chat.data_envio.year}"
                   : widget.chat.data_envio.day >= 10 &&
                           widget.chat.data_envio.month < 10
-                      ? "${widget.chat.data_envio.day}" +
-                          "/" +
+                      ? "${widget.chat.data_envio.day}"
+                          "/"
                           "0${widget.chat.data_envio.month}"
-                              "/" +
+                          "/"
                           "${widget.chat.data_envio.year}"
                       : widget.chat.data_envio.day < 10 &&
                               widget.chat.data_envio.month >= 10
-                          ? "0${widget.chat.data_envio.day}" +
-                              "/" +
+                          ? "0${widget.chat.data_envio.day}"
+                              "/"
                               "${widget.chat.data_envio.month}"
-                                  "/" +
+                              "/"
                               "${widget.chat.data_envio.year}"
-                          : "${widget.chat.data_envio.day}" +
-                              "/" +
+                          : "${widget.chat.data_envio.day}"
+                              "/"
                               "${widget.chat.data_envio.month}"
-                                  "/" +
+                              "/"
                               "${widget.chat.data_envio.year}")
             ],
           ),

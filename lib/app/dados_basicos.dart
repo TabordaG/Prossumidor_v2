@@ -25,7 +25,7 @@ class Basicos {
   static String buscarProdutoHome = '';
 
   // variavel para mudar a seleção da categoria
-  static int categoriaItem;
+  static int? categoriaItem;
 
   static codifica(String cod) {
     // codifica o string a ser enviado ao servidor

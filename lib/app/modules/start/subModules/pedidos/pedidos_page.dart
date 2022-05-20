@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -25,32 +27,32 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController>
       if (scrollController1.position.pixels ==
           scrollController1.position.maxScrollExtent) {
         controller.chamarMaisListaEmAndamento(context, snackBar1);
-        Scaffold.of(context).showSnackBar(snackBar);
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     }
     if (tabController.index == 1) {
       if (scrollController2.position.pixels ==
           scrollController2.position.maxScrollExtent) {
         controller.chamarMaisListaEntregue(context, snackBar1);
-        Scaffold.of(context).showSnackBar(snackBar);
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     }
     if (tabController.index == 2) {
       if (scrollController3.position.pixels ==
           scrollController3.position.maxScrollExtent) {
         controller.chamarMaisListaNaoEntregueCancelado(context, snackBar1);
-        Scaffold.of(context).showSnackBar(snackBar);
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     }
   }
 
-  final snackBar = SnackBar(
-    content: const Text('Carregando mais pedidos...'),
+  final snackBar = const SnackBar(
+    content: Text('Carregando mais pedidos...'),
     duration: Duration(milliseconds: 500),
   );
 
-  final snackBar1 = SnackBar(
-    content: const Text('Nao há mais pedidos!'),
+  final snackBar1 = const SnackBar(
+    content: Text('Nao há mais pedidos!'),
     duration: Duration(milliseconds: 1000),
   );
 
@@ -81,15 +83,15 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController>
       length: 3,
       child: Scaffold(
           appBar: AppBar(
-            iconTheme: IconThemeData(color: Colors.white),
+            iconTheme: const IconThemeData(color: Colors.white),
             title: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
+                const Icon(
                   Icons.receipt_long,
                   color: Colors.white,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: kDefaultPadding * .25,
                 ),
                 Text(widget.title),
@@ -104,7 +106,7 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController>
                   .bodyText1
                   .copyWith(color: Colors.white38),
               labelStyle: Theme.of(context).textTheme.bodyText1,
-              tabs: [
+              tabs: const [
                 Tab(text: 'Andamento'),
                 Tab(text: 'Entregues'),
                 Tab(text: 'Cancelados'),
@@ -113,78 +115,76 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController>
           ),
           body: TabBarView(
               controller: tabController,
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               children: [
                 RefreshIndicator(
                   displacement: 60.0,
                   color: Theme.of(context).primaryColor,
                   onRefresh: () => controller.chamarListaEmAndamento(),
                   child: Observer(builder: (_) {
-                    if (controller.pedidosEntregueList == null)
-                      return Container(
-                        child: LayoutBuilder(
-                          builder: (BuildContext context,
-                                  BoxConstraints constraints) =>
-                              ListView(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    top: constraints.maxHeight * .45),
-                                child: Text(
-                                  "Carregando Pedidos..",
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      .copyWith(
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1
-                                            .color
-                                            .withOpacity(.7),
-                                        fontSize: 14,
-                                      ),
-                                ),
+                    if (controller.pedidosEntregueList == null) {
+                      return LayoutBuilder(
+                        builder: (BuildContext context,
+                                BoxConstraints constraints) =>
+                            ListView(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: constraints.maxHeight * .45),
+                              child: Text(
+                                "Carregando Pedidos..",
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    .copyWith(
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          .color
+                                          .withOpacity(.7),
+                                      fontSize: 14,
+                                    ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       );
-                    if (controller.pedidosEmAndamento.isEmpty)
-                      return Container(
-                        child: LayoutBuilder(
-                          builder: (BuildContext context,
-                                  BoxConstraints constraints) =>
-                              ListView(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    top: constraints.maxHeight * .45),
-                                child: Text(
-                                  "Não há pedidos\nem andamento ainda..",
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      .copyWith(
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1
-                                            .color
-                                            .withOpacity(.7),
-                                        fontSize: 14,
-                                      ),
-                                ),
+                    }
+                    if (controller.pedidosEmAndamento.isEmpty) {
+                      return LayoutBuilder(
+                        builder: (BuildContext context,
+                                BoxConstraints constraints) =>
+                            ListView(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: constraints.maxHeight * .45),
+                              child: Text(
+                                "Não há pedidos\nem andamento ainda..",
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    .copyWith(
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          .color
+                                          .withOpacity(.7),
+                                      fontSize: 14,
+                                    ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       );
+                    }
                     return Scrollbar(
                       controller: scrollController1,
-                      radius: Radius.circular(12),
+                      radius: const Radius.circular(12),
                       child: ListView.builder(
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         controller: scrollController1,
                         itemCount: controller.pedidosEmAndamento.length,
                         itemBuilder: (context, index) {
@@ -211,37 +211,36 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController>
                   color: Theme.of(context).primaryColor,
                   onRefresh: () => controller.chamarListaEntregue(),
                   child: Observer(builder: (_) {
-                    if (controller.pedidosEntregueList == null)
-                      return Container(
-                        child: LayoutBuilder(
-                          builder: (BuildContext context,
-                                  BoxConstraints constraints) =>
-                              ListView(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    top: constraints.maxHeight * .45),
-                                child: Text(
-                                  "Carregando Pedidos..",
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      .copyWith(
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1
-                                            .color
-                                            .withOpacity(.7),
-                                        fontSize: 14,
-                                      ),
-                                ),
+                    if (controller.pedidosEntregueList == null) {
+                      return LayoutBuilder(
+                        builder: (BuildContext context,
+                                BoxConstraints constraints) =>
+                            ListView(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: constraints.maxHeight * .45),
+                              child: Text(
+                                "Carregando Pedidos..",
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    .copyWith(
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          .color
+                                          .withOpacity(.7),
+                                      fontSize: 14,
+                                    ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       );
-                    if (controller.pedidosEntregueList.isEmpty)
+                    }
+                    if (controller.pedidosEntregueList.isEmpty) {
                       return LayoutBuilder(
                         builder: (BuildContext context,
                                 BoxConstraints constraints) =>
@@ -269,11 +268,12 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController>
                           ],
                         ),
                       );
+                    }
                     return Scrollbar(
                       controller: scrollController1,
-                      radius: Radius.circular(12),
+                      radius: const Radius.circular(12),
                       child: ListView.builder(
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         controller: scrollController2,
                         itemCount: controller.pedidosEntregueList.length,
                         itemBuilder: (context, index) {
@@ -300,37 +300,36 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController>
                   color: Theme.of(context).primaryColor,
                   onRefresh: () => controller.chamarListaNaoEntregueCancelado(),
                   child: Observer(builder: (_) {
-                    if (controller.pedidosNaoEntregueList == null)
-                      return Container(
-                        child: LayoutBuilder(
-                          builder: (BuildContext context,
-                                  BoxConstraints constraints) =>
-                              ListView(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    top: constraints.maxHeight * .45),
-                                child: Text(
-                                  "Carregando Pedidos..",
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      .copyWith(
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1
-                                            .color
-                                            .withOpacity(.7),
-                                        fontSize: 14,
-                                      ),
-                                ),
+                    if (controller.pedidosNaoEntregueList == null) {
+                      return LayoutBuilder(
+                        builder: (BuildContext context,
+                                BoxConstraints constraints) =>
+                            ListView(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: constraints.maxHeight * .45),
+                              child: Text(
+                                "Carregando Pedidos..",
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    .copyWith(
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          .color
+                                          .withOpacity(.7),
+                                      fontSize: 14,
+                                    ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       );
-                    if (controller.pedidosNaoEntregueList.isEmpty)
+                    }
+                    if (controller.pedidosNaoEntregueList.isEmpty) {
                       return LayoutBuilder(
                         builder: (BuildContext context,
                                 BoxConstraints constraints) =>
@@ -358,11 +357,12 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController>
                           ],
                         ),
                       );
+                    }
                     return Scrollbar(
                       controller: scrollController1,
-                      radius: Radius.circular(12),
+                      radius: const Radius.circular(12),
                       child: ListView.builder(
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         controller: scrollController3,
                         itemCount: controller.pedidosNaoEntregueList.length,
                         itemBuilder: (context, index) {

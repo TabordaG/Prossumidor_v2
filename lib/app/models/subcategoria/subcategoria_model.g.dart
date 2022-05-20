@@ -6,13 +6,11 @@ part of 'subcategoria_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Subcategoria _$SubcategoriaFromJson(Map<String, dynamic> json) {
-  return Subcategoria(
-    subcategoria_id: json['subcategoria_id'] as int,
-    nome: json['nome'] as String,
-    ativo: json['ativo'] as bool ?? false,
-  );
-}
+Subcategoria _$SubcategoriaFromJson(Map<String, dynamic> json) => Subcategoria(
+      subcategoria_id: json['subcategoria_id'] as int?,
+      nome: json['nome'] as String?,
+      ativo: json['ativo'] as bool? ?? false,
+    );
 
 Map<String, dynamic> _$SubcategoriaToJson(Subcategoria instance) =>
     <String, dynamic>{

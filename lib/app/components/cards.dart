@@ -15,10 +15,10 @@ class CardHome extends StatefulWidget {
   final bool margin;
 
   const CardHome({
-    Key key,
-    this.index,
-    this.produto,
-    this.verDetalhes,
+    Key? key,
+    required this.index,
+    required this.produto,
+    required this.verDetalhes,
     this.margin = false,
   }) : super(key: key);
 
@@ -32,7 +32,7 @@ class _CardHomeState extends State<CardHome> {
     return FadeAnimation(
       1, // (1.0 + widget.index) / 2,
       GestureDetector(
-        onTap: widget.verDetalhes,
+        onTap: widget.verDetalhes(),
         child: Container(
           margin: EdgeInsets.only(
             left: widget.index == 0 && widget.margin
@@ -58,8 +58,8 @@ class _CardHomeState extends State<CardHome> {
                     child: widget.produto.imagem != null &&
                             widget.produto.imagem != ""
                         ? CachedNetworkImage(
-                            imageUrl:
-                                "${Basicos.ip2}/media/" + widget.produto.imagem,
+                            imageUrl: "${Basicos.ip2}/media/" +
+                                widget.produto.imagem!,
                             fit: BoxFit.cover,
                             placeholder: (context, url) => const Padding(
                               padding: EdgeInsets.all(25.0),
@@ -82,11 +82,11 @@ class _CardHomeState extends State<CardHome> {
                     top: kDefaultPadding * .2,
                   ),
                   child: Text(
-                    widget.produto.descricao_simplificada,
+                    widget.produto.descricao_simplificada!,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.left,
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           fontSize: 14,
                         ),
                   ),
@@ -95,16 +95,16 @@ class _CardHomeState extends State<CardHome> {
                   padding: const EdgeInsets.symmetric(
                       horizontal: kDefaultPadding * .2),
                   child: Text(
-                    widget.produto.marca,
+                    widget.produto.marca!,
                     maxLines: 1,
                     textAlign: TextAlign.left,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           fontSize: 12,
                           color: Theme.of(context)
                               .textTheme
-                              .bodyText1
-                              .color
+                              .bodyText1!
+                              .color!
                               .withOpacity(.8),
                         ),
                   ),
@@ -121,11 +121,11 @@ class _CardHomeState extends State<CardHome> {
                     children: [
                       Text(
                         'R\$ ' +
-                            double.parse(widget.produto.preco_venda)
+                            double.parse(widget.produto.preco_venda!)
                                 .toStringAsFixed(2)
                                 .replaceAll('.', ','),
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
@@ -134,12 +134,12 @@ class _CardHomeState extends State<CardHome> {
                         child: Container(
                           padding: const EdgeInsets.only(left: 5.0),
                           child: Text(
-                            widget.produto.unidade_medida,
+                            widget.produto.unidade_medida!,
                             textAlign: TextAlign.right,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style:
-                                Theme.of(context).textTheme.bodyText1.copyWith(
+                                Theme.of(context).textTheme.bodyText1!.copyWith(
                                       fontSize: 11,
                                     ),
                           ),
@@ -162,9 +162,9 @@ class CardVerMaisHome extends StatefulWidget {
   final Function verMais;
 
   const CardVerMaisHome({
-    Key key,
-    this.indexItem,
-    this.verMais,
+    Key? key,
+    required this.indexItem,
+    required this.verMais,
   }) : super(key: key);
 
   @override
@@ -183,7 +183,7 @@ class _CardVerMaisHomeState extends State<CardVerMaisHome> {
       width: 150,
       child: InkWell(
         borderRadius: BorderRadius.circular(5.0),
-        onTap: widget.verMais,
+        onTap: widget.verMais(),
         child: Card(
           color: const Color(0xFFF6F6F6),
           child: Column(
@@ -202,7 +202,7 @@ class _CardVerMaisHomeState extends State<CardVerMaisHome> {
               ),
               Text(
                 'Ver mais',
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontSize: 14,
                       color: Theme.of(context).primaryColor,
                     ),
@@ -221,10 +221,10 @@ class CardProdutosCategoria extends StatefulWidget {
   final Function verDetalhes;
 
   const CardProdutosCategoria({
-    Key key,
-    this.index,
-    this.produto,
-    this.verDetalhes,
+    Key? key,
+    required this.index,
+    required this.produto,
+    required this.verDetalhes,
   }) : super(key: key);
 
   @override
@@ -235,7 +235,7 @@ class _CardProdutosCategoriaState extends State<CardProdutosCategoria> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.verDetalhes,
+      onTap: widget.verDetalhes(),
       child: SizedBox(
         // height: 235,
         width: double.infinity,
@@ -255,7 +255,7 @@ class _CardProdutosCategoriaState extends State<CardProdutosCategoria> {
                   child: Image(
                     fit: BoxFit.fill,
                     image: AssetImage(
-                      widget.produto.imagem,
+                      widget.produto.imagem!,
                     ),
                   ),
                 ),
@@ -267,11 +267,11 @@ class _CardProdutosCategoriaState extends State<CardProdutosCategoria> {
                   top: kDefaultPadding * .2,
                 ),
                 child: Text(
-                  widget.produto.descricao_simplificada,
+                  widget.produto.descricao_simplificada!,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
                         fontSize: 14,
                       ),
                 ),
@@ -284,12 +284,12 @@ class _CardProdutosCategoriaState extends State<CardProdutosCategoria> {
                   maxLines: 1,
                   textAlign: TextAlign.left,
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
                         fontSize: 12,
                         color: Theme.of(context)
                             .textTheme
-                            .bodyText1
-                            .color
+                            .bodyText1!
+                            .color!
                             .withOpacity(.8),
                       ),
                 ),
@@ -306,10 +306,10 @@ class _CardProdutosCategoriaState extends State<CardProdutosCategoria> {
                   children: [
                     Text(
                       'R\$ ' +
-                          double.parse(widget.produto.preco_venda)
+                          double.parse(widget.produto.preco_venda!)
                               .toStringAsFixed(2),
                       overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),
@@ -318,13 +318,14 @@ class _CardProdutosCategoriaState extends State<CardProdutosCategoria> {
                       child: Container(
                         padding: const EdgeInsets.only(left: 5.0),
                         child: Text(
-                          widget.produto.unidade_medida,
+                          widget.produto.unidade_medida!,
                           textAlign: TextAlign.right,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                fontSize: 12,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    fontSize: 12,
+                                  ),
                         ),
                       ),
                     ),

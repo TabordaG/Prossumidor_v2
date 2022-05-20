@@ -1,4 +1,6 @@
 // import 'package:ff_navigation_bar/ff_navigation_bar.dart';
+// ignore_for_file: empty_catches
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -13,6 +15,7 @@ import 'start_controller.dart';
 
 class StartPage extends StatefulWidget {
   final String title;
+  // ignore: use_key_in_widget_constructors
   const StartPage({this.title = "Start"});
 
   @override
@@ -28,7 +31,7 @@ class _StartPageState extends ModularState<StartPage, StartController> {
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.dark,
         child: Scaffold(
-          body: RouterOutlet(),
+          body: const RouterOutlet(),
           bottomNavigationBar: Observer(builder: (_) {
             return Stack(
               children: [
@@ -78,7 +81,7 @@ class _StartPageState extends ModularState<StartPage, StartController> {
                               Modular.get<HomeController>();
                           homeController.scrollController.animateTo(
                             0,
-                            duration: Duration(milliseconds: 800),
+                            duration: const Duration(milliseconds: 800),
                             curve: Curves.easeInOut,
                           );
                         } else {
@@ -100,9 +103,9 @@ class _StartPageState extends ModularState<StartPage, StartController> {
                     }
                   },
                   currentIndex: appController.indexBottomNavigator,
-                  items: [
+                  items: const [
                     BottomNavigationBarItem(
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.shopping_bag,
                         // color: kPrimaryColor,
                       ),
@@ -110,28 +113,28 @@ class _StartPageState extends ModularState<StartPage, StartController> {
                       label: "Sacola",
                     ),
                     BottomNavigationBarItem(
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.receipt_long,
                         // color: kPrimaryColor,
                       ),
                       label: "Pedidos",
                     ),
                     BottomNavigationBarItem(
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.home,
                         // color: kPrimaryColor,
                       ),
                       label: "Início",
                     ),
                     BottomNavigationBarItem(
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.chat,
                         // color: kPrimaryColor,
                       ),
                       label: "Chat",
                     ),
                     BottomNavigationBarItem(
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.person,
                         // color: kPrimaryColor,
                       ),
@@ -229,7 +232,7 @@ class _StartPageState extends ModularState<StartPage, StartController> {
                         child: Container(
                           width: 7,
                           height: 7,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.redAccent,
                           ),

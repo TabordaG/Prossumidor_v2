@@ -38,8 +38,9 @@ class SacolaRepository implements ISacolaRepository {
       var respondeDecoded =
           response.data.map<Produto>((json) => Produto.fromJson(json)).toList();
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
@@ -56,8 +57,9 @@ class SacolaRepository implements ISacolaRepository {
     if (response.data != null && response.statusCode == 200) {
       var respondeDecoded = Basicos.decodifica(response.data);
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
@@ -74,8 +76,9 @@ class SacolaRepository implements ISacolaRepository {
     if (response.data != null && response.statusCode == 200) {
       var respondeDecoded = Basicos.decodifica(response.data);
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
@@ -92,8 +95,9 @@ class SacolaRepository implements ISacolaRepository {
     if (response.data != null && response.statusCode == 200) {
       var respondeDecoded = Basicos.decodifica(response.data);
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
@@ -125,8 +129,9 @@ class SacolaRepository implements ISacolaRepository {
 
     if (response.statusCode == 200) {
       return 'sucesso';
-    } else
+    } else {
       return null;
+    }
   }
 
   //dispose will be called automatically
@@ -147,8 +152,9 @@ class SacolaRepository implements ISacolaRepository {
     if (response.data != null && response.statusCode == 200) {
       var frete = Basicos.decodifica(response.data);
       return frete;
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
@@ -189,12 +195,12 @@ class SacolaRepository implements ISacolaRepository {
     );
     // try {
     if (response.data != null && response.statusCode == 200) {
-      print(response.data);
       var respondeDecoded = Basicos.decodifica(response.data);
       List list = json.decode(respondeDecoded).cast<Map<String, dynamic>>();
       if (list != null && list.isNotEmpty) return list[0]["id"];
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
@@ -230,11 +236,11 @@ class SacolaRepository implements ISacolaRepository {
     );
     // try {
     if (response.data != null && response.statusCode == 200) {
-      print(response.data);
       var respondeDecoded = Basicos.decodifica(response.data);
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
@@ -253,11 +259,11 @@ class SacolaRepository implements ISacolaRepository {
     );
     // try {
     if (response.data != null && response.statusCode == 200) {
-      print(response.data);
       var respondeDecoded = Basicos.decodifica(response.data);
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
@@ -293,12 +299,12 @@ class SacolaRepository implements ISacolaRepository {
     );
     // try {
     if (response.data != null && response.statusCode == 200) {
-      print(response.data);
       var respondeDecoded = Basicos.decodifica(response.data);
       List list = json.decode(respondeDecoded).cast<Map<String, dynamic>>();
       if (list != null && list.isNotEmpty) return list[0]["id"];
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
@@ -317,11 +323,11 @@ class SacolaRepository implements ISacolaRepository {
     );
     // try {
     if (response.data != null && response.statusCode == 200) {
-      print(response.data);
       var respondeDecoded = Basicos.decodifica(response.data);
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
@@ -351,11 +357,11 @@ class SacolaRepository implements ISacolaRepository {
     );
     // try {
     if (response.data != null && response.statusCode == 200) {
-      print(response.data);
       var respondeDecoded = Basicos.decodifica(response.data);
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
@@ -372,11 +378,11 @@ class SacolaRepository implements ISacolaRepository {
     );
     // try {
     if (response.data != null && response.statusCode == 200) {
-      print(response.data);
       var respondeDecoded = Basicos.decodifica(response.data);
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   Future retornaObsEmpresa(String empresa) async {

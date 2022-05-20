@@ -9,7 +9,7 @@ part 'produto_detalhes_repository.g.dart';
 
 @Injectable()
 class ProdutoDetalhesRepository implements IProdutoDetalhesRepository {
-  Dio dio;
+  late Dio dio;
   ProdutoDetalhesRepository() {
     BaseOptions options = BaseOptions(
       receiveDataWhenStatusError: true,
@@ -19,13 +19,11 @@ class ProdutoDetalhesRepository implements IProdutoDetalhesRepository {
 
     dio = Dio(options);
   }
-  Response response;
 
   @override
   Future buscarProduto(int id) async {
     String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consul113.$id");
-    print("${Basicos.ip}/crud/?crud=consul113.$id");
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -36,8 +34,9 @@ class ProdutoDetalhesRepository implements IProdutoDetalhesRepository {
       var respondeDecoded =
           response.data.map<Produto>((json) => Produto.fromJson(json)).toList();
       return respondeDecoded[0];
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
@@ -54,7 +53,7 @@ class ProdutoDetalhesRepository implements IProdutoDetalhesRepository {
         "$usuarioId," // id cliente
         "$empresaId," //id empresa
         "$idProduto");
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -63,15 +62,16 @@ class ProdutoDetalhesRepository implements IProdutoDetalhesRepository {
     // try {
     if (response.data != null && response.statusCode == 200) {
       return "sucesso";
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
   Future procurarProdutoCarrinho(int produtoId, int clienteId) async {
     String link = Basicos.codifica(
         "${Basicos.ip}/crud/?crud=consul121.$produtoId,$clienteId");
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -82,15 +82,16 @@ class ProdutoDetalhesRepository implements IProdutoDetalhesRepository {
         response.statusCode == 200 &&
         response.data.length > 0) {
       return response.data[0]["id"];
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
   Future incrementaQuantidadeCarrinho(int quantidade, int carrinhoId) async {
     String link = Basicos.codifica(
         "${Basicos.ip}/crud/?crud=consul122.$quantidade,$carrinhoId");
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -99,14 +100,15 @@ class ProdutoDetalhesRepository implements IProdutoDetalhesRepository {
     // try {
     if (response.data != null && response.statusCode == 200) {
       return response.data;
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
   Future buscarCategoriasProduto(int id) async {
     String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consul125.$id");
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -114,11 +116,13 @@ class ProdutoDetalhesRepository implements IProdutoDetalhesRepository {
     );
 
     if (response.data != null && response.statusCode == 200) {
-      var respondeDecoded =
-          response.data.map<Categoria>((json) => Categoria.fromJson(json)).toList();
+      var respondeDecoded = response.data
+          .map<Categoria>((json) => Categoria.fromJson(json))
+          .toList();
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   //dispose will be called automatically

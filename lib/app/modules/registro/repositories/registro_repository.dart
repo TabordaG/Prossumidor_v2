@@ -10,7 +10,7 @@ part 'registro_repository.g.dart';
 
 @Injectable()
 class RegistroRepository implements IRegistroRepository {
-  Dio dio;
+  late Dio dio;
   RegistroRepository() {
     BaseOptions options = BaseOptions(
       receiveDataWhenStatusError: true,
@@ -20,13 +20,12 @@ class RegistroRepository implements IRegistroRepository {
 
     dio = Dio(options);
   }
-  Response response;
 
   @override
   Future buscarLocaisRetirada() async {
     String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consult20.");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -37,8 +36,9 @@ class RegistroRepository implements IRegistroRepository {
       var respondeDecoded = Basicos.decodifica(response.data);
       List list = json.decode(respondeDecoded).cast<Map<String, dynamic>>();
       return list;
-    } else
+    } else {
       return null;
+    }
     // } catch (e) {
     //   return null;
     // }
@@ -53,7 +53,7 @@ class RegistroRepository implements IRegistroRepository {
     String link =
         Basicos.codifica("${Basicos.ip}/crud/?crud=consult25.$email,$code");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -62,15 +62,16 @@ class RegistroRepository implements IRegistroRepository {
     if (response.data != null && response.statusCode == 200) {
       var respondeDecoded = Basicos.decodifica(response.data);
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
   Future verificaEmail(String email) async {
     String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consulta3.$email");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -79,12 +80,14 @@ class RegistroRepository implements IRegistroRepository {
     if (response.data != null && response.statusCode == 200) {
       var respondeDecoded = Basicos.decodifica(response.data);
       List list = json.decode(respondeDecoded).cast<Map<String, dynamic>>();
-      if (list.isEmpty)
+      if (list.isEmpty) {
         return 'livre';
-      else
+      } else {
         return 'existe';
-    } else
+      }
+    } else {
       return null;
+    }
   }
 
   @override
@@ -106,9 +109,7 @@ class RegistroRepository implements IRegistroRepository {
     String link = Basicos.codifica(
         "${Basicos.ip}/crud/?crud=consulta2.$nome,$cpf,$telefone,$genero,$email,$senhaCripto,$localRetirada,$endereco,$bairro,$cidade,$cep,$estado,$numero,$complemento");
 
-    print(
-        "${Basicos.ip}/crud/?crud=consulta2.$nome,$cpf,$telefone,$genero,$email,$senhaCripto,$localRetirada,$endereco,$bairro,$cidade,$cep,$estado,$numero,$complemento");
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -117,15 +118,16 @@ class RegistroRepository implements IRegistroRepository {
     if (response.data != null && response.statusCode == 200) {
       var respondeDecoded = Basicos.decodifica(response.data);
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
   Future getData(String email) async {
     String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consult-1.$email");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -134,11 +136,13 @@ class RegistroRepository implements IRegistroRepository {
     if (response.data != null && response.statusCode == 200) {
       var respondeDecoded = Basicos.decodifica(response.data);
       List list = json.decode(respondeDecoded).cast<Map<String, dynamic>>();
-      if (list.isNotEmpty)
+      if (list.isNotEmpty) {
         return list[0];
-      else
+      } else {
         return null;
-    } else
+      }
+    } else {
       return null;
+    }
   }
 }

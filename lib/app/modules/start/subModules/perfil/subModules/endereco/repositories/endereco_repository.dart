@@ -8,7 +8,7 @@ part 'endereco_repository.g.dart';
 
 @Injectable()
 class EnderecoRepository implements IEnderecoRepository {
-  Dio dio;
+  late Dio dio;
   EnderecoRepository() {
     BaseOptions options = BaseOptions(
       receiveDataWhenStatusError: true,
@@ -19,16 +19,15 @@ class EnderecoRepository implements IEnderecoRepository {
     dio = Dio(options);
   }
 
-  Response response;
-
   //dispose will be called automatically
   @override
   void dispose() {}
 
-  Future<Usuario> buscaUsuario(int id) async {
+  @override
+  Future<Usuario?> buscaUsuario(int? id) async {
     String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consult22.$id");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -42,13 +41,14 @@ class EnderecoRepository implements IEnderecoRepository {
       } catch (e) {
         return null;
       }
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
   Future alteraDados(
-    String id,
+    String? id,
     nome,
     cpf,
     telefone,
@@ -66,7 +66,7 @@ class EnderecoRepository implements IEnderecoRepository {
   ) async {
     String link = Basicos.codifica(
         "${Basicos.ip}/crud/?crud=consult23.$id,$nome,$cpf,$telefone,$sexo,$endereco,$numero,$complemento,$bairro,$cidade,$cep,$estado,$nascimento,$civil,$retirada");
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -75,7 +75,8 @@ class EnderecoRepository implements IEnderecoRepository {
 
     if (response.statusCode == 200) {
       return 'sucesso';
-    } else
+    } else {
       return null;
+    }
   }
 }

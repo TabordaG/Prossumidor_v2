@@ -13,6 +13,6 @@ class MeusDadosModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute(Modular.initialRoute, child: (_, args) => MeusDadosPage()),
+    ChildRoute(Modular.initialRoute, child: (_, args) => const MeusDadosPage()),
   ];
 }

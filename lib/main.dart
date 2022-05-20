@@ -6,7 +6,7 @@ import 'package:prossumidor_v2/app/app_widget.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
+    const SystemUiOverlayStyle(
       systemNavigationBarColor: Colors.transparent,
       systemNavigationBarIconBrightness: Brightness.dark,
       statusBarColor: Colors.transparent,
@@ -15,6 +15,6 @@ void main() {
   );
   runApp(ModularApp(
     module: AppModule(),
-    child: AppWidget(),
+    child: const AppWidget(),
   ));
 }

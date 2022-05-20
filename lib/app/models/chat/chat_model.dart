@@ -6,31 +6,31 @@ part 'chat_model.g.dart';
 class Chat {
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  int id;
+  int? id;
   @JsonKey(required: false, disallowNullValue: false)
-  String mensagem;
+  String? mensagem;
   @JsonKey(required: false, disallowNullValue: false)
-  String situacao;
+  String? situacao;
   @JsonKey(required: false, disallowNullValue: false)
-  String status;
-  @JsonKey(required: false, disallowNullValue: false)
-  // ignore: non_constant_identifier_names
-  DateTime data_envio;
+  String? status;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  DateTime data_leitura;
+  DateTime? data_envio;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  int id_cliente_id;
+  DateTime? data_leitura;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  String nome_razao_social;
+  int? id_cliente_id;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  int id_empresa_id;
+  String? nome_razao_social;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  String razao_social;
+  int? id_empresa_id;
+  @JsonKey(required: false, disallowNullValue: false)
+  // ignore: non_constant_identifier_names
+  String? razao_social;
 
   Chat({
     // ignore: non_constant_identifier_names

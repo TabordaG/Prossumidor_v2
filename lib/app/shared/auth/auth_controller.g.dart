@@ -22,13 +22,13 @@ mixin _$AuthController on _AuthControllerBase, Store {
   final _$usuarioAtom = Atom(name: '_AuthControllerBase.usuario');
 
   @override
-  Usuario get usuario {
+  Usuario? get usuario {
     _$usuarioAtom.reportRead();
     return super.usuario;
   }
 
   @override
-  set usuario(Usuario value) {
+  set usuario(Usuario? value) {
     _$usuarioAtom.reportWrite(value, super.usuario, () {
       super.usuario = value;
     });
@@ -37,13 +37,13 @@ mixin _$AuthController on _AuthControllerBase, Store {
   final _$nomeCompletoAtom = Atom(name: '_AuthControllerBase.nomeCompleto');
 
   @override
-  String get nomeCompleto {
+  String? get nomeCompleto {
     _$nomeCompletoAtom.reportRead();
     return super.nomeCompleto;
   }
 
   @override
-  set nomeCompleto(String value) {
+  set nomeCompleto(String? value) {
     _$nomeCompletoAtom.reportWrite(value, super.nomeCompleto, () {
       super.nomeCompleto = value;
     });
@@ -53,13 +53,13 @@ mixin _$AuthController on _AuthControllerBase, Store {
       Atom(name: '_AuthControllerBase.centroDistribuicao');
 
   @override
-  String get centroDistribuicao {
+  String? get centroDistribuicao {
     _$centroDistribuicaoAtom.reportRead();
     return super.centroDistribuicao;
   }
 
   @override
-  set centroDistribuicao(String value) {
+  set centroDistribuicao(String? value) {
     _$centroDistribuicaoAtom.reportWrite(value, super.centroDistribuicao, () {
       super.centroDistribuicao = value;
     });
@@ -68,13 +68,13 @@ mixin _$AuthController on _AuthControllerBase, Store {
   final _$localRetiradaAtom = Atom(name: '_AuthControllerBase.localRetirada');
 
   @override
-  List<dynamic> get localRetirada {
+  List<dynamic>? get localRetirada {
     _$localRetiradaAtom.reportRead();
     return super.localRetirada;
   }
 
   @override
-  set localRetirada(List<dynamic> value) {
+  set localRetirada(List<dynamic>? value) {
     _$localRetiradaAtom.reportWrite(value, super.localRetirada, () {
       super.localRetirada = value;
     });
@@ -84,13 +84,13 @@ mixin _$AuthController on _AuthControllerBase, Store {
       Atom(name: '_AuthControllerBase.localRetiradaAtual');
 
   @override
-  String get localRetiradaAtual {
+  String? get localRetiradaAtual {
     _$localRetiradaAtualAtom.reportRead();
     return super.localRetiradaAtual;
   }
 
   @override
-  set localRetiradaAtual(String value) {
+  set localRetiradaAtual(String? value) {
     _$localRetiradaAtualAtom.reportWrite(value, super.localRetiradaAtual, () {
       super.localRetiradaAtual = value;
     });
@@ -99,13 +99,13 @@ mixin _$AuthController on _AuthControllerBase, Store {
   final _$versaoAtualAtom = Atom(name: '_AuthControllerBase.versaoAtual');
 
   @override
-  String get versaoAtual {
+  String? get versaoAtual {
     _$versaoAtualAtom.reportRead();
     return super.versaoAtual;
   }
 
   @override
-  set versaoAtual(String value) {
+  set versaoAtual(String? value) {
     _$versaoAtualAtom.reportWrite(value, super.versaoAtual, () {
       super.versaoAtual = value;
     });
@@ -114,13 +114,13 @@ mixin _$AuthController on _AuthControllerBase, Store {
   final _$mensagemVersaoAtom = Atom(name: '_AuthControllerBase.mensagemVersao');
 
   @override
-  String get mensagemVersao {
+  String? get mensagemVersao {
     _$mensagemVersaoAtom.reportRead();
     return super.mensagemVersao;
   }
 
   @override
-  set mensagemVersao(String value) {
+  set mensagemVersao(String? value) {
     _$mensagemVersaoAtom.reportWrite(value, super.mensagemVersao, () {
       super.mensagemVersao = value;
     });

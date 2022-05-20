@@ -6,7 +6,7 @@ import 'package:prossumidor_v2/app/modules/start/subModules/chat/chat_controller
 import 'package:prossumidor_v2/app/modules/start/subModules/chat/components/cardMensagem.dart';
 
 class ChatIndividual extends StatefulWidget {
-  const ChatIndividual({Key key}) : super(key: key);
+  const ChatIndividual({Key? key}) : super(key: key);
 
   @override
   _ChatIndividualState createState() => _ChatIndividualState();
@@ -14,7 +14,7 @@ class ChatIndividual extends StatefulWidget {
 
 class _ChatIndividualState extends State<ChatIndividual> {
   final ChatController chatController = Modular.get<ChatController>();
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +22,8 @@ class _ChatIndividualState extends State<ChatIndividual> {
         appBar: AppBar(title: Observer(builder: (_) {
           return Text(
             chatController.chatConversas != null &&
-                    chatController.chatConversas.length > 0
-                ? chatController.chatConversas[0].razao_social
+                    chatController.chatConversas.isNotEmpty
+                ? chatController.chatConversas[0].razao_social!
                 : '',
           );
         })),
@@ -32,9 +32,9 @@ class _ChatIndividualState extends State<ChatIndividual> {
             Expanded(
               child: Observer(builder: (_) {
                 if (chatController.chatConversas == null &&
-                    chatController.chatConversas.length > 0)
-                  return CircularProgressIndicator();
-                else
+                    chatController.chatConversas.isNotEmpty) {
+                  return const CircularProgressIndicator();
+                } else {
                   return ListView.builder(
                     controller: _scrollController,
                     reverse: true,
@@ -44,11 +44,12 @@ class _ChatIndividualState extends State<ChatIndividual> {
                           chat: chatController.chatConversas[index]);
                     },
                   );
+                }
               }),
             ),
             Container(
                 color: Theme.of(context).primaryColor,
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: kDefaultPadding * .5,
                   vertical: kDefaultPadding * .5,
                 ),
@@ -68,7 +69,7 @@ class _ChatIndividualState extends State<ChatIndividual> {
                           onSubmitted: (value) =>
                               chatController.setMensagem(value),
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(
+                            contentPadding: const EdgeInsets.only(
                               left: kDefaultPadding * .7,
                               right: kDefaultPadding * .7,
                             ),
@@ -78,18 +79,18 @@ class _ChatIndividualState extends State<ChatIndividual> {
                             hintText: 'Digite uma mensagem',
                             hintStyle: Theme.of(context)
                                 .textTheme
-                                .bodyText1
+                                .bodyText1!
                                 .copyWith(fontSize: 16, color: Colors.white),
                           ),
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText1
+                              .bodyText1!
                               .copyWith(fontSize: 16, color: Colors.white),
                         ),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                         left: kDefaultPadding / 2,
                       ),
                       child: IconButton(
@@ -102,11 +103,11 @@ class _ChatIndividualState extends State<ChatIndividual> {
                           chatController.sendMensagem(
                               chatController.mensagem.text,
                               chatController
-                                  .listaUltimasConversas[0].id_cliente_id,
+                                  .listaUltimasConversas![0].id_cliente_id!,
                               chatController
-                                  .listaUltimasConversas[0].id_empresa_id);
+                                  .listaUltimasConversas![0].id_empresa_id!);
                           _scrollController.animateTo(0.0,
-                              duration: Duration(microseconds: 300),
+                              duration: const Duration(microseconds: 300),
                               curve: Curves.easeOut);
                         },
                       ),

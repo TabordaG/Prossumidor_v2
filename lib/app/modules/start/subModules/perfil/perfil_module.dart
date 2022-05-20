@@ -18,7 +18,7 @@ class PerfilModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute(Modular.initialRoute, child: (_, args) => PerfilPage()),
+    ChildRoute(Modular.initialRoute, child: (_, args) => const PerfilPage()),
     ModuleRoute(
       "/endereco",
       module: EnderecoModule(),

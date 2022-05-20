@@ -15,7 +15,7 @@ class ChatModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute(Modular.initialRoute, child: (_, args) => ChatPage()),
-    ChildRoute('/chatIndividual', child: (_, args) => ChatIndividual()),
+    ChildRoute(Modular.initialRoute, child: (_, args) => const ChatPage()),
+    ChildRoute('/chatIndividual', child: (_, args) => const ChatIndividual()),
   ];
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, use_key_in_widget_constructors
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -12,7 +14,7 @@ import '../../../../dados_basicos.dart';
 class PedidosDetalhes extends StatefulWidget {
   final Pedidos pedido;
   final Produto produto;
-  const PedidosDetalhes({ this.pedido, this.produto}) : super();
+  const PedidosDetalhes({this.pedido, this.produto}) : super();
 
   @override
   _PedidosDetalhesState createState() => _PedidosDetalhesState();
@@ -33,10 +35,10 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
     final pedido = widget.pedido;
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         title: Row(
           mainAxisSize: MainAxisSize.min,
-          children: [
+          children: const [
             Icon(
               Icons.receipt_long,
               color: Colors.white,
@@ -49,7 +51,7 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.all(kDefaultPadding * 0.75),
+        padding: const EdgeInsets.all(kDefaultPadding * 0.75),
         child: Column(
           children: <Widget>[
             Row(
@@ -57,9 +59,9 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
               children: [
                 Row(
                   children: [
-                    Text("Pedido: #"),
+                    const Text("Pedido: #"),
                     Text(
-                      "${pedido.id.toString()}",
+                      pedido.id.toString(),
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
                           fontSize: 14,
                           color: Theme.of(context)
@@ -73,7 +75,7 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                 ),
                 Row(
                   children: [
-                    Text("Total de itens: "),
+                    const Text("Total de itens: "),
                     Observer(builder: (_) {
                       return Text(
                         controller.produtosList != null
@@ -93,28 +95,30 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                 )
               ],
             ),
-            Divider(),
+            const Divider(),
             Expanded(child: Observer(builder: (_) {
               if (controller.produtosList == null ||
-                  controller.produtosList.length == 0)
-                return Center(
+                  controller.produtosList.isEmpty) {
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
+              }
               return Scrollbar(
                 controller: scrollController,
-                radius: Radius.circular(10),
+                radius: const Radius.circular(10),
                 thickness: 3,
                 isAlwaysShown: true,
                 child: ListView.builder(
                   controller: scrollController,
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   itemCount: controller.produtosList.length,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: EdgeInsets.only(bottom: kDefaultPadding * .5),
+                      padding:
+                          const EdgeInsets.only(bottom: kDefaultPadding * .5),
                       child: ListTile(
                         leading: ClipRRect(
-                          borderRadius: BorderRadius.all(
+                          borderRadius: const BorderRadius.all(
                             Radius.circular(5),
                           ),
                           child: controller.produtosList[index].imagem !=
@@ -126,16 +130,16 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                                   imageUrl: "${Basicos.ip2}/media/" +
                                       controller.produtosList[index].imagem,
                                   fit: BoxFit.cover,
-                                  placeholder: (context, url) => Padding(
+                                  placeholder: (context, url) => const Padding(
                                     padding: EdgeInsets.all(25.0),
                                     child: CircularProgressIndicator(
                                       strokeWidth: 1,
                                     ),
                                   ),
                                   errorWidget: (context, url, error) =>
-                                      Icon(Icons.error),
+                                      const Icon(Icons.error),
                                 )
-                              : Center(
+                              : const Center(
                                   child: Icon(Icons.error),
                                 ),
 
@@ -220,7 +224,7 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                                           .withOpacity(.8),
                                     ),
                             children: [
-                              TextSpan(text: 'Valor Unit.'),
+                              const TextSpan(text: 'Valor Unit.'),
                               TextSpan(
                                 style: Theme.of(context)
                                     .textTheme
@@ -369,7 +373,7 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                 ),
               );
             })),
-            Divider(),
+            const Divider(),
             Card(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -380,7 +384,7 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Situação: "),
+                        const Text("Situação: "),
                         Flexible(
                           child: Text(
                             pedido.status_pedido,
@@ -391,11 +395,11 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                                     ),
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text("Data"),
+                            const Text("Data"),
                             Text(
                               "${pedido.data_registro.day}/${pedido.data_registro.month}/${pedido.data_registro.year}",
                               style: Theme.of(context)
@@ -427,11 +431,11 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                     //     ),
                     //   ],
                     // ),
-                    Divider(),
+                    const Divider(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Entrega"),
+                        const Text("Entrega"),
                         Text(
                           widget.pedido.observacoes_entrega.startsWith('0')
                               ? 'Retirado no local'
@@ -443,11 +447,11 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                         ),
                       ],
                     ),
-                    SizedBox(height: kDefaultPadding * 0.25),
+                    const SizedBox(height: kDefaultPadding * 0.25),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Frete"),
+                        const Text("Frete"),
                         Text(
                           "R\$ " +
                               pedido.observacoes_entrega
@@ -461,7 +465,7 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                         ),
                       ],
                     ),
-                    Divider(),
+                    const Divider(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

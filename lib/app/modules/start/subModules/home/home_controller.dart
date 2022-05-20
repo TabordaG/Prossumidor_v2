@@ -46,13 +46,13 @@ abstract class _HomeControllerBase with Store {
   List categoriasID = [];
 
   @observable
-  List<Marca> listaMarcas = [];
+  List<Marca>? listaMarcas = [];
 
   @observable
   bool marcaSelecionada = false;
 
   @observable
-  ScrollController scrollController;
+  late ScrollController scrollController;
 
   @observable
   double offsetHomeList = 0.0;
@@ -110,11 +110,12 @@ abstract class _HomeControllerBase with Store {
   @action
   buscarCategorias() async {
     var res = await homeRepository
-        .listaCategorias(authController.usuario.local_retirada_id);
+        .listaCategorias(authController.usuario?.local_retirada_id);
     if (res != null) {
       listaCategorias = List.from(res);
       listaCategoriasFiltro = List.from(res);
-      listaCategoriasFiltro.sort((a, b) => a.descricao.compareTo(b.descricao));
+      listaCategoriasFiltro
+          .sort((a, b) => a.descricao!.compareTo(b.descricao!));
       listaCategoriasFiltro.insert(
         0,
         Categoria(
@@ -137,14 +138,14 @@ abstract class _HomeControllerBase with Store {
     buscandoProdutos = true;
     for (var categoria in listaCategorias) {
       var res = await homeRepository.listaProdutosPorCategoria(
-          categoria.id, authController.usuario.empresa_id);
+          categoria.id, authController.usuario!.empresa_id);
       if (res != null && res.length > 0) {
         CategoriaProduto categoriaProduto = CategoriaProduto(
           categoria: categoria,
           produtos: [],
         );
         for (var produto in res) {
-          categoriaProduto.produtos.add(produto);
+          categoriaProduto.produtos!.add(produto);
         }
         listaCategoriaProdutos.add(categoriaProduto);
       }
@@ -169,15 +170,15 @@ abstract class _HomeControllerBase with Store {
     marcaSelecionada = true;
     buscandoProdutos = true;
 
-    if (!listaMarcas[0].selecionado) {
-      for (var i = 1; i < listaMarcas.length; i++) {
-        if (listaMarcas[i].selecionado) {
+    if (!listaMarcas![0].selecionado!) {
+      for (var i = 1; i < listaMarcas!.length; i++) {
+        if (listaMarcas![i].selecionado!) {
           List<Produto> produtos =
-              await homeRepository.listaProdutosPorMarca(listaMarcas[i].id);
+              await homeRepository.listaProdutosPorMarca(listaMarcas![i].id);
 
           listaMarcaProdutos.add(
             MarcaProduto(
-              marca: listaMarcas[i],
+              marca: listaMarcas![i],
               produtos: produtos,
             ),
           );
@@ -189,13 +190,13 @@ abstract class _HomeControllerBase with Store {
         }
       }
     } else {
-      for (var i = 1; i < listaMarcas.length; i++) {
+      for (var i = 1; i < listaMarcas!.length; i++) {
         List<Produto> produtos =
-            await homeRepository.listaProdutosPorMarca(listaMarcas[i].id);
+            await homeRepository.listaProdutosPorMarca(listaMarcas![i].id);
 
         listaMarcaProdutos.add(
           MarcaProduto(
-            marca: listaMarcas[i],
+            marca: listaMarcas![i],
             produtos: produtos,
           ),
         );
@@ -212,19 +213,22 @@ abstract class _HomeControllerBase with Store {
   }
 
   @action
-  atualizaListaMarca() => listaMarcas = List.from(listaMarcas);
+  atualizaListaMarca() => listaMarcas = List.from(listaMarcas!);
 
   @computed
-  List<Marca> get filtroMarca => listaMarcas.map<Marca>((e) {
-        if (e.descricao.toLowerCase().contains(buscarMarca.text.toLowerCase()))
+  List<Marca> get filtroMarca => listaMarcas!.map<Marca>((e) {
+        if (e.descricao!
+            .toLowerCase()
+            .contains(buscarMarca.text.toLowerCase())) {
           return e;
+        }
         return null;
       }).toList();
 
   @action
   buscarMarcas() async {
     var res =
-        await homeRepository.listaMarcas(authController.usuario.empresa_id);
+        await homeRepository.listaMarcas(authController.usuario!.empresa_id);
     if (res != null) {
       listaMarcas = [
         Marca(
@@ -234,35 +238,35 @@ abstract class _HomeControllerBase with Store {
         )
       ];
       for (var marca in res) {
-        listaMarcas.add(marca);
+        listaMarcas!.add(marca);
       }
-      listaMarcas = List.from(listaMarcas);
+      listaMarcas = List.from(listaMarcas!);
     }
   }
 
   @action
   selecionarMarca(int index, bool selecionar) {
-    listaMarcas[index].selecionado = selecionar;
-    listaMarcas = List.from(listaMarcas);
+    listaMarcas![index].selecionado = selecionar;
+    listaMarcas = List.from(listaMarcas!);
     if (index == 0 && selecionar) {
-      for (var i = 1; i < listaMarcas.length; i++) {
-        listaMarcas[i].selecionado = false;
+      for (var i = 1; i < listaMarcas!.length; i++) {
+        listaMarcas![i].selecionado = false;
       }
     } else {
       bool varredura = false;
-      for (var i = 1; i < listaMarcas.length; i++) {
-        if (listaMarcas[i].selecionado) varredura = true;
+      for (var i = 1; i < listaMarcas!.length; i++) {
+        if (listaMarcas![i].selecionado!) varredura = true;
       }
       if (varredura) {
-        listaMarcas[0].selecionado = false;
+        listaMarcas![0].selecionado = false;
       } else {
-        listaMarcas[0].selecionado = true;
+        listaMarcas![0].selecionado = true;
       }
     }
-    listaCategoriasFiltro.forEach((element) {
+    for (var element in listaCategoriasFiltro) {
       element.selecionado = false;
-    });
-    listaMarcas = List.from(listaMarcas);
+    }
+    listaMarcas = List.from(listaMarcas!);
     listaCategoriasFiltro = List.from(listaCategoriasFiltro);
   }
 
@@ -272,28 +276,29 @@ abstract class _HomeControllerBase with Store {
     bool varredura = false;
     if (index == 0) {
       for (var i = 0; i < listaCategoriasFiltro.length; i++) {
-        if (listaCategoriasFiltro[i].selecionado) {
+        if (listaCategoriasFiltro[i].selecionado!) {
           varredura = true;
         }
-        int j = listaCategoriaProdutos.indexWhere(
-            (element2) => listaCategoriasFiltro[i].id == element2.categoria.id);
-        if (j != -1)
-          listaCategoriaProdutos[j].categoria.selecionado =
+        int j = listaCategoriaProdutos.indexWhere((element2) =>
+            listaCategoriasFiltro[i].id == element2.categoria!.id);
+        if (j != -1) {
+          listaCategoriaProdutos[j].categoria!.selecionado =
               listaCategoriasFiltro[i].selecionado;
+        }
       }
       if (varredura) {
         // await setRefreshTrue();
         refreshPage = true;
 
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(const Duration(seconds: 2), () {
           refreshPage = false;
         });
         // await buscarCategorias();
         marcaSelecionada = false;
       }
     } else {
-      for (var i = 0; i < listaMarcas.length; i++) {
-        if (listaMarcas[i].selecionado) varredura = true;
+      for (var i = 0; i < listaMarcas!.length; i++) {
+        if (listaMarcas![i].selecionado!) varredura = true;
       }
       if (varredura) {
         // await setRefreshTrue();
@@ -302,16 +307,17 @@ abstract class _HomeControllerBase with Store {
         marcaSelecionada = true;
       }
     }
-    if (listaCategoriasFiltro[0].selecionado || listaMarcas[0].selecionado)
+    if (listaCategoriasFiltro[0].selecionado! || listaMarcas![0].selecionado!) {
       isFiltering = false;
+    }
     refreshPage = false;
   }
 
   @action
   resetarMarcasCategoria(int index) {
-    listaMarcas[0].selecionado = true;
-    for (var i = 1; i < listaMarcas.length; i++) {
-      listaMarcas[i].selecionado = false;
+    listaMarcas![0].selecionado = true;
+    for (var i = 1; i < listaMarcas!.length; i++) {
+      listaMarcas![i].selecionado = false;
     }
 
     if (listaCategoriaProdutos.isEmpty) {
@@ -335,7 +341,7 @@ abstract class _HomeControllerBase with Store {
     } else {
       bool varredura = false;
       for (var i = 1; i < listaCategoriasFiltro.length; i++) {
-        if (listaCategoriasFiltro[i].selecionado) varredura = true;
+        if (listaCategoriasFiltro[i].selecionado!) varredura = true;
       }
       if (varredura) {
         listaCategoriasFiltro[0].selecionado = false;
@@ -343,11 +349,11 @@ abstract class _HomeControllerBase with Store {
         listaCategoriasFiltro[0].selecionado = true;
       }
     }
-    listaMarcas.forEach((element) {
+    for (var element in listaMarcas!) {
       element.selecionado = false;
-    });
+    }
     listaCategoriasFiltro = List.from(listaCategoriasFiltro);
-    listaMarcas = List.from(listaMarcas);
+    listaMarcas = List.from(listaMarcas!);
   }
 
   @action
@@ -357,7 +363,7 @@ abstract class _HomeControllerBase with Store {
   @computed
   List<Categoria> get filtroCategoria =>
       listaCategoriasFiltro.map<Categoria>((e) {
-        if (e.descricao
+        if (e.descricao!
             .toLowerCase()
             .contains(buscarCategoria.text.toLowerCase())) return e;
         return null;
@@ -388,8 +394,9 @@ abstract class _HomeControllerBase with Store {
         produtosDaBusca.add(item);
       }
       produtosDaBusca = List.from(produtosDaBusca);
-    } else
+    } else {
       produtos = [];
+    }
     buscandoMaisProdutos = false;
     return produtos;
   }

@@ -18,22 +18,21 @@ abstract class _ProdutoDetalhesControllerBase with Store {
   final AuthController authController = Modular.get<AuthController>();
 
   @observable
-  Produto produto;
+  late Produto produto;
 
   @action
   setProduto(Produto produtoReceived) async {
     produto = produtoReceived;
-    produto = await produtoDetalhesRepository.buscarProduto(produto.id);
+    produto = await produtoDetalhesRepository.buscarProduto(produto.id!);
     produto.marca = produtoReceived.marca;
     var res =
-        await produtoDetalhesRepository.buscarCategoriasProduto(produto.id);
+        await produtoDetalhesRepository.buscarCategoriasProduto(produto.id!);
     if (res != null) {
       produto.categorias = res;
     }
     Produto aux = produto;
     produto = Produto();
     produto = aux;
-    print(produto.id);
   }
 
   @observable
@@ -41,20 +40,20 @@ abstract class _ProdutoDetalhesControllerBase with Store {
 
   @action
   void increment(BuildContext context) {
-    if (value < double.parse(produto.estoque_atual))
+    if (value < double.parse(produto.estoque_atual!)) {
       value++;
-    else {
+    } else {
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Estoque Limite"),
-            content: Text(
+            title: const Text("Estoque Limite"),
+            content: const Text(
               "Não é possível aumentar a quantidade, pois o estoque máximo já foi atingido",
             ),
             actions: <Widget>[
               TextButton(
-                child: Text(
+                child: const Text(
                   "Fechar",
                   style: TextStyle(
                     color: kPrimaryColor,
@@ -89,34 +88,35 @@ abstract class _ProdutoDetalhesControllerBase with Store {
   adicionarSacola(BuildContext context) async {
     adicionandoSacola = true;
     var verifica = await produtoDetalhesRepository.procurarProdutoCarrinho(
-        produto.id, authController.usuario.id);
+        produto.id!, authController.usuario!.id!);
     if (verifica != null) {
-      print(verifica);
       var res = await produtoDetalhesRepository.incrementaQuantidadeCarrinho(
           value, verifica);
-      if (res != null)
+      if (res != null) {
         adicionarMensagem = "Produto adicionado com sucesso";
-      else
+      } else {
         adicionarMensagem = "Erro ao adicionar produto";
+      }
     } else {
       var res = await produtoDetalhesRepository.inserirProdutoCarrinho(
-        produto.id,
+        produto.id!,
         value,
-        authController.usuario.empresa_id,
-        double.parse(produto.preco_venda),
-        authController.usuario.id,
+        authController.usuario!.empresa_id!,
+        double.parse(produto.preco_venda!),
+        authController.usuario!.id!,
       );
       if (res != null) {
         adicionarMensagem = "Produto adicionado com sucesso";
         adicionado = true;
-      } else
+      } else {
         adicionarMensagem = "Erro ao adicionar produto";
+      }
     }
-    await Future.delayed(Duration(seconds: 1), () {
+    await Future.delayed(const Duration(seconds: 1), () {
       adicionandoSacola = false;
     });
 
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 2), () {
       Navigator.pop(context);
     });
   }

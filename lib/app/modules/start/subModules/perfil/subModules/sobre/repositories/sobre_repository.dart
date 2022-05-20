@@ -11,6 +11,7 @@ class SobreRepository implements ISobreRepository {
 
   SobreRepository(this.client);
 
+  @override
   Future fetchPost() async {
     final response =
         await client.get('https://jsonplaceholder.typicode.com/posts/1');

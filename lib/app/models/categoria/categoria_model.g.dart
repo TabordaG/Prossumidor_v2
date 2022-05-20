@@ -6,22 +6,20 @@ part of 'categoria_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Categoria _$CategoriaFromJson(Map<String, dynamic> json) {
-  return Categoria(
-    data_registro: json['data_registro'] == null
-        ? null
-        : DateTime.parse(json['data_registro'] as String),
-    id: json['id'] as int,
-    descricao: json['descricao'] as String,
-    data_alteracao: json['data_alteracao'] == null
-        ? null
-        : DateTime.parse(json['data_alteracao'] as String),
-    empresa_id: json['empresa_id'] as int,
-    obs: json['obs'] as String,
-    imagem_cat: json['imagem_cat'] as List,
-    selecionado: json['selecionado'] as bool ?? false,
-  );
-}
+Categoria _$CategoriaFromJson(Map<String, dynamic> json) => Categoria(
+      data_registro: json['data_registro'] == null
+          ? null
+          : DateTime.parse(json['data_registro'] as String),
+      id: json['id'] as int?,
+      descricao: json['descricao'] as String?,
+      data_alteracao: json['data_alteracao'] == null
+          ? null
+          : DateTime.parse(json['data_alteracao'] as String),
+      empresa_id: json['empresa_id'] as int?,
+      obs: json['obs'] as String?,
+      imagem_cat: json['imagem_cat'] as List<dynamic>?,
+      selecionado: json['selecionado'] as bool? ?? false,
+    );
 
 Map<String, dynamic> _$CategoriaToJson(Categoria instance) => <String, dynamic>{
       'data_registro': instance.data_registro?.toIso8601String(),
@@ -34,20 +32,18 @@ Map<String, dynamic> _$CategoriaToJson(Categoria instance) => <String, dynamic>{
       'selecionado': instance.selecionado,
     };
 
-CategoriaProduto _$CategoriaProdutoFromJson(Map<String, dynamic> json) {
-  return CategoriaProduto(
-    categoria: json['categoria'] == null
-        ? null
-        : Categoria.fromJson(json['categoria'] as Map<String, dynamic>),
-    produtos: (json['produtos'] as List)
-        ?.map((e) =>
-            e == null ? null : Produto.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-  );
-}
+CategoriaProduto _$CategoriaProdutoFromJson(Map<String, dynamic> json) =>
+    CategoriaProduto(
+      categoria: json['categoria'] == null
+          ? null
+          : Categoria.fromJson(json['categoria'] as Map<String, dynamic>),
+      produtos: (json['produtos'] as List<dynamic>?)
+          ?.map((e) => Produto.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
 
 Map<String, dynamic> _$CategoriaProdutoToJson(CategoriaProduto instance) =>
     <String, dynamic>{
       'categoria': instance.categoria?.toJson(),
-      'produtos': instance.produtos?.map((e) => e?.toJson())?.toList(),
+      'produtos': instance.produtos?.map((e) => e.toJson()).toList(),
     };

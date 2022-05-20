@@ -19,14 +19,14 @@ final $HomeController = BindInject(
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HomeController on _HomeControllerBase, Store {
-  Computed<List<Marca>> _$filtroMarcaComputed;
+  Computed<List<Marca>>? _$filtroMarcaComputed;
 
   @override
   List<Marca> get filtroMarca =>
       (_$filtroMarcaComputed ??= Computed<List<Marca>>(() => super.filtroMarca,
               name: '_HomeControllerBase.filtroMarca'))
           .value;
-  Computed<List<Categoria>> _$filtroCategoriaComputed;
+  Computed<List<Categoria>>? _$filtroCategoriaComputed;
 
   @override
   List<Categoria> get filtroCategoria => (_$filtroCategoriaComputed ??=
@@ -82,13 +82,13 @@ mixin _$HomeController on _HomeControllerBase, Store {
   final _$listaMarcasAtom = Atom(name: '_HomeControllerBase.listaMarcas');
 
   @override
-  List<Marca> get listaMarcas {
+  List<Marca>? get listaMarcas {
     _$listaMarcasAtom.reportRead();
     return super.listaMarcas;
   }
 
   @override
-  set listaMarcas(List<Marca> value) {
+  set listaMarcas(List<Marca>? value) {
     _$listaMarcasAtom.reportWrite(value, super.listaMarcas, () {
       super.listaMarcas = value;
     });

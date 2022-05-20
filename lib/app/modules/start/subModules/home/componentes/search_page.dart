@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -14,15 +16,14 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   HomeController controller = Modular.get<HomeController>();
 
-  ScrollController scrollController;
+  late ScrollController scrollController;
 
   scrollListener() async {
     if (scrollController.position.atEdge &&
         scrollController.position.pixels > 0) {
-      print('FOI AQUI');
       List<Produto> res = await controller.pesquisarMaisProdutos();
       if (res.isEmpty) {
-        final snackBar = SnackBar(
+        const snackBar = SnackBar(
           content: Text('Não foi encontrado mais produtos'),
         );
 
@@ -43,7 +44,7 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: Colors.white,
           ),
@@ -52,7 +53,7 @@ class _SearchPageState extends State<SearchPage> {
             Navigator.of(context).pop();
           },
         ),
-        title: Text("Buscar Produto"),
+        title: const Text("Buscar Produto"),
       ),
       body: Column(
         children: [
@@ -67,7 +68,7 @@ class _SearchPageState extends State<SearchPage> {
                   textInputAction: TextInputAction.search,
                   textCapitalization: TextCapitalization.words,
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value!.isEmpty) {
                       return 'Insira uma busca válida';
                     } else {
                       if (value.length < 3) {
@@ -90,7 +91,7 @@ class _SearchPageState extends State<SearchPage> {
                     // }
                   },
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(
+                    contentPadding: const EdgeInsets.only(
                       top: 14.0,
                     ),
                     fillColor: Theme.of(context).cardColor,
@@ -115,7 +116,7 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                     ),
                     suffixIcon: IconButton(
-                      icon: Icon(Icons.close),
+                      icon: const Icon(Icons.close),
                       onPressed: () => controller.resetBuscarString(),
                     ),
                     hintText: 'Produto',
@@ -126,29 +127,31 @@ class _SearchPageState extends State<SearchPage> {
           ),
           Expanded(
             child: Observer(builder: (_) {
-              if (controller.buscandoProdutos)
-                return Center(
+              if (controller.buscandoProdutos) {
+                return const Center(
                   child: CircularProgressIndicator(
                     strokeWidth: 1,
                   ),
                 );
+              }
               if (!controller.buscandoProdutos &&
-                  controller.produtosDaBusca.isEmpty)
-                return Center(
+                  controller.produtosDaBusca.isEmpty) {
+                return const Center(
                   child: Text(
                     "Produto não encotrado\nAltere a pesquisa e tente novamente.",
                     textAlign: TextAlign.center,
                   ),
                 );
+              }
               return Scrollbar(
                 controller: scrollController,
                 thickness: 5,
-                radius: Radius.circular(5),
+                radius: const Radius.circular(5),
                 child: GridView.count(
                   controller: scrollController,
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   primary: false,
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   childAspectRatio: 0.7,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
@@ -173,7 +176,7 @@ class _SearchPageState extends State<SearchPage> {
           Observer(builder: (_) {
             return Center(
               child: controller.buscandoMaisProdutos
-                  ? CircularProgressIndicator(
+                  ? const CircularProgressIndicator(
                       strokeWidth: 1,
                     )
                   : Container(),

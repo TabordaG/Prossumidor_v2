@@ -6,11 +6,11 @@ part 'marca_model.g.dart';
 @JsonSerializable(explicitToJson: true)
 class Marca {
   @JsonKey(required: false, disallowNullValue: false)
-  int id;
+  int? id;
   @JsonKey(required: false, disallowNullValue: false)
-  String descricao;
+  String? descricao;
   @JsonKey(required: false, disallowNullValue: false, defaultValue: false)
-  bool selecionado;
+  bool? selecionado;
 
   Marca({
     this.id,
@@ -26,9 +26,9 @@ class Marca {
 @JsonSerializable(explicitToJson: true)
 class MarcaProduto {
   @JsonKey(required: false, disallowNullValue: false)
-  Marca marca;
+  Marca? marca;
   @JsonKey(required: false, disallowNullValue: false)
-  List<Produto> produtos;
+  List<Produto>? produtos;
 
   MarcaProduto({
     this.marca,

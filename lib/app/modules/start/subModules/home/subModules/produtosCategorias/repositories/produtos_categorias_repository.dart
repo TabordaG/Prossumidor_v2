@@ -10,7 +10,7 @@ part 'produtos_categorias_repository.g.dart';
 
 @Injectable()
 class ProdutosCategoriasRepository implements IProdutosCategoriasRepository {
-  Dio dio;
+  late Dio dio;
 
   ProdutosCategoriasRepository() {
     BaseOptions options = BaseOptions(
@@ -21,14 +21,13 @@ class ProdutosCategoriasRepository implements IProdutosCategoriasRepository {
 
     dio = Dio(options);
   }
-  Response response;
 
   @override
-  Future listaProdutosPorCategoria(int id, int offset) async {
+  Future listaProdutosPorCategoria(int? id, int? offset) async {
     String link =
         Basicos.codifica("${Basicos.ip}/crud/?crud=consul117.$id,$offset");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -39,18 +38,18 @@ class ProdutosCategoriasRepository implements IProdutosCategoriasRepository {
       var respondeDecoded = response.data
           .map<Produto>((json) => Produto.fromJson(json))
           .toList(); // Basicos.decodifica(response.data);
-      print(respondeDecoded);
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
-  Future listaProdutosPorMarca(int id, int offset) async {
+  Future listaProdutosPorMarca(int? id, int? offset) async {
     String link =
         Basicos.codifica("${Basicos.ip}/crud/?crud=consul118.$id,$offset");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -61,19 +60,19 @@ class ProdutosCategoriasRepository implements IProdutosCategoriasRepository {
       var respondeDecoded = response.data
           .map<Produto>((json) => Produto.fromJson(json))
           .toList(); // Basicos.decodifica(response.data);
-      print(respondeDecoded);
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
   Future listaCategoriasEmComum(
-    int id,
+    int? id,
   ) async {
     String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consul119.$id");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -88,26 +87,25 @@ class ProdutosCategoriasRepository implements IProdutosCategoriasRepository {
                 ativo: false,
               ))
           .toList(); // Basicos.decodifica(response.data);
-      print(respondeDecoded);
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
   Future<List<Produto>> listaProdutosEmComum(
-    int id,
-    List<int> categoriasIDs,
-    int offset,
+    int? id,
+    List<int>? categoriasIDs,
+    int? offset,
   ) async {
     String linkBase = "${Basicos.ip}/crud/?crud=consul120.$id,$offset";
-    for (var item in categoriasIDs) {
+    for (var item in categoriasIDs!) {
       linkBase += ',$item';
     }
-    print(linkBase);
     String link = Basicos.codifica(linkBase);
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -118,28 +116,27 @@ class ProdutosCategoriasRepository implements IProdutosCategoriasRepository {
       var respondeDecoded = response.data
           .map<Produto>((json) => Produto.fromJson(json))
           .toList(); // Basicos.decodifica(response.data);
-      print(respondeDecoded);
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
   Future<List<Produto>> pesquisaProdutosMulticategorias(
-    int id,
-    List<int> categoriasIDs,
-    String pesquisa,
-    int offset,
+    int? id,
+    List<int>? categoriasIDs,
+    String? pesquisa,
+    int? offset,
   ) async {
     String linkBase =
         "${Basicos.ip}/crud/?crud=consul123.$id,$pesquisa,$offset";
-    for (var item in categoriasIDs) {
+    for (var item in categoriasIDs!) {
       linkBase += ',$item';
     }
-    print(linkBase);
     String link = Basicos.codifica(linkBase);
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -150,24 +147,23 @@ class ProdutosCategoriasRepository implements IProdutosCategoriasRepository {
       var respondeDecoded = response.data
           .map<Produto>((json) => Produto.fromJson(json))
           .toList(); // Basicos.decodifica(response.data);
-      print(respondeDecoded);
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
   Future<List<Produto>> pesquisaProdutosCategoria(
-    int id,
-    String pesquisa,
-    int offset,
+    int? id,
+    String? pesquisa,
+    int? offset,
   ) async {
     String linkBase =
         "${Basicos.ip}/crud/?crud=consul124.$id,$pesquisa,$offset";
-    print(linkBase);
     String link = Basicos.codifica(linkBase);
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -178,24 +174,23 @@ class ProdutosCategoriasRepository implements IProdutosCategoriasRepository {
       var respondeDecoded = response.data
           .map<Produto>((json) => Produto.fromJson(json))
           .toList(); // Basicos.decodifica(response.data);
-      print(respondeDecoded);
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
   Future<List<Produto>> pesquisaProdutosEmpreendimento(
-    int id,
-    String pesquisa,
-    int offset,
+    int? id,
+    String? pesquisa,
+    int? offset,
   ) async {
     String linkBase =
         "${Basicos.ip}/crud/?crud=consul126.$id,$pesquisa,$offset";
-    print(linkBase);
     String link = Basicos.codifica(linkBase);
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -206,10 +201,10 @@ class ProdutosCategoriasRepository implements IProdutosCategoriasRepository {
       var respondeDecoded = response.data
           .map<Produto>((json) => Produto.fromJson(json))
           .toList(); // Basicos.decodifica(response.data);
-      print(respondeDecoded);
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   //dispose will be called automatically

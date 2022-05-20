@@ -16,7 +16,7 @@ import 'widgets/page3.dart';
 
 class RegistroPage extends StatefulWidget {
   final String title;
-  const RegistroPage({Key key, this.title = "Dados Cadastrais"})
+  const RegistroPage({Key? key, this.title = "Dados Cadastrais"})
       : super(key: key);
 
   @override
@@ -26,7 +26,7 @@ class RegistroPage extends StatefulWidget {
 class _RegistroPageState
     extends ModularState<RegistroPage, RegistroController> {
   final AuthController authController = Modular.get<AuthController>();
-  ProgressDialog progressDialog;
+  late ProgressDialog progressDialog;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class _RegistroPageState
       backgroundColor: Colors.white,
       title: Text(
         widget.title,
-        style: Theme.of(context).textTheme.bodyText1.copyWith(
+        style: Theme.of(context).textTheme.bodyText1!.copyWith(
               fontSize: 20,
             ),
       ),
@@ -61,7 +61,7 @@ class _RegistroPageState
     return Scaffold(
       appBar: appBar,
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           height: screenHeigh,
           width: size.width,
           child: Observer(
@@ -72,12 +72,14 @@ class _RegistroPageState
                   controller.current == 0
                       ? Image(
                           height: MediaQuery.of(context).size.height * 0.20,
-                          image: AssetImage("assets/images/registro01.png"),
+                          image:
+                              const AssetImage("assets/images/registro01.png"),
                         )
                       : controller.current == 2
                           ? Image(
                               height: MediaQuery.of(context).size.height * 0.20,
-                              image: AssetImage("assets/images/registro02.png"),
+                              image: const AssetImage(
+                                  "assets/images/registro02.png"),
                             )
                           : Container(),
                   Expanded(
@@ -88,7 +90,7 @@ class _RegistroPageState
                               controller.buttonCarouselController,
                           options: CarouselOptions(
                             height: double.infinity,
-                            scrollPhysics: NeverScrollableScrollPhysics(),
+                            scrollPhysics: const NeverScrollableScrollPhysics(),
                             initialPage: 0,
                             enlargeCenterPage: true,
                             enableInfiniteScroll: false,
@@ -97,14 +99,14 @@ class _RegistroPageState
                                 controller.setIndex(index),
                           ),
                           items: [
-                            RegistrarPage1(),
-                            RegistrarPage2(),
-                            RegistrarPage3(),
+                            const RegistrarPage1(),
+                            const RegistrarPage2(),
+                            const RegistrarPage3(),
                           ].map((widget) {
                             return Builder(
                               builder: (BuildContext context) {
                                 return Padding(
-                                  padding: EdgeInsets.only(
+                                  padding: const EdgeInsets.only(
                                     top: 5.0,
                                     bottom: 5.0,
                                   ),
@@ -118,7 +120,7 @@ class _RegistroPageState
                                           color: Colors.black.withOpacity(0.25),
                                           spreadRadius: 0,
                                           blurRadius: 1,
-                                          offset: Offset(0, 0),
+                                          offset: const Offset(0, 0),
                                         ),
                                       ],
                                     ),
@@ -141,7 +143,7 @@ class _RegistroPageState
                         return Container(
                           width: 8.0,
                           height: 8.0,
-                          margin: EdgeInsets.symmetric(
+                          margin: const EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 2.0),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
@@ -154,7 +156,8 @@ class _RegistroPageState
                     }).toList(),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: kDefaultPadding),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -164,9 +167,9 @@ class _RegistroPageState
                             height: 40,
                             child: StandardButton(
                               onPressed: () {
-                                if (controller.current != 0)
+                                if (controller.current != 0) {
                                   controller.setPreviousPage();
-                                else if (controller.current == 0) {
+                                } else if (controller.current == 0) {
                                   Modular.to.pop();
                                 }
                               },
@@ -183,9 +186,9 @@ class _RegistroPageState
                             height: 40,
                             child: StandardButton(
                               onPressed: () async {
-                                if (controller.current != 2)
+                                if (controller.current != 2) {
                                   controller.setNextPage();
-                                else {
+                                } else {
                                   controller.isPage3Valid();
 
                                   if (controller.page3Valid) {
@@ -217,7 +220,7 @@ class _RegistroPageState
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                 ],
@@ -236,9 +239,9 @@ class _RegistroPageState
       barrierLabel: "Mensage",
       barrierDismissible: false,
       barrierColor: Colors.black.withOpacity(0.5),
-      transitionDuration: Duration(milliseconds: 400),
+      transitionDuration: const Duration(milliseconds: 400),
       context: context,
-      pageBuilder: (context, anim1, anim2) => null,
+      pageBuilder: (context, anim1, anim2) => Container(),
       transitionBuilder: (context, a1, a2, child) {
         final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
         return Transform(
@@ -258,49 +261,49 @@ class _RegistroPageState
     );
   }
 
-  Container buildMensage(BuildContext context, String titulo, String mensagem) {
-    return Container(
+  SizedBox buildMensage(BuildContext context, String titulo, String mensagem) {
+    return SizedBox(
       height: MediaQuery.of(context).size.height * .5,
       child: Observer(builder: (_) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Spacer(
+            const Spacer(
               flex: 1,
             ),
             Text(
               titulo,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: 22,
                     color: Theme.of(context)
                         .textTheme
-                        .bodyText1
-                        .color
+                        .bodyText1!
+                        .color!
                         .withOpacity(.8),
                   ),
             ),
-            Spacer(
+            const Spacer(
               flex: 2,
             ),
             Text(
               mensagem,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: 16,
                     color: Theme.of(context)
                         .textTheme
-                        .bodyText1
-                        .color
+                        .bodyText1!
+                        .color!
                         .withOpacity(.6),
                   ),
             ),
-            Spacer(
+            const Spacer(
               flex: 1,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
               child: Observer(builder: (_) {
                 return Form(
                   key: controller.formkeyPage4,
@@ -316,15 +319,16 @@ class _RegistroPageState
                       LengthLimitingTextInputFormatter(4),
                     ],
                     validator: (value) {
-                      if (value.isEmpty) {
+                      if (value!.isEmpty) {
                         return 'Campo não pode estar vazio';
                       } else if (value.length < 4) {
                         return 'Código inválido';
-                      } else
+                      } else {
                         return null;
+                      }
                     },
                     decoration: InputDecoration(
-                      border: UnderlineInputBorder(),
+                      border: const UnderlineInputBorder(),
                       prefixIcon: Icon(
                         Icons.code,
                         color: Theme.of(context).primaryColor,
@@ -335,12 +339,12 @@ class _RegistroPageState
                 );
               }),
             ),
-            Spacer(
+            const Spacer(
               flex: 2,
             ),
             StandardButton(
               onPressed: () async {
-                if (controller.formkeyPage4.currentState.validate()) {
+                if (controller.formkeyPage4.currentState!.validate()) {
                   controller.setClickedButton(true);
                   if (controller.code == controller.codigoGerado) {
                     // progressDialog.style(message: "Validando..");
@@ -353,10 +357,10 @@ class _RegistroPageState
                       //   padding: EdgeInsets.all(15.0),
                       //   child: CircularProgressIndicator(),
                       // ),
-                      max: null,
+                      max: 3,
                     );
                     var res = await controller.registrar();
-                    Future.delayed(Duration(seconds: 2), () async {
+                    Future.delayed(const Duration(seconds: 2), () async {
                       progressDialog.close();
                       if (res != null) {
                         await authController
@@ -380,7 +384,7 @@ class _RegistroPageState
                 controller.code != controller.codigoGerado)
               Container(
                 alignment: Alignment.center,
-                child: Text(
+                child: const Text(
                   'Código não corresponde ao enviado no e-mail.',
                   style: TextStyle(
                     color: Colors.red,
@@ -391,7 +395,7 @@ class _RegistroPageState
               )
             else
               Container(),
-            Spacer(
+            const Spacer(
               flex: 1,
             ),
           ],
@@ -406,9 +410,9 @@ class _RegistroPageState
       barrierLabel: "Mensage",
       barrierDismissible: true,
       barrierColor: Colors.black.withOpacity(0.5),
-      transitionDuration: Duration(milliseconds: 400),
+      transitionDuration: const Duration(milliseconds: 400),
       context: context,
-      pageBuilder: (context, anim1, anim2) => null,
+      pageBuilder: (context, anim1, anim2) => Container(),
       transitionBuilder: (context, a1, a2, child) {
         final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
         return Transform(
@@ -428,45 +432,45 @@ class _RegistroPageState
     );
   }
 
-  Container buildMensageMessage(
+  SizedBox buildMensageMessage(
       BuildContext context, String titulo, String mensagem) {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height * .3,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Spacer(
+          const Spacer(
             flex: 1,
           ),
           Text(
             titulo,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyText1.copyWith(
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(
                   fontSize: 22,
                   color: Theme.of(context)
                       .textTheme
-                      .bodyText1
-                      .color
+                      .bodyText1!
+                      .color!
                       .withOpacity(.8),
                 ),
           ),
-          Spacer(
+          const Spacer(
             flex: 2,
           ),
           Text(
             mensagem,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyText1.copyWith(
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(
                   fontSize: 16,
                   color: Theme.of(context)
                       .textTheme
-                      .bodyText1
-                      .color
+                      .bodyText1!
+                      .color!
                       .withOpacity(.6),
                 ),
           ),
-          Spacer(
+          const Spacer(
             flex: 1,
           ),
         ],

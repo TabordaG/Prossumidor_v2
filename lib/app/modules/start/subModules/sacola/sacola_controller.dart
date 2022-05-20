@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_function_literals_in_foreach_calls
+
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -83,13 +85,13 @@ abstract class _SacolaControllerBase with Store {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Estoque Limite"),
-            content: Text(
+            title: const Text("Estoque Limite"),
+            content: const Text(
               "Não é possível aumentar a quantidade, pois o estoque máximo já foi atingido",
             ),
             actions: <Widget>[
-              FlatButton(
-                child: Text(
+              TextButton(
+                child: const Text(
                   "Fechar",
                   style: TextStyle(
                     color: kPrimaryColor,
@@ -157,10 +159,11 @@ abstract class _SacolaControllerBase with Store {
         bairro.text.isNotEmpty &&
         cidade.text.isNotEmpty &&
         uf.text.isNotEmpty &&
-        cep.text.isNotEmpty)
+        cep.text.isNotEmpty) {
       pageValid = true;
-    else
+    } else {
       pageValid = false;
+    }
   }
 
   @action
@@ -282,10 +285,11 @@ abstract class _SacolaControllerBase with Store {
   inserePedido() async {
     pedidoFinalizado = false;
     String obs = '';
-    if (frete == 0.0)
+    if (frete == 0.0) {
       obs = 'Retirar no Local';
-    else
+    } else {
       obs = 'Entrega em Domicílio';
+    }
 
     // for (int w = 0; w < num_pedidos; w++) {
     //insere pedido tabela de vendas
@@ -298,7 +302,6 @@ abstract class _SacolaControllerBase with Store {
     );
 
     if (res1 != null) {
-      print(res1);
       listaProdutos.forEach((item) async {
         var res2 = await sacolaRepository.inserirSaidaProdutos(
           item.quantidade.toString(),
@@ -315,7 +318,7 @@ abstract class _SacolaControllerBase with Store {
             item.quantidade.toString(),
             item.id.toString(),
           );
-          if (res3 != null) print(res3);
+          if (res3 != null) {}
         }
       });
 
@@ -328,10 +331,9 @@ abstract class _SacolaControllerBase with Store {
         authController.usuario.empresa_id.toString(),
       );
       if (res4 != null) {
-        print(res4);
         var res5 = await sacolaRepository.inserePagamentoEmVendas(
             res1.toString(), res4.toString());
-        if (res5 != null) print(res5);
+        if (res5 != null) {}
 
         var res6 = await sacolaRepository.alterarStatusPagamento(
             subtotal.toString(),
@@ -339,7 +341,7 @@ abstract class _SacolaControllerBase with Store {
             res1.toString(),
             res4.toString(),
             authController.usuario.empresa_id.toString());
-        if (res6 != null) print(res6);
+        if (res6 != null) {}
       }
 
       var res7 = await sacolaRepository
@@ -354,7 +356,7 @@ abstract class _SacolaControllerBase with Store {
           "Erro ao registrar, verifique seus pedidos e tente novamente";
     }
 
-    await Future.delayed(Duration(seconds: 1), () {
+    await Future.delayed(const Duration(seconds: 1), () {
       pedidoFinalizado = true;
     });
   }
