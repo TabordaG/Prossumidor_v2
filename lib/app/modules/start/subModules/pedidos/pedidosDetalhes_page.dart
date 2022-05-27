@@ -14,7 +14,8 @@ import '../../../../dados_basicos.dart';
 class PedidosDetalhes extends StatefulWidget {
   final Pedidos pedido;
   final Produto produto;
-  const PedidosDetalhes({this.pedido, this.produto}) : super();
+  const PedidosDetalhes({required this.pedido, required this.produto})
+      : super();
 
   @override
   _PedidosDetalhesState createState() => _PedidosDetalhesState();
@@ -26,7 +27,7 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
 
   @override
   void initState() {
-    controller.buscarProdutos(widget.pedido.id);
+    controller.buscarProdutos(widget.pedido.id!);
     super.initState();
   }
 
@@ -62,13 +63,13 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                     const Text("Pedido: #"),
                     Text(
                       pedido.id.toString(),
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
                           fontSize: 14,
                           color: Theme.of(context)
                               .textTheme
                               .bodyText1
-                              .color
-                              .withOpacity(1),
+                              ?.color
+                              ?.withOpacity(1),
                           fontWeight: FontWeight.w600),
                     ),
                   ],
@@ -81,13 +82,13 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                         controller.produtosList != null
                             ? "${controller.produtosList.length}"
                             : "Carregando..",
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
                             fontSize: 14,
                             color: Theme.of(context)
                                 .textTheme
                                 .bodyText1
-                                .color
-                                .withOpacity(1),
+                                ?.color
+                                ?.withOpacity(1),
                             fontWeight: FontWeight.w600),
                       );
                     }),
@@ -97,8 +98,7 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
             ),
             const Divider(),
             Expanded(child: Observer(builder: (_) {
-              if (controller.produtosList == null ||
-                  controller.produtosList.isEmpty) {
+              if (controller.produtosList.isEmpty) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
@@ -127,8 +127,13 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                               ? CachedNetworkImage(
                                   width:
                                       MediaQuery.of(context).size.width * 0.2,
-                                  imageUrl: "${Basicos.ip2}/media/" +
-                                      controller.produtosList[index].imagem,
+                                  imageUrl:
+                                      controller.produtosList[index].imagem !=
+                                              null
+                                          ? ""
+                                          : "${Basicos.ip2}/media/" +
+                                              controller
+                                                  .produtosList[index].imagem!,
                                   fit: BoxFit.cover,
                                   placeholder: (context, url) => const Padding(
                                     padding: EdgeInsets.all(25.0),
@@ -167,13 +172,16 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                           // ),
                         ),
                         title: Text(
-                          controller.produtosList[index].descricao_simplificada,
+                          controller
+                                  .produtosList[index].descricao_simplificada ??
+                              "...",
                           softWrap: true,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                fontSize: 14,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyText1?.copyWith(
+                                    fontSize: 14,
+                                  ),
                         ),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -186,24 +194,25 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1
-                                  .copyWith(
+                                  ?.copyWith(
                                     fontSize: 12,
                                     color: Theme.of(context)
                                         .textTheme
                                         .bodyText1
-                                        .color
-                                        .withOpacity(.7),
+                                        ?.color
+                                        ?.withOpacity(.7),
                                   ),
                             ),
                             Text(
                               "Quantidade: " +
                                   double.parse(controller
-                                          .produtosList[index].quantidade)
+                                              .produtosList[index].quantidade ??
+                                          "0")
                                       .toStringAsFixed(0),
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1
-                                  .copyWith(
+                                  ?.copyWith(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -215,13 +224,13 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                           textAlign: TextAlign.center,
                           text: TextSpan(
                             style:
-                                Theme.of(context).textTheme.bodyText1.copyWith(
+                                Theme.of(context).textTheme.bodyText1?.copyWith(
                                       fontSize: 12,
                                       color: Theme.of(context)
                                           .textTheme
                                           .bodyText1
-                                          .color
-                                          .withOpacity(.8),
+                                          ?.color
+                                          ?.withOpacity(.8),
                                     ),
                             children: [
                               const TextSpan(text: 'Valor Unit.'),
@@ -229,12 +238,13 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1
-                                    .copyWith(
+                                    ?.copyWith(
                                       fontSize: 11,
                                     ),
                                 text: '\nR\$ ' +
-                                    double.parse(controller
-                                            .produtosList[index].preco_venda)
+                                    double.parse(controller.produtosList[index]
+                                                .preco_venda ??
+                                            "0")
                                         .toStringAsFixed(2)
                                         .replaceAll(".", ","),
                               ),
@@ -387,9 +397,9 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                         const Text("Situação: "),
                         Flexible(
                           child: Text(
-                            pedido.status_pedido,
+                            pedido.status_pedido ?? "...",
                             style:
-                                Theme.of(context).textTheme.bodyText1.copyWith(
+                                Theme.of(context).textTheme.bodyText1?.copyWith(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w700,
                                     ),
@@ -401,11 +411,11 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                           children: [
                             const Text("Data"),
                             Text(
-                              "${pedido.data_registro.day}/${pedido.data_registro.month}/${pedido.data_registro.year}",
+                              "${pedido.data_registro?.day}/${pedido.data_registro?.month}/${pedido.data_registro?.year}",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1
-                                  .copyWith(
+                                  ?.copyWith(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -437,13 +447,14 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                       children: [
                         const Text("Entrega"),
                         Text(
-                          widget.pedido.observacoes_entrega.startsWith('0')
+                          widget.pedido.observacoes_entrega!.startsWith('0')
                               ? 'Retirado no local'
                               : 'Entrega em domicílio',
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyText1?.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                         ),
                       ],
                     ),
@@ -458,10 +469,11 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                                   .toString()
                                   .replaceAll(".", ",")
                                   .replaceAll(" ", ""),
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyText1?.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                         ),
                       ],
                     ),
@@ -471,21 +483,24 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                       children: [
                         Text(
                           "Total",
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyText1?.copyWith(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                         ),
                         Text(
                           "R\$ " +
-                              (double.parse(pedido.valor_total) +
-                                      double.parse(pedido.observacoes_entrega))
+                              (double.parse(pedido.valor_total ?? "0") +
+                                      double.parse(
+                                          pedido.observacoes_entrega ?? "0"))
                                   .toStringAsFixed(2)
                                   .replaceAll(".", ","),
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyText1?.copyWith(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                         ),
                       ],
                     ),

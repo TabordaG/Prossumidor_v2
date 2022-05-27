@@ -11,17 +11,17 @@ part 'sacola_repository.g.dart';
 
 @Injectable()
 class SacolaRepository implements ISacolaRepository {
-  Dio dio;
+  late Dio dio;
+  late Response response;
+
   SacolaRepository() {
     BaseOptions options = BaseOptions(
       receiveDataWhenStatusError: true,
       connectTimeout: 60 * 1000, // 20 seconds
       receiveTimeout: 60 * 1000, // 20 seconds
     );
-
     dio = Dio(options);
   }
-  Response response;
 
   @override
   Future listarSacola(int usuarioId) async {
@@ -197,7 +197,7 @@ class SacolaRepository implements ISacolaRepository {
     if (response.data != null && response.statusCode == 200) {
       var respondeDecoded = Basicos.decodifica(response.data);
       List list = json.decode(respondeDecoded).cast<Map<String, dynamic>>();
-      if (list != null && list.isNotEmpty) return list[0]["id"];
+      if (list.isNotEmpty) return list[0]["id"];
     } else {
       return null;
     }
@@ -301,7 +301,7 @@ class SacolaRepository implements ISacolaRepository {
     if (response.data != null && response.statusCode == 200) {
       var respondeDecoded = Basicos.decodifica(response.data);
       List list = json.decode(respondeDecoded).cast<Map<String, dynamic>>();
-      if (list != null && list.isNotEmpty) return list[0]["id"];
+      if (list.isNotEmpty) return list[0]["id"];
     } else {
       return null;
     }

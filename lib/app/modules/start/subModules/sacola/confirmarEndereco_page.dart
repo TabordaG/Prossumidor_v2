@@ -89,7 +89,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                           Text(
                             'Subtotal',
                             style:
-                                Theme.of(context).textTheme.bodyText1.copyWith(
+                                Theme.of(context).textTheme.bodyText1?.copyWith(
                                       fontSize: 18,
                                     ),
                           ),
@@ -102,7 +102,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1
-                                  .copyWith(
+                                  ?.copyWith(
                                     fontSize: 18,
                                   ),
                             );
@@ -117,8 +117,8 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                       color: Theme.of(context)
                           .textTheme
                           .bodyText1
-                          .color
-                          .withOpacity(.4),
+                          ?.color
+                          ?.withOpacity(.4),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -129,13 +129,13 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Radio(
+                                Radio<int>(
                                   value: 0,
                                   activeColor: Theme.of(context).primaryColor,
                                   groupValue: controller.entrega,
                                   onChanged: (value) {
                                     setState(() {
-                                      controller.setEntrega(value);
+                                      controller.setEntrega(value!);
                                     });
                                   },
                                 ),
@@ -150,12 +150,12 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyText1
-                                        .copyWith(
+                                        ?.copyWith(
                                           color: Theme.of(context)
                                               .textTheme
                                               .bodyText1
-                                              .color
-                                              .withOpacity(.8),
+                                              ?.color
+                                              ?.withOpacity(.8),
                                         ),
                                   ),
                                 ),
@@ -164,13 +164,13 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Radio(
+                                Radio<int>(
                                   value: 1,
                                   activeColor: Theme.of(context).primaryColor,
                                   groupValue: controller.entrega,
                                   onChanged: (value) {
                                     setState(() {
-                                      controller.setEntrega(value);
+                                      controller.setEntrega(value!);
                                     });
                                   },
                                 ),
@@ -185,12 +185,12 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyText1
-                                        .copyWith(
+                                        ?.copyWith(
                                           color: Theme.of(context)
                                               .textTheme
                                               .bodyText1
-                                              .color
-                                              .withOpacity(.8),
+                                              ?.color
+                                              ?.withOpacity(.8),
                                         ),
                                   ),
                                 ),
@@ -221,7 +221,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1
-                                      .copyWith(
+                                      ?.copyWith(
                                         fontSize: 16,
                                       ),
                                 );
@@ -249,7 +249,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                       style: Theme.of(context)
                           .textTheme
                           .bodyText1
-                          .copyWith(fontSize: 16),
+                          ?.copyWith(fontSize: 16),
                     ),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -262,12 +262,12 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                     controller.numero.text
                                 : 'Porto, 0',
                             style:
-                                Theme.of(context).textTheme.bodyText1.copyWith(
+                                Theme.of(context).textTheme.bodyText1?.copyWith(
                                       color: Theme.of(context)
                                           .textTheme
                                           .bodyText1
-                                          .color
-                                          .withOpacity(.6),
+                                          ?.color
+                                          ?.withOpacity(.6),
                                     ),
                           );
                         }),
@@ -279,12 +279,12 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                     controller.complemento.text
                                 : 'Corimbatá',
                             style:
-                                Theme.of(context).textTheme.bodyText1.copyWith(
+                                Theme.of(context).textTheme.bodyText1?.copyWith(
                                       color: Theme.of(context)
                                           .textTheme
                                           .bodyText1
-                                          .color
-                                          .withOpacity(.6),
+                                          ?.color
+                                          ?.withOpacity(.6),
                                     ),
                           );
                         }),
@@ -310,12 +310,12 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                       Text(
                         'Como pretende pagar ao retirar o seu pedido ?',
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
                               color: Theme.of(context)
                                   .textTheme
                                   .bodyText1
-                                  .color
-                                  .withOpacity(.8),
+                                  ?.color
+                                  ?.withOpacity(.8),
                             ),
                       ),
                       const SizedBox(
@@ -323,7 +323,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                       ),
                       Row(
                         children: [
-                          Radio(
+                          Radio<int>(
                             value: 0,
                             materialTapTargetSize:
                                 MaterialTapTargetSize.shrinkWrap,
@@ -331,7 +331,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             groupValue: controller.pagamento,
                             onChanged: (value) {
                               setState(() {
-                                controller.setPagamento(value);
+                                controller.setPagamento(value!);
                               });
                             },
                           ),
@@ -350,7 +350,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                       ),
                       Row(
                         children: [
-                          Radio(
+                          Radio<int>(
                             value: 1,
                             materialTapTargetSize:
                                 MaterialTapTargetSize.shrinkWrap,
@@ -358,7 +358,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             groupValue: controller.pagamento,
                             onChanged: (value) {
                               setState(() {
-                                controller.setPagamento(value);
+                                controller.setPagamento(value!);
                               });
                             },
                           ),
@@ -377,7 +377,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                       ),
                       Row(
                         children: [
-                          Radio(
+                          Radio<int>(
                             value: 2,
                             materialTapTargetSize:
                                 MaterialTapTargetSize.shrinkWrap,
@@ -385,7 +385,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             groupValue: controller.pagamento,
                             onChanged: (value) {
                               setState(() {
-                                controller.setPagamento(value);
+                                controller.setPagamento(value!);
                               });
                             },
                           ),
@@ -404,7 +404,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                       ),
                       Row(
                         children: [
-                          Radio(
+                          Radio<int>(
                             value: 3,
                             materialTapTargetSize:
                                 MaterialTapTargetSize.shrinkWrap,
@@ -412,7 +412,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             groupValue: controller.pagamento,
                             onChanged: (value) {
                               setState(() {
-                                controller.setPagamento(value);
+                                controller.setPagamento(value!);
                               });
                             },
                           ),
@@ -431,7 +431,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                       ),
                       Row(
                         children: [
-                          Radio(
+                          Radio<int>(
                             value: 4,
                             materialTapTargetSize:
                                 MaterialTapTargetSize.shrinkWrap,
@@ -439,7 +439,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             groupValue: controller.pagamento,
                             onChanged: (value) {
                               setState(() {
-                                controller.setPagamento(value);
+                                controller.setPagamento(value!);
                               });
                             },
                           ),
@@ -472,7 +472,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                   children: [
                     Text(
                       'Total',
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
                             fontSize: 20,
                             fontWeight: FontWeight.w700,
                           ),
@@ -483,7 +483,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             controller.total
                                 .toStringAsFixed(2)
                                 .replaceAll('.', ','),
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
                               fontSize: 20,
                               fontWeight: FontWeight.w700,
                             ),
@@ -621,7 +621,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                               onEditingComplete: node.nextFocus,
                               controller: controller.endereco,
                               validator: (value) {
-                                if (value.isEmpty) {
+                                if (value != null && value.isEmpty) {
                                   return 'Insira um endereço válido';
                                 } else {
                                   return null;
@@ -655,7 +655,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                 LengthLimitingTextInputFormatter(5),
                               ],
                               validator: (value) {
-                                if (value.isEmpty) {
+                                if (value != null && value.isEmpty) {
                                   return 'Insira um número válido';
                                 } else {
                                   return null;
@@ -712,7 +712,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                               onEditingComplete: node.nextFocus,
                               controller: controller.bairro,
                               validator: (value) {
-                                if (value.isEmpty) {
+                                if (value != null && value.isEmpty) {
                                   return 'Insira um bairro válido';
                                 } else {
                                   return null;
@@ -752,7 +752,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                     onEditingComplete: node.nextFocus,
                                     controller: controller.cidade,
                                     validator: (value) {
-                                      if (value.isEmpty) {
+                                      if (value != null && value.isEmpty) {
                                         return 'Insira uma cidade válida';
                                       } else {
                                         return null;
@@ -792,7 +792,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                       LengthLimitingTextInputFormatter(2),
                                     ],
                                     validator: (value) {
-                                      if (value.isEmpty) {
+                                      if (value != null && value.isEmpty) {
                                         return 'Insira um UF válido';
                                       } else {
                                         return null;
@@ -830,7 +830,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                 CepInputFormatter(),
                               ],
                               validator: (value) {
-                                if (value.isEmpty) {
+                                if (value != null && value.isEmpty) {
                                   return 'Insira um CEP válido';
                                 } else {
                                   return null;
@@ -857,7 +857,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
               TextButton(
                 child: Text(
                   "Fechar",
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
                         color: Theme.of(context).primaryColor,
                       ),
                 ),
@@ -925,7 +925,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             onEditingComplete: node.nextFocus,
                             controller: controller.endereco,
                             validator: (value) {
-                              if (value.isEmpty) {
+                              if (value != null && value.isEmpty) {
                                 return 'Insira um endereço válido';
                               } else {
                                 return null;
@@ -956,7 +956,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                               LengthLimitingTextInputFormatter(5),
                             ],
                             validator: (value) {
-                              if (value.isEmpty) {
+                              if (value != null && value.isEmpty) {
                                 return 'Insira um número válido';
                               } else {
                                 return null;
@@ -1007,7 +1007,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             onEditingComplete: node.nextFocus,
                             controller: controller.bairro,
                             validator: (value) {
-                              if (value.isEmpty) {
+                              if (value != null && value.isEmpty) {
                                 return 'Insira um bairro válido';
                               } else {
                                 return null;
@@ -1043,7 +1043,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                   onEditingComplete: node.nextFocus,
                                   controller: controller.cidade,
                                   validator: (value) {
-                                    if (value.isEmpty) {
+                                    if (value != null && value.isEmpty) {
                                       return 'Insira uma cidade válida';
                                     } else {
                                       return null;
@@ -1080,7 +1080,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                     LengthLimitingTextInputFormatter(2),
                                   ],
                                   validator: (value) {
-                                    if (value.isEmpty) {
+                                    if (value != null && value.isEmpty) {
                                       return 'Insira um UF válido';
                                     } else {
                                       return null;
@@ -1115,7 +1115,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                               CepInputFormatter(),
                             ],
                             validator: (value) {
-                              if (value.isEmpty) {
+                              if (value != null && value.isEmpty) {
                                 return 'Insira um CEP válido';
                               } else {
                                 return null;
@@ -1142,7 +1142,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
             TextButton(
               child: Text(
                 "Fechar",
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                style: Theme.of(context).textTheme.bodyText1?.copyWith(
                       color: Theme.of(context).primaryColor,
                     ),
               ),

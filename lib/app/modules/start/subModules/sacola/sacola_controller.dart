@@ -22,14 +22,14 @@ abstract class _SacolaControllerBase with Store {
   final AppController appController = Modular.get<AppController>();
 
   _SacolaControllerBase() {
-    endereco = TextEditingController(text: authController.usuario.endereco);
-    numero = TextEditingController(text: authController.usuario.numero);
+    endereco = TextEditingController(text: authController.usuario?.endereco);
+    numero = TextEditingController(text: authController.usuario?.numero);
     complemento =
-        TextEditingController(text: authController.usuario.complemento);
-    bairro = TextEditingController(text: authController.usuario.bairro);
-    cidade = TextEditingController(text: authController.usuario.cidade);
-    uf = TextEditingController(text: authController.usuario.estado);
-    cep = TextEditingController(text: authController.usuario.cep);
+        TextEditingController(text: authController.usuario?.complemento);
+    bairro = TextEditingController(text: authController.usuario?.bairro);
+    cidade = TextEditingController(text: authController.usuario?.cidade);
+    uf = TextEditingController(text: authController.usuario?.estado);
+    cep = TextEditingController(text: authController.usuario?.cep);
   }
 
   @observable
@@ -74,12 +74,13 @@ abstract class _SacolaControllerBase with Store {
 
   @action
   increment(int index, BuildContext context) async {
-    if (double.parse(listaProdutos[index].quantidade) <
-        double.parse(listaProdutos[index].estoque_atual)) {
+    if (double.parse(listaProdutos[index].quantidade ?? "0") <
+        double.parse(listaProdutos[index].estoque_atual ?? "0")) {
       listaProdutos[index].quantidade =
-          (double.parse(listaProdutos[index].quantidade) + 1).toString();
-      subtotal += double.parse(listaProdutos[index].preco_venda);
-      await sacolaRepository.incrementaSacola(listaProdutos[index].carrinhoid);
+          (double.parse(listaProdutos[index].quantidade ?? "0") + 1).toString();
+      subtotal += double.parse(listaProdutos[index].preco_venda ?? "0");
+      await sacolaRepository
+          .incrementaSacola(listaProdutos[index].carrinhoid ?? 0);
     } else {
       showDialog(
         context: context,
@@ -110,18 +111,18 @@ abstract class _SacolaControllerBase with Store {
 
   @action
   decrement(int index) async {
-    if (double.parse(listaProdutos[index].quantidade) > 1) {
+    if (double.parse(listaProdutos[index].quantidade ?? "0") > 1) {
       listaProdutos[index].quantidade =
-          (double.parse(listaProdutos[index].quantidade) - 1).toString();
-      subtotal -= double.parse(listaProdutos[index].preco_venda);
-      await sacolaRepository.decrementaSacola(listaProdutos[index].carrinhoid);
+          (double.parse(listaProdutos[index].quantidade!) - 1).toString();
+      subtotal -= double.parse(listaProdutos[index].preco_venda!);
+      await sacolaRepository.decrementaSacola(listaProdutos[index].carrinhoid!);
     }
   }
 
   @action
   deletarItem(int index) async {
     var res = await sacolaRepository
-        .deletarItemSacola(listaProdutos[index].carrinhoid);
+        .deletarItemSacola(listaProdutos[index].carrinhoid!);
     if (res != null) {
       buscarProdutos();
     }
@@ -168,28 +169,28 @@ abstract class _SacolaControllerBase with Store {
 
   @action
   atualizaDados() async {
-    authController.usuario.endereco = endereco.text;
-    authController.usuario.numero = numero.text;
-    authController.usuario.complemento = complemento.text;
-    authController.usuario.bairro = bairro.text;
-    authController.usuario.cidade = cidade.text;
-    authController.usuario.estado = uf.text;
-    authController.usuario.cep = cep.text;
+    authController.usuario?.endereco = endereco.text;
+    authController.usuario?.numero = numero.text;
+    authController.usuario?.complemento = complemento.text;
+    authController.usuario?.bairro = bairro.text;
+    authController.usuario?.cidade = cidade.text;
+    authController.usuario?.estado = uf.text;
+    authController.usuario?.cep = cep.text;
     //authController.usuario.empresa = dropdownvalue;
 
-    endereco = TextEditingController(text: authController.usuario.endereco);
-    numero = TextEditingController(text: authController.usuario.numero);
-    bairro = TextEditingController(text: authController.usuario.bairro);
+    endereco = TextEditingController(text: authController.usuario?.endereco);
+    numero = TextEditingController(text: authController.usuario?.numero);
+    bairro = TextEditingController(text: authController.usuario?.bairro);
     complemento =
-        TextEditingController(text: authController.usuario.complemento);
+        TextEditingController(text: authController.usuario?.complemento);
 
-    int retiradaId = authController.localRetirada[0]['id'];
+    int retiradaId = authController.localRetirada![0]['id'];
     String response = await sacolaRepository.alteraDados(
-      authController.usuario.id.toString(),
-      removeCaracterEspecial(authController.usuario.nome_razao_social),
-      authController.usuario.cpf_cnpj,
-      authController.usuario.telefone,
-      authController.usuario.sexo.toUpperCase().toString(),
+      authController.usuario!.id.toString(),
+      removeCaracterEspecial(authController.usuario?.nome_razao_social ?? ""),
+      authController.usuario?.cpf_cnpj,
+      authController.usuario?.telefone,
+      authController.usuario?.sexo?.toUpperCase().toString(),
       removeCaracterEspecial(endereco.text),
       numero.text,
       removeCaracterEspecial(complemento.text),
@@ -197,12 +198,12 @@ abstract class _SacolaControllerBase with Store {
       removeCaracterEspecial(cidade.text),
       removeCaracterEspecial(cep.text),
       removeCaracterEspecial(uf.text),
-      formataDataYYYYmmdd(authController.usuario.data_nascimento_fundacao),
-      removeCaracterEspecial(authController.usuario.estado_civil),
+      formataDataYYYYmmdd(authController.usuario?.data_nascimento_fundacao),
+      removeCaracterEspecial(authController.usuario?.estado_civil ?? ""),
       retiradaId,
     );
 
-    if (response != null) calcularFrete();
+    calcularFrete();
   }
 
   String removeCaracterEspecial(String texto) {
@@ -226,16 +227,16 @@ abstract class _SacolaControllerBase with Store {
     return nova;
   }
 
-  String formataDataYYYYmmdd(String text) {
-    // formata data inverte data padrao dd/mm/aaaa para  aaaa-mm-dd
-    if (text != null) {
+  String formataDataYYYYmmdd(String? text) {
+    // formata data inverte data padrao dd/mm/aaaa para aaaa-mm-dd
+    if (text != null && text.isNotEmpty) {
       String dia, mes, ano;
       ano = text.substring(0, 4);
       mes = text.substring(5, 7);
       dia = text.substring(8, 10);
       return ano + '-' + mes + '-' + dia;
     }
-    return '';
+    return "";
   }
 
   @observable
@@ -248,12 +249,12 @@ abstract class _SacolaControllerBase with Store {
   buscarProdutos() async {
     carregandoProdutos = true;
     List<Produto> produtos =
-        await sacolaRepository.listarSacola(authController.usuario.id);
-    if (produtos != null) listaProdutos = List.from(produtos);
+        await sacolaRepository.listarSacola(authController.usuario!.id!);
+    listaProdutos = List.from(produtos);
     subtotal = 0.0;
     for (var item in listaProdutos) {
-      subtotal +=
-          double.parse(item.preco_venda) * double.parse(item.quantidade);
+      subtotal += double.parse(item.preco_venda ?? "0") *
+          double.parse(item.quantidade ?? "0");
     }
     carregandoProdutos = false;
 
@@ -262,7 +263,7 @@ abstract class _SacolaControllerBase with Store {
 
   @action
   calcularFrete() async {
-    var res = await sacolaRepository.calcularFrete(authController.usuario.id);
+    var res = await sacolaRepository.calcularFrete(authController.usuario!.id!);
     if (res != null) {
       if (listaProdutos.isEmpty) {
         frete = 0.0;
@@ -297,8 +298,8 @@ abstract class _SacolaControllerBase with Store {
       subtotal.toString(),
       obs,
       frete,
-      authController.usuario.id,
-      authController.usuario.empresa_id.toString(),
+      authController.usuario!.id!,
+      authController.usuario!.empresa_id.toString(),
     );
 
     if (res1 != null) {
@@ -306,9 +307,9 @@ abstract class _SacolaControllerBase with Store {
         var res2 = await sacolaRepository.inserirSaidaProdutos(
           item.quantidade.toString(),
           item.preco_venda.toString(),
-          (double.parse(item.quantidade) * double.parse(item.preco_venda))
+          (double.parse(item.quantidade!) * double.parse(item.preco_venda!))
               .toString(),
-          authController.usuario.empresa_id.toString(),
+          authController.usuario!.empresa_id.toString(),
           item.id.toString(),
           res1.toString(),
         );
@@ -327,8 +328,8 @@ abstract class _SacolaControllerBase with Store {
         pagamentoText[pagamento],
         res1.toString(),
         frete.toString(),
-        authController.usuario.id.toString(),
-        authController.usuario.empresa_id.toString(),
+        authController.usuario!.id.toString(),
+        authController.usuario!.empresa_id.toString(),
       );
       if (res4 != null) {
         var res5 = await sacolaRepository.inserePagamentoEmVendas(
@@ -340,12 +341,12 @@ abstract class _SacolaControllerBase with Store {
             pagamentoText[pagamento],
             res1.toString(),
             res4.toString(),
-            authController.usuario.empresa_id.toString());
+            authController.usuario!.empresa_id.toString());
         if (res6 != null) {}
       }
 
       var res7 = await sacolaRepository
-          .resetarCarrinho(authController.usuario.id.toString());
+          .resetarCarrinho(authController.usuario!.id.toString());
       if (res7 != null) {
         await buscarProdutos();
       }

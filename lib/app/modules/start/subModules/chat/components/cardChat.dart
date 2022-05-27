@@ -6,7 +6,8 @@ import 'package:prossumidor_v2/app/models/chat/chat_model.dart';
 class CardChat extends StatefulWidget {
   final Chat chat;
   final Function onTap;
-  const CardChat({Key key, this.chat, this.onTap}) : super(key: key);
+  const CardChat({Key? key, required this.chat, required this.onTap})
+      : super(key: key);
 
   @override
   _CardChatState createState() => _CardChatState();
@@ -16,7 +17,7 @@ class _CardChatState extends State<CardChat> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: widget.onTap,
+      onTap: widget.onTap(),
       child: Container(
         margin: const EdgeInsets.only(bottom: 5),
         decoration: const BoxDecoration(
@@ -29,9 +30,9 @@ class _CardChatState extends State<CardChat> {
         ),
         child: ListTile(
           leading: CircleAvatar(
-            child: Text(widget.chat.razao_social.characters.first),
+            child: Text(widget.chat.razao_social?.characters.first ?? "..."),
           ),
-          title: Text(widget.chat.razao_social),
+          title: Text(widget.chat.razao_social ?? "..."),
           subtitle: Row(
             children: [
               Icon(
@@ -46,7 +47,7 @@ class _CardChatState extends State<CardChat> {
                 child: Text(
                   widget.chat.status == 'Apagado'
                       ? "Esta mensagem foi apagada."
-                      : widget.chat.mensagem,
+                      : widget.chat.mensagem ?? "",
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -59,53 +60,53 @@ class _CardChatState extends State<CardChat> {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(widget.chat.data_envio.hour < 10 &&
-                          widget.chat.data_envio.minute < 10
-                      ? "0${widget.chat.data_envio.hour}"
+                  Text(widget.chat.data_envio!.hour < 10 &&
+                          widget.chat.data_envio!.minute < 10
+                      ? "0${widget.chat.data_envio?.hour}"
                           ":"
-                          "0${widget.chat.data_envio.minute}"
-                      : widget.chat.data_envio.hour < 10 &&
-                              widget.chat.data_envio.minute >= 10
-                          ? "0${widget.chat.data_envio.hour}"
+                          "0${widget.chat.data_envio!.minute}"
+                      : widget.chat.data_envio!.hour < 10 &&
+                              widget.chat.data_envio!.minute >= 10
+                          ? "0${widget.chat.data_envio!.hour}"
                               ":"
-                              "${widget.chat.data_envio.minute}"
-                          : widget.chat.data_envio.hour >= 10 &&
-                                  widget.chat.data_envio.minute < 10
-                              ? "${widget.chat.data_envio.hour}"
+                              "${widget.chat.data_envio!.minute}"
+                          : widget.chat.data_envio!.hour >= 10 &&
+                                  widget.chat.data_envio!.minute < 10
+                              ? "${widget.chat.data_envio!.hour}"
                                   ":"
-                                  "0${widget.chat.data_envio.minute}"
-                              : "${widget.chat.data_envio.hour}"
+                                  "0${widget.chat.data_envio!.minute}"
+                              : "${widget.chat.data_envio!.hour}"
                                   ":"
-                                  "${widget.chat.data_envio.minute}"),
-                  Text(widget.chat.data_envio.hour < 12 ? 'AM' : 'PM')
+                                  "${widget.chat.data_envio!.minute}"),
+                  Text(widget.chat.data_envio!.hour < 12 ? 'AM' : 'PM')
                 ],
               ),
-              Text(widget.chat.data_envio.day < 10 &&
-                      widget.chat.data_envio.month < 10
-                  ? "0${widget.chat.data_envio.day}"
+              Text(widget.chat.data_envio!.day < 10 &&
+                      widget.chat.data_envio!.month < 10
+                  ? "0${widget.chat.data_envio!.day}"
                       "/"
-                      "0${widget.chat.data_envio.month}"
+                      "0${widget.chat.data_envio!.month}"
                       "/"
-                      "${widget.chat.data_envio.year}"
-                  : widget.chat.data_envio.day >= 10 &&
-                          widget.chat.data_envio.month < 10
-                      ? "${widget.chat.data_envio.day}"
+                      "${widget.chat.data_envio!.year}"
+                  : widget.chat.data_envio!.day >= 10 &&
+                          widget.chat.data_envio!.month < 10
+                      ? "${widget.chat.data_envio!.day}"
                           "/"
-                          "0${widget.chat.data_envio.month}"
+                          "0${widget.chat.data_envio!.month}"
                           "/"
-                          "${widget.chat.data_envio.year}"
-                      : widget.chat.data_envio.day < 10 &&
-                              widget.chat.data_envio.month >= 10
-                          ? "0${widget.chat.data_envio.day}"
+                          "${widget.chat.data_envio!.year}"
+                      : widget.chat.data_envio!.day < 10 &&
+                              widget.chat.data_envio!.month >= 10
+                          ? "0${widget.chat.data_envio!.day}"
                               "/"
-                              "${widget.chat.data_envio.month}"
+                              "${widget.chat.data_envio!.month}"
                               "/"
-                              "${widget.chat.data_envio.year}"
-                          : "${widget.chat.data_envio.day}"
+                              "${widget.chat.data_envio!.year}"
+                          : "${widget.chat.data_envio!.day}"
                               "/"
-                              "${widget.chat.data_envio.month}"
+                              "${widget.chat.data_envio!.month}"
                               "/"
-                              "${widget.chat.data_envio.year}")
+                              "${widget.chat.data_envio!.year}")
             ],
           ),
         ),

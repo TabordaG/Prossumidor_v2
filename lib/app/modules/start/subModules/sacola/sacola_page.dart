@@ -70,12 +70,12 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                     controller.listaProdutos.isEmpty) return Container();
                 return Text(
                   'Total de itens: ${controller.listaProdutos.length}',
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
                         color: Theme.of(context)
                             .textTheme
                             .bodyText1
-                            .color
-                            .withOpacity(.8),
+                            ?.color
+                            ?.withOpacity(.8),
                       ),
                 );
               }),
@@ -130,7 +130,7 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                     return CachedNetworkImage(
                                       imageUrl: "${Basicos.ip2}/media/" +
                                           controller
-                                              .listaProdutos[index].imagem,
+                                              .listaProdutos[index].imagem!,
                                       placeholder: (context, url) =>
                                           const Padding(
                                         padding: EdgeInsets.all(35.0),
@@ -161,30 +161,32 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                   children: [
                                     Text(
                                       controller.listaProdutos[index]
-                                          .descricao_simplificada,
+                                              .descricao_simplificada ??
+                                          "...",
                                       softWrap: true,
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 2,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyText1
-                                          .copyWith(
+                                          ?.copyWith(
                                             fontSize: 16,
                                           ),
                                     ),
                                     Text(
-                                      controller.listaProdutos[index].marca,
+                                      controller.listaProdutos[index].marca ??
+                                          "...",
                                       maxLines: 1,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyText1
-                                          .copyWith(
+                                          ?.copyWith(
                                             fontSize: 12,
                                             color: Theme.of(context)
                                                 .textTheme
                                                 .bodyText1
-                                                .color
-                                                .withOpacity(.8),
+                                                ?.color
+                                                ?.withOpacity(.8),
                                           ),
                                     ),
                                     Row(
@@ -214,11 +216,11 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                           width: 30,
                                           child: Center(
                                             child: Text(
-                                              "${double.parse(controller.listaProdutos[index].quantidade).toInt()}",
+                                              "${double.parse(controller.listaProdutos[index].quantidade ?? "0").toInt()}",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyText1
-                                                  .copyWith(
+                                                  ?.copyWith(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w700,
                                                   ),
@@ -258,13 +260,13 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyText1
-                                        .copyWith(
+                                        ?.copyWith(
                                           fontSize: 12,
                                           color: Theme.of(context)
                                               .textTheme
                                               .bodyText1
-                                              .color
-                                              .withOpacity(.8),
+                                              ?.color
+                                              ?.withOpacity(.8),
                                         ),
                                     children: [
                                       const TextSpan(text: 'Valor Unit.'),
@@ -272,13 +274,13 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText1
-                                            .copyWith(
+                                            ?.copyWith(
                                               fontSize: 11,
                                             ),
                                         text: '\nR\$ ' +
                                             double.parse(controller
                                                     .listaProdutos[index]
-                                                    .preco_venda)
+                                                    .preco_venda!)
                                                 .toStringAsFixed(2)
                                                 .replaceAll(".", ","),
                                       ),
@@ -286,18 +288,18 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText1
-                                            .copyWith(
+                                            ?.copyWith(
                                               fontSize: 11,
                                               fontWeight: FontWeight.bold,
                                             ),
                                         text: '\n\nR\$ ' +
                                             (double.parse(controller
                                                         .listaProdutos[index]
-                                                        .preco_venda) *
+                                                        .preco_venda!) *
                                                     double.parse(controller
                                                             .listaProdutos[
                                                                 index]
-                                                            .quantidade)
+                                                            .quantidade!)
                                                         .toInt())
                                                 .toStringAsFixed(2)
                                                 .replaceAll(".", ","),
@@ -385,7 +387,7 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                 children: [
                   Text(
                     'Subtotal',
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    style: Theme.of(context).textTheme.bodyText1?.copyWith(
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
                         ),
@@ -396,7 +398,7 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                           controller.subtotal
                               .toStringAsFixed(2)
                               .replaceAll(".", ","),
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
                             fontSize: 20,
                             fontWeight: FontWeight.w700,
                           ),
