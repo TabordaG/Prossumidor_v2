@@ -210,52 +210,53 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                     minWidth: size.width * .6,
                     child: StandardButton(
                       onPressed: () async {
-                        if (formkey.currentState!.validate()) {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: const [
-                                      CircularProgressIndicator(
-                                        strokeWidth: 1,
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      Text(
-                                        "Entrando..",
-                                        style: TextStyle(color: Colors.black54),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              });
-                          int response = await controller.verificaLogin();
-                          await Future.delayed(const Duration(seconds: 1));
-                          Navigator.of(context).pop();
-                          switch (response) {
-                            case 0:
-                              await authController
-                                  .addStringToSF(controller.email);
-                              Modular.to.pushReplacementNamed('/start');
-                              break;
-                            case 1:
-                              buildShowGeneralDialog(
-                                  context, "Erro de Login", 'Senha Inválida');
-                              break;
-                            case 2:
-                              buildShowGeneralDialog(
-                                  context, "Erro de Login", 'E-mail Inválido');
-                              break;
-                            case 3:
-                              buildShowGeneralDialog(context, "Erro de Login",
-                                  'Seu usuário ainda não foi validado. Um e-mail foi enviado para sua caixa de entrada, verifique para confirmar seu cadastro.');
-                              break;
-                            default:
-                          }
-                        }
+                        print("Login");
+                        // if (formkey.currentState!.validate()) {
+                        //   showDialog(
+                        //       context: context,
+                        //       builder: (BuildContext context) {
+                        //         return AlertDialog(
+                        //           content: Column(
+                        //             mainAxisSize: MainAxisSize.min,
+                        //             children: const [
+                        //               CircularProgressIndicator(
+                        //                 strokeWidth: 1,
+                        //               ),
+                        //               SizedBox(
+                        //                 height: 20,
+                        //               ),
+                        //               Text(
+                        //                 "Entrando..",
+                        //                 style: TextStyle(color: Colors.black54),
+                        //               ),
+                        //             ],
+                        //           ),
+                        //         );
+                        //       });
+                        //   int response = await controller.verificaLogin();
+                        //   await Future.delayed(const Duration(seconds: 1));
+                        //   Navigator.of(context).pop();
+                        //   switch (response) {
+                        //     case 0:
+                        //       await authController
+                        //           .addStringToSF(controller.email);
+                        //       Modular.to.pushReplacementNamed('/start');
+                        //       break;
+                        //     case 1:
+                        //       buildShowGeneralDialog(
+                        //           context, "Erro de Login", 'Senha Inválida');
+                        //       break;
+                        //     case 2:
+                        //       buildShowGeneralDialog(
+                        //           context, "Erro de Login", 'E-mail Inválido');
+                        //       break;
+                        //     case 3:
+                        //       buildShowGeneralDialog(context, "Erro de Login",
+                        //           'Seu usuário ainda não foi validado. Um e-mail foi enviado para sua caixa de entrada, verifique para confirmar seu cadastro.');
+                        //       break;
+                        //     default:
+                        //   }
+                        // }
                       },
                       color: Theme.of(context).primaryColor,
                       text: 'Entrar',

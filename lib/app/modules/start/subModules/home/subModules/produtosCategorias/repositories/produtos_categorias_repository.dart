@@ -118,7 +118,7 @@ class ProdutosCategoriasRepository implements IProdutosCategoriasRepository {
           .toList(); // Basicos.decodifica(response.data);
       return respondeDecoded;
     } else {
-      return null;
+      return [];
     }
   }
 
@@ -149,7 +149,7 @@ class ProdutosCategoriasRepository implements IProdutosCategoriasRepository {
           .toList(); // Basicos.decodifica(response.data);
       return respondeDecoded;
     } else {
-      return null;
+      return [];
     }
   }
 
@@ -176,7 +176,7 @@ class ProdutosCategoriasRepository implements IProdutosCategoriasRepository {
           .toList(); // Basicos.decodifica(response.data);
       return respondeDecoded;
     } else {
-      return null;
+      return [];
     }
   }
 
@@ -203,7 +203,7 @@ class ProdutosCategoriasRepository implements IProdutosCategoriasRepository {
           .toList(); // Basicos.decodifica(response.data);
       return respondeDecoded;
     } else {
-      return null;
+      return [];
     }
   }
 

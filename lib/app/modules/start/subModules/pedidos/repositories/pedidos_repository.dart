@@ -14,7 +14,9 @@ part 'pedidos_repository.g.dart';
 
 @Injectable()
 class PedidosRepository implements IPedidosRepository {
-  Dio dio;
+  late Dio dio;
+  late Response response;
+
   PedidosRepository() {
     BaseOptions options = BaseOptions(
       receiveDataWhenStatusError: true,
@@ -24,7 +26,6 @@ class PedidosRepository implements IPedidosRepository {
 
     dio = Dio(options);
   }
-  Response response;
 
   //dispose will be called automatically
   @override

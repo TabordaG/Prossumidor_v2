@@ -216,14 +216,11 @@ abstract class _HomeControllerBase with Store {
   atualizaListaMarca() => listaMarcas = List.from(listaMarcas!);
 
   @computed
-  List<Marca> get filtroMarca => listaMarcas!.map<Marca>((e) {
-        if (e.descricao!
-            .toLowerCase()
-            .contains(buscarMarca.text.toLowerCase())) {
-          return e;
-        }
-        return null;
-      }).toList();
+  List<Marca?> get filtroMarca => listaMarcas!
+      .where((element) => element.descricao!
+          .toLowerCase()
+          .contains(buscarMarca.text.toLowerCase()))
+      .toList();
 
   @action
   buscarMarcas() async {
@@ -361,13 +358,11 @@ abstract class _HomeControllerBase with Store {
       listaCategoriasFiltro = List.from(listaCategoriasFiltro);
 
   @computed
-  List<Categoria> get filtroCategoria =>
-      listaCategoriasFiltro.map<Categoria>((e) {
-        if (e.descricao!
-            .toLowerCase()
-            .contains(buscarCategoria.text.toLowerCase())) return e;
-        return null;
-      }).toList();
+  List<Categoria?> get filtroCategoria => listaCategoriasFiltro
+      .where((element) => element.descricao!
+          .toLowerCase()
+          .contains(buscarCategoria.text.toLowerCase()))
+      .toList();
 
   @action
   pesquisarProduto() async {
@@ -375,12 +370,10 @@ abstract class _HomeControllerBase with Store {
     produtosDaBusca = [];
     List<Produto> produtos = await homeRepository.pesquisarProduto(
         buscarString.text, produtosDaBusca.length);
-    if (produtos != null) {
-      for (var item in produtos) {
-        produtosDaBusca.add(item);
-      }
-      produtosDaBusca = List.from(produtosDaBusca);
+    for (var item in produtos) {
+      produtosDaBusca.add(item);
     }
+    produtosDaBusca = List.from(produtosDaBusca);
     buscandoProdutos = false;
   }
 

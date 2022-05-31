@@ -5,12 +5,12 @@ class StandardButton extends StatefulWidget {
   final String text;
   final Color color;
 
-  const StandardButton(
-      {Key? key,
-      required this.onPressed,
-      required this.text,
-      required this.color})
-      : super(key: key);
+  const StandardButton({
+    Key? key,
+    required this.onPressed,
+    required this.text,
+    required this.color,
+  }) : super(key: key);
 
   @override
   _StandardButtonState createState() => _StandardButtonState();

@@ -17,10 +17,10 @@ class PedidosPage extends StatefulWidget {
 
 class _PedidosPageState extends ModularState<PedidosPage, PedidosController>
     with TickerProviderStateMixin {
-  ScrollController scrollController1;
-  ScrollController scrollController2;
-  ScrollController scrollController3;
-  TabController tabController;
+  late ScrollController scrollController1;
+  late ScrollController scrollController2;
+  late ScrollController scrollController3;
+  late TabController tabController;
 
   scrollListener() async {
     if (tabController.index == 0) {
@@ -104,7 +104,7 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController>
               unselectedLabelStyle: Theme.of(context)
                   .textTheme
                   .bodyText1
-                  .copyWith(color: Colors.white38),
+                  ?.copyWith(color: Colors.white38),
               labelStyle: Theme.of(context).textTheme.bodyText1,
               tabs: const [
                 Tab(text: 'Andamento'),
@@ -137,12 +137,12 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController>
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1
-                                    .copyWith(
+                                    ?.copyWith(
                                       color: Theme.of(context)
                                           .textTheme
                                           .bodyText1
-                                          .color
-                                          .withOpacity(.7),
+                                          ?.color
+                                          ?.withOpacity(.7),
                                       fontSize: 14,
                                     ),
                               ),
@@ -166,12 +166,12 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController>
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1
-                                    .copyWith(
+                                    ?.copyWith(
                                       color: Theme.of(context)
                                           .textTheme
                                           .bodyText1
-                                          .color
-                                          .withOpacity(.7),
+                                          ?.color
+                                          ?.withOpacity(.7),
                                       fontSize: 14,
                                     ),
                               ),
@@ -226,12 +226,12 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController>
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1
-                                    .copyWith(
+                                    ?.copyWith(
                                       color: Theme.of(context)
                                           .textTheme
                                           .bodyText1
-                                          .color
-                                          .withOpacity(.7),
+                                          ?.color
+                                          ?.withOpacity(.7),
                                       fontSize: 14,
                                     ),
                               ),
@@ -255,12 +255,12 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController>
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1
-                                    .copyWith(
+                                    ?.copyWith(
                                       color: Theme.of(context)
                                           .textTheme
                                           .bodyText1
-                                          .color
-                                          .withOpacity(.7),
+                                          ?.color
+                                          ?.withOpacity(.7),
                                       fontSize: 14,
                                     ),
                               ),
@@ -315,12 +315,12 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController>
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1
-                                    .copyWith(
+                                    ?.copyWith(
                                       color: Theme.of(context)
                                           .textTheme
                                           .bodyText1
-                                          .color
-                                          .withOpacity(.7),
+                                          ?.color
+                                          ?.withOpacity(.7),
                                       fontSize: 14,
                                     ),
                               ),
@@ -344,12 +344,12 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController>
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1
-                                    .copyWith(
+                                    ?.copyWith(
                                       color: Theme.of(context)
                                           .textTheme
                                           .bodyText1
-                                          .color
-                                          .withOpacity(.7),
+                                          ?.color
+                                          ?.withOpacity(.7),
                                       fontSize: 14,
                                     ),
                               ),

@@ -18,7 +18,10 @@ class PedidosModule extends Module {
     ChildRoute(Modular.initialRoute, child: (_, args) => const PedidosPage()),
     ChildRoute(
       '/detalhes',
-      child: (_, args) => PedidosDetalhes(pedido: args.data["pedido"]),
+      child: (_, args) => PedidosDetalhes(
+        pedido: args.data["pedido"],
+        produto: args.data["pedido"],
+      ),
       transition: TransitionType.rightToLeft,
     ),
   ];

@@ -19,18 +19,18 @@ final $HomeController = BindInject(
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HomeController on _HomeControllerBase, Store {
-  Computed<List<Marca>>? _$filtroMarcaComputed;
+  Computed<List<Marca?>>? _$filtroMarcaComputed;
 
   @override
-  List<Marca> get filtroMarca =>
-      (_$filtroMarcaComputed ??= Computed<List<Marca>>(() => super.filtroMarca,
+  List<Marca?> get filtroMarca =>
+      (_$filtroMarcaComputed ??= Computed<List<Marca?>>(() => super.filtroMarca,
               name: '_HomeControllerBase.filtroMarca'))
           .value;
-  Computed<List<Categoria>>? _$filtroCategoriaComputed;
+  Computed<List<Categoria?>>? _$filtroCategoriaComputed;
 
   @override
-  List<Categoria> get filtroCategoria => (_$filtroCategoriaComputed ??=
-          Computed<List<Categoria>>(() => super.filtroCategoria,
+  List<Categoria?> get filtroCategoria => (_$filtroCategoriaComputed ??=
+          Computed<List<Categoria?>>(() => super.filtroCategoria,
               name: '_HomeControllerBase.filtroCategoria'))
       .value;
 

@@ -474,8 +474,7 @@ class _HomeListViewState extends State<HomeListView>
                   controller: tabControllerFiltro,
                   children: [
                     Observer(builder: (_) {
-                      if (controller.listaCategoriasFiltro == null ||
-                          controller.listaCategoriasFiltro.isEmpty) {
+                      if (controller.listaCategoriasFiltro.isEmpty) {
                         return const Center(
                           child: CircularProgressIndicator(
                             strokeWidth: 1,
@@ -523,10 +522,7 @@ class _HomeListViewState extends State<HomeListView>
                               fit: FlexFit.tight,
                               child: Observer(builder: (_) {
                                 return controller
-                                                .listaCategoriasFiltro.length !=
-                                            null &&
-                                        controller
-                                            .listaCategoriasFiltro.isNotEmpty
+                                        .listaCategoriasFiltro.isNotEmpty
                                     ? SingleChildScrollView(
                                         child: Wrap(
                                         runSpacing: 5.0,
@@ -590,7 +586,7 @@ class _HomeListViewState extends State<HomeListView>
                                                   style:
                                                       ElevatedButton.styleFrom(
                                                     primary: controller
-                                                            .filtroCategoria[i]
+                                                            .filtroCategoria[i]!
                                                             .selecionado!
                                                         ? kPrimaryColor
                                                         : Colors.white,
@@ -609,18 +605,18 @@ class _HomeListViewState extends State<HomeListView>
                                                         .selecionarCategoria(
                                                       i,
                                                       !controller
-                                                          .filtroCategoria[i]
+                                                          .filtroCategoria[i]!
                                                           .selecionado!,
                                                     );
                                                   },
                                                   child: Text(
                                                     controller
-                                                        .filtroCategoria[i]
+                                                        .filtroCategoria[i]!
                                                         .descricao!,
                                                     style: TextStyle(
                                                       color: controller
                                                               .filtroCategoria[
-                                                                  i]
+                                                                  i]!
                                                               .selecionado!
                                                           ? Colors.white
                                                           : Colors.black,
@@ -727,8 +723,7 @@ class _HomeListViewState extends State<HomeListView>
                             Flexible(
                               fit: FlexFit.tight,
                               child: Observer(builder: (_) {
-                                return controller.filtroMarca.length != null &&
-                                        controller.filtroMarca.isNotEmpty
+                                return controller.filtroMarca.isNotEmpty
                                     ? SingleChildScrollView(
                                         child: Wrap(
                                         runSpacing: 5.0,
@@ -788,7 +783,7 @@ class _HomeListViewState extends State<HomeListView>
                                                   style:
                                                       ElevatedButton.styleFrom(
                                                     primary: controller
-                                                            .filtroMarca[i]
+                                                            .filtroMarca[i]!
                                                             .selecionado!
                                                         ? kPrimaryColor
                                                         : Colors.white,
@@ -805,16 +800,17 @@ class _HomeListViewState extends State<HomeListView>
                                                   onPressed: () {
                                                     controller.selecionarMarca(
                                                       i,
-                                                      !controller.filtroMarca[i]
+                                                      !controller
+                                                          .filtroMarca[i]!
                                                           .selecionado!,
                                                     );
                                                   },
                                                   child: Text(
-                                                    controller.filtroMarca[i]
+                                                    controller.filtroMarca[i]!
                                                         .descricao!,
                                                     style: TextStyle(
                                                       color: controller
-                                                              .filtroMarca[i]
+                                                              .filtroMarca[i]!
                                                               .selecionado!
                                                           ? Colors.white
                                                           : Colors.black,
