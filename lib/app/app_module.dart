@@ -1,7 +1,13 @@
 import 'package:prossumidor_v2/app/modules/login/login_module.dart';
 import 'package:prossumidor_v2/app/modules/recuperarSenha/recuperar_senha_module.dart';
 import 'package:prossumidor_v2/app/modules/registro/registro_module.dart';
+import 'package:prossumidor_v2/app/modules/start/start_controller.dart';
 import 'package:prossumidor_v2/app/modules/start/start_module.dart';
+import 'package:prossumidor_v2/app/modules/start/subModules/home/subModules/produtosCategorias/produtos_categorias_module.dart';
+import 'package:prossumidor_v2/app/modules/start/subModules/perfil/subModules/ajuda/ajuda_module.dart';
+import 'package:prossumidor_v2/app/modules/start/subModules/perfil/subModules/endereco/endereco_module.dart';
+import 'package:prossumidor_v2/app/modules/start/subModules/perfil/subModules/meus_dados/meus_dados_module.dart';
+import 'package:prossumidor_v2/app/modules/start/subModules/perfil/subModules/sobre/sobre_module.dart';
 import 'package:prossumidor_v2/app/shared/auth/repositories/auth_repository.dart';
 import 'package:prossumidor_v2/app/shared/auth/repositories/interfaces/auth_repository_interface.dart';
 import 'package:prossumidor_v2/app/splash/splash_screen.dart';
@@ -25,18 +31,28 @@ class AppModule extends Module {
     Bind<IAuthRepository>((i) => AuthRepository()),
     Bind((i) => AuthController()),
     Bind((i) => LoginController()),
+    Bind((i) => StartController()),
   ];
 
   @override
   final List<ModularRoute> routes = [
     ChildRoute(Modular.initialRoute, child: (_, __) => const SplashScreen()),
-    ModuleRoute("/start", module: StartModule()),
+    ModuleRoute("/start/", module: StartModule()),
     ModuleRoute("/login", module: LoginModule()),
     ModuleRoute("/home", module: HomeModule()),
+    ModuleRoute("/produtosCategorias", module: ProdutosCategoriasModule()),
     ModuleRoute("/produtoDetalhes", module: ProdutoDetalhesModule()),
     ModuleRoute("/chat", module: ChatModule()),
     ModuleRoute("/pedidos", module: PedidosModule()),
     ModuleRoute("/perfil", module: PerfilModule()),
+    ModuleRoute("/endereco",
+        module: EnderecoModule(), transition: TransitionType.rightToLeft),
+    ModuleRoute("/meus_dados",
+        module: MeusDadosModule(), transition: TransitionType.rightToLeft),
+    ModuleRoute("/sobre",
+        module: SobreModule(), transition: TransitionType.rightToLeft),
+    ModuleRoute("/ajuda",
+        module: AjudaModule(), transition: TransitionType.rightToLeft),
     ModuleRoute("/recuperarSenha", module: RecuperarSenhaModule()),
     ModuleRoute("/registro", module: RegistroModule()),
     ModuleRoute("/sacola", module: SacolaModule()),

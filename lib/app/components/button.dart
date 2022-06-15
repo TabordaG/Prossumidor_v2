@@ -20,7 +20,9 @@ class _StandardButtonState extends State<StandardButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: widget.onPressed(),
+      onPressed: () {
+        widget.onPressed();
+      },
       // color: widget.color,
       // shape: RoundedRectangleBorder(
       //   borderRadius: BorderRadius.circular(5.0),

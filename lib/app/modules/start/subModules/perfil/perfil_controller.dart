@@ -12,7 +12,7 @@ class PerfilController = _PerfilControllerBase with _$PerfilController;
 abstract class _PerfilControllerBase with Store {
   _PerfilControllerBase() {
     buscaUsuario();
-    scrollController = ScrollController();
+    // scrollController = ScrollController();
   }
   final AuthController authController = Modular.get<AuthController>();
   final IPerfilRepository perfilRepository = Modular.get<IPerfilRepository>();
@@ -24,7 +24,7 @@ abstract class _PerfilControllerBase with Store {
   String nome = '';
 
   @observable
-  late ScrollController scrollController;
+  ScrollController scrollController = ScrollController();
 
   @action
   Future<String> setCentroDistribuicao() async {

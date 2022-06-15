@@ -52,7 +52,7 @@ abstract class _HomeControllerBase with Store {
   bool marcaSelecionada = false;
 
   @observable
-  late ScrollController scrollController;
+  ScrollController scrollController = ScrollController();
 
   @observable
   double offsetHomeList = 0.0;

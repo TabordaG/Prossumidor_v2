@@ -370,11 +370,10 @@ class _MeusDadosPageState
                                   if (controller.pageValid == true) {
                                     String response =
                                         await controller.atualizaDados();
-                                    if (response != null) {
-                                      buildShowDialog(context, response);
-                                      Navigator.of(context).pop();
+                                    if (response == "sucesso") {
+                                      await buildShowDialog(context, response);
                                     } else {
-                                      buildShowDialog(context, response);
+                                      await buildShowDialog(context, response);
                                     }
                                   } else {}
                                 },

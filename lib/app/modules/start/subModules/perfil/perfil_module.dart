@@ -20,22 +20,22 @@ class PerfilModule extends Module {
   final List<ModularRoute> routes = [
     ChildRoute(Modular.initialRoute, child: (_, args) => const PerfilPage()),
     ModuleRoute(
-      "/endereco",
+      "/endereco/",
       module: EnderecoModule(),
       transition: TransitionType.rightToLeft,
     ),
     ModuleRoute(
-      "/meus_dados",
+      "/meus_dados/",
       module: MeusDadosModule(),
       transition: TransitionType.rightToLeft,
     ),
     ModuleRoute(
-      "/sobre",
+      "/sobre/",
       module: SobreModule(),
       transition: TransitionType.rightToLeft,
     ),
     ModuleRoute(
-      "/ajuda",
+      "/ajuda/",
       module: AjudaModule(),
       transition: TransitionType.rightToLeft,
     ),

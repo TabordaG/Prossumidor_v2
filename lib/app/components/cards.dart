@@ -32,7 +32,7 @@ class _CardHomeState extends State<CardHome> {
     return FadeAnimation(
       1, // (1.0 + widget.index) / 2,
       GestureDetector(
-        onTap: widget.verDetalhes(),
+        onTap: () => widget.verDetalhes(),
         child: Container(
           margin: EdgeInsets.only(
             left: widget.index == 0 && widget.margin
@@ -183,7 +183,9 @@ class _CardVerMaisHomeState extends State<CardVerMaisHome> {
       width: 150,
       child: InkWell(
         borderRadius: BorderRadius.circular(5.0),
-        onTap: widget.verMais(),
+        onTap: () {
+          widget.verMais();
+        },
         child: Card(
           color: const Color(0xFFF6F6F6),
           child: Column(

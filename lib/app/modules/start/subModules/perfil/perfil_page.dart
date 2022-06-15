@@ -171,7 +171,9 @@ class ListTitlePerfil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: function(),
+      onTap: () {
+        function();
+      },
       leading: Icon(
         iconData,
         color: Theme.of(context).primaryColor,
@@ -191,7 +193,9 @@ class ListTitlePerfil extends StatelessWidget {
           Icons.chevron_right,
           color: Colors.black,
         ),
-        onPressed: function(),
+        onPressed: () {
+          function();
+        },
       ),
     );
   }

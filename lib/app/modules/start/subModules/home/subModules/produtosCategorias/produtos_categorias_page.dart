@@ -10,11 +10,11 @@ import 'package:prossumidor_v2/app/models/marca/marca_model.dart';
 import 'produtos_categorias_controller.dart';
 
 class ProdutosCategoriasPage extends StatefulWidget {
-  final MarcaProduto marcaProduto;
+  final MarcaProduto? marcaProduto;
   final CategoriaProduto categoriaProduto;
   final bool isCategoria;
   const ProdutosCategoriasPage({
-    required this.marcaProduto,
+    this.marcaProduto,
     required this.categoriaProduto,
     required this.isCategoria,
   }) : super();
@@ -34,7 +34,7 @@ class _ProdutosCategoriasPageState
       await controller.carregarMaisProdutos(
         context,
         widget.isCategoria,
-        widget.marcaProduto,
+        widget.marcaProduto!,
         widget.categoriaProduto,
       );
     }
@@ -49,7 +49,7 @@ class _ProdutosCategoriasPageState
     }
     controller.carregarProdutos(
       widget.isCategoria,
-      widget.marcaProduto,
+      widget.marcaProduto ?? null,
       widget.categoriaProduto,
     );
     super.initState();
@@ -65,7 +65,7 @@ class _ProdutosCategoriasPageState
               : Text(
                   widget.isCategoria
                       ? "${widget.categoriaProduto.categoria!.descricao}"
-                      : "Marca: " "${widget.marcaProduto.marca!.descricao}",
+                      : "Marca: " "${widget.marcaProduto!.marca!.descricao}",
                 ),
           actions: [
             IconButton(
@@ -79,7 +79,7 @@ class _ProdutosCategoriasPageState
                 controller.isSearching
                     ? null
                     : controller.carregarProdutos(widget.isCategoria,
-                        widget.marcaProduto, widget.categoriaProduto)
+                        widget.marcaProduto!, widget.categoriaProduto)
               },
             ),
           ],
@@ -210,7 +210,7 @@ class _ProdutosCategoriasPageState
       style: const TextStyle(color: Colors.white, fontSize: 16.0),
       onSubmitted: (value) => controller.pesquisarProduto(
         widget.isCategoria,
-        widget.marcaProduto,
+        widget.marcaProduto!,
         widget.categoriaProduto,
       ),
     );
@@ -219,13 +219,13 @@ class _ProdutosCategoriasPageState
 
 class CardSubcategoria extends StatefulWidget {
   final int index;
-  final MarcaProduto marcaProduto;
+  final MarcaProduto? marcaProduto;
   final CategoriaProduto categoriaProduto;
   final bool isCategoria;
   const CardSubcategoria({
     Key? key,
     required this.index,
-    required this.marcaProduto,
+    this.marcaProduto,
     required this.categoriaProduto,
     required this.isCategoria,
   }) : super(key: key);

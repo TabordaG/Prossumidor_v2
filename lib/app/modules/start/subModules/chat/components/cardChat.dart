@@ -17,7 +17,9 @@ class _CardChatState extends State<CardChat> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: widget.onTap(),
+      onTap: () {
+        widget.onTap();
+      },
       child: Container(
         margin: const EdgeInsets.only(bottom: 5),
         decoration: const BoxDecoration(

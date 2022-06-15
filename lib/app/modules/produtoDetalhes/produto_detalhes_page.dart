@@ -9,9 +9,9 @@ import 'package:prossumidor_v2/app/models/produto/produto_model.dart';
 import 'produto_detalhes_controller.dart';
 
 class ProdutoDetalhesPage extends StatefulWidget {
-  final Produto produto;
+  final Produto? produto;
   // ignore: use_key_in_widget_constructors
-  const ProdutoDetalhesPage({required this.produto}) : super();
+  const ProdutoDetalhesPage({this.produto}) : super();
 
   @override
   _ProdutoDetalhesPageState createState() => _ProdutoDetalhesPageState();
@@ -21,7 +21,7 @@ class _ProdutoDetalhesPageState
     extends ModularState<ProdutoDetalhesPage, ProdutoDetalhesController> {
   @override
   void initState() {
-    controller.setProduto(widget.produto);
+    controller.setProduto(widget.produto!);
     super.initState();
   }
 

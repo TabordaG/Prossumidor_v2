@@ -67,7 +67,9 @@ class _WidgetHomeState extends State<WidgetHome> {
                   ),
             ),
             trailing: TextButton(
-              onPressed: widget.verMais(),
+              onPressed: () {
+                widget.verMais();
+              },
               child: Text(
                 'Ver mais',
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(

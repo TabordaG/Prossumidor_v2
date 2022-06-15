@@ -164,7 +164,7 @@ mixin _$ProdutosCategoriasController
 
   @override
   Future selecionarSubcategoria(int index, bool isCategoria,
-      MarcaProduto marcaProduto, CategoriaProduto categoriaProduto) {
+      MarcaProduto? marcaProduto, CategoriaProduto categoriaProduto) {
     return _$selecionarSubcategoriaAsyncAction.run(() => super
         .selecionarSubcategoria(
             index, isCategoria, marcaProduto, categoriaProduto));
@@ -174,7 +174,7 @@ mixin _$ProdutosCategoriasController
       AsyncAction('_ProdutosCategoriasControllerBase.carregarProdutos');
 
   @override
-  Future carregarProdutos(bool isCategoria, MarcaProduto marcaProduto,
+  Future carregarProdutos(bool isCategoria, MarcaProduto? marcaProduto,
       CategoriaProduto categoriaProduto) {
     return _$carregarProdutosAsyncAction.run(() =>
         super.carregarProdutos(isCategoria, marcaProduto, categoriaProduto));

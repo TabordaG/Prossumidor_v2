@@ -108,7 +108,7 @@ abstract class _ProdutosCategoriasControllerBase with Store {
   selecionarSubcategoria(
     int index,
     bool isCategoria,
-    MarcaProduto marcaProduto,
+    MarcaProduto? marcaProduto,
     CategoriaProduto categoriaProduto,
   ) async {
     categoriasIDs = [];
@@ -164,7 +164,7 @@ abstract class _ProdutosCategoriasControllerBase with Store {
   bool buscandoProdutos = false;
 
   @action
-  carregarProdutos(bool isCategoria, MarcaProduto marcaProduto,
+  carregarProdutos(bool isCategoria, MarcaProduto? marcaProduto,
       CategoriaProduto categoriaProduto) async {
     listaProdutos = [];
     buscandoProdutos = true;
@@ -174,7 +174,7 @@ abstract class _ProdutosCategoriasControllerBase with Store {
               categoriaProduto.categoria!.id, listaProdutos.length);
     } else {
       listaProdutos = await produtosCategoriasRepository.listaProdutosPorMarca(
-          marcaProduto.marca!.id, listaProdutos.length);
+          marcaProduto!.marca!.id, listaProdutos.length);
     }
     listaProdutos = List.from(listaProdutos);
     buscandoProdutos = false;
