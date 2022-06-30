@@ -534,21 +534,25 @@ class _HomeListViewState extends State<HomeListView>
                                                   .buscarCategoria.text.isEmpty
                                               ? Observer(builder: (_) {
                                                   return ElevatedButton(
-                                                    // color: controller
-                                                    //         .listaCategoriasFiltro[
-                                                    //             0]
-                                                    //         .selecionado
-                                                    //     ? kPrimaryColor
-                                                    //     : Colors.white,
-                                                    // shape:
-                                                    //     RoundedRectangleBorder(
-                                                    //   side: BorderSide(
-                                                    //       color: kPrimaryColor),
-                                                    //   borderRadius:
-                                                    //       BorderRadius.all(
-                                                    //     Radius.circular(5),
-                                                    //   ),
-                                                    // ),
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      primary: controller
+                                                              .listaCategoriasFiltro[
+                                                                  0]
+                                                              .selecionado!
+                                                          ? kPrimaryColor
+                                                          : Colors.white,
+                                                      shape:
+                                                          const RoundedRectangleBorder(
+                                                        side: BorderSide(
+                                                            color:
+                                                                kPrimaryColor),
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                          Radius.circular(5),
+                                                        ),
+                                                      ),
+                                                    ),
                                                     onPressed: () {
                                                       controller
                                                           .selecionarCategoria(

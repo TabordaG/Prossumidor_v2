@@ -22,13 +22,13 @@ mixin _$ProdutoDetalhesController on _ProdutoDetalhesControllerBase, Store {
   final _$produtoAtom = Atom(name: '_ProdutoDetalhesControllerBase.produto');
 
   @override
-  Produto get produto {
+  Produto? get produto {
     _$produtoAtom.reportRead();
     return super.produto;
   }
 
   @override
-  set produto(Produto value) {
+  set produto(Produto? value) {
     _$produtoAtom.reportWrite(value, super.produto, () {
       super.produto = value;
     });

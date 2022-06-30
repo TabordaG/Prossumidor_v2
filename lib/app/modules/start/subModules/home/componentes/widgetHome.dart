@@ -147,18 +147,20 @@ class _WidgetHomeState extends State<WidgetHome> {
                                 .produtos![index]
                             : controller.listaMarcaProdutos[widget.indexItem]
                                 .produtos![index],
-                        verDetalhes: () => Modular.to.pushNamed(
-                          '/produtoDetalhes',
-                          arguments: {
-                            'produto': widget.isCategoria
-                                ? controller
-                                    .listaCategoriaProdutos[widget.indexItem]
-                                    .produtos![index]
-                                : controller
-                                    .listaMarcaProdutos[widget.indexItem]
-                                    .produtos![index],
-                          },
-                        ),
+                        verDetalhes: () {
+                          return Modular.to.pushNamed(
+                            '/produtoDetalhes',
+                            arguments: {
+                              'produto': widget.isCategoria
+                                  ? controller
+                                      .listaCategoriaProdutos[widget.indexItem]
+                                      .produtos![index]
+                                  : controller
+                                      .listaMarcaProdutos[widget.indexItem]
+                                      .produtos![index],
+                            },
+                          );
+                        },
                       )
                     : Row(
                         children: [

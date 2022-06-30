@@ -21,6 +21,7 @@ class _ProdutoDetalhesPageState
     extends ModularState<ProdutoDetalhesPage, ProdutoDetalhesController> {
   @override
   void initState() {
+    // int res = widget.produto!;
     controller.setProduto(widget.produto!);
     super.initState();
   }
@@ -38,7 +39,7 @@ class _ProdutoDetalhesPageState
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              controller.produto.descricao_simplificada!,
+              controller.produto!.descricao_simplificada!,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: 20,
@@ -53,8 +54,8 @@ class _ProdutoDetalhesPageState
                 onTap: () {
                   MarcaProduto marcaProduto = MarcaProduto(
                       marca: Marca(
-                          descricao: controller.produto.marca,
-                          id: controller.produto.marca_produto_id),
+                          descricao: controller.produto!.marca,
+                          id: controller.produto!.marca_produto_id),
                       produtos: []);
                   Modular.to.pushNamed('/home/produtosCategorias', arguments: {
                     'marcaProduto': marcaProduto,
@@ -72,7 +73,7 @@ class _ProdutoDetalhesPageState
                           ),
                     ),
                     Text(
-                      controller.produto.marca!,
+                      controller.produto!.marca!,
                       style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             fontSize: 14,
                             color: Theme.of(context).colorScheme.primary,
@@ -207,10 +208,10 @@ class _ProdutoDetalhesPageState
                     height: 250,
                     width: MediaQuery.of(context).size.width,
                     child: Observer(builder: (_) {
-                      if (controller.produto.imagem != "") {
+                      if (controller.produto!.imagem != "") {
                         return CachedNetworkImage(
                           imageUrl: "${Basicos.ip2}/media/" +
-                              controller.produto.imagem!,
+                              controller.produto!.imagem!,
                           placeholder: (context, url) => const Padding(
                             padding: EdgeInsets.all(35.0),
                             child: SizedBox(
@@ -254,7 +255,7 @@ class _ProdutoDetalhesPageState
                     child: Observer(builder: (_) {
                       return Text(
                         'R\$ ' +
-                            double.parse(controller.produto.preco_venda!)
+                            double.parse(controller.produto!.preco_venda!)
                                 .toStringAsFixed(2)
                                 .replaceAll('.', ','),
                         style: Theme.of(context).textTheme.bodyText1!.copyWith(
@@ -283,7 +284,7 @@ class _ProdutoDetalhesPageState
                         ),
                   ),
                   Observer(builder: (_) {
-                    if (controller.produto.estoque_atual == null) {
+                    if (controller.produto!.estoque_atual == null) {
                       return const Center(
                         child: CircularProgressIndicator(
                           strokeWidth: 1,
@@ -291,7 +292,7 @@ class _ProdutoDetalhesPageState
                       );
                     }
                     return Text(
-                      double.parse(controller.produto.estoque_atual!)
+                      double.parse(controller.produto!.estoque_atual!)
                           .toStringAsFixed(0),
                       style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             fontSize: 14,
@@ -305,7 +306,7 @@ class _ProdutoDetalhesPageState
             Padding(
               padding: const EdgeInsets.only(top: kDefaultPadding * .5),
               child: Observer(builder: (_) {
-                if (controller.produto.marketing == null) {
+                if (controller.produto!.marketing == null) {
                   return const Center(
                     child: CircularProgressIndicator(
                       strokeWidth: 1,
@@ -333,9 +334,9 @@ class _ProdutoDetalhesPageState
                         child: Wrap(
                           crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
-                            if (controller.produto.categorias != null)
+                            if (controller.produto!.categorias != null)
                               for (var i = 0;
-                                  i < controller.produto.categorias!.length;
+                                  i < controller.produto!.categorias!.length;
                                   i++)
                                 Observer(builder: (_) {
                                   return Card(
@@ -351,7 +352,7 @@ class _ProdutoDetalhesPageState
                                           kDefaultPadding * .3),
                                       child: Text(
                                         controller
-                                            .produto.categorias![i].descricao!,
+                                            .produto!.categorias![i].descricao!,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: Theme.of(context)
@@ -386,7 +387,7 @@ class _ProdutoDetalhesPageState
             Padding(
               padding: const EdgeInsets.only(top: kDefaultPadding * 1),
               child: Observer(builder: (_) {
-                if (controller.produto.marketing == null) {
+                if (controller.produto!.marketing == null) {
                   return const Center(
                     child: CircularProgressIndicator(
                       strokeWidth: 1,
@@ -394,7 +395,7 @@ class _ProdutoDetalhesPageState
                   );
                 }
                 return Text(
-                  controller.produto.marketing!,
+                  controller.produto!.marketing!,
                   style: Theme.of(context).textTheme.bodyText1!.copyWith(
                         fontSize: 14,
                       ),
@@ -416,7 +417,7 @@ class _ProdutoDetalhesPageState
             Padding(
               padding: const EdgeInsets.only(top: 0),
               child: Observer(builder: (_) {
-                if (controller.produto.observacoes == null) {
+                if (controller.produto!.observacoes == null) {
                   return const Center(
                     child: CircularProgressIndicator(
                       strokeWidth: 1,
@@ -424,7 +425,7 @@ class _ProdutoDetalhesPageState
                   );
                 }
                 return Text(
-                  controller.produto.observacoes!,
+                  controller.produto!.observacoes!,
                   style: Theme.of(context).textTheme.bodyText1!.copyWith(
                         fontSize: 14,
                       ),
@@ -450,7 +451,7 @@ class _ProdutoDetalhesPageState
                   ),
                   Observer(builder: (_) {
                     return Text(
-                      controller.produto.unidade_medida!,
+                      controller.produto!.unidade_medida!,
                       style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             fontSize: 14,
                           ),
@@ -511,9 +512,11 @@ class _ProdutoDetalhesPageState
               ],
             ),
             ElevatedButton(
-              // color: Colors.white,
-              // highlightColor: Colors.white,
-              // highlightElevation: 24,
+              style: ElevatedButton.styleFrom(
+                primary: Colors.white,
+                // : Colors.white,
+                // elevation 24,
+              ),
               onPressed: () {
                 controller.adicionarSacola(context);
                 showDialog(

@@ -32,7 +32,9 @@ class _CardHomeState extends State<CardHome> {
     return FadeAnimation(
       1, // (1.0 + widget.index) / 2,
       GestureDetector(
-        onTap: () => widget.verDetalhes(),
+        onTap: () {
+          widget.verDetalhes();
+        },
         child: Container(
           margin: EdgeInsets.only(
             left: widget.index == 0 && widget.margin

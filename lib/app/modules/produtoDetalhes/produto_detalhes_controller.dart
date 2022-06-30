@@ -18,19 +18,19 @@ abstract class _ProdutoDetalhesControllerBase with Store {
   final AuthController authController = Modular.get<AuthController>();
 
   @observable
-  late Produto produto;
+  Produto? produto;
 
   @action
   setProduto(Produto produtoReceived) async {
     produto = produtoReceived;
-    produto = await produtoDetalhesRepository.buscarProduto(produto.id!);
-    produto.marca = produtoReceived.marca;
+    produto = await produtoDetalhesRepository.buscarProduto(produto!.id!);
+    produto!.marca = produtoReceived.marca;
     var res =
-        await produtoDetalhesRepository.buscarCategoriasProduto(produto.id!);
+        await produtoDetalhesRepository.buscarCategoriasProduto(produto!.id!);
     if (res != null) {
-      produto.categorias = res;
+      produto!.categorias = res;
     }
-    Produto aux = produto;
+    Produto aux = produto!;
     produto = Produto();
     produto = aux;
   }
@@ -40,7 +40,7 @@ abstract class _ProdutoDetalhesControllerBase with Store {
 
   @action
   void increment(BuildContext context) {
-    if (value < double.parse(produto.estoque_atual!)) {
+    if (value < double.parse(produto!.estoque_atual!)) {
       value++;
     } else {
       showDialog(
@@ -88,7 +88,7 @@ abstract class _ProdutoDetalhesControllerBase with Store {
   adicionarSacola(BuildContext context) async {
     adicionandoSacola = true;
     var verifica = await produtoDetalhesRepository.procurarProdutoCarrinho(
-        produto.id!, authController.usuario!.id!);
+        produto!.id!, authController.usuario!.id!);
     if (verifica != null) {
       var res = await produtoDetalhesRepository.incrementaQuantidadeCarrinho(
           value, verifica);
@@ -99,10 +99,10 @@ abstract class _ProdutoDetalhesControllerBase with Store {
       }
     } else {
       var res = await produtoDetalhesRepository.inserirProdutoCarrinho(
-        produto.id!,
+        produto!.id!,
         value,
         authController.usuario!.empresa_id!,
-        double.parse(produto.preco_venda!),
+        double.parse(produto!.preco_venda!),
         authController.usuario!.id!,
       );
       if (res != null) {

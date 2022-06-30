@@ -486,17 +486,14 @@ class _RegistroPageState
         return controller.page1Valid
             ? Theme.of(context).colorScheme.secondary
             : Colors.grey;
-        break;
       case 1:
         return controller.page2Valid
             ? Theme.of(context).colorScheme.secondary
             : Colors.grey;
-        break;
       case 2:
         return controller.page3Valid
             ? Theme.of(context).colorScheme.secondary
             : Colors.grey;
-        break;
       default:
         break;
     }
