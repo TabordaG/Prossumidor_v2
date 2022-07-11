@@ -37,7 +37,7 @@ abstract class _LoginControllerBase with Store {
 
   @action
   verificaLogin() async {
-    Usuario usuario = await loginRepository.buscarUsuario(email);
+    var usuario = await loginRepository.buscarUsuario(email);
     if (usuario != null) {
       if (usuario.senha != null &&
           Basicos.decodificapwss(usuario.senha.toString()) == senha) {
@@ -49,8 +49,7 @@ abstract class _LoginControllerBase with Store {
         return 1;
       }
     } else {
-      Usuario usuarioInativo =
-          await loginRepository.buscarUsuarioSemFiltro(email);
+      var usuarioInativo = await loginRepository.buscarUsuarioSemFiltro(email);
       if (usuarioInativo == null) {
         return 2;
       } else {

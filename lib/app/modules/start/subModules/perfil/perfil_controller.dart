@@ -31,7 +31,7 @@ abstract class _PerfilControllerBase with Store {
     String? local;
     for (var element in authController.localRetirada!) {
       if (element['id'].toString() ==
-          authController.usuario!.local_retirada_id.toString()) {
+          authController.usuario?.local_retirada_id.toString()) {
         local = element["nome"].toString();
       } else if (local == null || local.isEmpty) {
         local = 'Não encontrado';
@@ -55,13 +55,15 @@ abstract class _PerfilControllerBase with Store {
 
   @action
   Future buscaUsuario() async {
-    authController.usuario =
-        await perfilRepository.buscaUsuario(authController.usuario!.id);
-    authController.localRetirada = await perfilRepository
-        .localRetirada(authController.usuario!.email!.toLowerCase());
-    authController.localRetirada = List.from(authController.localRetirada!);
+    if (authController.usuario!.id != null) {
+      authController.usuario =
+          await perfilRepository.buscaUsuario(authController.usuario!.id);
+      authController.localRetirada = await perfilRepository
+          .localRetirada(authController.usuario!.email!.toLowerCase());
+      authController.localRetirada = List.from(authController.localRetirada!);
 
-    centroDistribuicao = await setCentroDistribuicao();
-    nome = await setNome();
+      centroDistribuicao = await setCentroDistribuicao();
+      nome = await setNome();
+    }
   }
 }

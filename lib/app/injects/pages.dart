@@ -2,6 +2,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/injects/routes.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/chat/chat_individual_page.dart';
 import 'package:prossumidor_v2/app/modules/start/subModules/pedidos/pedidosDetalhes_page.dart';
+import 'package:prossumidor_v2/app/modules/start/subModules/sacola/confirmarEndereco_page.dart';
 import '../modules/login/login_page.dart';
 import '../modules/produtoDetalhes/produto_detalhes_page.dart';
 import '../modules/recuperarSenha/recuperar_senha_page.dart';
@@ -47,8 +48,12 @@ final appPages = [
   ChildRoute(RoutePages.pedidosDetalhesRoute,
       child: (_, args) => PedidosDetalhes(
             pedido: args.data["pedido"],
-            produto: args.data["pedido"],
+            produto: args.data["produto"],
           )),
   ChildRoute(RoutePages.chatIndividualRoute,
       child: (_, args) => const ChatIndividual()),
+  ChildRoute(
+    RoutePages.confirmarEndereco,
+    child: (context, args) => const ConfirmarEndereco(),
+  )
 ];

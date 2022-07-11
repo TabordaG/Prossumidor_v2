@@ -31,7 +31,9 @@ class _CardPedidosState extends State<CardPedidos> {
         horizontal: kDefaultPadding * 0.25,
       ),
       child: GestureDetector(
-        onTap: widget.onTap(),
+        onTap: () {
+          widget.onTap();
+        },
         child: Card(
           color: Theme.of(context).cardColor,
           child: Padding(

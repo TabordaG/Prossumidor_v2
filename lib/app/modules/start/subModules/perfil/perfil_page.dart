@@ -141,9 +141,9 @@ class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
                   subtitle: "Desconectar minha conta",
                   iconData: Icons.exit_to_app,
                   function: () {
+                    Modular.to.pushReplacementNamed('/login');
                     authController.removeValues();
                     authController.cleanUser();
-                    Modular.to.pushReplacementNamed('/login');
                   },
                 )
               ],

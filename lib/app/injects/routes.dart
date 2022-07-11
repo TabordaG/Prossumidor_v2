@@ -15,4 +15,5 @@ abstract class RoutePages {
   static const produtoDetalhesRoute = "/produtoDetalhes";
   static const pedidosDetalhesRoute = "/start/detalhes";
   static const chatIndividualRoute = "/start/chat/chatIndividual";
+  static const confirmarEndereco = "/sacola/confirmarEndereco";
 }

@@ -12,8 +12,8 @@ import 'package:prossumidor_v2/app/modules/start/subModules/pedidos/pedidos_cont
 import '../../../../dados_basicos.dart';
 
 class PedidosDetalhes extends StatefulWidget {
-  final Pedidos pedido;
-  final Produto produto;
+  final Pedidos? pedido;
+  final Produto? produto;
   const PedidosDetalhes({required this.pedido, required this.produto})
       : super();
 
@@ -27,7 +27,7 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
 
   @override
   void initState() {
-    controller.buscarProdutos(widget.pedido.id!);
+    controller.buscarProdutos(widget.pedido!.id!);
     super.initState();
   }
 
@@ -62,7 +62,7 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                   children: [
                     const Text("Pedido: #"),
                     Text(
-                      pedido.id.toString(),
+                      pedido!.id.toString(),
                       style: Theme.of(context).textTheme.bodyText1?.copyWith(
                           fontSize: 14,
                           color: Theme.of(context)
@@ -128,7 +128,7 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                                   width:
                                       MediaQuery.of(context).size.width * 0.2,
                                   imageUrl:
-                                      controller.produtosList[index].imagem !=
+                                      controller.produtosList[index].imagem ==
                                               null
                                           ? ""
                                           : "${Basicos.ip2}/media/" +
@@ -447,7 +447,7 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                       children: [
                         const Text("Entrega"),
                         Text(
-                          widget.pedido.observacoes_entrega!.startsWith('0')
+                          widget.pedido!.observacoes_entrega!.startsWith('0')
                               ? 'Retirado no local'
                               : 'Entrega em domicílio',
                           style:

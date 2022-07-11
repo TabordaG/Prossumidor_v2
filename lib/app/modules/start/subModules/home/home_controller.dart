@@ -102,7 +102,10 @@ abstract class _HomeControllerBase with Store {
   @action
   iniciarHome() async {
     await setRefreshTrue();
-    await buscarCategorias();
+    if (authController.usuario != null) {
+      await buscarCategorias();
+    }
+    ;
     await implementaBanner();
     return 'sucesso';
   }
@@ -136,23 +139,25 @@ abstract class _HomeControllerBase with Store {
   buscarProdutosPorCategoriaID() async {
     marcaSelecionada = false;
     buscandoProdutos = true;
-    for (var categoria in listaCategorias) {
-      var res = await homeRepository.listaProdutosPorCategoria(
-          categoria.id, authController.usuario!.empresa_id);
-      if (res != null && res.length > 0) {
-        CategoriaProduto categoriaProduto = CategoriaProduto(
-          categoria: categoria,
-          produtos: [],
-        );
-        for (var produto in res) {
-          categoriaProduto.produtos!.add(produto);
+    if (authController.usuario != null) {
+      for (var categoria in listaCategorias) {
+        var res = await homeRepository.listaProdutosPorCategoria(
+            categoria.id, authController.usuario?.empresa_id);
+        if (res != null && res.length > 0) {
+          CategoriaProduto categoriaProduto = CategoriaProduto(
+            categoria: categoria,
+            produtos: [],
+          );
+          for (var produto in res) {
+            categoriaProduto.produtos!.add(produto);
+          }
+          listaCategoriaProdutos.add(categoriaProduto);
         }
-        listaCategoriaProdutos.add(categoriaProduto);
-      }
-      listaCategoriaProdutos = List.from(listaCategoriaProdutos);
-      if (listaCategoriaProdutos.length > 3 && refreshPage) {
-        refreshPage = false;
-        buscandoProdutos = false;
+        listaCategoriaProdutos = List.from(listaCategoriaProdutos);
+        if (listaCategoriaProdutos.length > 3 && refreshPage) {
+          refreshPage = false;
+          buscandoProdutos = false;
+        }
       }
     }
     buscandoProdutos = false;

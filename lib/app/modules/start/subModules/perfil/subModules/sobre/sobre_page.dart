@@ -27,17 +27,17 @@ class _SobrePageState extends ModularState<SobrePage, SobreController> {
       "alimentos, artesanato, confecções e serviços.";
   final String nossaMissao =
       "Ofertar produtos de agricultores familiares, artesãos e pequenos"
-      "empreendedores de Mato Grosso para a população de Várzea Grande e Cuiabá,"
+      " empreendedores de Mato Grosso para a população de Várzea Grande e Cuiabá,"
       " trazendo visibilidade para coletivos e produtores da Economia Solidária"
-      " no Estado, ampliando seu mercado consumidor e sua renda, oferecendo "
-      " produtos de qualidade para os consumidores, e contribuindo para o "
-      "desenvolvimento territorial.";
-  final String nossaVisao = "Apoiar os produtores nos seus processos de "
-      "transição para uma produção verdadeiramente responsável e ampliar o número de "
-      "consumidores de produtos Agroecológicos, Orgânicos e artesanais.";
-  final String nossosValores = "Economia justa no que tangue os princípios "
-      "comerciais de compra e venda, fortalecendo principalmente a "
-      "Economia Solidária: Autogestão, cooperação, solidariedade, democracia,"
+      " no Estado, ampliando seu mercado consumidor e sua renda, oferecendo"
+      " produtos de qualidade para os consumidores, e contribuindo para o"
+      " desenvolvimento territorial.";
+  final String nossaVisao = "Apoiar os produtores nos seus processos de"
+      " transição para uma produção verdadeiramente responsável e ampliar o número de"
+      " consumidores de produtos Agroecológicos, Orgânicos e artesanais.";
+  final String nossosValores = "Economia justa no que tangue os princípios"
+      " comerciais de compra e venda, fortalecendo principalmente a"
+      " Economia Solidária: Autogestão, cooperação, solidariedade, democracia,"
       " respeito à natureza, comércio justo, consumo solidário.";
 
   @override
