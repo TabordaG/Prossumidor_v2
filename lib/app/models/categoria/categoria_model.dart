@@ -7,24 +7,24 @@ part 'categoria_model.g.dart';
 class Categoria {
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  DateTime data_registro;
+  DateTime? data_registro;
   @JsonKey(required: false, disallowNullValue: false)
-  int id;
+  int? id;
   @JsonKey(required: false, disallowNullValue: false)
-  String descricao;
-  @JsonKey(required: false, disallowNullValue: false)
-  // ignore: non_constant_identifier_names
-  DateTime data_alteracao;
+  String? descricao;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  int empresa_id;
-  @JsonKey(required: false, disallowNullValue: false)
-  String obs;
+  DateTime? data_alteracao;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  List imagem_cat;
+  int? empresa_id;
+  @JsonKey(required: false, disallowNullValue: false)
+  String? obs;
+  @JsonKey(required: false, disallowNullValue: false)
+  // ignore: non_constant_identifier_names
+  List? imagem_cat;
   @JsonKey(required: false, disallowNullValue: false, defaultValue: false)
-  bool selecionado;
+  bool? selecionado;
 
   Categoria({
     // ignore: non_constant_identifier_names
@@ -50,9 +50,9 @@ class Categoria {
 @JsonSerializable(explicitToJson: true)
 class CategoriaProduto {
   @JsonKey(required: false, disallowNullValue: false)
-  Categoria categoria;
+  Categoria? categoria;
   @JsonKey(required: false, disallowNullValue: false)
-  List<Produto> produtos;
+  List<Produto>? produtos;
 
   CategoriaProduto({
     this.categoria,

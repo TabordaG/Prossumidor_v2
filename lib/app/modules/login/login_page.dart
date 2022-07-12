@@ -9,14 +9,14 @@ import 'login_controller.dart';
 
 class LoginPage extends StatefulWidget {
   final String title;
-  const LoginPage({Key key, this.title = "Login"}) : super(key: key);
+  const LoginPage({Key? key, this.title = "Login"}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends ModularState<LoginPage, LoginController> {
-  final GlobalKey<FormState> formkey = new GlobalKey<FormState>();
+  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   final AuthController authController = Modular.get<AuthController>();
 
   @override
@@ -26,7 +26,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
       value: SystemUiOverlayStyle.light,
       child: Scaffold(
         body: SingleChildScrollView(
-          child: Container(
+          child: SizedBox(
             height: size.height,
             width: size.width,
             child: Form(
@@ -39,12 +39,12 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                     width: size.width,
                     decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(10),
                         bottomRight: Radius.circular(10),
                       ),
                     ),
-                    child: Padding(
+                    child: const Padding(
                       padding: EdgeInsets.all(kDefaultPadding * 2),
                       child: Hero(
                         tag: 'LogoSplash',
@@ -54,34 +54,36 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                       ),
                     ),
                   ),
-                  Spacer(
+                  const Spacer(
                     flex: 4,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: kDefaultPadding),
                     child: TextFormField(
                       onChanged: (value) => controller.setEmail(value),
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
                       validator: (value) {
-                        if (value.isEmpty) {
+                        if (value!.isEmpty) {
                           return 'Insira um endereço de email';
                         } else {
                           if (value.length < 3) {
                             return "Email Tem Que Ter Pelo Menos 3 Caracteres";
                           } else {
-                            Pattern pattern =
+                            String pattern =
                                 r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-                            RegExp regex = new RegExp(pattern);
+                            RegExp regex = RegExp(pattern);
                             if (!regex.hasMatch(value)) {
                               return 'Insira um endereço de email válido';
-                            } else
+                            } else {
                               return null;
+                            }
                           }
                         }
                       },
                       decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
+                        border: const UnderlineInputBorder(),
                         prefixIcon: Icon(
                           Icons.email,
                           color: Theme.of(context).primaryColor,
@@ -90,24 +92,25 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                       ),
                     ),
                   ),
-                  Spacer(
+                  const Spacer(
                     flex: 2,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: kDefaultPadding),
                     child: Observer(builder: (_) {
                       return TextFormField(
                         obscureText: controller.obscureSenha,
                         textInputAction: TextInputAction.done,
                         onFieldSubmitted: (value) async {
-                          if (formkey.currentState.validate()) {
+                          if (formkey.currentState!.validate()) {
                             showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
                                     content: Column(
                                       mainAxisSize: MainAxisSize.min,
-                                      children: [
+                                      children: const [
                                         CircularProgressIndicator(
                                           strokeWidth: 1,
                                         ),
@@ -124,13 +127,13 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                                   );
                                 });
                             int response = await controller.verificaLogin();
-                            await Future.delayed(Duration(seconds: 1));
+                            await Future.delayed(const Duration(seconds: 1));
                             Navigator.of(context).pop();
                             switch (response) {
                               case 0:
                                 await authController
                                     .addStringToSF(controller.email);
-                                Modular.to.pushReplacementNamed('/start');
+                                Modular.to.pushReplacementNamed('/start/');
                                 break;
                               case 1:
                                 buildShowGeneralDialog(
@@ -150,7 +153,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                         },
                         onChanged: (value) => controller.setSenha(value),
                         validator: (value) {
-                          if (value.isEmpty) {
+                          if (value!.isEmpty) {
                             return "O campo senha não pode ficar vazio";
                           } else if (value.length < 6) {
                             return "A senha tem que ter pelo menos 6 caracteres";
@@ -158,7 +161,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                           return null;
                         },
                         decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
+                          border: const UnderlineInputBorder(),
                           prefixIcon: Icon(
                             Icons.lock,
                             color: Theme.of(context).primaryColor,
@@ -178,11 +181,12 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                       );
                     }),
                   ),
-                  Spacer(
+                  const Spacer(
                     flex: 1,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: kDefaultPadding),
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
@@ -191,28 +195,29 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                         },
                         child: Text(
                           'Esqueceu a senha ?',
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                color: Theme.of(context).primaryColor,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    color: Theme.of(context).primaryColor,
+                                  ),
                         ),
                       ),
                     ),
                   ),
-                  Spacer(
+                  const Spacer(
                     flex: 1,
                   ),
                   ButtonTheme(
                     minWidth: size.width * .6,
                     child: StandardButton(
                       onPressed: () async {
-                        if (formkey.currentState.validate()) {
+                        if (formkey.currentState!.validate()) {
                           showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
                                   content: Column(
                                     mainAxisSize: MainAxisSize.min,
-                                    children: [
+                                    children: const [
                                       CircularProgressIndicator(
                                         strokeWidth: 1,
                                       ),
@@ -228,13 +233,13 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                                 );
                               });
                           int response = await controller.verificaLogin();
-                          await Future.delayed(Duration(seconds: 1));
+                          await Future.delayed(const Duration(seconds: 1));
                           Navigator.of(context).pop();
                           switch (response) {
                             case 0:
                               await authController
                                   .addStringToSF(controller.email);
-                              Modular.to.pushReplacementNamed('/start');
+                              Modular.to.pushReplacementNamed('/start/');
                               break;
                             case 1:
                               buildShowGeneralDialog(
@@ -256,14 +261,15 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                       text: 'Entrar',
                     ),
                   ),
-                  Spacer(
+                  const Spacer(
                     flex: 2,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: kDefaultPadding),
                     child: Row(
                       children: [
-                        Expanded(
+                        const Expanded(
                           child: Divider(
                             thickness: 1,
                             endIndent: kDefaultPadding,
@@ -271,16 +277,17 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                         ),
                         Text(
                           'ou',
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                fontSize: 14,
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    .color
-                                    .withOpacity(.8),
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    fontSize: 14,
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1!
+                                        .color!
+                                        .withOpacity(.8),
+                                  ),
                         ),
-                        Expanded(
+                        const Expanded(
                           child: Divider(
                             thickness: 1,
                             indent: kDefaultPadding,
@@ -289,17 +296,17 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                       ],
                     ),
                   ),
-                  Spacer(
+                  const Spacer(
                     flex: 2,
                   ),
                   Text(
                     'Não possui conta ainda ?',
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           fontSize: 14,
                           color: Theme.of(context)
                               .textTheme
-                              .bodyText1
-                              .color
+                              .bodyText1!
+                              .color!
                               .withOpacity(.8),
                         ),
                   ),
@@ -309,14 +316,14 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                     },
                     child: Text(
                       'Registrar',
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             fontSize: 16,
                             color: Theme.of(context).primaryColor,
                             fontWeight: FontWeight.bold,
                           ),
                     ),
                   ),
-                  Spacer(
+                  const Spacer(
                     flex: 4,
                   ),
                 ],
@@ -334,9 +341,9 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
       barrierLabel: "Mensage",
       barrierDismissible: true,
       barrierColor: Colors.black.withOpacity(0.5),
-      transitionDuration: Duration(milliseconds: 400),
+      transitionDuration: const Duration(milliseconds: 400),
       context: context,
-      pageBuilder: (context, anim1, anim2) => null,
+      pageBuilder: (context, anim1, anim2) => Container(),
       transitionBuilder: (context, a1, a2, child) {
         final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
         return Transform(
@@ -356,43 +363,43 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
     );
   }
 
-  Container buildMensage(BuildContext context, String titulo, String mensagem) {
-    return Container(
+  SizedBox buildMensage(BuildContext context, String titulo, String mensagem) {
+    return SizedBox(
       height: MediaQuery.of(context).size.height * .1,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Spacer(
+          const Spacer(
             flex: 1,
           ),
           Text(
             titulo,
-            style: Theme.of(context).textTheme.bodyText1.copyWith(
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(
                   fontSize: 22,
                   color: Theme.of(context)
                       .textTheme
-                      .bodyText1
-                      .color
+                      .bodyText1!
+                      .color!
                       .withOpacity(.8),
                 ),
           ),
-          Spacer(
+          const Spacer(
             flex: 2,
           ),
           Text(
             mensagem,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyText1.copyWith(
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(
                   fontSize: 16,
                   color: Theme.of(context)
                       .textTheme
-                      .bodyText1
-                      .color
+                      .bodyText1!
+                      .color!
                       .withOpacity(.6),
                 ),
           ),
-          Spacer(
+          const Spacer(
             flex: 1,
           ),
         ],

@@ -8,6 +8,6 @@ part of 'auth_repository.dart';
 
 final $AuthRepository = BindInject(
   (i) => AuthRepository(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );

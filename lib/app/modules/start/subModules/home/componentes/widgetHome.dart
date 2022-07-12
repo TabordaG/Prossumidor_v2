@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -12,9 +14,9 @@ class WidgetHome extends StatefulWidget {
   final Function verMais;
   final bool isCategoria;
 
-  WidgetHome({
-    this.indexItem,
-    this.verMais,
+  const WidgetHome({
+    required this.indexItem,
+    required this.verMais,
     this.isCategoria = true,
   }) : super();
 
@@ -30,7 +32,7 @@ class _WidgetHomeState extends State<WidgetHome> {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             top: kDefaultPadding * .5,
           ),
           child: Divider(
@@ -45,31 +47,32 @@ class _WidgetHomeState extends State<WidgetHome> {
                     width: 30,
                     imageUrl: '${Basicos.ip}/' +
                         controller.listaCategoriaProdutos[widget.indexItem]
-                            .categoria.imagem_cat[0],
+                            .categoria!.imagem_cat![0],
                     fit: BoxFit.cover,
-                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   )
-                : Icon(Icons.storefront, color: Colors.black),
+                : const Icon(Icons.storefront, color: Colors.black),
             title: Text(
               widget.isCategoria
-                  ? controller.listaCategoriaProdutos[widget.indexItem]
-                      .categoria.descricao
-                  : controller
-                      .listaMarcaProdutos[widget.indexItem].marca.descricao,
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  ? "${controller.listaCategoriaProdutos[widget.indexItem].categoria?.descricao}"
+                  : "${controller.listaMarcaProdutos[widget.indexItem].marca!.descricao}",
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: 18,
                     color: Theme.of(context)
                         .textTheme
-                        .bodyText1
-                        .color
+                        .bodyText1!
+                        .color!
                         .withOpacity(1),
                   ),
             ),
             trailing: TextButton(
-              onPressed: widget.verMais,
+              onPressed: () {
+                widget.verMais();
+              },
               child: Text(
                 'Ver mais',
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontSize: 14,
                       color: Theme.of(context).primaryColor,
                     ),
@@ -78,19 +81,18 @@ class _WidgetHomeState extends State<WidgetHome> {
           );
         }),
         Observer(builder: (_) {
-          if (controller.buscandoProdutos)
-            return Container(
-              child: Center(
-                child: CircularProgressIndicator(
-                  strokeWidth: 1,
-                ),
+          if (controller.buscandoProdutos) {
+            return const Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 1,
               ),
             );
+          }
           if (widget.isCategoria &&
               !controller.buscandoProdutos &&
               controller
-                  .listaCategoriaProdutos[widget.indexItem].produtos.isEmpty)
-            return Container(
+                  .listaCategoriaProdutos[widget.indexItem].produtos!.isEmpty) {
+            return const SizedBox(
               height: 100,
               child: Center(
                 child: Text(
@@ -99,10 +101,12 @@ class _WidgetHomeState extends State<WidgetHome> {
                 ),
               ),
             );
+          }
           if (!widget.isCategoria &&
               !controller.buscandoProdutos &&
-              controller.listaMarcaProdutos[widget.indexItem].produtos.isEmpty)
-            return Container(
+              controller
+                  .listaMarcaProdutos[widget.indexItem].produtos!.isEmpty) {
+            return const SizedBox(
               height: 100,
               child: Center(
                 child: Text(
@@ -111,6 +115,7 @@ class _WidgetHomeState extends State<WidgetHome> {
                 ),
               ),
             );
+          }
           return Container(
             height: 235,
             margin: EdgeInsets.only(
@@ -125,12 +130,12 @@ class _WidgetHomeState extends State<WidgetHome> {
             ),
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               itemCount: widget.isCategoria
                   ? controller
-                      .listaCategoriaProdutos[widget.indexItem].produtos.length
+                      .listaCategoriaProdutos[widget.indexItem].produtos!.length
                   : controller
-                      .listaMarcaProdutos[widget.indexItem].produtos.length,
+                      .listaMarcaProdutos[widget.indexItem].produtos!.length,
               itemBuilder: (context, index) {
                 return index != 4
                     ? CardHome(
@@ -139,21 +144,23 @@ class _WidgetHomeState extends State<WidgetHome> {
                         produto: widget.isCategoria
                             ? controller
                                 .listaCategoriaProdutos[widget.indexItem]
-                                .produtos[index]
+                                .produtos![index]
                             : controller.listaMarcaProdutos[widget.indexItem]
-                                .produtos[index],
-                        verDetalhes: () => Modular.to.pushNamed(
-                          '/produtoDetalhes',
-                          arguments: {
-                            'produto': widget.isCategoria
-                                ? controller
-                                    .listaCategoriaProdutos[widget.indexItem]
-                                    .produtos[index]
-                                : controller
-                                    .listaMarcaProdutos[widget.indexItem]
-                                    .produtos[index],
-                          },
-                        ),
+                                .produtos![index],
+                        verDetalhes: () {
+                          return Modular.to.pushNamed(
+                            '/produtoDetalhes',
+                            arguments: {
+                              'produto': widget.isCategoria
+                                  ? controller
+                                      .listaCategoriaProdutos[widget.indexItem]
+                                      .produtos![index]
+                                  : controller
+                                      .listaMarcaProdutos[widget.indexItem]
+                                      .produtos![index],
+                            },
+                          );
+                        },
                       )
                     : Row(
                         children: [
@@ -162,10 +169,10 @@ class _WidgetHomeState extends State<WidgetHome> {
                             produto: widget.isCategoria
                                 ? controller
                                     .listaCategoriaProdutos[widget.indexItem]
-                                    .produtos[index]
+                                    .produtos![index]
                                 : controller
                                     .listaMarcaProdutos[widget.indexItem]
-                                    .produtos[index],
+                                    .produtos![index],
                             verDetalhes: () => Modular.to.pushNamed(
                               '/produtoDetalhes',
                               arguments: {
@@ -173,10 +180,10 @@ class _WidgetHomeState extends State<WidgetHome> {
                                     ? controller
                                         .listaCategoriaProdutos[
                                             widget.indexItem]
-                                        .produtos[index]
+                                        .produtos![index]
                                     : controller
                                         .listaMarcaProdutos[widget.indexItem]
-                                        .produtos[index],
+                                        .produtos![index],
                               },
                             ),
                           ),

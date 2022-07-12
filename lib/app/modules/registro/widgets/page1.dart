@@ -8,7 +8,7 @@ import 'package:prossumidor_v2/app/modules/registro/registro_controller.dart';
 import '../../../constants.dart';
 
 class RegistrarPage1 extends StatefulWidget {
-  RegistrarPage1({Key key}) : super(key: key);
+  const RegistrarPage1({Key? key}) : super(key: key);
 
   @override
   _RegistrarPage1State createState() => _RegistrarPage1State();
@@ -32,24 +32,24 @@ class _RegistrarPage1State extends State<RegistrarPage1> {
         node: node,
         child: ListView(
           shrinkWrap: true,
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           children: [
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Center(
               child: Text(
                 'Dados Pessoais',
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontSize: 18,
                     ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
               child: Observer(builder: (_) {
                 return TextFormField(
                   controller: controller.nome,
@@ -58,14 +58,14 @@ class _RegistrarPage1State extends State<RegistrarPage1> {
                   textCapitalization: TextCapitalization.words,
                   onEditingComplete: node.nextFocus,
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value!.isEmpty) {
                       return 'Insira um nome válido';
                     } else {
                       return null;
                     }
                   },
                   decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
+                    border: const UnderlineInputBorder(),
                     prefixIcon: Icon(
                       Icons.person,
                       color: Theme.of(context).primaryColor,
@@ -75,11 +75,11 @@ class _RegistrarPage1State extends State<RegistrarPage1> {
                 );
               }),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
               child: Observer(builder: (_) {
                 return TextFormField(
                   controller: controller.cpf,
@@ -91,12 +91,12 @@ class _RegistrarPage1State extends State<RegistrarPage1> {
                     CpfInputFormatter(),
                   ],
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value!.isEmpty) {
                       return 'Insira seu CPF';
                     } else {
-                      Pattern pattern =
+                      String pattern =
                           r'^(([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2}))$';
-                      RegExp regex = new RegExp(pattern);
+                      RegExp regex = RegExp(pattern);
                       if (!regex.hasMatch(value)) {
                         return 'Insira um CPF válido';
                       } else {
@@ -105,7 +105,7 @@ class _RegistrarPage1State extends State<RegistrarPage1> {
                     }
                   },
                   decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
+                    border: const UnderlineInputBorder(),
                     prefixIcon: Icon(
                       Icons.contact_page,
                       color: Theme.of(context).primaryColor,
@@ -115,11 +115,11 @@ class _RegistrarPage1State extends State<RegistrarPage1> {
                 );
               }),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
               child: Observer(builder: (_) {
                 return TextFormField(
                   controller: controller.telefone,
@@ -131,14 +131,14 @@ class _RegistrarPage1State extends State<RegistrarPage1> {
                     TelefoneInputFormatter()
                   ],
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value!.isEmpty) {
                       return 'Insira um telefone válido';
                     } else {
                       return null;
                     }
                   },
                   decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
+                    border: const UnderlineInputBorder(),
                     prefixIcon: Icon(
                       Icons.phone,
                       color: Theme.of(context).primaryColor,
@@ -148,7 +148,7 @@ class _RegistrarPage1State extends State<RegistrarPage1> {
                 );
               }),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Row(
@@ -160,7 +160,7 @@ class _RegistrarPage1State extends State<RegistrarPage1> {
                   groupValue: controller.genero,
                   onChanged: (value) {
                     setState(() {
-                      controller.setGenero(value);
+                      controller.setGenero(value as int);
                     });
                   },
                 ),
@@ -172,16 +172,16 @@ class _RegistrarPage1State extends State<RegistrarPage1> {
                   },
                   child: Text(
                     'Masculino',
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           color: Theme.of(context)
                               .textTheme
-                              .bodyText1
-                              .color
+                              .bodyText1!
+                              .color!
                               .withOpacity(.8),
                         ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Radio(
@@ -190,7 +190,7 @@ class _RegistrarPage1State extends State<RegistrarPage1> {
                   groupValue: controller.genero,
                   onChanged: (value) {
                     setState(() {
-                      controller.setGenero(value);
+                      controller.setGenero(value as int);
                     });
                   },
                 ),
@@ -202,11 +202,11 @@ class _RegistrarPage1State extends State<RegistrarPage1> {
                   },
                   child: Text(
                     'Feminino',
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           color: Theme.of(context)
                               .textTheme
-                              .bodyText1
-                              .color
+                              .bodyText1!
+                              .color!
                               .withOpacity(.8),
                         ),
                   ),

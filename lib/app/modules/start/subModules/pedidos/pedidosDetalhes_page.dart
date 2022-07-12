@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, use_key_in_widget_constructors, unnecessary_null_comparison
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -10,9 +12,10 @@ import 'package:prossumidor_v2/app/modules/start/subModules/pedidos/pedidos_cont
 import '../../../../dados_basicos.dart';
 
 class PedidosDetalhes extends StatefulWidget {
-  final Pedidos pedido;
-  final Produto produto;
-  const PedidosDetalhes({ this.pedido, this.produto}) : super();
+  final Pedidos? pedido;
+  final Produto? produto;
+  const PedidosDetalhes({required this.pedido, required this.produto})
+      : super();
 
   @override
   _PedidosDetalhesState createState() => _PedidosDetalhesState();
@@ -24,7 +27,7 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
 
   @override
   void initState() {
-    controller.buscarProdutos(widget.pedido.id);
+    controller.buscarProdutos(widget.pedido!.id!);
     super.initState();
   }
 
@@ -33,10 +36,10 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
     final pedido = widget.pedido;
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         title: Row(
           mainAxisSize: MainAxisSize.min,
-          children: [
+          children: const [
             Icon(
               Icons.receipt_long,
               color: Colors.white,
@@ -49,7 +52,7 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.all(kDefaultPadding * 0.75),
+        padding: const EdgeInsets.all(kDefaultPadding * 0.75),
         child: Column(
           children: <Widget>[
             Row(
@@ -57,35 +60,35 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
               children: [
                 Row(
                   children: [
-                    Text("Pedido: #"),
+                    const Text("Pedido: #"),
                     Text(
-                      "${pedido.id.toString()}",
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      pedido!.id.toString(),
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
                           fontSize: 14,
                           color: Theme.of(context)
                               .textTheme
                               .bodyText1
-                              .color
-                              .withOpacity(1),
+                              ?.color
+                              ?.withOpacity(1),
                           fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
                 Row(
                   children: [
-                    Text("Total de itens: "),
+                    const Text("Total de itens: "),
                     Observer(builder: (_) {
                       return Text(
                         controller.produtosList != null
                             ? "${controller.produtosList.length}"
                             : "Carregando..",
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
                             fontSize: 14,
                             color: Theme.of(context)
                                 .textTheme
                                 .bodyText1
-                                .color
-                                .withOpacity(1),
+                                ?.color
+                                ?.withOpacity(1),
                             fontWeight: FontWeight.w600),
                       );
                     }),
@@ -93,28 +96,29 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                 )
               ],
             ),
-            Divider(),
+            const Divider(),
             Expanded(child: Observer(builder: (_) {
-              if (controller.produtosList == null ||
-                  controller.produtosList.length == 0)
-                return Center(
+              if (controller.produtosList.isEmpty) {
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
+              }
               return Scrollbar(
                 controller: scrollController,
-                radius: Radius.circular(10),
+                radius: const Radius.circular(10),
                 thickness: 3,
                 isAlwaysShown: true,
                 child: ListView.builder(
                   controller: scrollController,
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   itemCount: controller.produtosList.length,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: EdgeInsets.only(bottom: kDefaultPadding * .5),
+                      padding:
+                          const EdgeInsets.only(bottom: kDefaultPadding * .5),
                       child: ListTile(
                         leading: ClipRRect(
-                          borderRadius: BorderRadius.all(
+                          borderRadius: const BorderRadius.all(
                             Radius.circular(5),
                           ),
                           child: controller.produtosList[index].imagem !=
@@ -123,19 +127,24 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                               ? CachedNetworkImage(
                                   width:
                                       MediaQuery.of(context).size.width * 0.2,
-                                  imageUrl: "${Basicos.ip2}/media/" +
-                                      controller.produtosList[index].imagem,
+                                  imageUrl:
+                                      controller.produtosList[index].imagem ==
+                                              null
+                                          ? ""
+                                          : "${Basicos.ip2}/media/" +
+                                              controller
+                                                  .produtosList[index].imagem!,
                                   fit: BoxFit.cover,
-                                  placeholder: (context, url) => Padding(
+                                  placeholder: (context, url) => const Padding(
                                     padding: EdgeInsets.all(25.0),
                                     child: CircularProgressIndicator(
                                       strokeWidth: 1,
                                     ),
                                   ),
                                   errorWidget: (context, url, error) =>
-                                      Icon(Icons.error),
+                                      const Icon(Icons.error),
                                 )
-                              : Center(
+                              : const Center(
                                   child: Icon(Icons.error),
                                 ),
 
@@ -163,13 +172,16 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                           // ),
                         ),
                         title: Text(
-                          controller.produtosList[index].descricao_simplificada,
+                          controller
+                                  .produtosList[index].descricao_simplificada ??
+                              "...",
                           softWrap: true,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                fontSize: 14,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyText1?.copyWith(
+                                    fontSize: 14,
+                                  ),
                         ),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -182,24 +194,25 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1
-                                  .copyWith(
+                                  ?.copyWith(
                                     fontSize: 12,
                                     color: Theme.of(context)
                                         .textTheme
                                         .bodyText1
-                                        .color
-                                        .withOpacity(.7),
+                                        ?.color
+                                        ?.withOpacity(.7),
                                   ),
                             ),
                             Text(
                               "Quantidade: " +
                                   double.parse(controller
-                                          .produtosList[index].quantidade)
+                                              .produtosList[index].quantidade ??
+                                          "0")
                                       .toStringAsFixed(0),
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1
-                                  .copyWith(
+                                  ?.copyWith(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -211,26 +224,27 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                           textAlign: TextAlign.center,
                           text: TextSpan(
                             style:
-                                Theme.of(context).textTheme.bodyText1.copyWith(
+                                Theme.of(context).textTheme.bodyText1?.copyWith(
                                       fontSize: 12,
                                       color: Theme.of(context)
                                           .textTheme
                                           .bodyText1
-                                          .color
-                                          .withOpacity(.8),
+                                          ?.color
+                                          ?.withOpacity(.8),
                                     ),
                             children: [
-                              TextSpan(text: 'Valor Unit.'),
+                              const TextSpan(text: 'Valor Unit.'),
                               TextSpan(
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1
-                                    .copyWith(
+                                    ?.copyWith(
                                       fontSize: 11,
                                     ),
                                 text: '\nR\$ ' +
-                                    double.parse(controller
-                                            .produtosList[index].preco_venda)
+                                    double.parse(controller.produtosList[index]
+                                                .preco_venda ??
+                                            "0")
                                         .toStringAsFixed(2)
                                         .replaceAll(".", ","),
                               ),
@@ -369,7 +383,7 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                 ),
               );
             })),
-            Divider(),
+            const Divider(),
             Card(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -380,28 +394,28 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Situação: "),
+                        const Text("Situação: "),
                         Flexible(
                           child: Text(
-                            pedido.status_pedido,
+                            pedido.status_pedido ?? "...",
                             style:
-                                Theme.of(context).textTheme.bodyText1.copyWith(
+                                Theme.of(context).textTheme.bodyText1?.copyWith(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w700,
                                     ),
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text("Data"),
+                            const Text("Data"),
                             Text(
-                              "${pedido.data_registro.day}/${pedido.data_registro.month}/${pedido.data_registro.year}",
+                              "${pedido.data_registro?.day}/${pedido.data_registro?.month}/${pedido.data_registro?.year}",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1
-                                  .copyWith(
+                                  ?.copyWith(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -427,61 +441,66 @@ class _PedidosDetalhesState extends State<PedidosDetalhes> {
                     //     ),
                     //   ],
                     // ),
-                    Divider(),
+                    const Divider(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Entrega"),
+                        const Text("Entrega"),
                         Text(
-                          widget.pedido.observacoes_entrega.startsWith('0')
+                          widget.pedido!.observacoes_entrega!.startsWith('0')
                               ? 'Retirado no local'
                               : 'Entrega em domicílio',
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyText1?.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                         ),
                       ],
                     ),
-                    SizedBox(height: kDefaultPadding * 0.25),
+                    const SizedBox(height: kDefaultPadding * 0.25),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Frete"),
+                        const Text("Frete"),
                         Text(
                           "R\$ " +
                               pedido.observacoes_entrega
                                   .toString()
                                   .replaceAll(".", ",")
                                   .replaceAll(" ", ""),
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyText1?.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                         ),
                       ],
                     ),
-                    Divider(),
+                    const Divider(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           "Total",
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyText1?.copyWith(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                         ),
                         Text(
                           "R\$ " +
-                              (double.parse(pedido.valor_total) +
-                                      double.parse(pedido.observacoes_entrega))
+                              (double.parse(pedido.valor_total ?? "0") +
+                                      double.parse(
+                                          pedido.observacoes_entrega ?? "0"))
                                   .toStringAsFixed(2)
                                   .replaceAll(".", ","),
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyText1?.copyWith(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                         ),
                       ],
                     ),

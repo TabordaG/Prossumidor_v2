@@ -11,10 +11,11 @@ class CardPedidos extends StatefulWidget {
   final Function onTap;
 
   const CardPedidos({
-    this.index,
-    this.lista,
-    this.onTap,
-  }) : super();
+    Key? key,
+    required this.index,
+    required this.lista,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   _CardPedidosState createState() => _CardPedidosState();
@@ -26,11 +27,13 @@ class _CardPedidosState extends State<CardPedidos> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: kDefaultPadding * 0.25,
       ),
       child: GestureDetector(
-        onTap: widget.onTap,
+        onTap: () {
+          widget.onTap();
+        },
         child: Card(
           color: Theme.of(context).cardColor,
           child: Padding(
@@ -40,7 +43,7 @@ class _CardPedidosState extends State<CardPedidos> {
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                       top: kDefaultPadding * 0.5,
                       bottom: kDefaultPadding * 0.125),
                   child: Row(
@@ -48,18 +51,18 @@ class _CardPedidosState extends State<CardPedidos> {
                     children: [
                       Row(
                         children: [
-                          Text('Pedido: '),
+                          const Text('Pedido: '),
                           Text(
                             '${widget.lista[widget.index].id}',
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText1
+                                .bodyText1!
                                 .copyWith(
                                     fontSize: 12,
                                     color: Theme.of(context)
                                         .textTheme
-                                        .bodyText1
-                                        .color
+                                        .bodyText1!
+                                        .color!
                                         .withOpacity(1),
                                     fontWeight: FontWeight.w700),
                           )
@@ -67,18 +70,19 @@ class _CardPedidosState extends State<CardPedidos> {
                       ),
                       Row(
                         children: [
-                          Text("Itens: "),
+                          const Text("Itens: "),
                           Text(
-                            "${widget.lista[widget.index].quantidade.replaceAll('.000', '')}",
+                            widget.lista[widget.index].quantidade!
+                                .replaceAll('.000', ''),
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText1
+                                .bodyText1!
                                 .copyWith(
                                     fontSize: 14,
                                     color: Theme.of(context)
                                         .textTheme
-                                        .bodyText1
-                                        .color
+                                        .bodyText1!
+                                        .color!
                                         .withOpacity(1),
                                     fontWeight: FontWeight.w700),
                           ),
@@ -88,28 +92,28 @@ class _CardPedidosState extends State<CardPedidos> {
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: kDefaultPadding * 0.125),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: kDefaultPadding * 0.125),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Flexible(
                         child: Row(
                           children: [
-                            Text('Fornecedor:'),
+                            const Text('Fornecedor:'),
                             Flexible(
                               child: Text(
                                 ' ${widget.lista[widget.index].empresa}',
                                 overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText1
+                                    .bodyText1!
                                     .copyWith(
                                         fontSize: 12,
                                         color: Theme.of(context)
                                             .textTheme
-                                            .bodyText1
-                                            .color
+                                            .bodyText1!
+                                            .color!
                                             .withOpacity(1),
                                         fontWeight: FontWeight.w700),
                               ),
@@ -119,18 +123,18 @@ class _CardPedidosState extends State<CardPedidos> {
                       ),
                       Row(
                         children: [
-                          Text("Data: "),
+                          const Text("Data: "),
                           Text(
-                            "${widget.lista[widget.index].data_registro.day}/${widget.lista[widget.index].data_registro.month}/${widget.lista[widget.index].data_registro.year}",
+                            "${widget.lista[widget.index].data_registro!.day}/${widget.lista[widget.index].data_registro!.month}/${widget.lista[widget.index].data_registro!.year}",
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText1
+                                .bodyText1!
                                 .copyWith(
                                     fontSize: 12,
                                     color: Theme.of(context)
                                         .textTheme
-                                        .bodyText1
-                                        .color
+                                        .bodyText1!
+                                        .color!
                                         .withOpacity(1),
                                     fontWeight: FontWeight.w700),
                           ),
@@ -140,7 +144,7 @@ class _CardPedidosState extends State<CardPedidos> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                       top: kDefaultPadding * 0.5,
                       bottom: kDefaultPadding * 0.125),
                   child: Row(
@@ -148,19 +152,22 @@ class _CardPedidosState extends State<CardPedidos> {
                     children: [
                       Flexible(
                         child: Text(
-                          widget.lista[widget.index].observacoes_entrega
+                          widget.lista[widget.index].observacoes_entrega!
                                   .startsWith('0')
                               ? 'Retirado no local'
                               : 'Entrega em domicílio',
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                              fontSize: 12,
-                              color: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  .color
-                                  .withOpacity(1),
-                              fontWeight: FontWeight.w600),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(
+                                  fontSize: 12,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .color!
+                                      .withOpacity(1),
+                                  fontWeight: FontWeight.w600),
                         ),
                       ),
                       Row(
@@ -169,13 +176,13 @@ class _CardPedidosState extends State<CardPedidos> {
                             "Frete: ",
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText1
+                                .bodyText1!
                                 .copyWith(
                                     fontSize: 14,
                                     color: Theme.of(context)
                                         .textTheme
-                                        .bodyText1
-                                        .color
+                                        .bodyText1!
+                                        .color!
                                         .withOpacity(1),
                                     fontWeight: FontWeight.w700),
                           ),
@@ -192,34 +199,37 @@ class _CardPedidosState extends State<CardPedidos> {
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: kDefaultPadding * 0.125),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: kDefaultPadding * 0.125),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Situação: '),
+                      const Text('Situação: '),
                       Flexible(
                         child: Text(
-                          "${widget.lista[widget.index].status_pedido}",
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                              fontSize: 12,
-                              color: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  .color
-                                  .withOpacity(1),
-                              fontWeight: FontWeight.w700),
+                          widget.lista[widget.index].status_pedido!,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(
+                                  fontSize: 12,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .color!
+                                      .withOpacity(1),
+                                  fontWeight: FontWeight.w700),
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Text(
                         "Total: ",
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             fontSize: 12,
                             color: Theme.of(context)
                                 .textTheme
-                                .bodyText1
-                                .color
+                                .bodyText1!
+                                .color!
                                 .withOpacity(1),
                             fontWeight: FontWeight.w700),
                       ),
@@ -236,13 +246,13 @@ class _CardPedidosState extends State<CardPedidos> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                           //horizontal: kDefaultPadding * 2,
                           vertical: kDefaultPadding * 0.1),
                       child: ButtonTheme(
                           minWidth: 150,
                           height: 30,
-                          child: RaisedButton(
+                          child: ElevatedButton(
                             onPressed: () {
                               showDialog(
                                 context: context,
@@ -252,16 +262,16 @@ class _CardPedidosState extends State<CardPedidos> {
                                   return AlertDialog(
                                     title: Text(
                                       'Enviar uma menssagem ao vendedor: ' +
-                                          '${widget.lista[widget.index].empresa}',
+                                          widget.lista[widget.index].empresa!,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyText1
+                                          .bodyText1!
                                           .copyWith(
                                             fontSize: 16,
                                             color: Theme.of(context)
                                                 .textTheme
-                                                .bodyText1
-                                                .color
+                                                .bodyText1!
+                                                .color!
                                                 .withOpacity(1),
                                             fontWeight: FontWeight.w700,
                                           ),
@@ -274,7 +284,7 @@ class _CardPedidosState extends State<CardPedidos> {
                                           borderRadius:
                                               BorderRadius.circular(8.0),
                                         ),
-                                        color: Color(0xFFeceff3),
+                                        color: const Color(0xFFeceff3),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -288,7 +298,8 @@ class _CardPedidosState extends State<CardPedidos> {
                                                   maxLength: 224,
                                                   controller: pedidosController
                                                       .mensagemVendedor,
-                                                  decoration: InputDecoration(
+                                                  decoration:
+                                                      const InputDecoration(
                                                     hintText: 'Enviar Mensagem',
                                                     counterText: "",
                                                     border: InputBorder.none,
@@ -297,7 +308,7 @@ class _CardPedidosState extends State<CardPedidos> {
                                               ),
                                             ),
                                             IconButton(
-                                              icon: Icon(
+                                              icon: const Icon(
                                                 Icons.send,
                                                 color: Color(0xFF012f7a),
                                               ),
@@ -311,10 +322,11 @@ class _CardPedidosState extends State<CardPedidos> {
                                                           pedidosController
                                                               .mensagemVendedor
                                                               .text,
-                                                          authController.usuario
-                                                              .empresa_id,
                                                           authController
-                                                              .usuario.id);
+                                                              .usuario!
+                                                              .empresa_id!,
+                                                          authController
+                                                              .usuario!.id!);
 
                                                   showDialog(
                                                     context: context,
@@ -322,7 +334,7 @@ class _CardPedidosState extends State<CardPedidos> {
                                                     builder:
                                                         (BuildContext context) {
                                                       Future.delayed(
-                                                          Duration(
+                                                          const Duration(
                                                               milliseconds:
                                                                   2000), () {
                                                         pedidosController
@@ -339,7 +351,7 @@ class _CardPedidosState extends State<CardPedidos> {
                                                         content: Column(
                                                           mainAxisSize:
                                                               MainAxisSize.min,
-                                                          children: [
+                                                          children: const [
                                                             CircularProgressIndicator(
                                                               strokeWidth: 1,
                                                             ),
@@ -365,8 +377,8 @@ class _CardPedidosState extends State<CardPedidos> {
                                       ),
                                     ),
                                     actions: <Widget>[
-                                      FlatButton(
-                                        child: Text(
+                                      TextButton(
+                                        child: const Text(
                                           'Cancelar',
                                         ),
                                         onPressed: () {
@@ -378,15 +390,15 @@ class _CardPedidosState extends State<CardPedidos> {
                                 },
                               );
                             },
-                            color: Theme.of(context).primaryColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
+                            // color: Theme.of(context).primaryColor,
+                            // shape: RoundedRectangleBorder(
+                            //   borderRadius: BorderRadius.circular(5.0),
+                            // ),
                             child: Text(
                               "Falar com o vendedor",
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText1
+                                  .bodyText1!
                                   .copyWith(
                                     fontSize: 14,
                                     color: Colors.white,
@@ -395,14 +407,14 @@ class _CardPedidosState extends State<CardPedidos> {
                           )),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                           //horizontal: kDefaultPadding * 2,
                           vertical: kDefaultPadding * 0.1),
                       child: ButtonTheme(
                           minWidth: 100,
                           height: 30,
-                          child: RaisedButton(
-                            onPressed: widget.lista[widget.index].status_pedido
+                          child: ElevatedButton(
+                            onPressed: widget.lista[widget.index].status_pedido!
                                         .toUpperCase() !=
                                     "EM ANDAMENTO"
                                 ? () {
@@ -410,30 +422,25 @@ class _CardPedidosState extends State<CardPedidos> {
                                       context: context,
                                       barrierDismissible: true,
                                       builder: (BuildContext context2) {
-                                        print({
-                                          widget
-                                              .lista[widget.index].status_pedido
-                                              .toUpperCase()
-                                        });
                                         return AlertDialog(
                                             content: Text(
                                               'A situação do seu pedido não permite mais o cancelamento.',
                                               textAlign: TextAlign.center,
                                               style: Theme.of(context2)
                                                   .textTheme
-                                                  .bodyText1
+                                                  .bodyText1!
                                                   .copyWith(
                                                     fontSize: 16,
                                                     color: Colors.black87,
                                                   ),
                                             ),
                                             actions: <Widget>[
-                                              FlatButton(
+                                              TextButton(
                                                 child: Text(
                                                   'Cancelar',
                                                   style: Theme.of(context2)
                                                       .textTheme
-                                                      .bodyText1
+                                                      .bodyText1!
                                                       .copyWith(
                                                         fontSize: 14,
                                                         color: Colors.black54,
@@ -458,7 +465,7 @@ class _CardPedidosState extends State<CardPedidos> {
                                             'Cancelar Pedido',
                                             style: Theme.of(context2)
                                                 .textTheme
-                                                .bodyText1
+                                                .bodyText1!
                                                 .copyWith(
                                                   fontSize: 18,
                                                   color: Colors.black,
@@ -468,19 +475,19 @@ class _CardPedidosState extends State<CardPedidos> {
                                             'Deseja mesmo cancelar seu pedido?',
                                             style: Theme.of(context2)
                                                 .textTheme
-                                                .bodyText1
+                                                .bodyText1!
                                                 .copyWith(
                                                   fontSize: 14,
                                                   color: Colors.black87,
                                                 ),
                                           ),
                                           actions: <Widget>[
-                                            FlatButton(
+                                            TextButton(
                                               child: Text(
                                                 'Voltar',
                                                 style: Theme.of(context2)
                                                     .textTheme
-                                                    .bodyText1
+                                                    .bodyText1!
                                                     .copyWith(
                                                       fontSize: 14,
                                                       color: Colors.black54,
@@ -491,12 +498,12 @@ class _CardPedidosState extends State<CardPedidos> {
                                                     .pop(context2);
                                               },
                                             ),
-                                            FlatButton(
+                                            TextButton(
                                               child: Text(
                                                 'Confirmar',
                                                 style: Theme.of(context2)
                                                     .textTheme
-                                                    .bodyText1
+                                                    .bodyText1!
                                                     .copyWith(
                                                       fontSize: 14,
                                                       color: Theme.of(context)
@@ -506,8 +513,8 @@ class _CardPedidosState extends State<CardPedidos> {
                                               ),
                                               onPressed: () {
                                                 pedidosController.cancelaPedido(
-                                                    widget
-                                                        .lista[widget.index].id,
+                                                    widget.lista[widget.index]
+                                                        .id!,
                                                     "CANCELADO");
 
                                                 showDialog(
@@ -516,7 +523,7 @@ class _CardPedidosState extends State<CardPedidos> {
                                                   builder:
                                                       (BuildContext context3) {
                                                     Future.delayed(
-                                                        Duration(
+                                                        const Duration(
                                                             milliseconds: 2000),
                                                         () {
                                                       pedidosController
@@ -534,7 +541,7 @@ class _CardPedidosState extends State<CardPedidos> {
                                                       content: Column(
                                                         mainAxisSize:
                                                             MainAxisSize.min,
-                                                        children: [
+                                                        children: const [
                                                           CircularProgressIndicator(
                                                             strokeWidth: 1,
                                                           ),
@@ -559,19 +566,19 @@ class _CardPedidosState extends State<CardPedidos> {
                                       },
                                     );
                                   },
-                            color: widget.lista[widget.index].status_pedido
-                                        .toUpperCase() ==
-                                    "EM ANDAMENTO"
-                                ? Theme.of(context).colorScheme.secondary
-                                : Colors.grey,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
+                            // color: widget.lista[widget.index].status_pedido
+                            //             .toUpperCase() ==
+                            //         "EM ANDAMENTO"
+                            //     ? Theme.of(context).colorScheme.secondary
+                            //     : Colors.grey,
+                            // shape: RoundedRectangleBorder(
+                            //   borderRadius: BorderRadius.circular(5.0),
+                            // ),
                             child: Text(
                               "Cancelar",
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText1
+                                  .bodyText1!
                                   .copyWith(
                                     fontSize: 14,
                                     color: Colors.white,

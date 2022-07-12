@@ -8,8 +8,8 @@ part of 'meus_dados_controller.dart';
 
 final $MeusDadosController = BindInject(
   (i) => MeusDadosController(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );
 
 // **************************************************************************
@@ -97,13 +97,13 @@ mixin _$MeusDadosController on _MeusDadosControllerBase, Store {
   final _$generoIdAtom = Atom(name: '_MeusDadosControllerBase.generoId');
 
   @override
-  int get generoId {
+  int? get generoId {
     _$generoIdAtom.reportRead();
     return super.generoId;
   }
 
   @override
-  set generoId(int value) {
+  set generoId(int? value) {
     _$generoIdAtom.reportWrite(value, super.generoId, () {
       super.generoId = value;
     });
@@ -143,13 +143,13 @@ mixin _$MeusDadosController on _MeusDadosControllerBase, Store {
   final _$estadoCivilAtom = Atom(name: '_MeusDadosControllerBase.estadoCivil');
 
   @override
-  String get estadoCivil {
+  String? get estadoCivil {
     _$estadoCivilAtom.reportRead();
     return super.estadoCivil;
   }
 
   @override
-  set estadoCivil(String value) {
+  set estadoCivil(String? value) {
     _$estadoCivilAtom.reportWrite(value, super.estadoCivil, () {
       super.estadoCivil = value;
     });

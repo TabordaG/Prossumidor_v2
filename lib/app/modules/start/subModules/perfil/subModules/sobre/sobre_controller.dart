@@ -13,7 +13,6 @@ abstract class _SobreControllerBase with Store {
   @action
   toggleExpanded1() {
     isExpanded1 = !isExpanded1;
-    print(isExpanded1);
   }
 
   @observable

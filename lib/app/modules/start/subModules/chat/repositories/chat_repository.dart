@@ -8,7 +8,7 @@ part 'chat_repository.g.dart';
 
 @Injectable()
 class ChatRepository implements IChatRepository {
-  Dio dio;
+  late Dio dio;
   ChatRepository() {
     BaseOptions options = BaseOptions(
       receiveDataWhenStatusError: true,
@@ -19,8 +19,6 @@ class ChatRepository implements IChatRepository {
     dio = Dio(options);
   }
 
-  Response response;
-
   //dispose will be called automatically
   @override
   void dispose() {}
@@ -30,7 +28,7 @@ class ChatRepository implements IChatRepository {
     String link = Basicos.codifica(
         "${Basicos.ip}/crud/?crud=consult75.$idCliente,$idEmpresa,50,0");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -45,8 +43,9 @@ class ChatRepository implements IChatRepository {
       // } catch (e) {
       //     return null;
       //   }
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
@@ -54,7 +53,7 @@ class ChatRepository implements IChatRepository {
     String link = Basicos.codifica("${Basicos.ip}"
         "/crud/?crud=consult78.$id,100,$offset");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -68,8 +67,9 @@ class ChatRepository implements IChatRepository {
       } catch (e) {
         return null;
       }
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
@@ -77,7 +77,7 @@ class ChatRepository implements IChatRepository {
     String link = Basicos.codifica("${Basicos.ip}"
         "/crud/?crud=consult79.$id,$string");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -90,8 +90,9 @@ class ChatRepository implements IChatRepository {
       } catch (e) {
         return null;
       }
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
@@ -102,7 +103,7 @@ class ChatRepository implements IChatRepository {
     String link = Basicos.codifica("${Basicos.ip}"
         "/crud/?crud=consult74.$exp2, Cliente-Produtor, Enviado, $idCliente, $idEmpresa,");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -110,13 +111,13 @@ class ChatRepository implements IChatRepository {
     );
     if (response.data != null && response.statusCode == 200) {
       try {
-        print('sucesso');
         return 'sucesso';
       } catch (e) {
         return null;
       }
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
@@ -129,7 +130,7 @@ class ChatRepository implements IChatRepository {
         "$idCliente," //    cliente_id integer NOT NULL,
         "Produtor-Cliente,");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -137,12 +138,12 @@ class ChatRepository implements IChatRepository {
     );
     if (response.data != null && response.statusCode == 200) {
       try {
-        print('sucesso');
         return 'sucesso';
       } catch (e) {
         return null;
       }
-    } else
+    } else {
       return null;
+    }
   }
 }

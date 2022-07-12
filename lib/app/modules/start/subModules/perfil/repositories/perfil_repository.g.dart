@@ -8,6 +8,6 @@ part of 'perfil_repository.dart';
 
 final $PerfilRepository = BindInject(
   (i) => PerfilRepository(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );

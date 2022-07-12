@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, use_key_in_widget_constructors
+
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,10 +29,10 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         title: Row(
           mainAxisSize: MainAxisSize.min,
-          children: [
+          children: const [
             Icon(
               Icons.shopping_bag,
               color: Colors.white,
@@ -44,20 +46,18 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
         actions: [
           IconButton(
             splashRadius: 2,
-            icon: Icon(
+            icon: const Icon(
               Icons.info,
               color: Colors.white,
             ),
-            onPressed: () {
-              print('Pressed');
-            },
+            onPressed: () {},
           ),
         ],
       ),
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Padding(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             // bottom: kDefaultPadding,
             left: kDefaultPadding * .5,
             right: kDefaultPadding * .5,
@@ -69,7 +69,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
               //   physics: BouncingScrollPhysics(),
               //   children: [
               Card(
-                margin: EdgeInsets.only(
+                margin: const EdgeInsets.only(
                   top: kDefaultPadding * .5,
                   bottom: kDefaultPadding * .2,
                   left: kDefaultPadding * .2,
@@ -78,7 +78,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                         top: kDefaultPadding * .5,
                         left: kDefaultPadding * .5,
                         right: kDefaultPadding * .5,
@@ -89,7 +89,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                           Text(
                             'Subtotal',
                             style:
-                                Theme.of(context).textTheme.bodyText1.copyWith(
+                                Theme.of(context).textTheme.bodyText1?.copyWith(
                                       fontSize: 18,
                                     ),
                           ),
@@ -102,7 +102,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1
-                                  .copyWith(
+                                  ?.copyWith(
                                     fontSize: 18,
                                   ),
                             );
@@ -117,8 +117,8 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                       color: Theme.of(context)
                           .textTheme
                           .bodyText1
-                          .color
-                          .withOpacity(.4),
+                          ?.color
+                          ?.withOpacity(.4),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -129,13 +129,13 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Radio(
+                                Radio<int>(
                                   value: 0,
                                   activeColor: Theme.of(context).primaryColor,
                                   groupValue: controller.entrega,
                                   onChanged: (value) {
                                     setState(() {
-                                      controller.setEntrega(value);
+                                      controller.setEntrega(value!);
                                     });
                                   },
                                 ),
@@ -150,12 +150,12 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyText1
-                                        .copyWith(
+                                        ?.copyWith(
                                           color: Theme.of(context)
                                               .textTheme
                                               .bodyText1
-                                              .color
-                                              .withOpacity(.8),
+                                              ?.color
+                                              ?.withOpacity(.8),
                                         ),
                                   ),
                                 ),
@@ -164,13 +164,13 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Radio(
+                                Radio<int>(
                                   value: 1,
                                   activeColor: Theme.of(context).primaryColor,
                                   groupValue: controller.entrega,
                                   onChanged: (value) {
                                     setState(() {
-                                      controller.setEntrega(value);
+                                      controller.setEntrega(value!);
                                     });
                                   },
                                 ),
@@ -185,12 +185,12 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyText1
-                                        .copyWith(
+                                        ?.copyWith(
                                           color: Theme.of(context)
                                               .textTheme
                                               .bodyText1
-                                              .color
-                                              .withOpacity(.8),
+                                              ?.color
+                                              ?.withOpacity(.8),
                                         ),
                                   ),
                                 ),
@@ -199,7 +199,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                           ],
                         ),
                         Padding(
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                             // top: kDefaultPadding * .2,
                             // left: kDefaultPadding * .5,
                             right: kDefaultPadding * .5,
@@ -221,7 +221,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1
-                                      .copyWith(
+                                      ?.copyWith(
                                         fontSize: 16,
                                       ),
                                 );
@@ -249,7 +249,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                       style: Theme.of(context)
                           .textTheme
                           .bodyText1
-                          .copyWith(fontSize: 16),
+                          ?.copyWith(fontSize: 16),
                     ),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -262,12 +262,12 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                     controller.numero.text
                                 : 'Porto, 0',
                             style:
-                                Theme.of(context).textTheme.bodyText1.copyWith(
+                                Theme.of(context).textTheme.bodyText1?.copyWith(
                                       color: Theme.of(context)
                                           .textTheme
                                           .bodyText1
-                                          .color
-                                          .withOpacity(.6),
+                                          ?.color
+                                          ?.withOpacity(.6),
                                     ),
                           );
                         }),
@@ -279,12 +279,12 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                     controller.complemento.text
                                 : 'Corimbatá',
                             style:
-                                Theme.of(context).textTheme.bodyText1.copyWith(
+                                Theme.of(context).textTheme.bodyText1?.copyWith(
                                       color: Theme.of(context)
                                           .textTheme
                                           .bodyText1
-                                          .color
-                                          .withOpacity(.6),
+                                          ?.color
+                                          ?.withOpacity(.6),
                                     ),
                           );
                         }),
@@ -301,7 +301,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
               ),
               Card(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: kDefaultPadding,
                     vertical: kDefaultPadding * .5,
                   ),
@@ -310,20 +310,20 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                       Text(
                         'Como pretende pagar ao retirar o seu pedido ?',
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
                               color: Theme.of(context)
                                   .textTheme
                                   .bodyText1
-                                  .color
-                                  .withOpacity(.8),
+                                  ?.color
+                                  ?.withOpacity(.8),
                             ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: kDefaultPadding * .25,
                       ),
                       Row(
                         children: [
-                          Radio(
+                          Radio<int>(
                             value: 0,
                             materialTapTargetSize:
                                 MaterialTapTargetSize.shrinkWrap,
@@ -331,7 +331,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             groupValue: controller.pagamento,
                             onChanged: (value) {
                               setState(() {
-                                controller.setPagamento(value);
+                                controller.setPagamento(value!);
                               });
                             },
                           ),
@@ -350,7 +350,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                       ),
                       Row(
                         children: [
-                          Radio(
+                          Radio<int>(
                             value: 1,
                             materialTapTargetSize:
                                 MaterialTapTargetSize.shrinkWrap,
@@ -358,7 +358,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             groupValue: controller.pagamento,
                             onChanged: (value) {
                               setState(() {
-                                controller.setPagamento(value);
+                                controller.setPagamento(value!);
                               });
                             },
                           ),
@@ -377,7 +377,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                       ),
                       Row(
                         children: [
-                          Radio(
+                          Radio<int>(
                             value: 2,
                             materialTapTargetSize:
                                 MaterialTapTargetSize.shrinkWrap,
@@ -385,7 +385,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             groupValue: controller.pagamento,
                             onChanged: (value) {
                               setState(() {
-                                controller.setPagamento(value);
+                                controller.setPagamento(value!);
                               });
                             },
                           ),
@@ -404,7 +404,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                       ),
                       Row(
                         children: [
-                          Radio(
+                          Radio<int>(
                             value: 3,
                             materialTapTargetSize:
                                 MaterialTapTargetSize.shrinkWrap,
@@ -412,7 +412,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             groupValue: controller.pagamento,
                             onChanged: (value) {
                               setState(() {
-                                controller.setPagamento(value);
+                                controller.setPagamento(value!);
                               });
                             },
                           ),
@@ -431,7 +431,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                       ),
                       Row(
                         children: [
-                          Radio(
+                          Radio<int>(
                             value: 4,
                             materialTapTargetSize:
                                 MaterialTapTargetSize.shrinkWrap,
@@ -439,7 +439,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             groupValue: controller.pagamento,
                             onChanged: (value) {
                               setState(() {
-                                controller.setPagamento(value);
+                                controller.setPagamento(value!);
                               });
                             },
                           ),
@@ -461,7 +461,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   top: kDefaultPadding * .75,
                   left: kDefaultPadding * .5,
                   right: kDefaultPadding * .5,
@@ -472,7 +472,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                   children: [
                     Text(
                       'Total',
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
                             fontSize: 20,
                             fontWeight: FontWeight.w700,
                           ),
@@ -483,7 +483,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             controller.total
                                 .toStringAsFixed(2)
                                 .replaceAll('.', ','),
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
                               fontSize: 20,
                               fontWeight: FontWeight.w700,
                             ),
@@ -505,10 +505,10 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                         builder: (BuildContext context) {
                           return AlertDialog(
                             content: Observer(builder: (_) {
-                              if (!controller.pedidoFinalizado)
+                              if (!controller.pedidoFinalizado) {
                                 return Column(
                                   mainAxisSize: MainAxisSize.min,
-                                  children: [
+                                  children: const [
                                     CircularProgressIndicator(
                                       strokeWidth: 1,
                                     ),
@@ -521,6 +521,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                     ),
                                   ],
                                 );
+                              }
                               return Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -532,10 +533,12 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                     ),
                                     textAlign: TextAlign.center,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 20,
                                   ),
-                                  RaisedButton(
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        primary: kPrimaryColor),
                                     onPressed: () {
                                       setState(() {
                                         Navigator.of(context).pop();
@@ -549,8 +552,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                             ModalRoute.withName('/start'));
                                       });
                                     },
-                                    color: kPrimaryColor,
-                                    child: Text(
+                                    child: const Text(
                                       "Voltar Loja",
                                       style: TextStyle(
                                         color: Colors.white,
@@ -570,7 +572,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: kDefaultPadding,
               ),
               //   ],
@@ -588,12 +590,12 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
       context: context,
       builder: (BuildContext context) {
         return SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: AlertDialog(
-            title: Center(child: Text("Endereço")),
+            title: const Center(child: Text("Endereço")),
             content: Scrollbar(
               controller: scrollController,
-              radius: Radius.circular(10),
+              radius: const Radius.circular(10),
               thickness: 2,
               isAlwaysShown: true,
               child: SingleChildScrollView(
@@ -619,7 +621,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                               onEditingComplete: node.nextFocus,
                               controller: controller.endereco,
                               validator: (value) {
-                                if (value.isEmpty) {
+                                if (value != null && value.isEmpty) {
                                   return 'Insira um endereço válido';
                                 } else {
                                   return null;
@@ -627,7 +629,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                               },
                               decoration: InputDecoration(
                                 labelText: 'Endereço',
-                                border: UnderlineInputBorder(),
+                                border: const UnderlineInputBorder(),
                                 prefixIcon: Icon(
                                   Icons.apartment,
                                   color: Theme.of(context).primaryColor,
@@ -635,7 +637,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                               ),
                             );
                           }),
-                          SizedBox(
+                          const SizedBox(
                             height: kDefaultPadding * 0.5,
                           ),
                           Observer(builder: (_) {
@@ -653,7 +655,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                 LengthLimitingTextInputFormatter(5),
                               ],
                               validator: (value) {
-                                if (value.isEmpty) {
+                                if (value != null && value.isEmpty) {
                                   return 'Insira um número válido';
                                 } else {
                                   return null;
@@ -661,7 +663,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                               },
                               decoration: InputDecoration(
                                 labelText: 'Número',
-                                border: UnderlineInputBorder(),
+                                border: const UnderlineInputBorder(),
                                 prefixIcon: Icon(
                                   Icons.filter_1,
                                   color: Theme.of(context).primaryColor,
@@ -669,7 +671,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                               ),
                             );
                           }),
-                          SizedBox(
+                          const SizedBox(
                             height: kDefaultPadding * 0.5,
                           ),
                           Observer(builder: (_) {
@@ -687,7 +689,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                               ],
                               decoration: InputDecoration(
                                 labelText: 'Complemento',
-                                border: UnderlineInputBorder(),
+                                border: const UnderlineInputBorder(),
                                 prefixIcon: Icon(
                                   Icons.house,
                                   color: Theme.of(context).primaryColor,
@@ -695,7 +697,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                               ),
                             );
                           }),
-                          SizedBox(
+                          const SizedBox(
                             height: kDefaultPadding * 0.5,
                           ),
                           Observer(builder: (_) {
@@ -710,7 +712,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                               onEditingComplete: node.nextFocus,
                               controller: controller.bairro,
                               validator: (value) {
-                                if (value.isEmpty) {
+                                if (value != null && value.isEmpty) {
                                   return 'Insira um bairro válido';
                                 } else {
                                   return null;
@@ -718,7 +720,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                               },
                               decoration: InputDecoration(
                                 labelText: 'Bairro',
-                                border: UnderlineInputBorder(),
+                                border: const UnderlineInputBorder(),
                                 prefixIcon: Icon(
                                   Icons.house_siding,
                                   color: Theme.of(context).primaryColor,
@@ -726,7 +728,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                               ),
                             );
                           }),
-                          SizedBox(
+                          const SizedBox(
                             height: kDefaultPadding * 0.5,
                           ),
                           Row(
@@ -750,7 +752,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                     onEditingComplete: node.nextFocus,
                                     controller: controller.cidade,
                                     validator: (value) {
-                                      if (value.isEmpty) {
+                                      if (value != null && value.isEmpty) {
                                         return 'Insira uma cidade válida';
                                       } else {
                                         return null;
@@ -758,7 +760,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                     },
                                     decoration: InputDecoration(
                                       labelText: 'Cidade',
-                                      border: UnderlineInputBorder(),
+                                      border: const UnderlineInputBorder(),
                                       prefixIcon: Icon(
                                         Icons.location_city,
                                         color: Theme.of(context).primaryColor,
@@ -767,7 +769,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                   );
                                 }),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Expanded(
@@ -790,7 +792,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                       LengthLimitingTextInputFormatter(2),
                                     ],
                                     validator: (value) {
-                                      if (value.isEmpty) {
+                                      if (value != null && value.isEmpty) {
                                         return 'Insira um UF válido';
                                       } else {
                                         return null;
@@ -798,7 +800,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                     },
                                     decoration: InputDecoration(
                                       labelText: 'Estado',
-                                      border: UnderlineInputBorder(),
+                                      border: const UnderlineInputBorder(),
                                       prefixIcon: Icon(
                                         Icons.business,
                                         color: Theme.of(context).primaryColor,
@@ -809,7 +811,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: kDefaultPadding * 0.5,
                           ),
                           Observer(builder: (_) {
@@ -828,7 +830,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                 CepInputFormatter(),
                               ],
                               validator: (value) {
-                                if (value.isEmpty) {
+                                if (value != null && value.isEmpty) {
                                   return 'Insira um CEP válido';
                                 } else {
                                   return null;
@@ -836,7 +838,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                               },
                               decoration: InputDecoration(
                                 labelText: 'CEP',
-                                border: UnderlineInputBorder(),
+                                border: const UnderlineInputBorder(),
                                 prefixIcon: Icon(
                                   Icons.location_on,
                                   color: Theme.of(context).primaryColor,
@@ -852,10 +854,10 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
               ),
             ),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                 child: Text(
                   "Fechar",
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
                         color: Theme.of(context).primaryColor,
                       ),
                 ),
@@ -893,14 +895,14 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Center(
+          title: const Center(
               child: Text(
             "Endereço - Centro de Distribuição",
             textAlign: TextAlign.center,
           )),
           content: Scrollbar(
             controller: scrollController,
-            radius: Radius.circular(10),
+            radius: const Radius.circular(10),
             thickness: 2,
             isAlwaysShown: true,
             child: SingleChildScrollView(
@@ -923,7 +925,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             onEditingComplete: node.nextFocus,
                             controller: controller.endereco,
                             validator: (value) {
-                              if (value.isEmpty) {
+                              if (value != null && value.isEmpty) {
                                 return 'Insira um endereço válido';
                               } else {
                                 return null;
@@ -931,7 +933,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             },
                             decoration: InputDecoration(
                               labelText: 'Endereço',
-                              border: UnderlineInputBorder(),
+                              border: const UnderlineInputBorder(),
                               prefixIcon: Icon(
                                 Icons.apartment,
                                 color: Theme.of(context).primaryColor,
@@ -939,7 +941,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             ),
                           );
                         }),
-                        SizedBox(
+                        const SizedBox(
                           height: kDefaultPadding * 0.5,
                         ),
                         Observer(builder: (_) {
@@ -954,7 +956,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                               LengthLimitingTextInputFormatter(5),
                             ],
                             validator: (value) {
-                              if (value.isEmpty) {
+                              if (value != null && value.isEmpty) {
                                 return 'Insira um número válido';
                               } else {
                                 return null;
@@ -962,7 +964,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             },
                             decoration: InputDecoration(
                               labelText: 'Número',
-                              border: UnderlineInputBorder(),
+                              border: const UnderlineInputBorder(),
                               prefixIcon: Icon(
                                 Icons.filter_1,
                                 color: Theme.of(context).primaryColor,
@@ -970,7 +972,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             ),
                           );
                         }),
-                        SizedBox(
+                        const SizedBox(
                           height: kDefaultPadding * 0.5,
                         ),
                         Observer(builder: (_) {
@@ -985,7 +987,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             ],
                             decoration: InputDecoration(
                               labelText: 'Complemento',
-                              border: UnderlineInputBorder(),
+                              border: const UnderlineInputBorder(),
                               prefixIcon: Icon(
                                 Icons.house,
                                 color: Theme.of(context).primaryColor,
@@ -993,7 +995,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             ),
                           );
                         }),
-                        SizedBox(
+                        const SizedBox(
                           height: kDefaultPadding * 0.5,
                         ),
                         Observer(builder: (_) {
@@ -1005,7 +1007,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             onEditingComplete: node.nextFocus,
                             controller: controller.bairro,
                             validator: (value) {
-                              if (value.isEmpty) {
+                              if (value != null && value.isEmpty) {
                                 return 'Insira um bairro válido';
                               } else {
                                 return null;
@@ -1013,7 +1015,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             },
                             decoration: InputDecoration(
                               labelText: 'Bairro',
-                              border: UnderlineInputBorder(),
+                              border: const UnderlineInputBorder(),
                               prefixIcon: Icon(
                                 Icons.house_siding,
                                 color: Theme.of(context).primaryColor,
@@ -1021,7 +1023,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             ),
                           );
                         }),
-                        SizedBox(
+                        const SizedBox(
                           height: kDefaultPadding * 0.5,
                         ),
                         Row(
@@ -1041,7 +1043,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                   onEditingComplete: node.nextFocus,
                                   controller: controller.cidade,
                                   validator: (value) {
-                                    if (value.isEmpty) {
+                                    if (value != null && value.isEmpty) {
                                       return 'Insira uma cidade válida';
                                     } else {
                                       return null;
@@ -1049,7 +1051,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                   },
                                   decoration: InputDecoration(
                                     labelText: 'Cidade',
-                                    border: UnderlineInputBorder(),
+                                    border: const UnderlineInputBorder(),
                                     prefixIcon: Icon(
                                       Icons.location_city,
                                       color: Theme.of(context).primaryColor,
@@ -1058,7 +1060,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                 );
                               }),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Expanded(
@@ -1078,7 +1080,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                     LengthLimitingTextInputFormatter(2),
                                   ],
                                   validator: (value) {
-                                    if (value.isEmpty) {
+                                    if (value != null && value.isEmpty) {
                                       return 'Insira um UF válido';
                                     } else {
                                       return null;
@@ -1086,7 +1088,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                                   },
                                   decoration: InputDecoration(
                                     labelText: 'Estado',
-                                    border: UnderlineInputBorder(),
+                                    border: const UnderlineInputBorder(),
                                     prefixIcon: Icon(
                                       Icons.business,
                                       color: Theme.of(context).primaryColor,
@@ -1097,7 +1099,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: kDefaultPadding * 0.5,
                         ),
                         Observer(builder: (_) {
@@ -1113,7 +1115,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                               CepInputFormatter(),
                             ],
                             validator: (value) {
-                              if (value.isEmpty) {
+                              if (value != null && value.isEmpty) {
                                 return 'Insira um CEP válido';
                               } else {
                                 return null;
@@ -1121,7 +1123,7 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
                             },
                             decoration: InputDecoration(
                               labelText: 'CEP',
-                              border: UnderlineInputBorder(),
+                              border: const UnderlineInputBorder(),
                               prefixIcon: Icon(
                                 Icons.location_on,
                                 color: Theme.of(context).primaryColor,
@@ -1137,10 +1139,10 @@ class _ConfirmarEnderecoState extends State<ConfirmarEndereco> {
             ),
           ),
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               child: Text(
                 "Fechar",
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                style: Theme.of(context).textTheme.bodyText1?.copyWith(
                       color: Theme.of(context).primaryColor,
                     ),
               ),

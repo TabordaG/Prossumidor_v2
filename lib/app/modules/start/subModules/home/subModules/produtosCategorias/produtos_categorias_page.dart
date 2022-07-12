@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -8,13 +10,13 @@ import 'package:prossumidor_v2/app/models/marca/marca_model.dart';
 import 'produtos_categorias_controller.dart';
 
 class ProdutosCategoriasPage extends StatefulWidget {
-  final MarcaProduto marcaProduto;
+  final MarcaProduto? marcaProduto;
   final CategoriaProduto categoriaProduto;
   final bool isCategoria;
-  ProdutosCategoriasPage({
+  const ProdutosCategoriasPage({
     this.marcaProduto,
-    this.categoriaProduto,
-    this.isCategoria,
+    required this.categoriaProduto,
+    required this.isCategoria,
   }) : super();
 
   @override
@@ -23,7 +25,7 @@ class ProdutosCategoriasPage extends StatefulWidget {
 
 class _ProdutosCategoriasPageState
     extends ModularState<ProdutosCategoriasPage, ProdutosCategoriasController> {
-  ScrollController scrollController;
+  late ScrollController scrollController;
 
   scrollListener() async {
     if (scrollController.position.atEdge &&
@@ -32,7 +34,7 @@ class _ProdutosCategoriasPageState
       await controller.carregarMaisProdutos(
         context,
         widget.isCategoria,
-        widget.marcaProduto,
+        widget.marcaProduto!,
         widget.categoriaProduto,
       );
     }
@@ -42,8 +44,9 @@ class _ProdutosCategoriasPageState
   void initState() {
     scrollController = ScrollController();
     scrollController.addListener(scrollListener);
-    if (widget.isCategoria)
-      controller.buscarSubcategorias(widget.categoriaProduto.categoria.id);
+    if (widget.isCategoria) {
+      controller.buscarSubcategorias(widget.categoriaProduto.categoria!.id!);
+    }
     controller.carregarProdutos(
       widget.isCategoria,
       widget.marcaProduto,
@@ -61,8 +64,8 @@ class _ProdutosCategoriasPageState
               ? buildSearchField()
               : Text(
                   widget.isCategoria
-                      ? widget.categoriaProduto.categoria.descricao
-                      : "Marca: " + widget.marcaProduto.marca.descricao,
+                      ? "${widget.categoriaProduto.categoria!.descricao}"
+                      : "Marca: " "${widget.marcaProduto!.marca!.descricao}",
                 ),
           actions: [
             IconButton(
@@ -76,7 +79,7 @@ class _ProdutosCategoriasPageState
                 controller.isSearching
                     ? null
                     : controller.carregarProdutos(widget.isCategoria,
-                        widget.marcaProduto, widget.categoriaProduto)
+                        widget.marcaProduto!, widget.categoriaProduto)
               },
             ),
           ],
@@ -87,18 +90,18 @@ class _ProdutosCategoriasPageState
             children: <Widget>[
               widget.isCategoria
                   ? Padding(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                         left: kDefaultPadding,
                         top: kDefaultPadding * .6,
                         bottom: kDefaultPadding * .2,
                       ),
                       child: Text(
                         'Subcategorias',
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
                               color: Theme.of(context)
                                   .textTheme
-                                  .bodyText1
-                                  .color
+                                  .bodyText1!
+                                  .color!
                                   .withOpacity(.8),
                             ),
                       ),
@@ -106,17 +109,18 @@ class _ProdutosCategoriasPageState
                   : Container(),
               widget.isCategoria
                   ? Container(
-                      margin: EdgeInsets.only(bottom: 5.0),
+                      margin: const EdgeInsets.only(bottom: 5.0),
                       height: 38,
                       child: Observer(builder: (_) {
-                        if (controller.subcategorias.isEmpty)
-                          return Center(
+                        if (controller.subcategorias.isEmpty) {
+                          return const Center(
                             child: CircularProgressIndicator(
                               strokeWidth: 1,
                             ),
                           );
+                        }
                         return ListView.builder(
-                          physics: BouncingScrollPhysics(),
+                          physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
                           itemCount: controller.subcategorias.length,
                           itemBuilder: (context, indexSub) => CardSubcategoria(
@@ -131,29 +135,31 @@ class _ProdutosCategoriasPageState
                   : Container(),
               Expanded(
                 child: Observer(builder: (_) {
-                  if (controller.buscandoProdutos)
-                    return Center(
+                  if (controller.buscandoProdutos) {
+                    return const Center(
                       child: CircularProgressIndicator(
                         strokeWidth: 1,
                       ),
                     );
+                  }
                   if (!controller.buscandoProdutos &&
-                      controller.listaProdutos.isEmpty)
-                    return Center(
+                      controller.listaProdutos.isEmpty) {
+                    return const Center(
                       child: Text(
                         "Produto não encotrado\nPara esta seção.",
                         textAlign: TextAlign.center,
                       ),
                     );
+                  }
                   return Scrollbar(
                     controller: scrollController,
                     thickness: 5,
-                    radius: Radius.circular(5),
+                    radius: const Radius.circular(5),
                     child: GridView.count(
                       controller: scrollController,
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       primary: false,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       childAspectRatio: 0.7,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
@@ -176,7 +182,7 @@ class _ProdutosCategoriasPageState
                 }),
               ),
               if (controller.buscandoMaisProdutos)
-                Center(
+                const Center(
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 15.0),
                     child: CircularProgressIndicator(
@@ -196,15 +202,15 @@ class _ProdutosCategoriasPageState
       controller: controller.buscarText,
       textInputAction: TextInputAction.search,
       autofocus: true,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         hintText: "Procurar Produto...",
         border: InputBorder.none,
         hintStyle: TextStyle(color: Colors.white54),
       ),
-      style: TextStyle(color: Colors.white, fontSize: 16.0),
+      style: const TextStyle(color: Colors.white, fontSize: 16.0),
       onSubmitted: (value) => controller.pesquisarProduto(
         widget.isCategoria,
-        widget.marcaProduto,
+        widget.marcaProduto!,
         widget.categoriaProduto,
       ),
     );
@@ -213,15 +219,15 @@ class _ProdutosCategoriasPageState
 
 class CardSubcategoria extends StatefulWidget {
   final int index;
-  final MarcaProduto marcaProduto;
+  final MarcaProduto? marcaProduto;
   final CategoriaProduto categoriaProduto;
   final bool isCategoria;
   const CardSubcategoria({
-    Key key,
-    this.index,
+    Key? key,
+    required this.index,
     this.marcaProduto,
-    this.categoriaProduto,
-    this.isCategoria,
+    required this.categoriaProduto,
+    required this.isCategoria,
   }) : super(key: key);
 
   @override
@@ -238,7 +244,7 @@ class _CardSubcategoriaState extends State<CardSubcategoria> {
           EdgeInsets.only(left: widget.index == 0 ? kDefaultPadding * .8 : 0.0),
       child: Observer(builder: (_) {
         return InkWell(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
           onTap: () {
             controller.selecionarSubcategoria(
               widget.index,
@@ -248,22 +254,22 @@ class _CardSubcategoriaState extends State<CardSubcategoria> {
             );
           },
           child: Card(
-            color: controller.subcategorias[widget.index].ativo
+            color: controller.subcategorias[widget.index].ativo!
                 ? Theme.of(context).primaryColor
                 : Colors.white,
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
               side: BorderSide(color: kPrimaryColor),
               borderRadius: BorderRadius.all(
                 Radius.circular(5),
               ),
             ),
             child: Padding(
-              padding: EdgeInsets.all(kDefaultPadding * .3),
+              padding: const EdgeInsets.all(kDefaultPadding * .3),
               child: Text(
-                controller.subcategorias[widget.index].nome,
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                controller.subcategorias[widget.index].nome!,
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontWeight: FontWeight.w600,
-                      color: controller.subcategorias[widget.index].ativo
+                      color: controller.subcategorias[widget.index].ativo!
                           ? Colors.white
                           : Colors.black,
                     ),

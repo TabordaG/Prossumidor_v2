@@ -12,7 +12,7 @@ abstract class _AppControllerBase with Store implements Disposable {
 
   _AppControllerBase() {
     pageViewController.addListener(() {
-      setIndexBottomNavigator(pageViewController?.page?.round() ?? 2);
+      setIndexBottomNavigator(pageViewController.page?.round() ?? 2);
     });
   }
 

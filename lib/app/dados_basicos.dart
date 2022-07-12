@@ -25,7 +25,7 @@ class Basicos {
   static String buscarProdutoHome = '';
 
   // variavel para mudar a seleção da categoria
-  static int categoriaItem;
+  static int? categoriaItem;
 
   static codifica(String cod) {
     // codifica o string a ser enviado ao servidor
@@ -50,7 +50,6 @@ class Basicos {
         'Decimal(', ''); // remove esse tido de retorno Decimal("111.000")
     dados = dados.replaceAll(')', ''); // remove o ")"
     // dados = dados.substring(0, dados.length);
-    print(dados);
     return dados;
   }
 

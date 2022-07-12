@@ -6,7 +6,7 @@ import 'ajuda_controller.dart';
 
 class AjudaPage extends StatefulWidget {
   final String title;
-  const AjudaPage({Key key, this.title = "Ajuda"}) : super(key: key);
+  const AjudaPage({Key? key, this.title = "Ajuda"}) : super(key: key);
 
   @override
   _AjudaPageState createState() => _AjudaPageState();
@@ -55,118 +55,116 @@ class _AjudaPageState extends ModularState<AjudaPage, AjudaController> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Expanded(
-            child: Container(
-              child: ListView(
-                physics: BouncingScrollPhysics(),
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: kDefaultPadding * 0.8,
-                        horizontal: kDefaultPadding),
-                    child: Text(
-                      "FAQ",
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: kPrimaryColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 24,
-                          ),
-                    ),
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: kDefaultPadding * 0.8,
+                      horizontal: kDefaultPadding),
+                  child: Text(
+                    "FAQ",
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          color: kPrimaryColor,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 24,
+                        ),
                   ),
-                  ExpansionTile(
-                    title: Text(
-                      "O que são Alimentos Agroecológicos?",
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: kPrimaryColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                          ),
-                    ),
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: kDefaultPadding * 0.8,
-                          right: kDefaultPadding * 0.8,
-                          bottom: kDefaultPadding,
+                ),
+                ExpansionTile(
+                  title: Text(
+                    "O que são Alimentos Agroecológicos?",
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          color: kPrimaryColor,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
                         ),
-                        child: Text(
-                          firstQuestion,
-                        ),
+                  ),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: kDefaultPadding * 0.8,
+                        right: kDefaultPadding * 0.8,
+                        bottom: kDefaultPadding,
                       ),
-                    ],
-                  ),
-                  ExpansionTile(
-                    title: Text(
-                      "O que são Alimentos Orgânicos?",
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: kPrimaryColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                          ),
-                    ),
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: kDefaultPadding * 0.8,
-                          right: kDefaultPadding * 0.8,
-                          bottom: kDefaultPadding,
-                        ),
-                        child: Text(secondQuestion),
+                      child: Text(
+                        firstQuestion,
                       ),
-                    ],
-                  ),
-                  ExpansionTile(
-                    title: Text(
-                      "O que são Alimentos e Produtos Veganos?",
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: kPrimaryColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                          ),
                     ),
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: kDefaultPadding * 0.8,
-                          right: kDefaultPadding * 0.8,
-                          bottom: kDefaultPadding,
+                  ],
+                ),
+                ExpansionTile(
+                  title: Text(
+                    "O que são Alimentos Orgânicos?",
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          color: kPrimaryColor,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
                         ),
-                        child: Text(thirdQuestion),
-                      ),
-                    ],
                   ),
-                  ExpansionTile(
-                    title: Text(
-                      "O que são Alimentos e Produtos Artesanais?",
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: kPrimaryColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                          ),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: kDefaultPadding * 0.8,
+                        right: kDefaultPadding * 0.8,
+                        bottom: kDefaultPadding,
+                      ),
+                      child: Text(secondQuestion),
                     ),
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: kDefaultPadding * 0.8,
-                          right: kDefaultPadding * 0.8,
-                          bottom: kDefaultPadding,
+                  ],
+                ),
+                ExpansionTile(
+                  title: Text(
+                    "O que são Alimentos e Produtos Veganos?",
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          color: kPrimaryColor,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
                         ),
-                        child: Text(fourthQuestion),
-                      ),
-                    ],
                   ),
-                ],
-              ),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: kDefaultPadding * 0.8,
+                        right: kDefaultPadding * 0.8,
+                        bottom: kDefaultPadding,
+                      ),
+                      child: Text(thirdQuestion),
+                    ),
+                  ],
+                ),
+                ExpansionTile(
+                  title: Text(
+                    "O que são Alimentos e Produtos Artesanais?",
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          color: kPrimaryColor,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                  ),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: kDefaultPadding * 0.8,
+                        right: kDefaultPadding * 0.8,
+                        bottom: kDefaultPadding,
+                      ),
+                      child: Text(fourthQuestion),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
                 horizontal: kDefaultPadding, vertical: kDefaultPadding * 0.8),
             child: RichText(
               textAlign: TextAlign.center,
               text: TextSpan(children: <TextSpan>[
                 TextSpan(
                   text: "Para mais informações, acesse",
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
                         color: kPrimaryColor,
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
@@ -178,7 +176,7 @@ class _AjudaPageState extends ModularState<AjudaPage, AjudaController> {
                     ..onTap = () {
                       controller.launchInBrowser("http://recoopsol.ic.ufmt.br");
                     },
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       color: kSecondaryColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 12,

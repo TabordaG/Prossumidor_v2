@@ -4,18 +4,16 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import 'recuperar_senha_page.dart';
 
-class RecuperarSenhaModule extends ChildModule {
+class RecuperarSenhaModule extends Module {
   @override
-  List<Bind> get binds => [
-        $RecuperarSenhaRepository,
-        $RecuperarSenhaController,
-      ];
+  final List<Bind> binds = [
+    $RecuperarSenhaRepository,
+    $RecuperarSenhaController,
+  ];
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter(Modular.initialRoute,
-            child: (_, args) => RecuperarSenhaPage()),
-      ];
-
-  static Inject get to => Inject<RecuperarSenhaModule>.of();
+  final List<ModularRoute> routes = [
+    ChildRoute(Modular.initialRoute,
+        child: (_, args) => const RecuperarSenhaPage()),
+  ];
 }

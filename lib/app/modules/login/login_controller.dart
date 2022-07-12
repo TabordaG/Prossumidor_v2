@@ -1,7 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/app_controller.dart';
-import 'package:prossumidor_v2/app/models/usuario/usuario_model.dart';
 import 'package:prossumidor_v2/app/shared/auth/auth_controller.dart';
 
 import '../../dados_basicos.dart';
@@ -37,7 +36,7 @@ abstract class _LoginControllerBase with Store {
 
   @action
   verificaLogin() async {
-    Usuario usuario = await loginRepository.buscarUsuario(email);
+    var usuario = await loginRepository.buscarUsuario(email);
     if (usuario != null) {
       if (usuario.senha != null &&
           Basicos.decodificapwss(usuario.senha.toString()) == senha) {
@@ -49,12 +48,12 @@ abstract class _LoginControllerBase with Store {
         return 1;
       }
     } else {
-      Usuario usuarioInativo =
-          await loginRepository.buscarUsuarioSemFiltro(email);
-      if (usuarioInativo == null)
+      var usuarioInativo = await loginRepository.buscarUsuarioSemFiltro(email);
+      if (usuarioInativo == null) {
         return 2;
-      else
+      } else {
         return 3;
+      }
     }
   }
 }

@@ -6,18 +6,16 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import 'chat_page.dart';
 
-class ChatModule extends ChildModule {
+class ChatModule extends Module {
   @override
-  List<Bind> get binds => [
-        $ChatRepository,
-        $ChatController,
-      ];
+  final List<Bind> binds = [
+    $ChatRepository,
+    $ChatController,
+  ];
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter(Modular.initialRoute, child: (_, args) => ChatPage()),
-        ModularRouter('/chatIndividual', child: (_, args) => ChatIndividual()),
-      ];
-
-  static Inject get to => Inject<ChatModule>.of();
+  final List<ModularRoute> routes = [
+    ChildRoute(Modular.initialRoute, child: (_, args) => const ChatPage()),
+    ChildRoute('/chatIndividual', child: (_, args) => const ChatIndividual()),
+  ];
 }

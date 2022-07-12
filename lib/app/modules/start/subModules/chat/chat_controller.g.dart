@@ -8,8 +8,8 @@ part of 'chat_controller.dart';
 
 final $ChatController = BindInject(
   (i) => ChatController(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );
 
 // **************************************************************************
@@ -38,13 +38,13 @@ mixin _$ChatController on _ChatControllerBase, Store {
       Atom(name: '_ChatControllerBase.listaUltimasConversas');
 
   @override
-  List<Chat> get listaUltimasConversas {
+  List<Chat>? get listaUltimasConversas {
     _$listaUltimasConversasAtom.reportRead();
     return super.listaUltimasConversas;
   }
 
   @override
-  set listaUltimasConversas(List<Chat> value) {
+  set listaUltimasConversas(List<Chat>? value) {
     _$listaUltimasConversasAtom.reportWrite(value, super.listaUltimasConversas,
         () {
       super.listaUltimasConversas = value;
@@ -116,7 +116,7 @@ mixin _$ChatController on _ChatControllerBase, Store {
       AsyncAction('_ChatControllerBase.buscaChatsEmpresa');
 
   @override
-  Future buscaChatsEmpresa({int id}) {
+  Future buscaChatsEmpresa({int? id}) {
     return _$buscaChatsEmpresaAsyncAction
         .run(() => super.buscaChatsEmpresa(id: id));
   }

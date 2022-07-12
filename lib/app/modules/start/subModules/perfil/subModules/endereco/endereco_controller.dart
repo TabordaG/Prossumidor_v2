@@ -50,74 +50,74 @@ abstract class _EnderecoControllerBase with Store {
   bool pageValid = false;
 
   @observable
-  String dropdownvalue;
+  String? dropdownvalue;
 
   @observable
   List<String> listLocalRetirada = [];
 
   @observable
-  String idRetirada;
+  String? idRetirada;
 
   @action
   mudaDropDown(String value) => dropdownvalue = value;
 
   @action
   isPageValid() {
-    if (formkeyPage.currentState.validate())
+    if (formkeyPage.currentState!.validate()) {
       pageValid = true;
-    else
+    } else {
       pageValid = false;
+    }
   }
 
   @action
   buscaUser() async {
     authController.usuario =
-        await enderecoRepository.buscaUsuario(authController.usuario.id);
-    endereco = TextEditingController(text: authController.usuario.endereco);
-    numero = TextEditingController(text: authController.usuario.numero);
+        await enderecoRepository.buscaUsuario(authController.usuario!.id);
+    endereco = TextEditingController(text: authController.usuario!.endereco);
+    numero = TextEditingController(text: authController.usuario!.numero);
     complemento =
-        TextEditingController(text: authController.usuario.complemento);
-    bairro = TextEditingController(text: authController.usuario.bairro);
+        TextEditingController(text: authController.usuario!.complemento);
+    bairro = TextEditingController(text: authController.usuario!.bairro);
     cidade = TextEditingController(
-        text: authController.usuario.cidade[0].toUpperCase() +
-            authController.usuario.cidade.substring(1));
+        text: authController.usuario!.cidade![0].toUpperCase() +
+            authController.usuario!.cidade!.substring(1));
     uf = TextEditingController(
-        text: authController.usuario.estado.toUpperCase());
+        text: authController.usuario!.estado!.toUpperCase());
     cep = TextEditingController(
-        text: removeCaracterEspecial(authController.usuario.cep)
+        text: removeCaracterEspecial(authController.usuario!.cep!)
                 .substring(0, 5) +
             "-" +
-            removeCaracterEspecial(authController.usuario.cep).substring(5));
-    print(cep);
+            removeCaracterEspecial(authController.usuario!.cep!).substring(5));
   }
 
   @action
   getLocalRetirada() {
-    authController.localRetirada
+    authController.localRetirada!
         .sort((a, b) => a['id'].toString().compareTo(b['id'].toString()));
 
-    authController.localRetirada.forEach((element) {
+    for (var element in authController.localRetirada!) {
       listLocalRetirada
           .add(element['id'].toString() + ' - ' + element['nome'].toString());
       if (element['id'].toString() ==
-          authController.usuario.local_retirada_id.toString()) {
+          authController.usuario!.local_retirada_id.toString()) {
         idRetirada = element['id'].toString();
         authController.localRetiradaAtual =
             element['id'].toString() + ' - ' + element['nome'].toString();
         dropdownvalue =
             element['id'].toString() + ' - ' + element['nome'].toString();
       }
-    });
+    }
   }
 
   @action
   Future atualizaDados() async {
     String response = await enderecoRepository.alteraDados(
-        authController.usuario.id.toString(),
-        removeCaracterEspecial(authController.usuario.nome_razao_social),
-        authController.usuario.cpf_cnpj,
-        authController.usuario.telefone,
-        authController.usuario.sexo.toUpperCase().toString(),
+        authController.usuario!.id.toString(),
+        removeCaracterEspecial(authController.usuario!.nome_razao_social!),
+        authController.usuario!.cpf_cnpj,
+        authController.usuario!.telefone,
+        authController.usuario!.sexo!.toUpperCase().toString(),
         removeCaracterEspecial(endereco.text),
         numero.text,
         removeCaracterEspecial(complemento.text),
@@ -125,9 +125,9 @@ abstract class _EnderecoControllerBase with Store {
         removeCaracterEspecial(cidade.text),
         removeCaracterEspecial(cep.text),
         removeCaracterEspecial(uf.text),
-        formataDataYYYYmmdd(authController.usuario.data_nascimento_fundacao),
-        removeCaracterEspecial(authController.usuario.estado_civil),
-        dropdownvalue.substring(0, dropdownvalue.indexOf(' - ')));
+        formataDataYYYYmmdd(authController.usuario!.data_nascimento_fundacao!),
+        removeCaracterEspecial(authController.usuario!.estado_civil!),
+        dropdownvalue!.substring(0, dropdownvalue!.indexOf(' - ')));
     await buscaUser();
     // authController.usuario.endereco = endereco.text;
     // authController.usuario.numero = numero.text;
@@ -138,9 +138,9 @@ abstract class _EnderecoControllerBase with Store {
     // authController.usuario.cep = cep.text;
     // authController.usuario.empresa = dropdownvalue;
     perfilController.centroDistribuicao =
-        dropdownvalue.substring(dropdownvalue.indexOf('-')).substring(2);
+        dropdownvalue!.substring(dropdownvalue!.indexOf('-')).substring(2);
     authController.centroDistribuicao =
-        dropdownvalue.substring(dropdownvalue.indexOf('-')).substring(2);
+        dropdownvalue!.substring(dropdownvalue!.indexOf('-')).substring(2);
     return response;
   }
 
@@ -167,26 +167,20 @@ abstract class _EnderecoControllerBase with Store {
 
   String formataDataYYYYmmdd(String text) {
     // formata data inverte data padrao dd/mm/aaaa para  aaaa-mm-dd
-    if (text != null) {
-      String dia, mes, ano;
-      ano = text.substring(0, 4);
-      mes = text.substring(5, 7);
-      dia = text.substring(8, 10);
-      return ano + '-' + mes + '-' + dia;
-    }
-    return '';
+    String dia, mes, ano;
+    ano = text.substring(0, 4);
+    mes = text.substring(5, 7);
+    dia = text.substring(8, 10);
+    return ano + '-' + mes + '-' + dia;
   }
 
   String formataDataddmmYYYY(String text) {
     // formata data inverte data padrao aaaa-mm-dd para dd/mm/aaaa
-    if (text != null) {
-      String dia, mes, ano;
-      //print(text);
-      dia = text.substring(0, 2);
-      mes = text.substring(3, 5);
-      ano = text.substring(6, 10);
-      return dia + '/' + mes + '/' + ano;
-    }
-    return '';
+    String dia, mes, ano;
+    //print(text);
+    dia = text.substring(0, 2);
+    mes = text.substring(3, 5);
+    ano = text.substring(6, 10);
+    return dia + '/' + mes + '/' + ano;
   }
 }

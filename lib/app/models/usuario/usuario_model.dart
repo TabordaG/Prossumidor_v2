@@ -6,80 +6,80 @@ part 'usuario_model.g.dart';
 class Usuario {
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  int empresa_id;
+  int? empresa_id;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  int local_retirada_id;
+  int? local_retirada_id;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  int id;
+  int? id;
 
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  String sobre_nome;
+  String? sobre_nome;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  String nome_razao_social;
+  String? nome_razao_social;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  String nome_fantasia;
+  String? nome_fantasia;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  String cpf_cnpj;
+  String? cpf_cnpj;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  String rg_inscricao_estadual;
+  String? rg_inscricao_estadual;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  String model_template;
+  String? model_template;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  String data_registro;
+  String? data_registro;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  String data_alteracao;
+  String? data_alteracao;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  String data_nascimento_fundacao;
+  String? data_nascimento_fundacao;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  String inscricao_municipal;
+  String? inscricao_municipal;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  String estado_civil;
+  String? estado_civil;
 
   @JsonKey(required: false, disallowNullValue: false)
-  String telefone;
+  String? telefone;
   @JsonKey(required: false, disallowNullValue: false)
-  String celular;
+  String? celular;
   @JsonKey(required: false, disallowNullValue: false)
-  String contato;
+  String? contato;
   @JsonKey(required: false, disallowNullValue: false)
-  String email;
+  String? email;
   @JsonKey(required: false, disallowNullValue: false)
-  String status;
+  String? status;
   @JsonKey(required: false, disallowNullValue: false)
-  String endereco;
+  String? endereco;
   @JsonKey(required: false, disallowNullValue: false)
-  String bairro;
+  String? bairro;
   @JsonKey(required: false, disallowNullValue: false)
-  String cidade;
+  String? cidade;
   @JsonKey(required: false, disallowNullValue: false)
-  String cep;
+  String? cep;
   @JsonKey(required: false, disallowNullValue: false)
-  String estado;
+  String? estado;
   @JsonKey(required: false, disallowNullValue: false)
-  String sexo;
+  String? sexo;
   @JsonKey(required: false, disallowNullValue: false)
-  String pessoa;
+  String? pessoa;
   @JsonKey(required: false, disallowNullValue: false)
-  String numero;
+  String? numero;
   @JsonKey(required: false, disallowNullValue: false)
-  String complemento;
+  String? complemento;
   @JsonKey(required: false, disallowNullValue: false)
-  String senha;
+  String? senha;
   @JsonKey(required: false, disallowNullValue: false)
-  String observacoes;
+  String? observacoes;
 
   Usuario(
       {this.id,

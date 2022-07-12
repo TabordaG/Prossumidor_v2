@@ -6,22 +6,23 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import 'pedidos_page.dart';
 
-class PedidosModule extends ChildModule {
+class PedidosModule extends Module {
   @override
-  List<Bind> get binds => [
-        $PedidosRepository,
-        $PedidosController,
-      ];
+  final List<Bind> binds = [
+    $PedidosRepository,
+    $PedidosController,
+  ];
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter(Modular.initialRoute, child: (_, args) => PedidosPage()),
-        ModularRouter(
-          '/detalhes',
-          child: (_, args) => PedidosDetalhes(pedido: args.data["pedido"]),
-          transition: TransitionType.rightToLeft,
-        ),
-      ];
-
-  static Inject get to => Inject<PedidosModule>.of();
+  final List<ModularRoute> routes = [
+    ChildRoute(Modular.initialRoute, child: (_, args) => const PedidosPage()),
+    ChildRoute(
+      '/detalhes',
+      child: (_, args) => PedidosDetalhes(
+        pedido: args.data["pedido"],
+        produto: args.data["pedido"],
+      ),
+      transition: TransitionType.rightToLeft,
+    ),
+  ];
 }

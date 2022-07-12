@@ -1,12 +1,13 @@
-import 'dart:ui';
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:prossumidor_v2/app/models/chat/chat_model.dart';
 
 class CardMensagem extends StatefulWidget {
   final Chat chat;
   const CardMensagem({
-    Key key,
-    this.chat,
+    Key? key,
+    required this.chat,
   }) : super(key: key);
 
   @override
@@ -17,8 +18,8 @@ class CardMensagemState extends State<CardMensagem> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    int horas = widget.chat.data_envio.hour;
-    int minutos = widget.chat.data_envio.minute;
+    int horas = widget.chat.data_envio!.hour;
+    int minutos = widget.chat.data_envio!.minute;
     String horaFormatada = horas < 10 && minutos < 10
         ? "0$horas:0$minutos"
         : horas < 10 && minutos >= 10
@@ -41,11 +42,13 @@ class CardMensagemState extends State<CardMensagem> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.fromLTRB(10, 10, 30, 25),
-                      child: Text(widget.chat.mensagem,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1
-                              .copyWith(fontSize: 16, color: Colors.white)),
+                      child: Text(
+                        widget.chat.mensagem ?? "",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1
+                            ?.copyWith(fontSize: 16, color: Colors.white),
+                      ),
                     ),
                     Positioned(
                       bottom: 4,
@@ -55,7 +58,7 @@ class CardMensagemState extends State<CardMensagem> {
                         style: Theme.of(context)
                             .textTheme
                             .bodyText1
-                            .copyWith(fontSize: 16, color: Colors.white),
+                            ?.copyWith(fontSize: 16, color: Colors.white),
                       ),
                     ),
                   ],
@@ -77,11 +80,11 @@ class CardMensagemState extends State<CardMensagem> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(10, 10, 40, 25),
                       child: Text(
-                        widget.chat.mensagem,
+                        widget.chat.mensagem ?? "",
                         style: Theme.of(context)
                             .textTheme
                             .bodyText1
-                            .copyWith(fontSize: 16, color: Colors.white),
+                            ?.copyWith(fontSize: 16, color: Colors.white),
                       ),
                     ),
                     Positioned(
@@ -92,7 +95,7 @@ class CardMensagemState extends State<CardMensagem> {
                         style: Theme.of(context)
                             .textTheme
                             .bodyText1
-                            .copyWith(fontSize: 14, color: Colors.white),
+                            ?.copyWith(fontSize: 14, color: Colors.white),
                       ),
                     ),
                     Positioned(

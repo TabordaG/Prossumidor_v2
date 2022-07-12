@@ -8,8 +8,8 @@ part of 'registro_controller.dart';
 
 final $RegistroController = BindInject(
   (i) => RegistroController(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );
 
 // **************************************************************************

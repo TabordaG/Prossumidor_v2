@@ -11,7 +11,7 @@ part 'login_repository.g.dart';
 
 @Injectable()
 class LoginRepository implements ILoginRepository {
-  Dio dio;
+  late Dio dio;
   LoginRepository() {
     BaseOptions options = BaseOptions(
       receiveDataWhenStatusError: true,
@@ -21,7 +21,7 @@ class LoginRepository implements ILoginRepository {
 
     dio = Dio(options);
   }
-  Response response;
+  //  response;
 
   //dispose will be called automatically
   @override
@@ -31,7 +31,7 @@ class LoginRepository implements ILoginRepository {
   Future buscarUsuario(String email) async {
     String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consulta1.$email");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -51,8 +51,9 @@ class LoginRepository implements ILoginRepository {
         );
 
         return usuario;
-      } else
+      } else {
         return null;
+      }
     } catch (e) {
       return null;
     }
@@ -62,7 +63,7 @@ class LoginRepository implements ILoginRepository {
   Future buscarUsuarioSemFiltro(String email) async {
     String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consult-1.$email");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -84,8 +85,9 @@ class LoginRepository implements ILoginRepository {
         );
 
         return usuario;
-      } else
+      } else {
         return null;
+      }
     } catch (e) {
       return null;
     }

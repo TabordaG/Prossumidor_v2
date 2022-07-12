@@ -4,8 +4,8 @@ import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:progress_dialog/progress_dialog.dart';
 import 'package:prossumidor_v2/app/modules/recuperarSenha/repositories/interfaces/recuperar_senha_repository_interface.dart';
+import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
 part 'recuperar_senha_controller.g.dart';
 
@@ -73,7 +73,7 @@ abstract class _RecuperarSenhaControllerBase with Store {
 
   @action
   isPage1Valid() {
-    if (formkeyPage1.currentState.validate()) {
+    if (formkeyPage1.currentState!.validate()) {
       page1Valid = true;
     } else {
       page1Valid = false;
@@ -85,7 +85,7 @@ abstract class _RecuperarSenhaControllerBase with Store {
 
   @action
   isPage2Valid() {
-    if (formkeyPage2.currentState.validate()) {
+    if (formkeyPage2.currentState!.validate()) {
       page2Valid = true;
     } else {
       page2Valid = false;
@@ -97,7 +97,7 @@ abstract class _RecuperarSenhaControllerBase with Store {
 
   @action
   isPage3Valid() {
-    if (formkeyPage3.currentState.validate()) {
+    if (formkeyPage3.currentState!.validate()) {
       page3Valid = true;
     } else {
       page3Valid = false;
@@ -117,13 +117,19 @@ abstract class _RecuperarSenhaControllerBase with Store {
         emailValido = false;
         isPage1Valid();
         if (page1Valid) {
-          progressDialog.show();
+          progressDialog.show(
+            msg: "Carregando...",
+            backgroundColor: Colors.white,
+            borderRadius: 5.0,
+            progressType: ProgressType.normal,
+            max: 3,
+          );
           bool response = await verificarEmail();
-          Future.delayed(Duration(seconds: 2), () {
-            progressDialog.hide();
+          Future.delayed(const Duration(seconds: 2), () {
+            progressDialog.close();
             if (response) {
               buttonCarouselController.nextPage(
-                duration: Duration(milliseconds: 300),
+                duration: const Duration(milliseconds: 300),
                 curve: Curves.linear,
               );
               enviarRecuperacao();
@@ -136,13 +142,19 @@ abstract class _RecuperarSenhaControllerBase with Store {
         // Verifica se os campos estão preenchidos
         isPage2Valid();
         if (page2Valid) {
-          progressDialog.show();
-          Future.delayed(Duration(seconds: 2), () {
-            progressDialog.hide();
+          progressDialog.show(
+            msg: "Carregando...",
+            backgroundColor: Colors.white,
+            borderRadius: 5.0,
+            progressType: ProgressType.normal,
+            max: 3,
+          );
+          Future.delayed(const Duration(seconds: 2), () {
+            progressDialog.close();
             // Se os códigos batem
             if (verificaCodigo()) {
               buttonCarouselController.nextPage(
-                duration: Duration(milliseconds: 300),
+                duration: const Duration(milliseconds: 300),
                 curve: Curves.linear,
               );
             }
@@ -155,7 +167,7 @@ abstract class _RecuperarSenhaControllerBase with Store {
 
   @action
   setPreviousPage() => buttonCarouselController.previousPage(
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         curve: Curves.linear,
       );
 
@@ -174,7 +186,7 @@ abstract class _RecuperarSenhaControllerBase with Store {
   @action
   enviarRecuperacao() async {
     var res = await recuperarRepository.enviaEmail(email.text, gerarCodigo());
-    if (res != null) print(res);
+    if (res != null) {}
   }
 
   @action
@@ -182,7 +194,6 @@ abstract class _RecuperarSenhaControllerBase with Store {
     var res = await recuperarRepository.enviaEmail(email.text, codigoGerado);
     if (res != null) {
       setConfirmaReenvio(true);
-      print(res);
     }
   }
 
@@ -214,9 +225,7 @@ abstract class _RecuperarSenhaControllerBase with Store {
   @action
   alterarNovaSenha() async {
     var res = await recuperarRepository.alterarSenha(email.text, senha.text);
-    if (res != null) {
-      print(res);
-    }
+    if (res != null) {}
     return res;
   }
 }

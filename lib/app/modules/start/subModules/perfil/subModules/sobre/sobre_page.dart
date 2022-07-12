@@ -6,7 +6,7 @@ import 'sobre_controller.dart';
 
 class SobrePage extends StatefulWidget {
   final String title;
-  const SobrePage({Key key, this.title = "Sobre"}) : super(key: key);
+  const SobrePage({Key? key, this.title = "Sobre"}) : super(key: key);
 
   @override
   _SobrePageState createState() => _SobrePageState();
@@ -27,17 +27,17 @@ class _SobrePageState extends ModularState<SobrePage, SobreController> {
       "alimentos, artesanato, confecções e serviços.";
   final String nossaMissao =
       "Ofertar produtos de agricultores familiares, artesãos e pequenos"
-      "empreendedores de Mato Grosso para a população de Várzea Grande e Cuiabá,"
+      " empreendedores de Mato Grosso para a população de Várzea Grande e Cuiabá,"
       " trazendo visibilidade para coletivos e produtores da Economia Solidária"
-      " no Estado, ampliando seu mercado consumidor e sua renda, oferecendo "
-      " produtos de qualidade para os consumidores, e contribuindo para o "
-      "desenvolvimento territorial.";
-  final String nossaVisao = "Apoiar os produtores nos seus processos de "
-      "transição para uma produção verdadeiramente responsável e ampliar o número de "
-      "consumidores de produtos Agroecológicos, Orgânicos e artesanais.";
-  final String nossosValores = "Economia justa no que tangue os princípios "
-      "comerciais de compra e venda, fortalecendo principalmente a "
-      "Economia Solidária: Autogestão, cooperação, solidariedade, democracia,"
+      " no Estado, ampliando seu mercado consumidor e sua renda, oferecendo"
+      " produtos de qualidade para os consumidores, e contribuindo para o"
+      " desenvolvimento territorial.";
+  final String nossaVisao = "Apoiar os produtores nos seus processos de"
+      " transição para uma produção verdadeiramente responsável e ampliar o número de"
+      " consumidores de produtos Agroecológicos, Orgânicos e artesanais.";
+  final String nossosValores = "Economia justa no que tangue os princípios"
+      " comerciais de compra e venda, fortalecendo principalmente a"
+      " Economia Solidária: Autogestão, cooperação, solidariedade, democracia,"
       " respeito à natureza, comércio justo, consumo solidário.";
 
   @override
@@ -51,161 +51,159 @@ class _SobrePageState extends ModularState<SobrePage, SobreController> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Expanded(
-            child: Container(
-              child: ListView(
-                physics: BouncingScrollPhysics(),
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: kDefaultPadding,
-                      left: kDefaultPadding * 0.8,
-                      right: kDefaultPadding * 0.8,
-                      bottom: kDefaultPadding,
-                    ),
-                    child: Text(
-                      introducao,
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14,
-                          ),
-                    ),
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: kDefaultPadding,
+                    left: kDefaultPadding * 0.8,
+                    right: kDefaultPadding * 0.8,
+                    bottom: kDefaultPadding,
                   ),
-                  ExpansionTile(
-                    title: Text(
-                      "Nossa Missão",
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: kPrimaryColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                          ),
-                    ),
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: kDefaultPadding * 0.8,
-                          right: kDefaultPadding * 0.8,
-                          bottom: kDefaultPadding,
+                  child: Text(
+                    introducao,
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
                         ),
-                        child: Text(
-                          nossaMissao,
+                  ),
+                ),
+                ExpansionTile(
+                  title: Text(
+                    "Nossa Missão",
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          color: kPrimaryColor,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
                         ),
+                  ),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: kDefaultPadding * 0.8,
+                        right: kDefaultPadding * 0.8,
+                        bottom: kDefaultPadding,
                       ),
-                    ],
-                  ),
-                  ExpansionTile(
-                    title: Text(
-                      "Nossa Visão",
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: kPrimaryColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                          ),
-                    ),
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: kDefaultPadding * 0.8,
-                          right: kDefaultPadding * 0.8,
-                          bottom: kDefaultPadding,
-                        ),
-                        child: Text(nossaVisao),
+                      child: Text(
+                        nossaMissao,
                       ),
-                    ],
-                  ),
-                  ExpansionTile(
-                    title: Text(
-                      "Nossos Valores",
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: kPrimaryColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                          ),
                     ),
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: kDefaultPadding * 0.8,
-                          right: kDefaultPadding * 0.8,
-                          bottom: kDefaultPadding,
+                  ],
+                ),
+                ExpansionTile(
+                  title: Text(
+                    "Nossa Visão",
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          color: kPrimaryColor,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
                         ),
-                        child: Text(nossosValores),
-                      ),
-                    ],
                   ),
-                  // ExpansionTile(
-                  //   title: Text(
-                  //     "Equipe Recoopsol",
-                  //     style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  //           color: kPrimaryColor,
-                  //           fontWeight: FontWeight.w600,
-                  //           fontSize: 18,
-                  //         ),
-                  //   ),
-                  //   children: [
-                  //     Padding(
-                  //       padding: EdgeInsets.only(
-                  //         left: kDefaultPadding * 0.8,
-                  //         right: kDefaultPadding * 0.8,
-                  //         bottom: kDefaultPadding,
-                  //       ),
-                  //       child: Text("text1"),
-                  //     ),
-                  //   ],
-                  // ),
-                  // ExpansionTile(
-                  //   title: Text(
-                  //     "Equipe TI",
-                  //     style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  //           color: kPrimaryColor,
-                  //           fontWeight: FontWeight.w600,
-                  //           fontSize: 18,
-                  //         ),
-                  //   ),
-                  //   children: [
-                  //     Padding(
-                  //       padding: EdgeInsets.only(
-                  //         left: kDefaultPadding * 0.8,
-                  //         right: kDefaultPadding * 0.8,
-                  //         bottom: kDefaultPadding,
-                  //       ),
-                  //       child: Text("text1"),
-                  //     ),
-                  //   ],
-                  // ),
-                  // ExpansionTile(
-                  //   title: Text(
-                  //     "Apoio",
-                  //     style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  //           color: kPrimaryColor,
-                  //           fontWeight: FontWeight.w600,
-                  //           fontSize: 18,
-                  //         ),
-                  //   ),
-                  //   children: [
-                  //     Padding(
-                  //       padding: EdgeInsets.only(
-                  //         left: kDefaultPadding * 0.8,
-                  //         right: kDefaultPadding * 0.8,
-                  //         bottom: kDefaultPadding,
-                  //       ),
-                  //       child: Text("text1"),
-                  //     ),
-                  //   ],
-                  // );
-                ],
-              ),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: kDefaultPadding * 0.8,
+                        right: kDefaultPadding * 0.8,
+                        bottom: kDefaultPadding,
+                      ),
+                      child: Text(nossaVisao),
+                    ),
+                  ],
+                ),
+                ExpansionTile(
+                  title: Text(
+                    "Nossos Valores",
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          color: kPrimaryColor,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                  ),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: kDefaultPadding * 0.8,
+                        right: kDefaultPadding * 0.8,
+                        bottom: kDefaultPadding,
+                      ),
+                      child: Text(nossosValores),
+                    ),
+                  ],
+                ),
+                // ExpansionTile(
+                //   title: Text(
+                //     "Equipe Recoopsol",
+                //     style: Theme.of(context).textTheme.bodyText1.copyWith(
+                //           color: kPrimaryColor,
+                //           fontWeight: FontWeight.w600,
+                //           fontSize: 18,
+                //         ),
+                //   ),
+                //   children: [
+                //     Padding(
+                //       padding: EdgeInsets.only(
+                //         left: kDefaultPadding * 0.8,
+                //         right: kDefaultPadding * 0.8,
+                //         bottom: kDefaultPadding,
+                //       ),
+                //       child: Text("text1"),
+                //     ),
+                //   ],
+                // ),
+                // ExpansionTile(
+                //   title: Text(
+                //     "Equipe TI",
+                //     style: Theme.of(context).textTheme.bodyText1.copyWith(
+                //           color: kPrimaryColor,
+                //           fontWeight: FontWeight.w600,
+                //           fontSize: 18,
+                //         ),
+                //   ),
+                //   children: [
+                //     Padding(
+                //       padding: EdgeInsets.only(
+                //         left: kDefaultPadding * 0.8,
+                //         right: kDefaultPadding * 0.8,
+                //         bottom: kDefaultPadding,
+                //       ),
+                //       child: Text("text1"),
+                //     ),
+                //   ],
+                // ),
+                // ExpansionTile(
+                //   title: Text(
+                //     "Apoio",
+                //     style: Theme.of(context).textTheme.bodyText1.copyWith(
+                //           color: kPrimaryColor,
+                //           fontWeight: FontWeight.w600,
+                //           fontSize: 18,
+                //         ),
+                //   ),
+                //   children: [
+                //     Padding(
+                //       padding: EdgeInsets.only(
+                //         left: kDefaultPadding * 0.8,
+                //         right: kDefaultPadding * 0.8,
+                //         bottom: kDefaultPadding,
+                //       ),
+                //       child: Text("text1"),
+                //     ),
+                //   ],
+                // );
+              ],
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
                 horizontal: kDefaultPadding, vertical: kDefaultPadding * 0.8),
             child: RichText(
               textAlign: TextAlign.center,
               text: TextSpan(children: <TextSpan>[
                 TextSpan(
                   text: "Aplicativo Recoopsol",
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
                         color: kPrimaryColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
@@ -213,7 +211,7 @@ class _SobrePageState extends ModularState<SobrePage, SobreController> {
                 ),
                 TextSpan(
                   text: "\n2015-2022 Recoopsol - versão: 2.0.1",
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
                         color: kPrimaryColor,
                         fontWeight: FontWeight.w400,
                         fontSize: 12,

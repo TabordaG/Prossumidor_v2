@@ -8,8 +8,8 @@ part of 'recuperar_senha_controller.dart';
 
 final $RecuperarSenhaController = BindInject(
   (i) => RecuperarSenhaController(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );
 
 // **************************************************************************

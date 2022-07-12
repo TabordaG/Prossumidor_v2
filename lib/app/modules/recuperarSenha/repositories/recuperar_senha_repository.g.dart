@@ -8,6 +8,6 @@ part of 'recuperar_senha_repository.dart';
 
 final $RecuperarSenhaRepository = BindInject(
   (i) => RecuperarSenhaRepository(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );

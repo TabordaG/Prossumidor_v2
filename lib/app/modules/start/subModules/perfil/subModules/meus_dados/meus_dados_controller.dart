@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -18,7 +20,7 @@ abstract class _MeusDadosControllerBase with Store {
       Modular.get<IMeusDadosRepository>();
 
   @observable
-  GlobalKey<FormState> formkeyPage = new GlobalKey<FormState>();
+  GlobalKey<FormState> formkeyPage = GlobalKey<FormState>();
 
   @observable
   TextEditingController nome = TextEditingController();
@@ -33,7 +35,7 @@ abstract class _MeusDadosControllerBase with Store {
   TextEditingController genero = TextEditingController();
 
   @observable
-  int generoId;
+  int? generoId;
 
   @observable
   TextEditingController generoOutro = TextEditingController();
@@ -42,7 +44,7 @@ abstract class _MeusDadosControllerBase with Store {
   TextEditingController dataNascimento = TextEditingController();
 
   @observable
-  String estadoCivil;
+  String? estadoCivil;
 
   @observable
   List<String> listEstadoCivil = [
@@ -75,38 +77,36 @@ abstract class _MeusDadosControllerBase with Store {
 
   @action
   isPageValid() {
-    if (formkeyPage.currentState.validate())
+    if (formkeyPage.currentState!.validate()) {
       pageValid = true;
-    else
+    } else {
       pageValid = false;
+    }
   }
 
   @action
   buscaUser() async {
     authController.usuario =
-        await meusdadosRepository.buscaUsuario(authController.usuario.id);
+        await meusdadosRepository.buscaUsuario(authController.usuario!.id!);
     getLocalRetirada();
     nome =
-        TextEditingController(text: authController.usuario.nome_razao_social);
-    cpf = TextEditingController(text: authController.usuario.cpf_cnpj);
-    print("telefone " + authController.usuario.telefone);
-    print("celular" + authController.usuario.celular);
-    print("contato" + authController.usuario.contato);
-    celular = TextEditingController(text: authController.usuario.celular);
-    genero = TextEditingController(text: authController.usuario.sexo);
-    generoId = authController.usuario.sexo == 'MASCULINO'
+        TextEditingController(text: authController.usuario!.nome_razao_social);
+    cpf = TextEditingController(text: authController.usuario!.cpf_cnpj);
+    celular = TextEditingController(text: authController.usuario!.celular);
+    genero = TextEditingController(text: authController.usuario!.sexo);
+    generoId = authController.usuario!.sexo == 'MASCULINO'
         ? 0
-        : authController.usuario.sexo == 'FEMININO'
+        : authController.usuario!.sexo == 'FEMININO'
             ? 1
             : 2;
 
     //generoOutro = TextEditingController(text: authController.usuario.sexo);
     dataNascimento = TextEditingController(
         text: formataDataddmmYYYY(
-            authController.usuario.data_nascimento_fundacao));
-    estadoCivil = authController.usuario.estado_civil != null &&
-            authController.usuario.estado_civil.isNotEmpty
-        ? authController.usuario.estado_civil
+            authController.usuario!.data_nascimento_fundacao!));
+    estadoCivil = authController.usuario!.estado_civil != null &&
+            authController.usuario!.estado_civil!.isNotEmpty
+        ? authController.usuario!.estado_civil
         : 'Não Selecionado';
     localRetirada =
         TextEditingController(text: authController.localRetiradaAtual);
@@ -114,40 +114,39 @@ abstract class _MeusDadosControllerBase with Store {
 
   @action
   getLocalRetirada() {
-    authController.localRetirada
+    authController.localRetirada!
         .sort((a, b) => a['id'].toString().compareTo(b['id'].toString()));
 
-    authController.localRetirada.forEach((element) {
+    for (var element in authController.localRetirada!) {
       if (element['id'].toString() ==
-          authController.usuario.local_retirada_id.toString()) {
+          authController.usuario!.local_retirada_id.toString()) {
         authController.localRetiradaAtual =
             element['id'].toString() + ' - ' + element['nome'].toString();
       }
-    });
+    }
   }
 
   @action
   Future atualizaDados() async {
     String response = await meusdadosRepository.alteraDados(
-        authController.usuario.id.toString(),
+        authController.usuario!.id.toString(),
         removeCaracterEspecial(nome.text),
         removeCaracterEspecial(cpf.text),
         removeCaracterEspecial(celular.text),
         genero.text.toUpperCase(),
-        removeCaracterEspecial(authController.usuario.endereco),
-        authController.usuario.numero,
-        removeCaracterEspecial(authController.usuario.complemento),
-        removeCaracterEspecial(authController.usuario.bairro),
-        removeCaracterEspecial(authController.usuario.cidade),
-        removeCaracterEspecial(authController.usuario.cep),
-        removeCaracterEspecial(authController.usuario.estado),
+        removeCaracterEspecial(authController.usuario!.endereco!),
+        authController.usuario!.numero,
+        removeCaracterEspecial(authController.usuario!.complemento!),
+        removeCaracterEspecial(authController.usuario!.bairro!),
+        removeCaracterEspecial(authController.usuario!.cidade!),
+        removeCaracterEspecial(authController.usuario!.cep!),
+        removeCaracterEspecial(authController.usuario!.estado!),
         formataDataYYYYmmdd(dataNascimento.text),
-        removeCaracterEspecial(estadoCivil),
-        authController.usuario.local_retirada_id.toString());
+        removeCaracterEspecial(estadoCivil!),
+        authController.usuario!.local_retirada_id.toString());
     await buscaUser();
-    if (response == null)
-      print('erro de requisição');
-    else if (response == 'sucesso') print('sucesso na requisição');
+    if (response == null) {
+    } else if (response == 'sucesso') {}
     return response;
   }
 
@@ -165,26 +164,20 @@ abstract class _MeusDadosControllerBase with Store {
 
   String formataDataYYYYmmdd(String text) {
     // formata data inverte data padrao dd/mm/aaaa para  aaaa-mm-dd
-    if (text != null) {
-      String dia, mes, ano;
-      dia = text.substring(0, 2);
-      mes = text.substring(3, 5);
-      ano = text.substring(6, 10);
-      return ano + '-' + mes + '-' + dia;
-    }
-    return '';
+    String dia, mes, ano;
+    dia = text.substring(0, 2);
+    mes = text.substring(3, 5);
+    ano = text.substring(6, 10);
+    return ano + '-' + mes + '-' + dia;
   }
 
   String formataDataddmmYYYY(String text) {
     // formata data inverte data padrao aaaa-mm-dd para dd/mm/aaaa
-    if (text != null) {
-      String dia, mes, ano;
-      //print(text);
-      ano = text.substring(0, 4);
-      mes = text.substring(5, 7);
-      dia = text.substring(8, 10);
-      return dia + '/' + mes + '/' + ano;
-    }
-    return '';
+    String dia, mes, ano;
+    //print(text);
+    ano = text.substring(0, 4);
+    mes = text.substring(5, 7);
+    dia = text.substring(8, 10);
+    return dia + '/' + mes + '/' + ano;
   }
 }

@@ -13,32 +13,30 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
-  ReactionDisposer disposer;
-  AnimationController controller;
-  Animation<double> animationOpacity;
-  Animation<double> animationOffset;
+  late ReactionDisposer disposer;
   final AuthController authcontroller = Modular.get<AuthController>();
 
   @override
   void initState() {
     final AuthController auth = Modular.get();
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.bottom]);
 
     disposer = autorun((_) async {
       // ### Verifica se possui o e-mail salvo no sharedPreference
-      Future.delayed(Duration(seconds: 2), () async {
+      Future.delayed(const Duration(seconds: 2), () async {
         int response = await auth.verificaLogado();
         switch (response) {
           case 0:
             buildShowGeneralDialog(context);
-            Future.delayed(Duration(seconds: 5), () {
+            Future.delayed(const Duration(seconds: 5), () {
               Modular.to.pushReplacementNamed('/start');
             });
 
             break;
           case 1:
             buildShowGeneralDialog(context);
-            Future.delayed(Duration(seconds: 5), () {
+            Future.delayed(const Duration(seconds: 5), () {
               Modular.to.pushReplacementNamed('/login');
             });
 
@@ -57,9 +55,10 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
   }
 
+  @override
   void dispose() {
-    SystemChrome.setEnabledSystemUIOverlays(
-        [SystemUiOverlay.top, SystemUiOverlay.bottom]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
     disposer();
     super.dispose();
   }
@@ -74,7 +73,7 @@ class _SplashScreenState extends State<SplashScreen>
       body: Stack(
         children: [
           Image(
-            image: AssetImage("assets/images/logo_splash.png"),
+            image: const AssetImage("assets/images/logo_splash.png"),
             fit: BoxFit.fill,
             height: heigth,
             width: width,
@@ -82,7 +81,7 @@ class _SplashScreenState extends State<SplashScreen>
           Positioned(
             top: MediaQuery.of(context).size.height * .75,
             right: MediaQuery.of(context).size.width * .45,
-            child: Center(
+            child: const Center(
               child: CircularProgressIndicator(
                 strokeWidth: 1,
               ),
@@ -98,9 +97,9 @@ class _SplashScreenState extends State<SplashScreen>
       barrierLabel: "Mensage",
       barrierDismissible: false,
       barrierColor: Colors.black.withOpacity(0.5),
-      transitionDuration: Duration(milliseconds: 400),
+      transitionDuration: const Duration(milliseconds: 400),
       context: context,
-      pageBuilder: (context, anim1, anim2) => null,
+      pageBuilder: (context, anim1, anim2) => Container(),
       transitionBuilder: (context, a1, a2, child) {
         final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
         return Transform(
@@ -120,43 +119,43 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 
-  Container buildMensage(BuildContext context) {
-    return Container(
+  SizedBox buildMensage(BuildContext context) {
+    return SizedBox(
       height: MediaQuery.of(context).size.height * .3,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Spacer(
+          const Spacer(
             flex: 1,
           ),
           Text(
             "Nova Versão",
-            style: Theme.of(context).textTheme.bodyText1.copyWith(
+            style: Theme.of(context).textTheme.bodyText1?.copyWith(
                   fontSize: 28,
                   color: Theme.of(context)
                       .textTheme
                       .bodyText1
-                      .color
-                      .withOpacity(.8),
+                      ?.color
+                      ?.withOpacity(.8),
                 ),
           ),
-          Spacer(
+          const Spacer(
             flex: 2,
           ),
           Text(
-            authcontroller.mensagemVersao,
+            authcontroller.mensagemVersao ?? "...",
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyText1.copyWith(
+            style: Theme.of(context).textTheme.bodyText1?.copyWith(
                   fontSize: 16,
                   color: Theme.of(context)
                       .textTheme
                       .bodyText1
-                      .color
-                      .withOpacity(.6),
+                      ?.color
+                      ?.withOpacity(.6),
                 ),
           ),
-          Spacer(
+          const Spacer(
             flex: 1,
           ),
         ],

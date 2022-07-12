@@ -6,30 +6,27 @@ part of 'produto_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Produto _$ProdutoFromJson(Map<String, dynamic> json) {
-  return Produto(
-    id: json['id'] as int,
-    descricao_simplificada: json['descricao_simplificada'] as String,
-    marca_produto_id: json['marca_produto_id'] as int,
-    preco_venda: json['preco_venda'] as String,
-    imagem: json['imagem'] as String,
-    descricao: json['descricao'] as String,
-    descricao_completa: json['descricao_completa'] as String,
-    estoque_atual: json['estoque_atual'] as String,
-    unidade_medida: json['unidade_medida'] as String,
-    marketing: json['marketing'] as String,
-    marca: json['marca'] as String,
-    observacoes: json['observacoes'] as String,
-    quantidade: json['quantidade'] as String,
-    empresa_id: json['empresa_id'] as int,
-    status: json['status'] as String,
-    carrinhoid: json['carrinhoid'] as int,
-    categorias: (json['categorias'] as List)
-        ?.map((e) =>
-            e == null ? null : Categoria.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-  );
-}
+Produto _$ProdutoFromJson(Map<String, dynamic> json) => Produto(
+      id: json['id'] as int?,
+      descricao_simplificada: json['descricao_simplificada'] as String?,
+      marca_produto_id: json['marca_produto_id'] as int?,
+      preco_venda: json['preco_venda'] as String?,
+      imagem: json['imagem'] as String?,
+      descricao: json['descricao'] as String?,
+      descricao_completa: json['descricao_completa'] as String?,
+      estoque_atual: json['estoque_atual'] as String?,
+      unidade_medida: json['unidade_medida'] as String?,
+      marketing: json['marketing'] as String?,
+      marca: json['marca'] as String?,
+      observacoes: json['observacoes'] as String?,
+      quantidade: json['quantidade'] as String?,
+      empresa_id: json['empresa_id'] as int?,
+      status: json['status'] as String?,
+      carrinhoid: json['carrinhoid'] as int?,
+      categorias: (json['categorias'] as List<dynamic>?)
+          ?.map((e) => Categoria.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
 
 Map<String, dynamic> _$ProdutoToJson(Produto instance) => <String, dynamic>{
       'id': instance.id,
@@ -48,17 +45,16 @@ Map<String, dynamic> _$ProdutoToJson(Produto instance) => <String, dynamic>{
       'empresa_id': instance.empresa_id,
       'status': instance.status,
       'carrinhoid': instance.carrinhoid,
-      'categorias': instance.categorias?.map((e) => e?.toJson())?.toList(),
+      'categorias': instance.categorias?.map((e) => e.toJson()).toList(),
     };
 
-ProdutoPedido _$ProdutoPedidoFromJson(Map<String, dynamic> json) {
-  return ProdutoPedido(
-    produto: json['produto'] == null
-        ? null
-        : Produto.fromJson(json['produto'] as Map<String, dynamic>),
-    quantidade: (json['quantidade'] as num)?.toDouble(),
-  );
-}
+ProdutoPedido _$ProdutoPedidoFromJson(Map<String, dynamic> json) =>
+    ProdutoPedido(
+      produto: json['produto'] == null
+          ? null
+          : Produto.fromJson(json['produto'] as Map<String, dynamic>),
+      quantidade: (json['quantidade'] as num?)?.toDouble(),
+    );
 
 Map<String, dynamic> _$ProdutoPedidoToJson(ProdutoPedido instance) =>
     <String, dynamic>{

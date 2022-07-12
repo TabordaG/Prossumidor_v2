@@ -13,25 +13,25 @@ abstract class _AuthControllerBase with Store {
   final IAuthRepository authRepository = Modular.get<IAuthRepository>();
 
   @observable
-  Usuario usuario;
+  Usuario? usuario;
 
   @observable
-  String nomeCompleto;
+  String? nomeCompleto;
 
   @observable
-  String centroDistribuicao;
+  String? centroDistribuicao;
 
   @observable
-  List localRetirada;
+  List? localRetirada;
 
   @observable
-  String localRetiradaAtual;
+  String? localRetiradaAtual;
 
   @observable
-  String versaoAtual;
+  String? versaoAtual;
 
   @observable
-  String mensagemVersao;
+  String? mensagemVersao;
 
   @observable
   bool temMensagem = false;
@@ -39,7 +39,7 @@ abstract class _AuthControllerBase with Store {
   @action
   verificaLogado() async {
     versaoAtual = await authRepository.buscarVersao();
-    
+
     final email = await getValuesSF();
     if (versaoAtual != '1.0.2') {
       if (versaoAtual == "2.0.1") {
@@ -97,34 +97,40 @@ abstract class _AuthControllerBase with Store {
 
   @action
   Future<String> setCentroDistribuicao() async {
-    String local;
-    localRetirada.forEach((element) {
-      if (element['id'].toString() == usuario.local_retirada_id.toString()) {
-        local = element["nome"].toString();
-        print("Encontrado");
-      } else if (local == null || local.isEmpty) local = 'Não encontrado';
-    });
-    return local;
+    String? local;
+    if (localRetirada != null) {
+      for (var element in localRetirada!) {
+        if (element['id'].toString() == usuario!.local_retirada_id.toString()) {
+          local = element["nome"].toString();
+        } else if (local == null || local.isEmpty) {
+          local = 'Não encontrado';
+        }
+      }
+    }
+    return local ?? "";
   }
 
   @action
   Future<String> setNome() async {
     String name;
     if (usuario != null) {
-      name = usuario.nome_razao_social[0].toUpperCase() +
-          usuario.nome_razao_social.substring(1) +
-          usuario.sobre_nome;
-    } else
+      name = usuario!.nome_razao_social![0].toUpperCase() +
+          usuario!.nome_razao_social!.substring(1) +
+          usuario!.sobre_nome!;
+    } else {
       name = 'nome';
+    }
     return name;
   }
 
   @action
   Future buscaUsuarioCompleto() async {
-    usuario = await authRepository.buscaUsuarioCompleto(usuario.id);
+    usuario = await authRepository.buscaUsuarioCompleto(usuario?.id);
     localRetirada =
-        await authRepository.localRetirada(usuario.email.toLowerCase());
-    localRetirada = List.from(localRetirada);
+        await authRepository.localRetirada(usuario?.email!.toLowerCase());
+    if (localRetirada != null) {
+      localRetirada = List.from(localRetirada!);
+    }
 
     centroDistribuicao = await setCentroDistribuicao();
     nomeCompleto = await setNome();
@@ -132,10 +138,11 @@ abstract class _AuthControllerBase with Store {
 
   @action
   Future buscaMensagem() async {
-    var res = await authRepository.buscaMensagens(usuario.id);
-    if (res != null && res != 0)
+    var res = await authRepository.buscaMensagens(usuario!.id);
+    if (res != null && res != 0) {
       temMensagem = true;
-    else
+    } else {
       temMensagem = false;
+    }
   }
 }

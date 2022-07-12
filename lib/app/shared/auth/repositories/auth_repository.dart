@@ -11,7 +11,7 @@ part 'auth_repository.g.dart';
 
 @Injectable()
 class AuthRepository implements IAuthRepository {
-  Dio dio;
+  late Dio dio;
   AuthRepository() {
     BaseOptions options = BaseOptions(
       receiveDataWhenStatusError: true,
@@ -21,7 +21,7 @@ class AuthRepository implements IAuthRepository {
 
     dio = Dio(options);
   }
-  Response response;
+  // late Response response;
 
   //dispose will be called automatically
   @override
@@ -32,7 +32,7 @@ class AuthRepository implements IAuthRepository {
     String consultaVersao = Basicos.codifica(
         "${Basicos.ip}/crud/?crud=consult85.*"); //verifica versão
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(consultaVersao),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -40,20 +40,21 @@ class AuthRepository implements IAuthRepository {
     );
 
     try {
-      if (response.data != null && response.statusCode == 200)
+      if (response.data != null && response.statusCode == 200) {
         return response.data[0]['id_versao'].toString();
-      else
+      } else {
         return 'Erro de conexão';
+      }
     } catch (e) {
       return 'Erro de conexão';
     }
   }
 
   @override
-  Future buscarUsuario(String email) async {
+  Future buscarUsuario(String? email) async {
     String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consulta1.$email");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -67,7 +68,7 @@ class AuthRepository implements IAuthRepository {
         Basicos.localRetiradaID = list[0]['local_retirada_id'].toString();
         Usuario usuario = Usuario(
           id: list[0]['id'],
-          email: email,
+          email: email!,
           senha: list[0]['senha'],
           empresa_id: list[0]['empresa_id'],
         );
@@ -76,15 +77,16 @@ class AuthRepository implements IAuthRepository {
       } catch (e) {
         return null;
       }
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
-  Future<Usuario> buscaUsuarioCompleto(int id) async {
+  Future<Usuario?> buscaUsuarioCompleto(int? id) async {
     String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consult22.$id");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -98,15 +100,16 @@ class AuthRepository implements IAuthRepository {
       } catch (e) {
         return null;
       }
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
-  Future localRetirada(String email) async {
+  Future localRetirada(String? email) async {
     String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consult20.$email");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -121,14 +124,16 @@ class AuthRepository implements IAuthRepository {
       } catch (e) {
         return null;
       }
-    } else
+    } else {
       return null;
+    }
   }
 
-  Future buscaMensagens(int id) async {
+  @override
+  Future buscaMensagens(int? id) async {
     String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consult81.$id");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -142,12 +147,14 @@ class AuthRepository implements IAuthRepository {
         String chat = list[0]["count"].toString();
         if (chat == "0") {
           return 0;
-        } else
+        } else {
           return 1;
+        }
       } catch (e) {
         return null;
       }
-    } else
+    } else {
       return null;
+    }
   }
 }

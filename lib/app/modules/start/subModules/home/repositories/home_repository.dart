@@ -1,3 +1,5 @@
+// ignore_for_file: empty_catches
+
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -14,7 +16,7 @@ part 'home_repository.g.dart';
 
 @Injectable()
 class HomeRepository implements IHomeRepository {
-  Dio dio;
+  late Dio dio;
   HomeRepository() {
     BaseOptions options = BaseOptions(
       receiveDataWhenStatusError: true,
@@ -24,15 +26,13 @@ class HomeRepository implements IHomeRepository {
 
     dio = Dio(options);
   }
-  Response response;
 
   @override
-  Future listaCategorias(int empresaId) async {
-    print("Empresa ID: " + empresaId.toString());
+  Future listaCategorias(int? empresaId) async {
     String link =
         Basicos.codifica("${Basicos.ip}/crud/?crud=consul111.$empresaId");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -45,18 +45,17 @@ class HomeRepository implements IHomeRepository {
           .toList();
       // .cast<List<Categoria>>(); // cast<Map<String, dynamic>>();
       // List list = json.decode(response.data).cast<Map<String, dynamic>>();
-      print(respondeDecoded);
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
-  Future listaProdutosPorCategoria(int id, int empresaId) async {
-    print("Empresa ID: " + empresaId.toString());
+  Future listaProdutosPorCategoria(int? id, int? empresaId) async {
     String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consul112.$id");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -67,17 +66,17 @@ class HomeRepository implements IHomeRepository {
       var respondeDecoded = response.data
           .map<Produto>((json) => Produto.fromJson(json))
           .toList(); // Basicos.decodifica(response.data);
-      print(respondeDecoded);
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
-  Future listaProdutosPorMarca(int id) async {
+  Future listaProdutosPorMarca(int? id) async {
     String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consul115.$id");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -88,17 +87,17 @@ class HomeRepository implements IHomeRepository {
       var respondeDecoded = response.data
           .map<Produto>((json) => Produto.fromJson(json))
           .toList(); // Basicos.decodifica(response.data);
-      print(respondeDecoded);
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
-  Future listaMarcas(int id) async {
+  Future listaMarcas(int? id) async {
     String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consul114.$id");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -110,18 +109,18 @@ class HomeRepository implements IHomeRepository {
           response.data.map<Marca>((json) => Marca.fromJson(json)).toList();
       // .cast<List<Categoria>>(); // cast<Map<String, dynamic>>();
       // List list = json.decode(response.data).cast<Map<String, dynamic>>();
-      print(respondeDecoded);
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
-  Future pesquisarProduto(String texto, int offset) async {
+  Future pesquisarProduto(String? texto, int? offset) async {
     String link =
         Basicos.codifica("${Basicos.ip}/crud/?crud=consul116.$texto,$offset");
 
-    response = await dio.get(
+    Response response = await dio.get(
       Uri.encodeFull(link),
       options: Options(
         headers: {"Accept": "application/json"},
@@ -132,10 +131,10 @@ class HomeRepository implements IHomeRepository {
       var respondeDecoded = response.data
           .map<Produto>((json) => Produto.fromJson(json))
           .toList(); // Basicos.decodifica(response.data);
-      print(respondeDecoded);
       return respondeDecoded;
-    } else
+    } else {
       return null;
+    }
   }
 
   @override
@@ -144,7 +143,7 @@ class HomeRepository implements IHomeRepository {
     for (var i = 4; i < 14; i++) {
       String link = Basicos.codifica("${Basicos.ip}/crud/?crud=consul-30.$i");
 
-      response = await dio.get(
+      Response response = await dio.get(
         Uri.encodeFull(link),
         options: Options(
           headers: {"Accept": "application/json"},
@@ -158,7 +157,6 @@ class HomeRepository implements IHomeRepository {
               .cast<Map<String, dynamic>>();
           if (list[0]["msg_notifica"] != null) {
             String image = list[0]["msg_notifica"].toString();
-            print(image);
             bannerList.add(image);
           }
         } catch (e) {}

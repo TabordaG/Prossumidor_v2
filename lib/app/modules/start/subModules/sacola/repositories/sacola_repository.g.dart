@@ -8,6 +8,6 @@ part of 'sacola_repository.dart';
 
 final $SacolaRepository = BindInject(
   (i) => SacolaRepository(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );

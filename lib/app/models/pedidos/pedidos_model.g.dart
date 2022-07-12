@@ -6,26 +6,22 @@ part of 'pedidos_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Pedidos _$PedidosFromJson(Map<String, dynamic> json) {
-  return Pedidos(
-    id: json['id'] as int,
-    empresa: json['empresa'] as String,
-    quantidade: json['quantidade'] as String,
-    data_registro: json['data_registro'] == null
-        ? null
-        : DateTime.parse(json['data_registro'] as String),
-    tipo_entrega: json['tipo_entrega'] as String,
-    observacoes_entrega: json['observacoes_entrega'] as String,
-    pagamento: json['pagamento'] as String,
-    status_pedido: json['status_pedido'] as String,
-    valor_total: json['valor_total'] as String,
-    produtos: (json['produtos'] as List)
-        ?.map((e) => e == null
-            ? null
-            : ProdutoPedido.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-  )..id_empresa = json['id_empresa'] as int;
-}
+Pedidos _$PedidosFromJson(Map<String, dynamic> json) => Pedidos(
+      id: json['id'] as int?,
+      empresa: json['empresa'] as String?,
+      quantidade: json['quantidade'] as String?,
+      data_registro: json['data_registro'] == null
+          ? null
+          : DateTime.parse(json['data_registro'] as String),
+      tipo_entrega: json['tipo_entrega'] as String?,
+      observacoes_entrega: json['observacoes_entrega'] as String?,
+      pagamento: json['pagamento'] as String?,
+      status_pedido: json['status_pedido'] as String?,
+      valor_total: json['valor_total'] as String?,
+      produtos: (json['produtos'] as List<dynamic>?)
+          ?.map((e) => ProdutoPedido.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    )..id_empresa = json['id_empresa'] as int?;
 
 Map<String, dynamic> _$PedidosToJson(Pedidos instance) => <String, dynamic>{
       'id': instance.id,
@@ -38,5 +34,5 @@ Map<String, dynamic> _$PedidosToJson(Pedidos instance) => <String, dynamic>{
       'status_pedido': instance.status_pedido,
       'pagamento': instance.pagamento,
       'valor_total': instance.valor_total,
-      'produtos': instance.produtos?.map((e) => e?.toJson())?.toList(),
+      'produtos': instance.produtos?.map((e) => e.toJson()).toList(),
     };

@@ -8,7 +8,7 @@ import '../../../constants.dart';
 import '../registro_controller.dart';
 
 class RegistrarPage2 extends StatefulWidget {
-  const RegistrarPage2({Key key}) : super(key: key);
+  const RegistrarPage2({Key? key}) : super(key: key);
 
   @override
   _RegistrarPage2State createState() => _RegistrarPage2State();
@@ -32,24 +32,24 @@ class _RegistrarPage2State extends State<RegistrarPage2> {
         node: node,
         child: ListView(
           shrinkWrap: true,
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           children: [
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Center(
               child: Text(
                 'Dados de Entrega',
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontSize: 18,
                     ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
               child: TextFormField(
                 controller: controller.cep,
                 keyboardType: TextInputType.number,
@@ -62,21 +62,21 @@ class _RegistrarPage2State extends State<RegistrarPage2> {
                     context: context,
                     barrierDismissible: false,
                     builder: (BuildContext context) {
-                      Future.delayed(Duration(seconds: 2), () {
+                      Future.delayed(const Duration(seconds: 2), () {
                         Navigator.of(context).pop();
                       });
                       return AlertDialog(
                         content: Observer(builder: (_) {
-                          if (controller.responseCEP == "waiting")
+                          if (controller.responseCEP == "waiting") {
                             return Column(
                               mainAxisSize: MainAxisSize.min,
-                              children: [
+                              children: const [
                                 CircularProgressIndicator(
                                   strokeWidth: 1,
                                 ),
                               ],
                             );
-                          else if (controller.responseCEP == "Erro")
+                          } else if (controller.responseCEP == "Erro") {
                             return Text(
                               "CEP não encontrado",
                               style: TextStyle(
@@ -84,7 +84,7 @@ class _RegistrarPage2State extends State<RegistrarPage2> {
                               ),
                               textAlign: TextAlign.center,
                             );
-                          else
+                          } else {
                             return Text(
                               "Dados Carregados",
                               style: TextStyle(
@@ -92,6 +92,7 @@ class _RegistrarPage2State extends State<RegistrarPage2> {
                               ),
                               textAlign: TextAlign.center,
                             );
+                          }
                         }),
                       );
                     },
@@ -102,14 +103,14 @@ class _RegistrarPage2State extends State<RegistrarPage2> {
                   CepInputFormatter(),
                 ],
                 validator: (value) {
-                  if (value.isEmpty) {
+                  if (value!.isEmpty) {
                     return 'Insira um CEP válido';
                   } else {
                     return null;
                   }
                 },
                 decoration: InputDecoration(
-                  border: UnderlineInputBorder(),
+                  border: const UnderlineInputBorder(),
                   prefixIcon: Icon(
                     Icons.location_on,
                     color: Theme.of(context).primaryColor,
@@ -118,11 +119,11 @@ class _RegistrarPage2State extends State<RegistrarPage2> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
               child: Observer(builder: (_) {
                 return TextFormField(
                   // onChanged: (value) => controller.setEndereco(value),
@@ -132,14 +133,14 @@ class _RegistrarPage2State extends State<RegistrarPage2> {
                   textCapitalization: TextCapitalization.words,
                   onEditingComplete: node.nextFocus,
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value!.isEmpty) {
                       return 'Insira um endereço válido';
                     } else {
                       return null;
                     }
                   },
                   decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
+                    border: const UnderlineInputBorder(),
                     prefixIcon: Icon(
                       Icons.apartment,
                       color: Theme.of(context).primaryColor,
@@ -149,11 +150,11 @@ class _RegistrarPage2State extends State<RegistrarPage2> {
                 );
               }),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
               child: Observer(builder: (_) {
                 return TextFormField(
                   controller: controller.numero,
@@ -165,14 +166,14 @@ class _RegistrarPage2State extends State<RegistrarPage2> {
                     LengthLimitingTextInputFormatter(5),
                   ],
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value!.isEmpty) {
                       return 'Insira um número válido';
                     } else {
                       return null;
                     }
                   },
                   decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
+                    border: const UnderlineInputBorder(),
                     prefixIcon: Icon(
                       Icons.filter_1,
                       color: Theme.of(context).primaryColor,
@@ -182,11 +183,11 @@ class _RegistrarPage2State extends State<RegistrarPage2> {
                 );
               }),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
               child: Observer(builder: (_) {
                 return TextFormField(
                   controller: controller.complemento,
@@ -197,7 +198,7 @@ class _RegistrarPage2State extends State<RegistrarPage2> {
                     LengthLimitingTextInputFormatter(250),
                   ],
                   decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
+                    border: const UnderlineInputBorder(),
                     prefixIcon: Icon(
                       Icons.house,
                       color: Theme.of(context).primaryColor,
@@ -207,11 +208,11 @@ class _RegistrarPage2State extends State<RegistrarPage2> {
                 );
               }),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
               child: Observer(builder: (_) {
                 return TextFormField(
                   controller: controller.bairro,
@@ -220,14 +221,14 @@ class _RegistrarPage2State extends State<RegistrarPage2> {
                   textCapitalization: TextCapitalization.words,
                   onEditingComplete: node.nextFocus,
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value!.isEmpty) {
                       return 'Insira um bairro válido';
                     } else {
                       return null;
                     }
                   },
                   decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
+                    border: const UnderlineInputBorder(),
                     prefixIcon: Icon(
                       Icons.house_siding,
                       color: Theme.of(context).primaryColor,
@@ -237,7 +238,7 @@ class _RegistrarPage2State extends State<RegistrarPage2> {
                 );
               }),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
@@ -245,7 +246,7 @@ class _RegistrarPage2State extends State<RegistrarPage2> {
                 Expanded(
                   flex: 3,
                   child: Padding(
-                    padding: EdgeInsets.only(left: kDefaultPadding),
+                    padding: const EdgeInsets.only(left: kDefaultPadding),
                     child: Observer(builder: (_) {
                       return TextFormField(
                         controller: controller.cidade,
@@ -257,14 +258,14 @@ class _RegistrarPage2State extends State<RegistrarPage2> {
                         textCapitalization: TextCapitalization.words,
                         onEditingComplete: node.nextFocus,
                         validator: (value) {
-                          if (value.isEmpty) {
+                          if (value!.isEmpty) {
                             return 'Insira uma cidade válida';
                           } else {
                             return null;
                           }
                         },
                         decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
+                          border: const UnderlineInputBorder(),
                           prefixIcon: Icon(
                             Icons.location_city,
                             color: Theme.of(context).primaryColor,
@@ -275,13 +276,13 @@ class _RegistrarPage2State extends State<RegistrarPage2> {
                     }),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Expanded(
                   flex: 2,
                   child: Padding(
-                    padding: EdgeInsets.only(right: kDefaultPadding),
+                    padding: const EdgeInsets.only(right: kDefaultPadding),
                     child: Observer(builder: (_) {
                       return TextFormField(
                         controller: controller.uf,
@@ -294,14 +295,14 @@ class _RegistrarPage2State extends State<RegistrarPage2> {
                           LengthLimitingTextInputFormatter(2),
                         ],
                         validator: (value) {
-                          if (value.isEmpty) {
+                          if (value!.isEmpty) {
                             return 'Insira um UF válido';
                           } else {
                             return null;
                           }
                         },
                         decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
+                          border: const UnderlineInputBorder(),
                           prefixIcon: Icon(
                             Icons.business,
                             color: Theme.of(context).primaryColor,
@@ -314,7 +315,7 @@ class _RegistrarPage2State extends State<RegistrarPage2> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
           ],

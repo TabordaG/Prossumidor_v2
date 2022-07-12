@@ -6,7 +6,7 @@ import '../../../constants.dart';
 import '../registro_controller.dart';
 
 class RegistrarPage3 extends StatefulWidget {
-  const RegistrarPage3({Key key}) : super(key: key);
+  const RegistrarPage3({Key? key}) : super(key: key);
 
   @override
   _RegistrarPage3State createState() => _RegistrarPage3State();
@@ -30,24 +30,24 @@ class _RegistrarPage3State extends State<RegistrarPage3> {
         node: node,
         child: ListView(
           shrinkWrap: true,
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           children: [
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Center(
               child: Text(
                 'Dados da Conta',
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontSize: 18,
                     ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
               child: Observer(builder: (_) {
                 return TextFormField(
                   controller: controller.email,
@@ -56,24 +56,25 @@ class _RegistrarPage3State extends State<RegistrarPage3> {
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value!.isEmpty) {
                       return 'Insira um endereço de email';
                     } else {
                       if (value.length < 3) {
                         return "Email Tem Que Ter Pelo Menos 3 Caracteres";
                       } else {
-                        Pattern pattern =
+                        String pattern =
                             r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-                        RegExp regex = new RegExp(pattern);
+                        RegExp regex = RegExp(pattern);
                         if (!regex.hasMatch(value)) {
                           return 'Insira um endereço de email válido';
-                        } else
+                        } else {
                           return null;
+                        }
                       }
                     }
                   },
                   decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
+                    border: const UnderlineInputBorder(),
                     prefixIcon: Icon(
                       Icons.email,
                       color: Theme.of(context).primaryColor,
@@ -83,18 +84,19 @@ class _RegistrarPage3State extends State<RegistrarPage3> {
                 );
               }),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding * 1.5),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: kDefaultPadding * 1.5),
               child: Row(
                 children: [
                   Icon(
                     Icons.business_center,
                     color: Theme.of(context).primaryColor,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Observer(builder: (_) {
@@ -109,29 +111,36 @@ class _RegistrarPage3State extends State<RegistrarPage3> {
                               dropDownStringItem,
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText1
+                                  .bodyText1!
                                   .copyWith(
                                     color: dropDownStringItem ==
                                             'Local de Retirada'
                                         ? Theme.of(context)
                                             .textTheme
-                                            .bodyText1
-                                            .color
+                                            .bodyText1!
+                                            .color!
                                             .withOpacity(.6)
                                         : Theme.of(context)
                                             .textTheme
-                                            .bodyText1
+                                            .bodyText1!
                                             .color,
                                   ),
                             ),
                           );
                         }).toList(),
-                        onChanged: (String novoItemSelecionado) {
-                          if (novoItemSelecionado != 'Local de Retirada')
+                        onChanged: (String? novoItemSelecionado) {
+                          if (novoItemSelecionado != 'Local de Retirada') {
                             setState(() {
-                              controller.setRetirada(novoItemSelecionado);
-                              controller.setRetiradaID(novoItemSelecionado);
+                              novoItemSelecionado != null
+                                  ? {
+                                      controller
+                                          .setRetirada(novoItemSelecionado),
+                                      controller
+                                          .setRetiradaID(novoItemSelecionado),
+                                    }
+                                  : null;
                             });
+                          }
                         },
                         value: controller.retirada,
                       ),
@@ -152,11 +161,11 @@ class _RegistrarPage3State extends State<RegistrarPage3> {
                       ),
                     );
             }),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
               child: Observer(builder: (_) {
                 return TextFormField(
                   controller: controller.senha,
@@ -164,7 +173,7 @@ class _RegistrarPage3State extends State<RegistrarPage3> {
                   textInputAction: TextInputAction.next,
                   onEditingComplete: node.unfocus,
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value!.isEmpty) {
                       return 'Insira uma senha válida';
                     } else if (value.length < 6) {
                       return 'A senha deve ter no mínimo 6 caracteres.';
@@ -173,7 +182,7 @@ class _RegistrarPage3State extends State<RegistrarPage3> {
                     }
                   },
                   decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
+                    border: const UnderlineInputBorder(),
                     prefixIcon: Icon(
                       Icons.lock,
                       color: Theme.of(context).primaryColor,
@@ -183,25 +192,26 @@ class _RegistrarPage3State extends State<RegistrarPage3> {
                 );
               }),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
               child: TextFormField(
                 keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.next,
                 onEditingComplete: node.unfocus,
                 validator: (value) {
-                  if (value.isEmpty) {
+                  if (value!.isEmpty) {
                     return 'Campo não pode estar vazio';
                   } else if (value != controller.senha.text) {
                     return 'Senhas não coincidem';
-                  } else
+                  } else {
                     return null;
+                  }
                 },
                 decoration: InputDecoration(
-                  border: UnderlineInputBorder(),
+                  border: const UnderlineInputBorder(),
                   prefixIcon: Icon(
                     Icons.lock,
                     color: Theme.of(context).primaryColor,
@@ -210,7 +220,7 @@ class _RegistrarPage3State extends State<RegistrarPage3> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
           ],

@@ -8,6 +8,6 @@ part of 'login_repository.dart';
 
 final $LoginRepository = BindInject(
   (i) => LoginRepository(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );

@@ -9,7 +9,7 @@ import 'meus_dados_controller.dart';
 
 class MeusDadosPage extends StatefulWidget {
   final String title;
-  const MeusDadosPage({Key key, this.title = "MeusDados"}) : super(key: key);
+  const MeusDadosPage({Key? key, this.title = "MeusDados"}) : super(key: key);
 
   @override
   _MeusDadosPageState createState() => _MeusDadosPageState();
@@ -17,6 +17,7 @@ class MeusDadosPage extends StatefulWidget {
 
 class _MeusDadosPageState
     extends ModularState<MeusDadosPage, MeusDadosController> {
+  @override
   final MeusDadosController controller = Modular.get<MeusDadosController>();
   final FocusScopeNode node = FocusScopeNode();
 
@@ -26,7 +27,7 @@ class _MeusDadosPageState
       appBar: AppBar(
         title: Row(
           mainAxisSize: MainAxisSize.min,
-          children: [
+          children: const [
             Icon(Icons.person),
             SizedBox(width: kDefaultPadding * 0.25),
             Text("Meus dados")
@@ -35,9 +36,9 @@ class _MeusDadosPageState
       ),
       body: Center(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Padding(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
                 vertical: kDefaultPadding, horizontal: kDefaultPadding),
             child: Container(
                 width: MediaQuery.of(context).size.width,
@@ -49,7 +50,7 @@ class _MeusDadosPageState
                       color: Colors.black.withOpacity(0.25),
                       spreadRadius: 0,
                       blurRadius: 1,
-                      offset: Offset(0, 0),
+                      offset: const Offset(0, 0),
                     ),
                   ],
                 ),
@@ -60,9 +61,9 @@ class _MeusDadosPageState
                       node: node,
                       child: ListView(
                         shrinkWrap: true,
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: kDefaultPadding * 0.5,
                           ),
                           Center(
@@ -70,17 +71,17 @@ class _MeusDadosPageState
                               "Dados Pessoais",
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText1
+                                  .bodyText1!
                                   .copyWith(
                                     fontSize: 18,
                                   ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: kDefaultPadding * 0.20,
                           ),
                           Padding(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: kDefaultPadding),
                               child: TextFormField(
                                 controller: controller.nome,
@@ -89,7 +90,7 @@ class _MeusDadosPageState
                                 textCapitalization: TextCapitalization.words,
                                 onEditingComplete: node.nextFocus,
                                 validator: (value) {
-                                  if (value.isEmpty) {
+                                  if (value!.isEmpty) {
                                     return 'Insira um nome válido';
                                   } else {
                                     return null;
@@ -97,18 +98,18 @@ class _MeusDadosPageState
                                 },
                                 decoration: InputDecoration(
                                   labelText: 'Nome',
-                                  border: UnderlineInputBorder(),
+                                  border: const UnderlineInputBorder(),
                                   prefixIcon: Icon(
                                     Icons.person,
                                     color: Theme.of(context).primaryColor,
                                   ),
                                 ),
                               )),
-                          SizedBox(
+                          const SizedBox(
                             height: kDefaultPadding * 0.5,
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: kDefaultPadding),
                             child: TextFormField(
                               controller: controller.cpf,
@@ -120,12 +121,12 @@ class _MeusDadosPageState
                                 CpfInputFormatter(),
                               ],
                               validator: (value) {
-                                if (value.isEmpty) {
+                                if (value!.isEmpty) {
                                   return 'Insira seu CPF';
                                 } else {
-                                  Pattern pattern =
+                                  String pattern =
                                       r'^(([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2}))$';
-                                  RegExp regex = new RegExp(pattern);
+                                  RegExp regex = RegExp(pattern);
                                   if (!regex.hasMatch(value)) {
                                     return 'Insira um CPF válido';
                                   } else {
@@ -135,7 +136,7 @@ class _MeusDadosPageState
                               },
                               decoration: InputDecoration(
                                 labelText: 'CPF',
-                                border: UnderlineInputBorder(),
+                                border: const UnderlineInputBorder(),
                                 prefixIcon: Icon(
                                   Icons.contact_page,
                                   color: Theme.of(context).primaryColor,
@@ -145,11 +146,11 @@ class _MeusDadosPageState
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: kDefaultPadding * 0.5,
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: kDefaultPadding),
                             child: TextFormField(
                               controller: controller.celular,
@@ -161,7 +162,7 @@ class _MeusDadosPageState
                                 TelefoneInputFormatter()
                               ],
                               validator: (value) {
-                                if (value.isEmpty) {
+                                if (value!.isEmpty) {
                                   return 'Insira um telefone válido';
                                 } else {
                                   return null;
@@ -169,7 +170,7 @@ class _MeusDadosPageState
                               },
                               decoration: InputDecoration(
                                 labelText: 'Telefone',
-                                border: UnderlineInputBorder(),
+                                border: const UnderlineInputBorder(),
                                 prefixIcon: Icon(
                                   Icons.phone,
                                   color: Theme.of(context).primaryColor,
@@ -195,12 +196,12 @@ class _MeusDadosPageState
                                       'Masculino',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyText1
+                                          .bodyText1!
                                           .copyWith(
                                             color: Theme.of(context)
                                                 .textTheme
-                                                .bodyText1
-                                                .color
+                                                .bodyText1!
+                                                .color!
                                                 .withOpacity(.8),
                                           ),
                                     ),
@@ -211,7 +212,7 @@ class _MeusDadosPageState
                                     groupValue: controller.generoId,
                                     onChanged: (value) {
                                       setState(() {
-                                        controller.setGenero(value);
+                                        controller.setGenero(value as int);
                                       });
                                     },
                                   ),
@@ -225,12 +226,12 @@ class _MeusDadosPageState
                                       'Feminino',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyText1
+                                          .bodyText1!
                                           .copyWith(
                                             color: Theme.of(context)
                                                 .textTheme
-                                                .bodyText1
-                                                .color
+                                                .bodyText1!
+                                                .color!
                                                 .withOpacity(.8),
                                           ),
                                     ),
@@ -241,7 +242,7 @@ class _MeusDadosPageState
                                     groupValue: controller.generoId,
                                     onChanged: (value) {
                                       setState(() {
-                                        controller.setGenero(value);
+                                        controller.setGenero(value as int);
                                       });
                                     },
                                   ),
@@ -249,11 +250,11 @@ class _MeusDadosPageState
                               );
                             }),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: kDefaultPadding * 0.10,
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: kDefaultPadding),
                             child: TextFormField(
                               controller: controller.dataNascimento,
@@ -266,7 +267,7 @@ class _MeusDadosPageState
                                 DataInputFormatter(),
                               ],
                               validator: (value) {
-                                if (value.isEmpty) {
+                                if (value!.isEmpty) {
                                   return 'Insira uma data de nascimento válida';
                                 } else {
                                   return null;
@@ -274,7 +275,7 @@ class _MeusDadosPageState
                               },
                               decoration: InputDecoration(
                                   labelText: 'Data de Nascimento',
-                                  border: UnderlineInputBorder(),
+                                  border: const UnderlineInputBorder(),
                                   prefixIcon: Icon(
                                     Icons.house_siding,
                                     color: Theme.of(context).primaryColor,
@@ -285,21 +286,21 @@ class _MeusDadosPageState
                                           : null),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: kDefaultPadding * 0.5,
                           ),
                           Padding(
-                            padding: EdgeInsets.only(
+                            padding: const EdgeInsets.only(
                                 left: kDefaultPadding,
                                 right: kDefaultPadding,
                                 top: kDefaultPadding),
-                            child: Container(
+                            child: SizedBox(
                               height: 80,
                               width: double.infinity,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Padding(
+                                  const Padding(
                                     padding: EdgeInsets.only(
                                         left: kDefaultPadding * 2.5),
                                     child: Text('Estado Civil'),
@@ -315,7 +316,7 @@ class _MeusDadosPageState
                                       ),
                                       Expanded(
                                         child: Padding(
-                                          padding: EdgeInsets.only(
+                                          padding: const EdgeInsets.only(
                                               left: kDefaultPadding * 0.5),
                                           child: Observer(builder: (_) {
                                             return DropdownButton<String>(
@@ -330,10 +331,10 @@ class _MeusDadosPageState
                                                     .colorScheme
                                                     .secondary,
                                               ),
-                                              onChanged: (String newValue) {
+                                              onChanged: (newValue) {
                                                 setState(() {
                                                   controller
-                                                      .mudaDropDown(newValue);
+                                                      .mudaDropDown(newValue!);
                                                 });
                                               },
                                               items: controller.listEstadoCivil
@@ -357,7 +358,7 @@ class _MeusDadosPageState
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: kDefaultPadding * 2,
                                 vertical: kDefaultPadding * 0.25),
                             child: ButtonTheme(
@@ -369,13 +370,12 @@ class _MeusDadosPageState
                                   if (controller.pageValid == true) {
                                     String response =
                                         await controller.atualizaDados();
-                                    if (response != null) {
-                                      buildShowDialog(context, response);
-                                      Navigator.of(context).pop();
-                                    } else
-                                      buildShowDialog(context, response);
-                                  } else
-                                    print("formkey invalido");
+                                    if (response == "sucesso") {
+                                      await buildShowDialog(context, response);
+                                    } else {
+                                      await buildShowDialog(context, response);
+                                    }
+                                  } else {}
                                 },
                                 color: Theme.of(context).primaryColor,
                                 text: "Alterar dados",
@@ -398,8 +398,9 @@ class _MeusDadosPageState
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Alteração de Dados', textAlign: TextAlign.center),
-            content: Container(
+            title:
+                const Text('Alteração de Dados', textAlign: TextAlign.center),
+            content: SizedBox(
               height: 75,
               child: Column(
                 children: [
@@ -415,7 +416,7 @@ class _MeusDadosPageState
                       response == 'sucesso'
                           ? 'Dados Alterados com Sucesso'
                           : 'Houve um erro, por favor tente de novo!',
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             fontSize: 14,
                           ),
                       textAlign: TextAlign.center,
@@ -426,7 +427,7 @@ class _MeusDadosPageState
             ),
             actions: [
               TextButton(
-                child: Text("OK"),
+                child: const Text("OK"),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },

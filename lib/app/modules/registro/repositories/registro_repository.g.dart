@@ -8,6 +8,6 @@ part of 'registro_repository.dart';
 
 final $RegistroRepository = BindInject(
   (i) => RegistroRepository(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );

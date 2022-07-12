@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -8,7 +10,7 @@ import 'chat_controller.dart';
 
 class ChatPage extends StatefulWidget {
   final String title;
-  const ChatPage({Key key, this.title = "Conversas"}) : super(key: key);
+  const ChatPage({Key? key, this.title = "Conversas"}) : super(key: key);
 
   @override
   _ChatPageState createState() => _ChatPageState();
@@ -22,15 +24,15 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
     return Scaffold(
         backgroundColor: Colors.white60,
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: const IconThemeData(color: Colors.white),
           title: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
+              const Icon(
                 Icons.chat,
                 color: Colors.white,
               ),
-              SizedBox(
+              const SizedBox(
                 width: kDefaultPadding * .25,
               ),
               Text(widget.title),
@@ -39,32 +41,33 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
         ),
         body: Observer(
           builder: (_) {
-            return chatController.listaConversas == null
-                ? Center(
+            if (chatController.listaConversas == null) {
+              return const Center(
                     child: Text('nulo'),
-                  )
-                : ListView.builder(
+                  );
+            } else {
+              return ListView.builder(
                     itemCount: chatController.listaConversas.length,
                     itemBuilder: (context, index) {
                       return Observer(builder: (_) {
                         return chatController.listaUltimasConversas == null ||
-                                chatController.listaUltimasConversas.isEmpty
-                            ? Center(
+                                chatController.listaUltimasConversas!.isEmpty
+                            ? const Center(
                                 child: CircularProgressIndicator(),
                               )
                             : Column(
                                 children: [
                                   CardChat(
                                     chat: chatController
-                                        .listaUltimasConversas[index],
+                                        .listaUltimasConversas![index],
                                     onTap: () async {
                                       await chatController.buscaChatIndividual(
                                           chatController
-                                              .listaUltimasConversas[index]
-                                              .id_cliente_id,
+                                              .listaUltimasConversas![index]
+                                              .id_cliente_id!,
                                           chatController
-                                              .listaUltimasConversas[index]
-                                              .id_empresa_id);
+                                              .listaUltimasConversas![index]
+                                              .id_empresa_id!);
                                       Modular.to
                                           .pushNamed('chat/chatIndividual');
                                     },
@@ -74,6 +77,7 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
                       });
                     },
                   );
+            }
           },
         ));
   }

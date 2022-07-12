@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_function_literals_in_foreach_calls
+
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -21,7 +23,7 @@ abstract class _ChatControllerBase with Store {
   List listaConversas = [];
 
   @observable
-  List<Chat> listaUltimasConversas = [];
+  List<Chat>? listaUltimasConversas = [];
 
   @observable
   List<Chat> chatConversas = [];
@@ -35,7 +37,7 @@ abstract class _ChatControllerBase with Store {
   @action
   buscaChats() async {
     listaConversas =
-        await chatRepository.iniciaChat(authController.usuario.id, 0);
+        await chatRepository.iniciaChat(authController.usuario!.id!, 0);
     await buscaChatsEmpresa();
   }
 
@@ -52,24 +54,20 @@ abstract class _ChatControllerBase with Store {
   }
 
   @action
-  buscaChatsEmpresa({int id}) async {
+  buscaChatsEmpresa({int? id}) async {
     listaUltimasConversas = null;
-    if (listaConversas != null) {
-      listaUltimasConversas = [];
-      listaConversas.forEach((element) async {
-        List lista = await chatRepository.buscaUltimaMensagem(
-            authController.usuario.id, element['id_empresa_id'].toString());
-        lista.forEach((element) {
-          Chat chat = Chat.fromJson(element);
-          listaUltimasConversas.add(chat);
-        });
-        listaUltimasConversas = List.from(listaUltimasConversas);
+    listaUltimasConversas = [];
+    listaConversas.forEach((element) async {
+      List lista = await chatRepository.buscaUltimaMensagem(
+          authController.usuario!.id!, element['id_empresa_id'].toString());
+      lista.forEach((element) {
+        Chat chat = Chat.fromJson(element);
+        listaUltimasConversas!.add(chat);
       });
+      listaUltimasConversas = List.from(listaUltimasConversas!);
+    });
 
-      if (listaUltimasConversas == null) {
-        listaUltimasConversas = List.from([]);
-      }
-    }
+    listaUltimasConversas ??= List.from([]);
   }
 
   @action
@@ -77,17 +75,13 @@ abstract class _ChatControllerBase with Store {
     chatConversas = [];
     List list = await chatRepository.buscaMensagens(idCliente, idEmpresa);
     list = list.reversed.toList();
-    if (list != null) {
-      list.forEach((element) {
-        Chat chat = Chat.fromJson(element);
-        chatConversas.add(chat);
-      });
-      chatConversas = List.from(chatConversas);
-      if (chatConversas == null) {
-        chatConversas = List.from([]);
-      }
-      await chatRepository.atualizaMensagem(idEmpresa, idCliente);
-      authController.temMensagem = false;
-    }
+    list.forEach((element) {
+      Chat chat = Chat.fromJson(element);
+      chatConversas.add(chat);
+    });
+    chatConversas = List.from(chatConversas);
+    chatConversas;
+    await chatRepository.atualizaMensagem(idEmpresa, idCliente);
+    authController.temMensagem = false;
   }
 }

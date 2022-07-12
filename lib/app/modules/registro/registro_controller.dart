@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -27,16 +26,16 @@ abstract class _RegistroControllerBase with Store {
   }
 
   @observable
-  GlobalKey<FormState> formkeyPage1 = new GlobalKey<FormState>();
+  GlobalKey<FormState> formkeyPage1 = GlobalKey<FormState>();
 
   @observable
-  GlobalKey<FormState> formkeyPage2 = new GlobalKey<FormState>();
+  GlobalKey<FormState> formkeyPage2 = GlobalKey<FormState>();
 
   @observable
-  GlobalKey<FormState> formkeyPage3 = new GlobalKey<FormState>();
+  GlobalKey<FormState> formkeyPage3 = GlobalKey<FormState>();
 
   @observable
-  GlobalKey<FormState> formkeyPage4 = new GlobalKey<FormState>();
+  GlobalKey<FormState> formkeyPage4 = GlobalKey<FormState>();
 
   @observable
   CarouselController buttonCarouselController = CarouselController();
@@ -151,7 +150,7 @@ abstract class _RegistroControllerBase with Store {
   @action
   isPage1Valid() {
     isGeneroValid();
-    if (formkeyPage1.currentState.validate() && generoValid) {
+    if (formkeyPage1.currentState!.validate() && generoValid) {
       page1Valid = true;
     } else {
       page1Valid = false;
@@ -163,7 +162,7 @@ abstract class _RegistroControllerBase with Store {
 
   @action
   isPage2Valid() {
-    if (formkeyPage2.currentState.validate()) {
+    if (formkeyPage2.currentState!.validate()) {
       page2Valid = true;
     } else {
       page2Valid = false;
@@ -175,7 +174,7 @@ abstract class _RegistroControllerBase with Store {
 
   @action
   isPage3Valid() {
-    if (formkeyPage3.currentState.validate() && isRetiradaValid()) {
+    if (formkeyPage3.currentState!.validate() && isRetiradaValid()) {
       page3Valid = true;
     } else {
       page3Valid = false;
@@ -201,19 +200,21 @@ abstract class _RegistroControllerBase with Store {
     switch (current) {
       case 0:
         isPage1Valid();
-        if (page1Valid)
+        if (page1Valid) {
           buttonCarouselController.nextPage(
-            duration: Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 300),
             curve: Curves.linear,
           );
+        }
         break;
       case 1:
         isPage2Valid();
-        if (page2Valid)
+        if (page2Valid) {
           buttonCarouselController.nextPage(
-            duration: Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 300),
             curve: Curves.linear,
           );
+        }
         break;
       default:
     }
@@ -221,7 +222,7 @@ abstract class _RegistroControllerBase with Store {
 
   @action
   setPreviousPage() => buttonCarouselController.previousPage(
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         curve: Curves.linear,
       );
 
@@ -229,17 +230,17 @@ abstract class _RegistroControllerBase with Store {
   buscarLocaisRetirada() async {
     locaisRetirada =
         List.from(await registrarRepository.buscarLocaisRetirada());
-    if (locaisRetirada != null)
-      locaisRetirada.insert(
-        0,
-        {
-          "nome": 'Local de Retirada',
-          "descricao": "",
-          "id": 0,
-        },
-      );
+    locaisRetirada.insert(
+      0,
+      {
+        "nome": 'Local de Retirada',
+        "descricao": "",
+        "id": 0,
+      },
+    );
 
     locaisRetiradaNomes = [];
+    // ignore: avoid_function_literals_in_foreach_calls
     locaisRetirada.forEach((element) {
       locaisRetiradaNomes.add(element["nome"]);
     });
@@ -259,7 +260,6 @@ abstract class _RegistroControllerBase with Store {
   @action
   emailValido() async {
     var res = await registrarRepository.verificaEmail(email.text);
-    print(res);
     if (res != null && res == 'livre') return true;
     return false;
   }
@@ -267,8 +267,8 @@ abstract class _RegistroControllerBase with Store {
   @action
   enviarEmail() async {
     await gerarCodigo();
+    // ignore: unused_local_variable
     var res = await registrarRepository.enviarEmail(email.text, codigoGerado);
-    print(res);
   }
 
   @action
@@ -278,10 +278,11 @@ abstract class _RegistroControllerBase with Store {
   registrar() async {
     String generoText = "";
     if (genero == 0) generoText = "MASCULINO";
-    if (genero == 1)
+    if (genero == 1) {
       generoText = "FEMININO";
-    else
+    } else {
       generoText = "OUTRO";
+    }
 
     var res = await registrarRepository.registrar(
       nome.text,
@@ -309,14 +310,14 @@ abstract class _RegistroControllerBase with Store {
           senha: usuario['senha'],
           empresa_id: usuario['empresa_id'],
         );
-        print(usuario);
       }
     }
 
-    if (authController.usuario == null)
+    if (authController.usuario == null) {
       return null;
-    else
+    } else {
       return "registrado";
+    }
   }
 
   @observable
@@ -329,13 +330,12 @@ abstract class _RegistroControllerBase with Store {
     final infoCepJSON = await viaCepSearchCep.searchInfoByCep(
         cep: cep.text.replaceAll(".", '').replaceAll("-", ""));
     if (infoCepJSON.isRight()) {
-      print(infoCepJSON);
       Right(infoCepJSON).value.map((r) => {
-            endereco.text = r.logradouro,
-            complemento.text = r.complemento,
-            bairro.text = r.bairro,
-            cidade.text = r.localidade,
-            uf.text = r.uf
+            endereco.text = r.logradouro!,
+            complemento.text = r.complemento!,
+            bairro.text = r.bairro!,
+            cidade.text = r.localidade!,
+            uf.text = r.uf!
           });
       responseCEP = "sucess";
     } else {

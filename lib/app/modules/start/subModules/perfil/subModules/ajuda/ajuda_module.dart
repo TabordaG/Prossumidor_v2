@@ -4,17 +4,15 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import 'ajuda_page.dart';
 
-class AjudaModule extends ChildModule {
+class AjudaModule extends Module {
   @override
-  List<Bind> get binds => [
-        $AjudaRepository,
-        $AjudaController,
-      ];
+  final List<Bind> binds = [
+    $AjudaRepository,
+    $AjudaController,
+  ];
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter(Modular.initialRoute, child: (_, args) => AjudaPage()),
-      ];
-
-  static Inject get to => Inject<AjudaModule>.of();
+  final List<ModularRoute> routes = [
+    ChildRoute(Modular.initialRoute, child: (_, args) => const AjudaPage()),
+  ];
 }

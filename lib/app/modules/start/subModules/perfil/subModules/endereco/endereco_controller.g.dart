@@ -8,8 +8,8 @@ part of 'endereco_controller.dart';
 
 final $EnderecoController = BindInject(
   (i) => EnderecoController(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );
 
 // **************************************************************************
@@ -158,13 +158,13 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
       Atom(name: '_EnderecoControllerBase.dropdownvalue');
 
   @override
-  String get dropdownvalue {
+  String? get dropdownvalue {
     _$dropdownvalueAtom.reportRead();
     return super.dropdownvalue;
   }
 
   @override
-  set dropdownvalue(String value) {
+  set dropdownvalue(String? value) {
     _$dropdownvalueAtom.reportWrite(value, super.dropdownvalue, () {
       super.dropdownvalue = value;
     });
@@ -189,13 +189,13 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
   final _$idRetiradaAtom = Atom(name: '_EnderecoControllerBase.idRetirada');
 
   @override
-  String get idRetirada {
+  String? get idRetirada {
     _$idRetiradaAtom.reportRead();
     return super.idRetirada;
   }
 
   @override
-  set idRetirada(String value) {
+  set idRetirada(String? value) {
     _$idRetiradaAtom.reportWrite(value, super.idRetirada, () {
       super.idRetirada = value;
     });

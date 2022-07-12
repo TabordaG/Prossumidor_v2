@@ -8,8 +8,8 @@ part of 'start_controller.dart';
 
 final $StartController = BindInject(
   (i) => StartController(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );
 
 // **************************************************************************

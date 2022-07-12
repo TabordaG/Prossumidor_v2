@@ -7,7 +7,7 @@ import 'perfil_controller.dart';
 
 class PerfilPage extends StatefulWidget {
   final String title;
-  const PerfilPage({Key key, this.title = "Perfil"}) : super(key: key);
+  const PerfilPage({Key? key, this.title = "Perfil"}) : super(key: key);
 
   @override
   _PerfilPageState createState() => _PerfilPageState();
@@ -24,8 +24,8 @@ class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.person, color: Colors.white),
-            SizedBox(
+            const Icon(Icons.person, color: Colors.white),
+            const SizedBox(
               width: kDefaultPadding * 0.25,
             ),
             Text(widget.title),
@@ -35,10 +35,11 @@ class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
       body: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.symmetric(vertical: kDefaultPadding * 0.5),
+            padding:
+                const EdgeInsets.symmetric(vertical: kDefaultPadding * 0.5),
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
-                child: Container(
+                child: const SizedBox(
                   height: 50,
                   width: 50,
                   child: Image(
@@ -53,13 +54,13 @@ class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
               Flexible(
                 child: Observer(builder: (_) {
                   return Text(
-                    '${controller.nome}',
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    controller.nome,
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           fontSize: 20,
                           color: Theme.of(context)
                               .textTheme
-                              .bodyText1
-                              .color
+                              .bodyText1!
+                              .color!
                               .withOpacity(0.9),
                         ),
                     maxLines: 2,
@@ -77,12 +78,12 @@ class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
                 child: Observer(builder: (_) {
                   return Text(
                     "Centro de distribuição: ${controller.centroDistribuicao}",
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           fontSize: 14,
                           color: Theme.of(context)
                               .textTheme
-                              .bodyText1
-                              .color
+                              .bodyText1!
+                              .color!
                               .withOpacity(0.8),
                         ),
                     maxLines: 2,
@@ -101,7 +102,7 @@ class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
           Expanded(
             child: ListView(
               controller: perfilController.scrollController,
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.vertical,
               children: [
                 ListTitlePerfil(
@@ -140,9 +141,9 @@ class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
                   subtitle: "Desconectar minha conta",
                   iconData: Icons.exit_to_app,
                   function: () {
+                    Modular.to.pushReplacementNamed('/login');
                     authController.removeValues();
                     authController.cleanUser();
-                    Modular.to.pushReplacementNamed('/login');
                   },
                 )
               ],
@@ -156,21 +157,23 @@ class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
 
 class ListTitlePerfil extends StatelessWidget {
   final String title;
-  final String subtitle;
+  final String? subtitle;
   final IconData iconData;
   final Function function;
   const ListTitlePerfil({
-    Key key,
-    this.title,
+    Key? key,
+    required this.title,
     this.subtitle,
-    this.iconData,
-    this.function,
+    required this.iconData,
+    required this.function,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: function,
+      onTap: () {
+        function();
+      },
       leading: Icon(
         iconData,
         color: Theme.of(context).primaryColor,
@@ -178,18 +181,21 @@ class ListTitlePerfil extends StatelessWidget {
       ),
       title: Text(
         title,
-        style: Theme.of(context).textTheme.bodyText1.copyWith(
+        style: Theme.of(context).textTheme.bodyText1!.copyWith(
               fontSize: 18,
-              color: Theme.of(context).textTheme.bodyText1.color.withOpacity(1),
+              color:
+                  Theme.of(context).textTheme.bodyText1!.color!.withOpacity(1),
             ),
       ),
-      subtitle: subtitle != null ? Text(subtitle) : null,
+      subtitle: Text(subtitle ?? ""),
       trailing: IconButton(
-        icon: Icon(
+        icon: const Icon(
           Icons.chevron_right,
           color: Colors.black,
         ),
-        onPressed: function,
+        onPressed: () {
+          function();
+        },
       ),
     );
   }

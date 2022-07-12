@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +24,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends ModularState<HomePage, HomeController> {
   @override
   Widget build(BuildContext context) {
-    return Material(
+    return const Material(
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.dark,
         child: SafeArea(
@@ -44,7 +46,7 @@ class _HomeListViewState extends State<HomeListView>
     with SingleTickerProviderStateMixin {
   final AuthController authController = Modular.get<AuthController>();
   final HomeController controller = Modular.get<HomeController>();
-  TabController tabControllerFiltro;
+  late TabController tabControllerFiltro;
 
   @override
   void initState() {
@@ -57,7 +59,7 @@ class _HomeListViewState extends State<HomeListView>
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      resizeToAvoidBottomPadding: false,
+      // resizeToAvoidBottomPadding: false,
       body: Observer(builder: (_) {
         return Container(
           color: Colors.white,
@@ -67,10 +69,10 @@ class _HomeListViewState extends State<HomeListView>
             onRefresh: () => controller.iniciarHome(),
             child: ListView(
               controller: controller.scrollController,
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               children: [
                 Padding(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     left: kDefaultPadding,
                     right: kDefaultPadding,
                     top: kDefaultPadding * 1,
@@ -86,13 +88,13 @@ class _HomeListViewState extends State<HomeListView>
                             Flexible(
                               child: Text(
                                 authController.usuario != null
-                                    ? 'Olá, ${authController.usuario.nome_razao_social}'
+                                    ? 'Olá, ${authController.usuario!.nome_razao_social}'
                                     : 'Olá, ...',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText1
+                                    .bodyText1!
                                     .copyWith(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 22,
@@ -105,12 +107,12 @@ class _HomeListViewState extends State<HomeListView>
                                   'Bem vindo a ',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText1
+                                      .bodyText1!
                                       .copyWith(
                                         color: Theme.of(context)
                                             .textTheme
-                                            .bodyText1
-                                            .color
+                                            .bodyText1!
+                                            .color!
                                             .withOpacity(.6),
                                         fontWeight: FontWeight.w600,
                                         fontSize: 16,
@@ -120,12 +122,12 @@ class _HomeListViewState extends State<HomeListView>
                                   'Recoopsol',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText1
+                                      .bodyText1!
                                       .copyWith(
                                         color: Theme.of(context)
                                             .textTheme
-                                            .bodyText1
-                                            .color
+                                            .bodyText1!
+                                            .color!
                                             .withOpacity(.8),
                                         fontWeight: FontWeight.w800,
                                         fontSize: 16,
@@ -137,10 +139,10 @@ class _HomeListViewState extends State<HomeListView>
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(right: 10.0),
+                        padding: const EdgeInsets.only(right: 10.0),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5.0),
-                          child: Image(
+                          child: const Image(
                             width: 65,
                             image: AssetImage("assets/images/newLogo_1.png"),
                           ),
@@ -150,7 +152,7 @@ class _HomeListViewState extends State<HomeListView>
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     top: kDefaultPadding * 0.5,
                     bottom: kDefaultPadding * .5,
                     left: kDefaultPadding,
@@ -168,7 +170,7 @@ class _HomeListViewState extends State<HomeListView>
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => SearchPage(),
+                                  builder: (context) => const SearchPage(),
                                 ),
                               );
                               // } else {
@@ -184,7 +186,7 @@ class _HomeListViewState extends State<HomeListView>
                             textInputAction: TextInputAction.search,
                             textCapitalization: TextCapitalization.words,
                             decoration: InputDecoration(
-                              contentPadding: EdgeInsets.only(
+                              contentPadding: const EdgeInsets.only(
                                 top: 14.0,
                               ),
                               filled: true,
@@ -226,12 +228,14 @@ class _HomeListViewState extends State<HomeListView>
                         }),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(left: kDefaultPadding * .5),
+                        padding:
+                            const EdgeInsets.only(left: kDefaultPadding * .5),
                         child: InkWell(
                           onTap: () async {
                             if (controller.listaMarcas == null ||
-                                controller.listaMarcas.length <= 1)
+                                controller.listaMarcas!.length <= 1) {
                               await controller.buscarMarcas();
+                            }
                             showDialog(
                               barrierColor: Colors.black12,
                               context: context,
@@ -244,16 +248,16 @@ class _HomeListViewState extends State<HomeListView>
                           child: Container(
                             width: 90,
                             height: 47,
-                            padding: EdgeInsets.only(left: 5),
+                            padding: const EdgeInsets.only(left: 5),
                             decoration: BoxDecoration(
-                              color: Color(0xFFF6F6F6),
+                              color: const Color(0xFFF6F6F6),
                               borderRadius: BorderRadius.circular(12),
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.black.withOpacity(0.25),
                                   spreadRadius: 0,
                                   blurRadius: .2,
-                                  offset: Offset(0, 0),
+                                  offset: const Offset(0, 0),
                                 ),
                               ],
                             ),
@@ -261,7 +265,7 @@ class _HomeListViewState extends State<HomeListView>
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
+                                children: const [
                                   Padding(
                                     padding: EdgeInsets.only(bottom: 2.0),
                                     child: Text(
@@ -283,23 +287,24 @@ class _HomeListViewState extends State<HomeListView>
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: kDefaultPadding),
                   child: Text(
                     'Não se esqueça de efetuar as compras até quarta!',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           fontSize: 12,
                           color: Theme.of(context)
                               .textTheme
-                              .bodyText1
-                              .color
+                              .bodyText1!
+                              .color!
                               .withOpacity(.8),
                           fontWeight: FontWeight.normal,
                         ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     top: kDefaultPadding * .75,
                     left: kDefaultPadding,
                     right: kDefaultPadding,
@@ -310,14 +315,14 @@ class _HomeListViewState extends State<HomeListView>
                         : Container(
                             height: 115,
                             decoration: BoxDecoration(
-                              color: Color(0xFFF6F6F6),
+                              color: const Color(0xFFF6F6F6),
                               borderRadius: BorderRadius.circular(5),
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.black.withOpacity(0.25),
                                   spreadRadius: 0,
                                   blurRadius: 1,
-                                  offset: Offset(0, 0),
+                                  offset: const Offset(0, 0),
                                 ),
                               ],
                             ),
@@ -327,7 +332,7 @@ class _HomeListViewState extends State<HomeListView>
                                 enlargeCenterPage: false,
                                 viewportFraction: 1,
                                 autoPlay: true,
-                                autoPlayInterval: Duration(seconds: 10),
+                                autoPlayInterval: const Duration(seconds: 10),
                                 // onPageChanged: (index, reason) {
                                 //   commands.setIndex(index);
                                 // },
@@ -337,7 +342,7 @@ class _HomeListViewState extends State<HomeListView>
                                   builder: (BuildContext context) {
                                     return ClipRRect(
                                       borderRadius: BorderRadius.circular(5),
-                                      child: Container(
+                                      child: SizedBox(
                                           height: 115,
                                           width: double.infinity,
                                           child: CachedNetworkImage(
@@ -350,7 +355,7 @@ class _HomeListViewState extends State<HomeListView>
                                             fit: BoxFit.cover,
                                             errorWidget:
                                                 (context, url, error) =>
-                                                    Icon(Icons.error),
+                                                    const Icon(Icons.error),
                                           )),
                                     );
                                   },
@@ -361,23 +366,24 @@ class _HomeListViewState extends State<HomeListView>
                   }),
                 ),
                 Observer(builder: (_) {
-                  if (controller.refreshPage)
+                  if (controller.refreshPage) {
                     return Padding(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                         top: 60,
                         // left: MediaQuery.of(context).size.width * .5 - 42,
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
+                        children: const [
                           CircularProgressIndicator(
                             strokeWidth: 1,
                           ),
                         ],
                       ),
                     );
+                  }
                   return ListView.builder(
-                    physics: ClampingScrollPhysics(),
+                    physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: !controller.marcaSelecionada
                         ? controller.listaCategoriaProdutos.length
@@ -386,7 +392,7 @@ class _HomeListViewState extends State<HomeListView>
                       return Observer(builder: (_) {
                         return !controller.marcaSelecionada &&
                                 !controller.listaCategoriaProdutos[indexItem]
-                                    .categoria.selecionado &&
+                                    .categoria!.selecionado! &&
                                 controller.isFiltering
                             ? Container()
                             : WidgetHome(
@@ -395,7 +401,7 @@ class _HomeListViewState extends State<HomeListView>
                                     !controller.marcaSelecionada ? true : false,
                                 verMais: () {
                                   Navigator.of(context).pushNamed(
-                                    '/produtosCategorias',
+                                    '/produtosCategorias/',
                                     arguments: {
                                       'categoriaProduto': !controller
                                               .marcaSelecionada
@@ -429,17 +435,17 @@ class _HomeListViewState extends State<HomeListView>
 
   Dialog buildFiltroHomeTest(BuildContext context) {
     return Dialog(
-      insetPadding: EdgeInsets.fromLTRB(20.0, 60.0, 20.0, 60.0),
+      insetPadding: const EdgeInsets.fromLTRB(20.0, 60.0, 20.0, 60.0),
       child: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           height: MediaQuery.of(context).size.height * 0.8,
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 height: 50,
                 child: TabBar(
                   controller: tabControllerFiltro,
-                  tabs: [
+                  tabs: const [
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 15.0),
                       child: Text(
@@ -468,22 +474,22 @@ class _HomeListViewState extends State<HomeListView>
                   controller: tabControllerFiltro,
                   children: [
                     Observer(builder: (_) {
-                      if (controller.listaCategoriasFiltro == null ||
-                          controller.listaCategoriasFiltro.length == 0)
-                        return Center(
+                      if (controller.listaCategoriasFiltro.isEmpty) {
+                        return const Center(
                           child: CircularProgressIndicator(
                             strokeWidth: 1,
                           ),
                         );
+                      }
                       return Container(
                         height: MediaQuery.of(context).size.height * 0.65,
                         width: double.infinity,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
+                            SizedBox(
                               height: 60,
                               width: double.infinity,
                               child: Observer(builder: (_) {
@@ -495,7 +501,8 @@ class _HomeListViewState extends State<HomeListView>
                                   textInputAction: TextInputAction.search,
                                   textCapitalization: TextCapitalization.words,
                                   decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.only(top: 14.0),
+                                    contentPadding:
+                                        const EdgeInsets.only(top: 14.0),
                                     filled: true,
                                     fillColor: Theme.of(context).cardColor,
                                     border: OutlineInputBorder(
@@ -515,11 +522,7 @@ class _HomeListViewState extends State<HomeListView>
                               fit: FlexFit.tight,
                               child: Observer(builder: (_) {
                                 return controller
-                                                .listaCategoriasFiltro.length !=
-                                            null &&
-                                        controller
-                                                .listaCategoriasFiltro.length >
-                                            0
+                                        .listaCategoriasFiltro.isNotEmpty
                                     ? SingleChildScrollView(
                                         child: Wrap(
                                         runSpacing: 5.0,
@@ -528,20 +531,24 @@ class _HomeListViewState extends State<HomeListView>
                                           controller
                                                   .buscarCategoria.text.isEmpty
                                               ? Observer(builder: (_) {
-                                                  return RaisedButton(
-                                                    color: controller
-                                                            .listaCategoriasFiltro[
-                                                                0]
-                                                            .selecionado
-                                                        ? kPrimaryColor
-                                                        : Colors.white,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      side: BorderSide(
-                                                          color: kPrimaryColor),
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                        Radius.circular(5),
+                                                  return ElevatedButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      primary: controller
+                                                              .listaCategoriasFiltro[
+                                                                  0]
+                                                              .selecionado!
+                                                          ? kPrimaryColor
+                                                          : Colors.white,
+                                                      shape:
+                                                          const RoundedRectangleBorder(
+                                                        side: BorderSide(
+                                                            color:
+                                                                kPrimaryColor),
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                          Radius.circular(5),
+                                                        ),
                                                       ),
                                                     ),
                                                     onPressed: () {
@@ -551,19 +558,19 @@ class _HomeListViewState extends State<HomeListView>
                                                         !controller
                                                             .listaCategoriasFiltro[
                                                                 0]
-                                                            .selecionado,
+                                                            .selecionado!,
                                                       );
                                                     },
                                                     child: Text(
                                                       controller
                                                           .listaCategoriasFiltro[
                                                               0]
-                                                          .descricao,
+                                                          .descricao!,
                                                       style: TextStyle(
                                                         color: controller
                                                                 .listaCategoriasFiltro[
                                                                     0]
-                                                                .selecionado
+                                                                .selecionado!
                                                             ? Colors.white
                                                             : Colors.black,
                                                       ),
@@ -579,18 +586,22 @@ class _HomeListViewState extends State<HomeListView>
                                             if (controller.filtroCategoria[i] !=
                                                 null)
                                               Observer(builder: (_) {
-                                                return RaisedButton(
-                                                  color: controller
-                                                          .filtroCategoria[i]
-                                                          .selecionado
-                                                      ? kPrimaryColor
-                                                      : Colors.white,
-                                                  shape: RoundedRectangleBorder(
-                                                    side: BorderSide(
-                                                        color: kPrimaryColor),
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                      Radius.circular(5),
+                                                return ElevatedButton(
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    primary: controller
+                                                            .filtroCategoria[i]!
+                                                            .selecionado!
+                                                        ? kPrimaryColor
+                                                        : Colors.white,
+                                                    shape:
+                                                        const RoundedRectangleBorder(
+                                                      side: BorderSide(
+                                                          color: kPrimaryColor),
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                        Radius.circular(5),
+                                                      ),
                                                     ),
                                                   ),
                                                   onPressed: () {
@@ -598,19 +609,19 @@ class _HomeListViewState extends State<HomeListView>
                                                         .selecionarCategoria(
                                                       i,
                                                       !controller
-                                                          .filtroCategoria[i]
-                                                          .selecionado,
+                                                          .filtroCategoria[i]!
+                                                          .selecionado!,
                                                     );
                                                   },
                                                   child: Text(
                                                     controller
-                                                        .filtroCategoria[i]
-                                                        .descricao,
+                                                        .filtroCategoria[i]!
+                                                        .descricao!,
                                                     style: TextStyle(
                                                       color: controller
                                                               .filtroCategoria[
-                                                                  i]
-                                                              .selecionado
+                                                                  i]!
+                                                              .selecionado!
                                                           ? Colors.white
                                                           : Colors.black,
                                                     ),
@@ -625,8 +636,8 @@ class _HomeListViewState extends State<HomeListView>
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                FlatButton(
-                                  child: Text(
+                                TextButton(
+                                  child: const Text(
                                     "Cancelar",
                                     style: TextStyle(
                                       color: kPrimaryColor,
@@ -638,13 +649,16 @@ class _HomeListViewState extends State<HomeListView>
                                   },
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(
+                                  padding: const EdgeInsets.only(
                                       right: kDefaultPadding * .6),
-                                  child: RaisedButton(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(6)),
-                                    color: kPrimaryColor,
-                                    child: Text(
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: kPrimaryColor,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(6)),
+                                    ),
+                                    child: const Text(
                                       "Confirmar",
                                       style: TextStyle(
                                         color: Colors.white,
@@ -665,21 +679,22 @@ class _HomeListViewState extends State<HomeListView>
                     }),
                     Observer(builder: (_) {
                       if (controller.listaMarcas == null ||
-                          controller.listaMarcas.length == 0)
-                        return Center(
+                          controller.listaMarcas!.isEmpty) {
+                        return const Center(
                           child: CircularProgressIndicator(
                             strokeWidth: 1,
                           ),
                         );
+                      }
                       return Container(
                         height: MediaQuery.of(context).size.height * 0.65,
                         width: double.infinity,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
+                            SizedBox(
                               height: 60,
                               width: double.infinity,
                               child: Observer(builder: (_) {
@@ -691,7 +706,7 @@ class _HomeListViewState extends State<HomeListView>
                                   textInputAction: TextInputAction.search,
                                   textCapitalization: TextCapitalization.words,
                                   decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.only(
+                                    contentPadding: const EdgeInsets.only(
                                       top: 14.0,
                                     ),
                                     filled: true,
@@ -712,8 +727,7 @@ class _HomeListViewState extends State<HomeListView>
                             Flexible(
                               fit: FlexFit.tight,
                               child: Observer(builder: (_) {
-                                return controller.filtroMarca.length != null &&
-                                        controller.filtroMarca.length > 0
+                                return controller.filtroMarca.isNotEmpty
                                     ? SingleChildScrollView(
                                         child: Wrap(
                                         runSpacing: 5.0,
@@ -721,19 +735,23 @@ class _HomeListViewState extends State<HomeListView>
                                         children: [
                                           controller.buscarMarca.text.isEmpty
                                               ? Observer(builder: (_) {
-                                                  return RaisedButton(
-                                                    color: controller
-                                                            .listaMarcas[0]
-                                                            .selecionado
-                                                        ? kPrimaryColor
-                                                        : Colors.white,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      side: BorderSide(
-                                                          color: kPrimaryColor),
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                        Radius.circular(5),
+                                                  return ElevatedButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      primary: controller
+                                                              .listaMarcas![0]
+                                                              .selecionado!
+                                                          ? kPrimaryColor
+                                                          : Colors.white,
+                                                      shape:
+                                                          const RoundedRectangleBorder(
+                                                        side: BorderSide(
+                                                            color:
+                                                                kPrimaryColor),
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                          Radius.circular(5),
+                                                        ),
                                                       ),
                                                     ),
                                                     onPressed: () {
@@ -741,17 +759,17 @@ class _HomeListViewState extends State<HomeListView>
                                                           .selecionarMarca(
                                                         0,
                                                         !controller
-                                                            .listaMarcas[0]
-                                                            .selecionado,
+                                                            .listaMarcas![0]
+                                                            .selecionado!,
                                                       );
                                                     },
                                                     child: Text(
-                                                      controller.listaMarcas[0]
-                                                          .descricao,
+                                                      controller.listaMarcas![0]
+                                                          .descricao!,
                                                       style: TextStyle(
                                                         color: controller
-                                                                .listaMarcas[0]
-                                                                .selecionado
+                                                                .listaMarcas![0]
+                                                                .selecionado!
                                                             ? Colors.white
                                                             : Colors.black,
                                                       ),
@@ -765,34 +783,39 @@ class _HomeListViewState extends State<HomeListView>
                                             if (controller.filtroMarca[i] !=
                                                 null)
                                               Observer(builder: (_) {
-                                                return RaisedButton(
-                                                  color: controller
-                                                          .filtroMarca[i]
-                                                          .selecionado
-                                                      ? kPrimaryColor
-                                                      : Colors.white,
-                                                  shape: RoundedRectangleBorder(
-                                                    side: BorderSide(
-                                                        color: kPrimaryColor),
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                      Radius.circular(5),
+                                                return ElevatedButton(
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    primary: controller
+                                                            .filtroMarca[i]!
+                                                            .selecionado!
+                                                        ? kPrimaryColor
+                                                        : Colors.white,
+                                                    shape:
+                                                        const RoundedRectangleBorder(
+                                                      side: BorderSide(
+                                                          color: kPrimaryColor),
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                        Radius.circular(5),
+                                                      ),
                                                     ),
                                                   ),
                                                   onPressed: () {
                                                     controller.selecionarMarca(
                                                       i,
-                                                      !controller.filtroMarca[i]
-                                                          .selecionado,
+                                                      !controller
+                                                          .filtroMarca[i]!
+                                                          .selecionado!,
                                                     );
                                                   },
                                                   child: Text(
-                                                    controller.filtroMarca[i]
-                                                        .descricao,
+                                                    controller.filtroMarca[i]!
+                                                        .descricao!,
                                                     style: TextStyle(
                                                       color: controller
-                                                              .filtroMarca[i]
-                                                              .selecionado
+                                                              .filtroMarca[i]!
+                                                              .selecionado!
                                                           ? Colors.white
                                                           : Colors.black,
                                                     ),
@@ -807,8 +830,8 @@ class _HomeListViewState extends State<HomeListView>
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                FlatButton(
-                                  child: Text(
+                                TextButton(
+                                  child: const Text(
                                     "Cancelar",
                                     style: TextStyle(
                                       color: kPrimaryColor,
@@ -820,13 +843,16 @@ class _HomeListViewState extends State<HomeListView>
                                   },
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(
+                                  padding: const EdgeInsets.only(
                                       right: kDefaultPadding * .6),
-                                  child: RaisedButton(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(6)),
-                                    color: kPrimaryColor,
-                                    child: Text(
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(6)),
+                                      primary: kPrimaryColor,
+                                    ),
+                                    child: const Text(
                                       "Confirmar",
                                       style: TextStyle(
                                         color: Colors.white,

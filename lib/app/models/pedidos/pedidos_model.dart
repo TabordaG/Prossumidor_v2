@@ -6,33 +6,33 @@ part 'pedidos_model.g.dart';
 @JsonSerializable(explicitToJson: true)
 class Pedidos {
   @JsonKey(required: false, disallowNullValue: false)
-  int id;
+  int? id;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  int id_empresa;
+  int? id_empresa;
   @JsonKey(required: false, disallowNullValue: false)
-  String empresa;
+  String? empresa;
   @JsonKey(required: false, disallowNullValue: false)
-  String quantidade;
-  @JsonKey(required: false, disallowNullValue: false)
-  // ignore: non_constant_identifier_names
-  DateTime data_registro;
+  String? quantidade;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  String tipo_entrega;
+  DateTime? data_registro;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  String observacoes_entrega;
+  String? tipo_entrega;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  String status_pedido;
-  @JsonKey(required: false, disallowNullValue: false)
-  String pagamento;
+  String? observacoes_entrega;
   @JsonKey(required: false, disallowNullValue: false)
   // ignore: non_constant_identifier_names
-  String valor_total;
+  String? status_pedido;
   @JsonKey(required: false, disallowNullValue: false)
-  List<ProdutoPedido> produtos;
+  String? pagamento;
+  @JsonKey(required: false, disallowNullValue: false)
+  // ignore: non_constant_identifier_names
+  String? valor_total;
+  @JsonKey(required: false, disallowNullValue: false)
+  List<ProdutoPedido>? produtos;
 
   Pedidos({
     // ignore: non_constant_identifier_names

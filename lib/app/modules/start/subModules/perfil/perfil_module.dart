@@ -9,37 +9,35 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import 'perfil_page.dart';
 
-class PerfilModule extends ChildModule {
+class PerfilModule extends Module {
   @override
-  List<Bind> get binds => [
-        $PerfilRepository,
-        $PerfilController,
-      ];
+  final List<Bind> binds = [
+    $PerfilRepository,
+    $PerfilController,
+  ];
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter(Modular.initialRoute, child: (_, args) => PerfilPage()),
-        ModularRouter(
-          "/endereco",
-          module: EnderecoModule(),
-          transition: TransitionType.rightToLeft,
-        ),
-        ModularRouter(
-          "/meus_dados",
-          module: MeusDadosModule(),
-          transition: TransitionType.rightToLeft,
-        ),
-        ModularRouter(
-          "/sobre",
-          module: SobreModule(),
-          transition: TransitionType.rightToLeft,
-        ),
-        ModularRouter(
-          "/ajuda",
-          module: AjudaModule(),
-          transition: TransitionType.rightToLeft,
-        ),
-      ];
-
-  static Inject get to => Inject<PerfilModule>.of();
+  final List<ModularRoute> routes = [
+    ChildRoute(Modular.initialRoute, child: (_, args) => const PerfilPage()),
+    ModuleRoute(
+      "/endereco/",
+      module: EnderecoModule(),
+      transition: TransitionType.rightToLeft,
+    ),
+    ModuleRoute(
+      "/meus_dados/",
+      module: MeusDadosModule(),
+      transition: TransitionType.rightToLeft,
+    ),
+    ModuleRoute(
+      "/sobre/",
+      module: SobreModule(),
+      transition: TransitionType.rightToLeft,
+    ),
+    ModuleRoute(
+      "/ajuda/",
+      module: AjudaModule(),
+      transition: TransitionType.rightToLeft,
+    ),
+  ];
 }

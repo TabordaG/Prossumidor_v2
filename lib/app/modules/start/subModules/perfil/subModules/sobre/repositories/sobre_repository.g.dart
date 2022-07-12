@@ -8,6 +8,6 @@ part of 'sobre_repository.dart';
 
 final $SobreRepository = BindInject(
   (i) => SobreRepository(i<DioForNative>()),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );

@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -28,15 +30,15 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
+            const Icon(
               Icons.shopping_bag,
               color: Colors.white,
             ),
-            SizedBox(
+            const SizedBox(
               width: kDefaultPadding * .25,
             ),
             Text(widget.title),
@@ -45,7 +47,7 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
         actions: [
           IconButton(
             splashRadius: 2,
-            icon: Icon(
+            icon: const Icon(
               Icons.refresh_rounded,
               color: Colors.white,
             ),
@@ -56,57 +58,59 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+        padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                   top: kDefaultPadding * .5, bottom: kDefaultPadding * .5),
               child: Observer(builder: (_) {
                 if (!controller.carregandoProdutos &&
                     controller.listaProdutos.isEmpty) return Container();
                 return Text(
                   'Total de itens: ${controller.listaProdutos.length}',
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
                         color: Theme.of(context)
                             .textTheme
                             .bodyText1
-                            .color
-                            .withOpacity(.8),
+                            ?.color
+                            ?.withOpacity(.8),
                       ),
                 );
               }),
             ),
             Expanded(
               child: Observer(builder: (_) {
-                if (controller.carregandoProdutos)
-                  return Center(
+                if (controller.carregandoProdutos) {
+                  return const Center(
                     child: CircularProgressIndicator(
                       strokeWidth: 1,
                     ),
                   );
+                }
                 if (!controller.carregandoProdutos &&
-                    controller.listaProdutos.isEmpty)
-                  return Center(
+                    controller.listaProdutos.isEmpty) {
+                  return const Center(
                     child: Text("Carrinho Vazio.."),
                   );
+                }
                 return Scrollbar(
                   controller: scrollController,
-                  radius: Radius.circular(10),
+                  radius: const Radius.circular(10),
                   thickness: 3,
                   isAlwaysShown: true,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(5),
                     child: ListView.builder(
                       controller: scrollController,
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       itemCount: controller.listaProdutos.length,
                       itemBuilder: (context, index) {
                         return Container(
                           height: 100,
                           width: double.infinity,
-                          margin: EdgeInsets.only(
+                          margin: const EdgeInsets.only(
                             right: kDefaultPadding * .1,
                             bottom: kDefaultPadding * .3,
                           ),
@@ -114,7 +118,7 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
+                              SizedBox(
                                 height: 90,
                                 width: 90,
                                 child: Observer(builder: (_) {
@@ -122,14 +126,15 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                       controller.listaProdutos[index].imagem !=
                                           null &&
                                       controller.listaProdutos[index].imagem !=
-                                          "")
+                                          "") {
                                     return CachedNetworkImage(
                                       imageUrl: "${Basicos.ip2}/media/" +
                                           controller
-                                              .listaProdutos[index].imagem,
-                                      placeholder: (context, url) => Padding(
+                                              .listaProdutos[index].imagem!,
+                                      placeholder: (context, url) =>
+                                          const Padding(
                                         padding: EdgeInsets.all(35.0),
-                                        child: Container(
+                                        child: SizedBox(
                                           width: 40,
                                           child: CircularProgressIndicator(
                                             strokeWidth: 1,
@@ -137,15 +142,16 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                         ),
                                       ),
                                       errorWidget: (context, url, error) =>
-                                          Icon(Icons.error),
+                                          const Icon(Icons.error),
                                       fit: BoxFit.contain,
                                     );
-                                  return Center(
+                                  }
+                                  return const Center(
                                     child: Icon(Icons.error),
                                   );
                                 }),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: kDefaultPadding * .5,
                               ),
                               Expanded(
@@ -155,30 +161,32 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                   children: [
                                     Text(
                                       controller.listaProdutos[index]
-                                          .descricao_simplificada,
+                                              .descricao_simplificada ??
+                                          "...",
                                       softWrap: true,
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 2,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyText1
-                                          .copyWith(
+                                          ?.copyWith(
                                             fontSize: 16,
                                           ),
                                     ),
                                     Text(
-                                      controller.listaProdutos[index].marca,
+                                      controller.listaProdutos[index].marca ??
+                                          "...",
                                       maxLines: 1,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyText1
-                                          .copyWith(
+                                          ?.copyWith(
                                             fontSize: 12,
                                             color: Theme.of(context)
                                                 .textTheme
                                                 .bodyText1
-                                                .color
-                                                .withOpacity(.8),
+                                                ?.color
+                                                ?.withOpacity(.8),
                                           ),
                                     ),
                                     Row(
@@ -198,21 +206,21 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .secondary,
-                                            child: Icon(
+                                            child: const Icon(
                                               Icons.remove,
                                               color: Colors.white,
                                             ),
                                           ),
                                         ),
-                                        Container(
+                                        SizedBox(
                                           width: 30,
                                           child: Center(
                                             child: Text(
-                                              "${double.parse(controller.listaProdutos[index].quantidade).toInt()}",
+                                              "${double.parse(controller.listaProdutos[index].quantidade ?? "0").toInt()}",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyText1
-                                                  .copyWith(
+                                                  ?.copyWith(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w700,
                                                   ),
@@ -234,7 +242,7 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                             elevation: 1,
                                             color:
                                                 Theme.of(context).primaryColor,
-                                            child: Icon(
+                                            child: const Icon(
                                               Icons.add,
                                               color: Colors.white,
                                             ),
@@ -252,27 +260,27 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyText1
-                                        .copyWith(
+                                        ?.copyWith(
                                           fontSize: 12,
                                           color: Theme.of(context)
                                               .textTheme
                                               .bodyText1
-                                              .color
-                                              .withOpacity(.8),
+                                              ?.color
+                                              ?.withOpacity(.8),
                                         ),
                                     children: [
-                                      TextSpan(text: 'Valor Unit.'),
+                                      const TextSpan(text: 'Valor Unit.'),
                                       TextSpan(
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText1
-                                            .copyWith(
+                                            ?.copyWith(
                                               fontSize: 11,
                                             ),
                                         text: '\nR\$ ' +
                                             double.parse(controller
                                                     .listaProdutos[index]
-                                                    .preco_venda)
+                                                    .preco_venda!)
                                                 .toStringAsFixed(2)
                                                 .replaceAll(".", ","),
                                       ),
@@ -280,18 +288,18 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText1
-                                            .copyWith(
+                                            ?.copyWith(
                                               fontSize: 11,
                                               fontWeight: FontWeight.bold,
                                             ),
                                         text: '\n\nR\$ ' +
                                             (double.parse(controller
                                                         .listaProdutos[index]
-                                                        .preco_venda) *
+                                                        .preco_venda!) *
                                                     double.parse(controller
                                                             .listaProdutos[
                                                                 index]
-                                                            .quantidade)
+                                                            .quantidade!)
                                                         .toInt())
                                                 .toStringAsFixed(2)
                                                 .replaceAll(".", ","),
@@ -302,7 +310,7 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                               ),
                               Center(
                                 child: IconButton(
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.delete,
                                     size: 20,
                                   ),
@@ -312,18 +320,18 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                       builder: (BuildContext context) {
                                         // retorna um objeto do tipo Dialog
                                         return AlertDialog(
-                                          title: Text(
+                                          title: const Text(
                                               "Deseja mesmo deletar item do carrinho ?"),
                                           content: Text(
                                             "Deletar item: ${controller.listaProdutos[index].descricao_simplificada}",
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               color: Colors.black54,
                                               fontSize: 14,
                                             ),
                                           ),
                                           actions: <Widget>[
-                                            FlatButton(
-                                              child: Text(
+                                            TextButton(
+                                              child: const Text(
                                                 "Cancelar",
                                                 style: TextStyle(
                                                   color: Colors.grey,
@@ -333,8 +341,8 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                                                 Navigator.of(context).pop();
                                               },
                                             ),
-                                            FlatButton(
-                                              child: Text(
+                                            TextButton(
+                                              child: const Text(
                                                 "Deletar",
                                                 style: TextStyle(
                                                   color: Colors.red,
@@ -368,7 +376,7 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
             //       Theme.of(context).textTheme.bodyText1.color.withOpacity(.8),
             // ),
             Padding(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 top: kDefaultPadding * .7,
                 left: kDefaultPadding * .5,
                 right: kDefaultPadding * .5,
@@ -379,7 +387,7 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                 children: [
                   Text(
                     'Subtotal',
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    style: Theme.of(context).textTheme.bodyText1?.copyWith(
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
                         ),
@@ -390,7 +398,7 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
                           controller.subtotal
                               .toStringAsFixed(2)
                               .replaceAll(".", ","),
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
                             fontSize: 20,
                             fontWeight: FontWeight.w700,
                           ),
@@ -400,7 +408,7 @@ class _SacolaPageState extends ModularState<SacolaPage, SacolaController> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: kDefaultPadding * .5),
+              padding: const EdgeInsets.only(bottom: kDefaultPadding * .5),
               child: Center(
                 child: ButtonTheme(
                   minWidth: double.infinity,

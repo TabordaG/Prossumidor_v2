@@ -8,6 +8,6 @@ part of 'home_repository.dart';
 
 final $HomeRepository = BindInject(
   (i) => HomeRepository(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );
