@@ -49,7 +49,7 @@ class _ProdutosCategoriasPageState
     }
     controller.carregarProdutos(
       widget.isCategoria,
-      widget.marcaProduto ?? null,
+      widget.marcaProduto,
       widget.categoriaProduto,
     );
     super.initState();

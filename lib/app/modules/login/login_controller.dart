@@ -1,7 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:prossumidor_v2/app/app_controller.dart';
-import 'package:prossumidor_v2/app/models/usuario/usuario_model.dart';
 import 'package:prossumidor_v2/app/shared/auth/auth_controller.dart';
 
 import '../../dados_basicos.dart';

@@ -1,4 +1,4 @@
-// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: curly_braces_in_flow_control_structures, unnecessary_null_comparison
 
 import 'package:mobx/mobx.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +66,7 @@ abstract class _ProdutosCategoriasControllerBase with Store {
                 categoriaProduto.categoria!.id,
                 buscarText.text,
                 listaProdutos.length);
-        if (res != null) listaProdutos = res;
+ listaProdutos = res;
         listaProdutos = List.from(listaProdutos);
         buscandoProdutos = false;
       } else {
@@ -79,7 +79,7 @@ abstract class _ProdutosCategoriasControllerBase with Store {
           buscarText.text,
           listaProdutos.length,
         );
-        if (res != null) listaProdutos = res;
+ listaProdutos = res;
         listaProdutos = List.from(listaProdutos);
         buscandoProdutos = false;
       }
@@ -92,7 +92,7 @@ abstract class _ProdutosCategoriasControllerBase with Store {
         buscarText.text,
         listaProdutos.length,
       );
-      if (res != null) listaProdutos = res;
+ listaProdutos = res;
       listaProdutos = List.from(listaProdutos);
       buscandoProdutos = false;
     }
@@ -151,7 +151,7 @@ abstract class _ProdutosCategoriasControllerBase with Store {
         categoriasIDs,
         listaProdutos.length,
       );
-      if (res != null) listaProdutos = res;
+ listaProdutos = res;
       listaProdutos = List.from(listaProdutos);
       buscandoProdutos = false;
     }
@@ -202,7 +202,7 @@ abstract class _ProdutosCategoriasControllerBase with Store {
                 categoriaProduto.categoria!.id,
                 categoriasIDs,
                 listaProdutos.length);
-        if (res != null) produtos = res;
+ produtos = res;
       }
     } else {
       produtos = await produtosCategoriasRepository.listaProdutosPorMarca(
@@ -235,12 +235,7 @@ abstract class _ProdutosCategoriasControllerBase with Store {
   buscarSubcategorias(int id) async {
     List<Subcategoria> res =
         await produtosCategoriasRepository.listaCategoriasEmComum(id);
-    if (res != null) {
-      subcategorias = res;
-      // res.forEach((element) {
-      //   subcategorias.add(element);
-      // });
-    }
+    subcategorias = res;
     subcategorias.insert(
       0,
       Subcategoria(

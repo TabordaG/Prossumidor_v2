@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_function_literals_in_foreach_calls
+// ignore_for_file: avoid_function_literals_in_foreach_calls, unused_local_variable
 
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';

@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, use_key_in_widget_constructors
+// ignore_for_file: file_names, use_key_in_widget_constructors, unnecessary_null_comparison
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';

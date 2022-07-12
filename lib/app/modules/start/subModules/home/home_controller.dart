@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -105,7 +107,7 @@ abstract class _HomeControllerBase with Store {
     if (authController.usuario != null) {
       await buscarCategorias();
     }
-    ;
+    
     await implementaBanner();
     return 'sucesso';
   }

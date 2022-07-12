@@ -21,8 +21,7 @@ class _ChatIndividualState extends State<ChatIndividual> {
     return Scaffold(
         appBar: AppBar(title: Observer(builder: (_) {
           return Text(
-            chatController.chatConversas != null &&
-                    chatController.chatConversas.isNotEmpty
+            chatController.chatConversas.isNotEmpty
                 ? chatController.chatConversas[0].razao_social!
                 : '',
           );
@@ -31,7 +30,7 @@ class _ChatIndividualState extends State<ChatIndividual> {
           children: [
             Expanded(
               child: Observer(builder: (_) {
-                if (chatController.chatConversas == null &&
+                if (
                     chatController.chatConversas.isNotEmpty) {
                   return const CircularProgressIndicator();
                 } else {

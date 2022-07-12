@@ -230,16 +230,14 @@ abstract class _RegistroControllerBase with Store {
   buscarLocaisRetirada() async {
     locaisRetirada =
         List.from(await registrarRepository.buscarLocaisRetirada());
-    if (locaisRetirada != null) {
-      locaisRetirada.insert(
-        0,
-        {
-          "nome": 'Local de Retirada',
-          "descricao": "",
-          "id": 0,
-        },
-      );
-    }
+    locaisRetirada.insert(
+      0,
+      {
+        "nome": 'Local de Retirada',
+        "descricao": "",
+        "id": 0,
+      },
+    );
 
     locaisRetiradaNomes = [];
     // ignore: avoid_function_literals_in_foreach_calls

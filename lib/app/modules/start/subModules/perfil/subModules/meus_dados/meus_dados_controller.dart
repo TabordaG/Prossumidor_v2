@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -162,26 +164,20 @@ abstract class _MeusDadosControllerBase with Store {
 
   String formataDataYYYYmmdd(String text) {
     // formata data inverte data padrao dd/mm/aaaa para  aaaa-mm-dd
-    if (text != null) {
-      String dia, mes, ano;
-      dia = text.substring(0, 2);
-      mes = text.substring(3, 5);
-      ano = text.substring(6, 10);
-      return ano + '-' + mes + '-' + dia;
-    }
-    return '';
+    String dia, mes, ano;
+    dia = text.substring(0, 2);
+    mes = text.substring(3, 5);
+    ano = text.substring(6, 10);
+    return ano + '-' + mes + '-' + dia;
   }
 
   String formataDataddmmYYYY(String text) {
     // formata data inverte data padrao aaaa-mm-dd para dd/mm/aaaa
-    if (text != null) {
-      String dia, mes, ano;
-      //print(text);
-      ano = text.substring(0, 4);
-      mes = text.substring(5, 7);
-      dia = text.substring(8, 10);
-      return dia + '/' + mes + '/' + ano;
-    }
-    return '';
+    String dia, mes, ano;
+    //print(text);
+    ano = text.substring(0, 4);
+    mes = text.substring(5, 7);
+    dia = text.substring(8, 10);
+    return dia + '/' + mes + '/' + ano;
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -39,11 +41,12 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
         ),
         body: Observer(
           builder: (_) {
-            return chatController.listaConversas == null
-                ? const Center(
+            if (chatController.listaConversas == null) {
+              return const Center(
                     child: Text('nulo'),
-                  )
-                : ListView.builder(
+                  );
+            } else {
+              return ListView.builder(
                     itemCount: chatController.listaConversas.length,
                     itemBuilder: (context, index) {
                       return Observer(builder: (_) {
@@ -74,6 +77,7 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
                       });
                     },
                   );
+            }
           },
         ));
   }

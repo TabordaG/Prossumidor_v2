@@ -56,20 +56,18 @@ abstract class _ChatControllerBase with Store {
   @action
   buscaChatsEmpresa({int? id}) async {
     listaUltimasConversas = null;
-    if (listaConversas != null) {
-      listaUltimasConversas = [];
-      listaConversas.forEach((element) async {
-        List lista = await chatRepository.buscaUltimaMensagem(
-            authController.usuario!.id!, element['id_empresa_id'].toString());
-        lista.forEach((element) {
-          Chat chat = Chat.fromJson(element);
-          listaUltimasConversas!.add(chat);
-        });
-        listaUltimasConversas = List.from(listaUltimasConversas!);
+    listaUltimasConversas = [];
+    listaConversas.forEach((element) async {
+      List lista = await chatRepository.buscaUltimaMensagem(
+          authController.usuario!.id!, element['id_empresa_id'].toString());
+      lista.forEach((element) {
+        Chat chat = Chat.fromJson(element);
+        listaUltimasConversas!.add(chat);
       });
+      listaUltimasConversas = List.from(listaUltimasConversas!);
+    });
 
-      listaUltimasConversas ??= List.from([]);
-    }
+    listaUltimasConversas ??= List.from([]);
   }
 
   @action
@@ -77,15 +75,13 @@ abstract class _ChatControllerBase with Store {
     chatConversas = [];
     List list = await chatRepository.buscaMensagens(idCliente, idEmpresa);
     list = list.reversed.toList();
-    if (list != null) {
-      list.forEach((element) {
-        Chat chat = Chat.fromJson(element);
-        chatConversas.add(chat);
-      });
-      chatConversas = List.from(chatConversas);
-      chatConversas;
-      await chatRepository.atualizaMensagem(idEmpresa, idCliente);
-      authController.temMensagem = false;
-    }
+    list.forEach((element) {
+      Chat chat = Chat.fromJson(element);
+      chatConversas.add(chat);
+    });
+    chatConversas = List.from(chatConversas);
+    chatConversas;
+    await chatRepository.atualizaMensagem(idEmpresa, idCliente);
+    authController.temMensagem = false;
   }
 }
